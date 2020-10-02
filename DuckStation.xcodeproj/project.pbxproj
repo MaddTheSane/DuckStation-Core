@@ -795,7 +795,6 @@
 		551DEC162527107500B44953 /* opengl_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl_host_display.h; sourceTree = "<group>"; };
 		551DEC172527107500B44953 /* postprocessing_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shadergen.h; sourceTree = "<group>"; };
 		551DEC192527107500B44953 /* opengl_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_host_display.cpp; sourceTree = "<group>"; };
-		551DEC1A2527107500B44953 /* sdl_audio_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_audio_stream.cpp; sourceTree = "<group>"; };
 		551DEC1C2527107500B44953 /* postprocessing_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_chain.cpp; sourceTree = "<group>"; };
 		551DEC1D2527107500B44953 /* imgui_styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_styles.h; sourceTree = "<group>"; };
 		551DEC1E2527107500B44953 /* icon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = icon.h; sourceTree = "<group>"; };
@@ -807,18 +806,11 @@
 		551DEC242527107500B44953 /* game_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_list.cpp; sourceTree = "<group>"; };
 		551DEC252527107500B44953 /* game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_settings.cpp; sourceTree = "<group>"; };
 		551DEC262527107500B44953 /* common_host_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common_host_interface.cpp; sourceTree = "<group>"; };
-		551DEC282527107500B44953 /* sdl_controller_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdl_controller_interface.h; sourceTree = "<group>"; };
-		551DEC292527107500B44953 /* xinput_controller_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xinput_controller_interface.cpp; sourceTree = "<group>"; };
-		551DEC2A2527107500B44953 /* xinput_controller_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xinput_controller_interface.h; sourceTree = "<group>"; };
-		551DEC2B2527107500B44953 /* sdl_controller_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_controller_interface.cpp; sourceTree = "<group>"; };
 		551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shadergen.cpp; sourceTree = "<group>"; };
-		551DEC2D2527107500B44953 /* sdl_audio_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdl_audio_stream.h; sourceTree = "<group>"; };
 		551DEC2E2527107500B44953 /* vulkan_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_host_display.h; sourceTree = "<group>"; };
-		551DEC302527107500B44953 /* sdl_initializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl_initializer.cpp; sourceTree = "<group>"; };
 		551DEC312527107500B44953 /* display_ps.hlsl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_ps.hlsl.h; sourceTree = "<group>"; };
 		551DEC322527107500B44953 /* game_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_list.h; sourceTree = "<group>"; };
 		551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_opengl3.cpp; sourceTree = "<group>"; };
-		551DEC342527107500B44953 /* sdl_initializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdl_initializer.h; sourceTree = "<group>"; };
 		551DEC352527107500B44953 /* controller_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller_interface.cpp; sourceTree = "<group>"; };
 		551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_vulkan.cpp; sourceTree = "<group>"; };
 		551DEC372527107500B44953 /* icon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = icon.cpp; sourceTree = "<group>"; };
@@ -1654,48 +1646,40 @@
 			isa = PBXGroup;
 			children = (
 				551DEC262527107500B44953 /* common_host_interface.cpp */,
-				551DEC352527107500B44953 /* controller_interface.cpp */,
-				551DEC242527107500B44953 /* game_list.cpp */,
-				551DEC252527107500B44953 /* game_settings.cpp */,
-				551DEC372527107500B44953 /* icon.cpp */,
-				551DEC382527107500B44953 /* imgui_impl_dx11.cpp */,
-				551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */,
-				551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */,
-				551DEC152527107500B44953 /* imgui_styles.cpp */,
-				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
-				551DEC192527107500B44953 /* opengl_host_display.cpp */,
-				551DEC1C2527107500B44953 /* postprocessing_chain.cpp */,
-				551DEC0E2527107500B44953 /* postprocessing_shader.cpp */,
-				551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */,
-				551DEC202527107500B44953 /* save_state_selector_ui.cpp */,
-				551DEC1A2527107500B44953 /* sdl_audio_stream.cpp */,
-				551DEC2B2527107500B44953 /* sdl_controller_interface.cpp */,
-				551DEC302527107500B44953 /* sdl_initializer.cpp */,
-				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
-				551DEC292527107500B44953 /* xinput_controller_interface.cpp */,
 				551DEC3B2527107500B44953 /* common_host_interface.h */,
+				551DEC352527107500B44953 /* controller_interface.cpp */,
 				551DEC142527107500B44953 /* controller_interface.h */,
 				551DEC312527107500B44953 /* display_ps.hlsl.h */,
 				551DEC102527107500B44953 /* display_vs.hlsl.h */,
-				551DEC322527107500B44953 /* game_list.h */,
-				551DEC3F2527107500B44953 /* game_settings.h */,
-				551DEC1E2527107500B44953 /* icon.h */,
-				551DEC232527107500B44953 /* imgui_impl_dx11.h */,
-				551DEC222527107500B44953 /* imgui_impl_opengl3.h */,
-				551DEC3C2527107500B44953 /* imgui_impl_vulkan.h */,
-				551DEC1D2527107500B44953 /* imgui_styles.h */,
-				551DEC132527107500B44953 /* ini_settings_interface.h */,
-				551DEC162527107500B44953 /* opengl_host_display.h */,
-				551DEC212527107500B44953 /* postprocessing_chain.h */,
-				551DEC0D2527107500B44953 /* postprocessing_shader.h */,
-				551DEC172527107500B44953 /* postprocessing_shadergen.h */,
-				551DEC1F2527107500B44953 /* save_state_selector_ui.h */,
-				551DEC2D2527107500B44953 /* sdl_audio_stream.h */,
-				551DEC282527107500B44953 /* sdl_controller_interface.h */,
-				551DEC342527107500B44953 /* sdl_initializer.h */,
-				551DEC2E2527107500B44953 /* vulkan_host_display.h */,
-				551DEC2A2527107500B44953 /* xinput_controller_interface.h */,
 				551DEC0F2527107500B44953 /* font_roboto_regular.inl */,
+				551DEC242527107500B44953 /* game_list.cpp */,
+				551DEC322527107500B44953 /* game_list.h */,
+				551DEC252527107500B44953 /* game_settings.cpp */,
+				551DEC3F2527107500B44953 /* game_settings.h */,
+				551DEC372527107500B44953 /* icon.cpp */,
+				551DEC1E2527107500B44953 /* icon.h */,
+				551DEC382527107500B44953 /* imgui_impl_dx11.cpp */,
+				551DEC232527107500B44953 /* imgui_impl_dx11.h */,
+				551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */,
+				551DEC222527107500B44953 /* imgui_impl_opengl3.h */,
+				551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */,
+				551DEC3C2527107500B44953 /* imgui_impl_vulkan.h */,
+				551DEC152527107500B44953 /* imgui_styles.cpp */,
+				551DEC1D2527107500B44953 /* imgui_styles.h */,
+				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
+				551DEC132527107500B44953 /* ini_settings_interface.h */,
+				551DEC192527107500B44953 /* opengl_host_display.cpp */,
+				551DEC162527107500B44953 /* opengl_host_display.h */,
+				551DEC1C2527107500B44953 /* postprocessing_chain.cpp */,
+				551DEC212527107500B44953 /* postprocessing_chain.h */,
+				551DEC0E2527107500B44953 /* postprocessing_shader.cpp */,
+				551DEC0D2527107500B44953 /* postprocessing_shader.h */,
+				551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */,
+				551DEC172527107500B44953 /* postprocessing_shadergen.h */,
+				551DEC202527107500B44953 /* save_state_selector_ui.cpp */,
+				551DEC1F2527107500B44953 /* save_state_selector_ui.h */,
+				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
+				551DEC2E2527107500B44953 /* vulkan_host_display.h */,
 			);
 			name = "frontend-common";
 			path = "duckstation/src/frontend-common";
@@ -1704,19 +1688,19 @@
 		551DECEA2527160600B44953 /* ext */ = {
 			isa = PBXGroup;
 			children = (
-				551DF5BA2527C58D00B44953 /* glslang */,
-				551DF5072527C37600B44953 /* vulkan-loader */,
-				551DF3FB2527BDFB00B44953 /* vixl */,
-				551DF2912527B91300B44953 /* minizip */,
-				551DF2342527B87F00B44953 /* lzma */,
-				551DF2042527B82400B44953 /* stb */,
 				551DF0E12527B56C00B44953 /* cubeb */,
-				551DF0B22527B50A00B44953 /* tinyxml2 */,
-				551DF0722527B4A000B44953 /* imgui */,
 				551DF0352527B3A700B44953 /* glad */,
-				551DEE3225271B1B00B44953 /* libFLAC */,
+				551DF5BA2527C58D00B44953 /* glslang */,
+				551DF0722527B4A000B44953 /* imgui */,
 				551DED4B252717EC00B44953 /* libchdr */,
 				551DED05252716F100B44953 /* libcue */,
+				551DEE3225271B1B00B44953 /* libFLAC */,
+				551DF2342527B87F00B44953 /* lzma */,
+				551DF2912527B91300B44953 /* minizip */,
+				551DF2042527B82400B44953 /* stb */,
+				551DF0B22527B50A00B44953 /* tinyxml2 */,
+				551DF3FB2527BDFB00B44953 /* vixl */,
+				551DF5072527C37600B44953 /* vulkan-loader */,
 			);
 			name = ext;
 			path = duckstation/dep;
