@@ -3898,8 +3898,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)\"/duckstation/dep/libFLAC/src/include",
-					"\"$(SRCROOT)\"/duckstation/dep/libFLAC/include",
+					"\"$(SRCROOT)/duckstation/dep/libFLAC/src/include\"",
+					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 				);
 			};
 			name = Debug;
@@ -3944,8 +3944,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)\"/duckstation/dep/libFLAC/src/include",
-					"\"$(SRCROOT)\"/duckstation/dep/libFLAC/include",
+					"\"$(SRCROOT)/duckstation/dep/libFLAC/src/include\"",
+					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 				);
 			};
 			name = Release;
@@ -4079,6 +4079,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/lzma/include\"";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
@@ -4093,6 +4095,8 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/lzma/include\"";
+				USE_HEADERMAP = NO;
 			};
 			name = Release;
 		};
