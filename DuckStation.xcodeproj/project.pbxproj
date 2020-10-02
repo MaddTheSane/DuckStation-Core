@@ -474,6 +474,7 @@
 		551DF70C2527C6E800B44953 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF24B2527B87F00B44953 /* LzmaEnc.c */; };
 		551DF74E2527D0A200B44953 /* scmvers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF74D2527D0A100B44953 /* scmvers.cpp */; };
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
+		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -3490,6 +3491,7 @@
 				551DF4692527BDFB00B44953 /* instrument-aarch64.cc in Sources */,
 				551DF4722527BDFB00B44953 /* decoder-aarch64.cc in Sources */,
 				551DF4602527BDFB00B44953 /* utils-vixl.cc in Sources */,
+				551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */,
 				551DF4712527BDFB00B44953 /* operands-aarch64.cc in Sources */,
 				551DF45F2527BDFB00B44953 /* cpu-features.cc in Sources */,
 				551DF4742527BDFB00B44953 /* assembler-aarch64.cc in Sources */,
@@ -4126,7 +4128,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					VIXL_CODE_BUFFER_MMAP,
+					VIXL_CODE_BUFFER_MALLOC,
 					"$(inherited)",
 					VIXL_INCLUDE_TARGET_AARCH64,
 				);
@@ -4142,7 +4144,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					VIXL_CODE_BUFFER_MMAP,
+					VIXL_CODE_BUFFER_MALLOC,
 					"$(inherited)",
 					VIXL_INCLUDE_TARGET_AARCH64,
 				);
