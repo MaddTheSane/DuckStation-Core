@@ -118,19 +118,6 @@ public:
 	std::string GetStringSettingValue(const char* section, const char* key, const char* default_value = "") override;
 	std::string GetBIOSDirectory() override;
 	
-	// Called by frontend
-	void retro_get_system_av_info(struct retro_system_av_info* info);
-	bool retro_load_game(const struct retro_game_info* game);
-	void retro_run_frame();
-	unsigned retro_get_region();
-	size_t retro_serialize_size();
-	bool retro_serialize(void* data, size_t size);
-	bool retro_unserialize(const void* data, size_t size);
-	void* retro_get_memory_data(unsigned id);
-	size_t retro_get_memory_size(unsigned id);
-	void retro_cheat_reset();
-	void retro_cheat_set(unsigned index, bool enabled, const char* code);
-	
 protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
@@ -150,7 +137,7 @@ private:
 	void UpdateControllers();
 	void UpdateControllersDigitalController(u32 index);
 	void UpdateControllersAnalogController(u32 index);
-	void GetSystemAVInfo(struct retro_system_av_info* info, bool use_resolution_scale);
+	//void GetSystemAVInfo(struct retro_system_av_info* info, bool use_resolution_scale);
 	void UpdateSystemAVInfo(bool use_resolution_scale);
 	void UpdateGeometry();
 	void UpdateLogging();
@@ -179,11 +166,99 @@ private:
 
 @end
 
-@implementation PlayStationGameCore
+@implementation PlayStationGameCore {
+	OpenEmuAudioStream *psAudio;
+}
+
+- (instancetype)init
+{
+	if (self = [super init]) {
+		psAudio = new OpenEmuAudioStream(self);
+	}
+	return self;
+}
+
+
 
 - (OEGameCoreRendering)gameCoreRendering
 {
 	return OEGameCoreRenderingOpenGL3Video;
+}
+
+- (oneway void)mouseMovedAtPoint:(OEIntPoint)point
+{
+	
+}
+
+- (oneway void)leftMouseDownAtPoint:(OEIntPoint)point
+{
+	
+}
+
+- (oneway void)leftMouseUp
+{
+	
+}
+
+- (oneway void)rightMouseDownAtPoint:(OEIntPoint)point
+{
+	
+}
+
+- (oneway void)rightMouseUp
+{
+	
+}
+
+- (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
+	
+}
+
+
+- (oneway void)didPushPSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
+	
+}
+
+
+- (oneway void)didReleasePSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
+	
+}
+
+
+- (void)fastForward:(BOOL)flag {
+	
+}
+
+- (void)fastForwardAtSpeed:(CGFloat)fastForwardSpeed {
+	
+}
+
+- (void)performBlock:(void (^)())block {
+	
+}
+
+- (void)rewind:(BOOL)flag {
+	
+}
+
+- (void)rewindAtSpeed:(CGFloat)rewindSpeed {
+	
+}
+
+- (void)setFrameCallback:(void (^)(NSTimeInterval))block {
+	
+}
+
+- (void)slowMotionAtSpeed:(CGFloat)slowMotionSpeed {
+	
+}
+
+- (void)stepFrameBackward {
+	
+}
+
+- (void)stepFrameForward {
+	
 }
 
 @end
