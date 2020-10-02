@@ -24,6 +24,7 @@
 
 #import "PlayStationGameCore.h"
 #import "OEPSXSystemResponderClient.h"
+#define TickCount DuckTickCount
 #include "common/audio_stream.h"
 #include "common/gl/program.h"
 #include "common/gl/texture.h"
@@ -31,6 +32,7 @@
 #include "frontend-common/opengl_host_display.h"
 #include "core/host_interface.h"
 #include "core/system.h"
+#undef TickCount
 #include <limits>
 #include <optional>
 #include <cstdint>
@@ -84,7 +86,7 @@ public:
 	void SetVSync(bool enabled) override;
 	
 	bool Render() override {
-		
+		return false;
 	}
 	
 private:
