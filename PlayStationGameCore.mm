@@ -24,6 +24,7 @@
 
 #import "PlayStationGameCore.h"
 #import "OEPSXSystemResponderClient.h"
+#import <OpenEmuBase/OpenEmuBase.h>
 #define TickCount DuckTickCount
 #include "core/types.h"
 #include "core/system.h"
@@ -63,7 +64,8 @@ protected:
 	{
 		const u32 num_frames = GetSamplesAvailable();
 		ReadFrames(m_output_buffer.data(), num_frames, false);
-		//g_retro_audio_sample_batch_callback(m_output_buffer.data(), num_frames);
+		id<OEAudioBuffer> rb = [core audioBufferAtIndex:0];
+		[rb write:m_output_buffer.data() maxLength:num_frames * sizeof(SampleType)];
 	}
 
 private:
@@ -179,7 +181,7 @@ private:
 class OpenEmuHostInterface : public HostInterface
 {
 public:
-	OpenEmuHostInterface();
+	OpenEmuHostInterface(PlayStationGameCore *gc);
 	~OpenEmuHostInterface() override;
 	
 	void InitInterfaces();
@@ -243,6 +245,7 @@ private:
 	bool m_rumble_interface_valid = false;
 	bool m_supports_input_bitmasks = false;
 	bool m_interfaces_initialized = false;
+	PlayStationGameCore *core;
 };
 
 @interface PlayStationGameCore () <OEPSXSystemResponderClient>
@@ -265,6 +268,7 @@ private:
 
 - (OEGameCoreRendering)gameCoreRendering
 {
+	//return OEGameCoreRenderingMetal1Video;
 	return OEGameCoreRenderingOpenGL3Video;
 }
 
@@ -344,6 +348,21 @@ private:
 	
 }
 
+- (NSUInteger)channelCount
+{
+	return 2;
+}
+
+- (NSUInteger)audioBitDepth
+{
+	return 16;
+}
+
+- (double)audioSampleRate
+{
+	return 44100;
+}
+
 @end
 
 #pragma mark -
@@ -384,6 +403,98 @@ private:
 
 
 #pragma mark OpenEmuHostInterface methods -
+
+OpenEmuHostInterface::OpenEmuHostInterface(PlayStationGameCore *gc): core(gc) {}
+OpenEmuHostInterface::~OpenEmuHostInterface() = default;
+
+bool OpenEmuHostInterface::Initialize() {
+	return false;
+}
+
+void OpenEmuHostInterface::InitInterfaces()
+{
+	
+}
+
+void OpenEmuHostInterface::Shutdown()
+{
+	
+}
+
+void OpenEmuHostInterface::ReportError(const char* message)
+{
+	
+}
+
+void OpenEmuHostInterface::ReportMessage(const char* message)
+{
+	
+}
+
+bool OpenEmuHostInterface::ConfirmMessage(const char* message)
+{
+	return true;
+}
+
+void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
+{
+	
+}
+
+void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
+{
+	
+}
+
+std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
+{
+	return "";
+}
+
+std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
+{
+	return "";
+}
+
+std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
+{
+	return "";
+}
+
+std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
+{
+	return "";
+}
+
+std::string OpenEmuHostInterface::GetBIOSDirectory()
+{
+	return "";
+}
+
+bool OpenEmuHostInterface::AcquireHostDisplay()
+{
+	return false;
+}
+
+void OpenEmuHostInterface::ReleaseHostDisplay()
+{
+	
+}
+
+std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
+{
+	return std::make_unique<OpenEmuAudioStream>(core);
+}
+
+void OpenEmuHostInterface::OnSystemDestroyed()
+{
+	
+}
+
+void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
+{
+	
+}
 
 #pragma mark -
 
