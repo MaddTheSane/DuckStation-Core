@@ -1394,6 +1394,7 @@
 				551DEC0C2527107500B44953 /* frontend-common */,
 			);
 			name = core;
+			path = duckstation/src;
 			sourceTree = "<group>";
 		};
 		551DEB202527107400B44953 /* core */ = {
@@ -1498,8 +1499,7 @@
 				551DEB4D2527107400B44953 /* timing_event.h */,
 				551DEB3B2527107400B44953 /* types.h */,
 			);
-			name = core;
-			path = duckstation/src/core;
+			path = core;
 			sourceTree = "<group>";
 		};
 		551DEB862527107400B44953 /* common */ = {
@@ -1578,8 +1578,7 @@
 				551DEBC12527107400B44953 /* window_info.h */,
 				551DEBFC2527107500B44953 /* windows_headers.h */,
 			);
-			name = common;
-			path = duckstation/src/common;
+			path = common;
 			sourceTree = "<group>";
 		};
 		551DEBC22527107400B44953 /* vulkan */ = {
@@ -1681,8 +1680,7 @@
 				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
 				551DEC2E2527107500B44953 /* vulkan_host_display.h */,
 			);
-			name = "frontend-common";
-			path = "duckstation/src/frontend-common";
+			path = "frontend-common";
 			sourceTree = "<group>";
 		};
 		551DECEA2527160600B44953 /* ext */ = {
@@ -1704,7 +1702,7 @@
 			);
 			name = ext;
 			path = duckstation/dep;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		551DED05252716F100B44953 /* libcue */ = {
 			isa = PBXGroup;
@@ -2563,8 +2561,7 @@
 				551DF7392527C7B600B44953 /* gen_scmversion.sh */,
 				551DF73C2527C7B600B44953 /* scmversion.h */,
 			);
-			name = scmversion;
-			path = duckstation/src/scmversion;
+			path = scmversion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
