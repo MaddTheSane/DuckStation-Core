@@ -93,9 +93,7 @@ public:
 	
 	void SetVSync(bool enabled) override;
 	
-	bool Render() override {
-		return false;
-	}
+	bool Render() override;
 	
 private:
 	PlayStationGameCore *core;
@@ -252,14 +250,17 @@ private:
 
 @end
 
+static __weak PlayStationGameCore *_current;
+
+
 @implementation PlayStationGameCore {
-	OpenEmuAudioStream *psAudio;
+	OpenEmuHostInterface *duckInterface;
 }
 
 - (instancetype)init
 {
 	if (self = [super init]) {
-		psAudio = new OpenEmuAudioStream(self);
+		duckInterface = new OpenEmuHostInterface(self);
 	}
 	return self;
 }
@@ -379,6 +380,28 @@ private:
 
 #pragma mark OpenEmuOpenGLHostDisplay methods -
 
+bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device)
+{
+	return false;
+}
+void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
+{
+	
+}
+
+void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height) {
+	
+}
+
+void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
+{
+	
+}
+
+bool OpenEmuOpenGLHostDisplay::Render() {
+	return false;
+}
+
 
 #pragma mark -
 
@@ -468,17 +491,25 @@ std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, con
 
 std::string OpenEmuHostInterface::GetBIOSDirectory()
 {
-	return "";
+	return core.biosDirectoryPath.fileSystemRepresentation;
 }
 
 bool OpenEmuHostInterface::AcquireHostDisplay()
 {
-	return false;
+	// start in software mode, switch to hardware later
+	m_display = std::make_unique<OpenEmuOpenGLHostDisplay>(core);
+	return true;
 }
 
 void OpenEmuHostInterface::ReleaseHostDisplay()
 {
+	if (m_hw_render_display) {
+		m_hw_render_display->DestroyRenderDevice();
+		m_hw_render_display.reset();
+	}
 	
+	m_display->DestroyRenderDevice();
+	m_display.reset();
 }
 
 std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
@@ -488,7 +519,8 @@ std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBacken
 
 void OpenEmuHostInterface::OnSystemDestroyed()
 {
-	
+  HostInterface::OnSystemDestroyed();
+  m_using_hardware_renderer = false;
 }
 
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)

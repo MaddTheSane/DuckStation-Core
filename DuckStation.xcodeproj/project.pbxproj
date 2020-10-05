@@ -10,7 +10,6 @@
 		551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEB1025270DA600B44953 /* OpenEmuBase.framework */; };
 		551DEB1725270F2A00B44953 /* PlayStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */; };
 		551DEB1B2527100D00B44953 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 551DEB1A2527100D00B44953 /* database */; };
-		551DEB1E2527103300B44953 /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 551DEB1D2527103300B44953 /* shaders */; };
 		551DEC402527107500B44953 /* bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB232527107400B44953 /* bus.cpp */; };
 		551DEC412527107500B44953 /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB242527107400B44953 /* bios.cpp */; };
 		551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB2A2527107400B44953 /* cdrom_async_reader.cpp */; };
@@ -572,7 +571,6 @@
 		551DEB1425270E6B00B44953 /* PlayStationGameCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayStationGameCore.h; sourceTree = "<group>"; };
 		551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayStationGameCore.mm; sourceTree = "<group>"; };
 		551DEB1A2527100D00B44953 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; name = database; path = duckstation/data/database; sourceTree = "<group>"; };
-		551DEB1D2527103300B44953 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = duckstation/data/shaders; sourceTree = "<group>"; };
 		551DEB212527107400B44953 /* timers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timers.h; sourceTree = "<group>"; };
 		551DEB222527107400B44953 /* shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shadergen.h; sourceTree = "<group>"; };
 		551DEB232527107400B44953 /* bus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bus.cpp; sourceTree = "<group>"; };
@@ -1355,7 +1353,6 @@
 			isa = PBXGroup;
 			children = (
 				551DF7792527D21700B44953 /* DuckStation.icns */,
-				551DEB1D2527103300B44953 /* shaders */,
 				551DEB1A2527100D00B44953 /* database */,
 				551DEB0525270CC800B44953 /* Info.plist */,
 			);
@@ -3214,7 +3211,6 @@
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
 				551DEB1B2527100D00B44953 /* database in Resources */,
-				551DEB1E2527103300B44953 /* shaders in Resources */,
 				551DECB22527107500B44953 /* font_roboto_regular.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
