@@ -261,6 +261,7 @@ static __weak PlayStationGameCore *_current;
 {
 	if (self = [super init]) {
 		duckInterface = new OpenEmuHostInterface(self);
+		_current = self;
 	}
 	return self;
 }
@@ -384,6 +385,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 {
 	return false;
 }
+
 void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
 {
 	
@@ -481,7 +483,7 @@ std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 {
-	return "";
+	return [core.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"].fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
@@ -496,7 +498,6 @@ std::string OpenEmuHostInterface::GetBIOSDirectory()
 
 bool OpenEmuHostInterface::AcquireHostDisplay()
 {
-	// start in software mode, switch to hardware later
 	m_display = std::make_unique<OpenEmuOpenGLHostDisplay>(core);
 	return true;
 }
