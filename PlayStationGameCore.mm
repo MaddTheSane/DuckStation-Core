@@ -44,7 +44,6 @@ Log_SetChannel(OpenEmuBridgeInterface);
 
 class OpenEmuAudioStream;
 class OpenEmuOpenGLHostDisplay;
-class OpenEmuControllerInterface;
 class OpenEmuHostInterface;
 
 class OpenEmuAudioStream final : public AudioStream
