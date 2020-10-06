@@ -1068,7 +1068,6 @@
 		551DF43D2527BDFB00B44953 /* assembler-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "assembler-aarch64.cc"; sourceTree = "<group>"; };
 		551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "code-buffer-vixl.cc"; sourceTree = "<group>"; };
 		551DF4F62527C36800B44953 /* libvulkan-loader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libvulkan-loader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		551DF5082527C37600B44953 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		551DF50A2527C37600B44953 /* vulkan_entry_points.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vulkan_entry_points.inl; sourceTree = "<group>"; };
 		551DF50B2527C37600B44953 /* vulkan_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_loader.h; sourceTree = "<group>"; };
 		551DF50D2527C37600B44953 /* vk_layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vk_layer.h; sourceTree = "<group>"; };
@@ -1090,8 +1089,6 @@
 		551DF51D2527C37600B44953 /* vulkan_android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_android.h; sourceTree = "<group>"; };
 		551DF51E2527C37600B44953 /* vulkan_metal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_metal.h; sourceTree = "<group>"; };
 		551DF51F2527C37600B44953 /* vulkan_beta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_beta.h; sourceTree = "<group>"; };
-		551DF5202527C37600B44953 /* vulkan-loader.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "vulkan-loader.vcxproj.filters"; sourceTree = "<group>"; };
-		551DF5212527C37600B44953 /* vulkan-loader.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "vulkan-loader.vcxproj"; sourceTree = "<group>"; };
 		551DF5232527C37600B44953 /* vulkan_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_loader.cpp; sourceTree = "<group>"; };
 		551DF59A2527C50200B44953 /* libglslangd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libglslangd.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DF5BE2527C58D00B44953 /* resource_limits_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resource_limits_c.h; sourceTree = "<group>"; };
@@ -2294,10 +2291,7 @@
 		551DF5072527C37600B44953 /* vulkan-loader */ = {
 			isa = PBXGroup;
 			children = (
-				551DF5082527C37600B44953 /* CMakeLists.txt */,
 				551DF5092527C37600B44953 /* include */,
-				551DF5202527C37600B44953 /* vulkan-loader.vcxproj.filters */,
-				551DF5212527C37600B44953 /* vulkan-loader.vcxproj */,
 				551DF5222527C37600B44953 /* src */,
 			);
 			path = "vulkan-loader";
@@ -2316,25 +2310,25 @@
 		551DF50C2527C37600B44953 /* vulkan */ = {
 			isa = PBXGroup;
 			children = (
-				551DF50D2527C37600B44953 /* vk_layer.h */,
 				551DF50E2527C37600B44953 /* vk_icd.h */,
-				551DF50F2527C37600B44953 /* vulkan_vi.h */,
-				551DF5102527C37600B44953 /* vulkan.h */,
+				551DF50D2527C37600B44953 /* vk_layer.h */,
 				551DF5112527C37600B44953 /* vk_platform.h */,
-				551DF5122527C37600B44953 /* vulkan_fuchsia.h */,
-				551DF5132527C37600B44953 /* vulkan_wayland.h */,
-				551DF5142527C37600B44953 /* vulkan_win32.h */,
-				551DF5152527C37600B44953 /* vulkan_macos.h */,
-				551DF5162527C37600B44953 /* vulkan_xlib_xrandr.h */,
-				551DF5172527C37600B44953 /* vulkan_xcb.h */,
-				551DF5182527C37600B44953 /* vulkan_ggp.h */,
-				551DF5192527C37600B44953 /* vulkan_xlib.h */,
-				551DF51A2527C37600B44953 /* vulkan_ios.h */,
-				551DF51B2527C37600B44953 /* vulkan_core.h */,
 				551DF51C2527C37600B44953 /* vk_sdk_platform.h */,
 				551DF51D2527C37600B44953 /* vulkan_android.h */,
-				551DF51E2527C37600B44953 /* vulkan_metal.h */,
 				551DF51F2527C37600B44953 /* vulkan_beta.h */,
+				551DF51B2527C37600B44953 /* vulkan_core.h */,
+				551DF5122527C37600B44953 /* vulkan_fuchsia.h */,
+				551DF5182527C37600B44953 /* vulkan_ggp.h */,
+				551DF51A2527C37600B44953 /* vulkan_ios.h */,
+				551DF5152527C37600B44953 /* vulkan_macos.h */,
+				551DF51E2527C37600B44953 /* vulkan_metal.h */,
+				551DF50F2527C37600B44953 /* vulkan_vi.h */,
+				551DF5132527C37600B44953 /* vulkan_wayland.h */,
+				551DF5142527C37600B44953 /* vulkan_win32.h */,
+				551DF5172527C37600B44953 /* vulkan_xcb.h */,
+				551DF5162527C37600B44953 /* vulkan_xlib_xrandr.h */,
+				551DF5192527C37600B44953 /* vulkan_xlib.h */,
+				551DF5102527C37600B44953 /* vulkan.h */,
 			);
 			path = vulkan;
 			sourceTree = "<group>";
