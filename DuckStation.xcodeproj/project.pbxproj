@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -471,9 +471,9 @@
 		551DF69A2527C58E00B44953 /* InitializeDll.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF6312527C58D00B44953 /* InitializeDll.cpp */; };
 		551DF6A92527C5B800B44953 /* libglslangd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF59A2527C50200B44953 /* libglslangd.a */; };
 		551DF70C2527C6E800B44953 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF24B2527B87F00B44953 /* LzmaEnc.c */; };
-		551DF74E2527D0A200B44953 /* scmvers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF74D2527D0A100B44953 /* scmvers.cpp */; };
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
+		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1197,8 +1197,8 @@
 		551DF6312527C58D00B44953 /* InitializeDll.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InitializeDll.cpp; sourceTree = "<group>"; };
 		551DF7392527C7B600B44953 /* gen_scmversion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = gen_scmversion.sh; sourceTree = "<group>"; };
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
-		551DF74D2527D0A100B44953 /* scmvers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scmvers.cpp; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
+		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1366,7 +1366,6 @@
 				551DEB1425270E6B00B44953 /* PlayStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
 				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
-				551DF74D2527D0A100B44953 /* scmvers.cpp */,
 				551DEB1925270FA100B44953 /* core */,
 			);
 			name = Classes;
@@ -2556,6 +2555,7 @@
 			isa = PBXGroup;
 			children = (
 				551DF7392527C7B600B44953 /* gen_scmversion.sh */,
+				559D6726252C600E00D1F1FF /* scmversion.cpp */,
 				551DF73C2527C7B600B44953 /* scmversion.h */,
 			);
 			path = scmversion;
@@ -2875,6 +2875,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 551DEB0825270CC800B44953 /* Build configuration list for PBXNativeTarget "DuckStation" */;
 			buildPhases = (
+				559D6725252C5FE700D1F1FF /* Gen scm source */,
 				551DEAFE25270CC800B44953 /* Sources */,
 				551DEAFF25270CC800B44953 /* Frameworks */,
 				551DEB0025270CC800B44953 /* Resources */,
@@ -3217,6 +3218,30 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		559D6725252C5FE700D1F1FF /* Gen scm source */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"\"$(SRCROOT)\"/duckstation/src/scmversion/scmversion.h",
+			);
+			name = "Gen scm source";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"\"$(SRCROOT)\"/duckstation/src/scmversion/scmversion.cpp",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}\"\ncd duckstation/src/scmversion\n./gen_scmversion.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		551DEAFE25270CC800B44953 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -3256,6 +3281,7 @@
 				551DF5812527C48A00B44953 /* texture.cpp in Sources */,
 				551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */,
 				551DEC9B2527107500B44953 /* program.cpp in Sources */,
+				559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */,
 				551DECAA2527107500B44953 /* event.cpp in Sources */,
 				551DEC492527107500B44953 /* cpu_recompiler_code_generator_generic.cpp in Sources */,
 				551DECBC2527107500B44953 /* game_settings.cpp in Sources */,
@@ -3313,7 +3339,6 @@
 				551DEC772527107500B44953 /* wav_writer.cpp in Sources */,
 				551DF5712527C44400B44953 /* vulkan_host_display.cpp in Sources */,
 				551DEC412527107500B44953 /* bios.cpp in Sources */,
-				551DF74E2527D0A200B44953 /* scmvers.cpp in Sources */,
 				551DEC752527107500B44953 /* null_audio_stream.cpp in Sources */,
 				551DEC5E2527107500B44953 /* cpu_recompiler_register_cache.cpp in Sources */,
 				551DEC982527107500B44953 /* file_system.cpp in Sources */,
