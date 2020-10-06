@@ -33,7 +33,6 @@
 #include "common/audio_stream.h"
 #include "frontend-common/opengl_host_display.h"
 #include "controller_interface.h"
-Log_SetChannel(OpenEmuBridgeInterface);
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -49,8 +48,8 @@ class OpenEmuHostInterface;
 class OpenEmuAudioStream final : public AudioStream
 {
 public:
-	OpenEmuAudioStream(PlayStationGameCore *gc): core(gc) {}
-	~OpenEmuAudioStream() {};
+	OpenEmuAudioStream();
+	~OpenEmuAudioStream();
 
 protected:
 	bool OpenDevice() override {
@@ -59,27 +58,18 @@ protected:
 	}
 	void PauseDevice(bool paused) override {}
 	void CloseDevice() override {}
-	void FramesAvailable() override
-	{
-		const u32 num_frames = GetSamplesAvailable();
-		ReadFrames(m_output_buffer.data(), num_frames, false);
-		id<OEAudioBuffer> rb = [core audioBufferAtIndex:0];
-		[rb write:m_output_buffer.data() maxLength:num_frames * sizeof(SampleType)];
-	}
+	void FramesAvailable() override;
 
 private:
 	// TODO: Optimize this buffer away.
 	std::vector<SampleType> m_output_buffer;
-	PlayStationGameCore *core;
 };
 
 class OpenEmuOpenGLHostDisplay final : public FrontendCommon::OpenGLHostDisplay
 {
 public:
-	OpenEmuOpenGLHostDisplay(PlayStationGameCore *gc): core(gc) {}
-	~OpenEmuOpenGLHostDisplay() {};
-	
-	//static bool RequestHardwareRendererContext(retro_hw_render_callback* cb, bool prefer_gles);
+	OpenEmuOpenGLHostDisplay();
+	~OpenEmuOpenGLHostDisplay();
 	
 	RenderAPI GetRenderAPI() const override {
 		return RenderAPI::OpenGL;
@@ -93,16 +83,13 @@ public:
 	void SetVSync(bool enabled) override;
 	
 	bool Render() override;
-	
-private:
-	PlayStationGameCore *core;
 };
 
 
 class OpenEmuHostInterface : public HostInterface
 {
 public:
-	OpenEmuHostInterface(PlayStationGameCore *gc);
+	OpenEmuHostInterface();
 	~OpenEmuHostInterface() override;
 	
 	void InitInterfaces();
@@ -166,7 +153,6 @@ private:
 	bool m_rumble_interface_valid = false;
 	bool m_supports_input_bitmasks = false;
 	bool m_interfaces_initialized = false;
-	PlayStationGameCore *core;
 };
 
 @interface PlayStationGameCore () <OEPSXSystemResponderClient>
@@ -183,8 +169,8 @@ static __weak PlayStationGameCore *_current;
 - (instancetype)init
 {
 	if (self = [super init]) {
-		duckInterface = new OpenEmuHostInterface(self);
 		_current = self;
+		duckInterface = new OpenEmuHostInterface();
 	}
 	return self;
 }
@@ -304,6 +290,9 @@ static __weak PlayStationGameCore *_current;
 
 #pragma mark OpenEmuOpenGLHostDisplay methods -
 
+OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay()=default;
+OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()=default;
+
 bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device)
 {
 	return false;
@@ -352,7 +341,7 @@ bool OpenEmuOpenGLHostDisplay::Render() {
 
 #pragma mark OpenEmuHostInterface methods -
 
-OpenEmuHostInterface::OpenEmuHostInterface(PlayStationGameCore *gc): core(gc) {}
+OpenEmuHostInterface::OpenEmuHostInterface() = default;
 OpenEmuHostInterface::~OpenEmuHostInterface() = default;
 
 bool OpenEmuHostInterface::Initialize() {
@@ -405,12 +394,12 @@ std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
 
 std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
 {
-	return [core.batterySavesDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation;
+	return [_current.batterySavesDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 {
-	return [core.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"].fileSystemRepresentation;
+	return [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"].fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
@@ -420,12 +409,12 @@ std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, con
 
 std::string OpenEmuHostInterface::GetBIOSDirectory()
 {
-	return core.biosDirectoryPath.fileSystemRepresentation;
+	return _current.biosDirectoryPath.fileSystemRepresentation;
 }
 
 bool OpenEmuHostInterface::AcquireHostDisplay()
 {
-	m_display = std::make_unique<OpenEmuOpenGLHostDisplay>(core);
+	m_display = std::make_unique<OpenEmuOpenGLHostDisplay>();
 	return true;
 }
 
@@ -442,7 +431,7 @@ void OpenEmuHostInterface::ReleaseHostDisplay()
 
 std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
 {
-	return std::make_unique<OpenEmuAudioStream>(core);
+	return std::make_unique<OpenEmuAudioStream>();
 }
 
 void OpenEmuHostInterface::OnSystemDestroyed()
@@ -454,4 +443,17 @@ void OpenEmuHostInterface::OnSystemDestroyed()
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 {
 	
+}
+
+#pragma mark OpenEmuAudioStream methods -
+
+OpenEmuAudioStream::OpenEmuAudioStream() = default;
+OpenEmuAudioStream::~OpenEmuAudioStream() = default;
+
+void OpenEmuAudioStream::FramesAvailable()
+{
+	const u32 num_frames = GetSamplesAvailable();
+	ReadFrames(m_output_buffer.data(), num_frames, false);
+	id<OEAudioBuffer> rb = [_current audioBufferAtIndex:0];
+	[rb write:m_output_buffer.data() maxLength:num_frames * sizeof(SampleType)];
 }
