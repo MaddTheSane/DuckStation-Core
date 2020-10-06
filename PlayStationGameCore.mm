@@ -102,7 +102,7 @@ private:
 class OpenEmuControllerInterface final : public ControllerInterface
 {
 public:
-	OpenEmuControllerInterface();
+	OpenEmuControllerInterface(PlayStationGameCore *gc);
 	~OpenEmuControllerInterface();
 	
 	Backend GetBackend() const override;
@@ -172,7 +172,7 @@ private:
 	std::mutex m_event_intercept_mutex;
 	Hook::Callback m_event_intercept_callback;
 	
-	bool m_sdl_subsystem_initialized = false;
+	PlayStationGameCore *core;
 };
 
 
@@ -542,7 +542,7 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 
 #pragma mark OpenEmuControllerInterface methods -
 
-OpenEmuControllerInterface::OpenEmuControllerInterface() = default;
+OpenEmuControllerInterface::OpenEmuControllerInterface(PlayStationGameCore *gc): core(gc) { }
 
 OpenEmuControllerInterface::~OpenEmuControllerInterface()
 {
@@ -588,12 +588,6 @@ void OpenEmuControllerInterface::Shutdown()
 {
   while (!m_controllers.empty())
 	CloseGameController(m_controllers.begin()->joystick_id, false);
-
-  if (m_sdl_subsystem_initialized)
-  {
-	//SDL_QuitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC);
-	m_sdl_subsystem_initialized = false;
-  }
 
   ControllerInterface::Shutdown();
 }
