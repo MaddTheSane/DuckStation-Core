@@ -95,14 +95,10 @@
 		551DECB52527107500B44953 /* imgui_styles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC152527107500B44953 /* imgui_styles.cpp */; };
 		551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC192527107500B44953 /* opengl_host_display.cpp */; };
 		551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC1C2527107500B44953 /* postprocessing_chain.cpp */; };
-		551DECBA2527107500B44953 /* save_state_selector_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC202527107500B44953 /* save_state_selector_ui.cpp */; };
 		551DECBB2527107500B44953 /* game_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC242527107500B44953 /* game_list.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
-		551DECBD2527107500B44953 /* common_host_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC262527107500B44953 /* common_host_interface.cpp */; };
 		551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */; };
 		551DECC42527107500B44953 /* imgui_impl_opengl3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */; };
-		551DECC52527107500B44953 /* controller_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC352527107500B44953 /* controller_interface.cpp */; };
-		551DECC72527107500B44953 /* icon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC372527107500B44953 /* icon.cpp */; };
 		551DED1E252716F100B44953 /* cdtext.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0D252716F100B44953 /* cdtext.h */; };
 		551DED1F252716F100B44953 /* libcue.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0E252716F100B44953 /* libcue.h */; };
 		551DED20252716F100B44953 /* rem.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0F252716F100B44953 /* rem.h */; };
@@ -601,7 +597,6 @@
 		551DEB3D2527107400B44953 /* cpu_recompiler_code_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_recompiler_code_generator.cpp; sourceTree = "<group>"; };
 		551DEB3E2527107400B44953 /* cpu_recompiler_code_generator_generic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_recompiler_code_generator_generic.cpp; sourceTree = "<group>"; };
 		551DEB3F2527107400B44953 /* host_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = host_interface.h; sourceTree = "<group>"; };
-		551DEB402527107400B44953 /* gpu_hw_d3d11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_hw_d3d11.cpp; sourceTree = "<group>"; };
 		551DEB412527107400B44953 /* analog_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_controller.cpp; sourceTree = "<group>"; };
 		551DEB422527107400B44953 /* gpu_hw_opengl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_hw_opengl.h; sourceTree = "<group>"; };
 		551DEB432527107400B44953 /* psf_loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = psf_loader.cpp; sourceTree = "<group>"; };
@@ -656,7 +651,6 @@
 		551DEB742527107400B44953 /* system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = system.h; sourceTree = "<group>"; };
 		551DEB752527107400B44953 /* interrupt_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interrupt_controller.h; sourceTree = "<group>"; };
 		551DEB762527107400B44953 /* gpu_hw_opengl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_hw_opengl.cpp; sourceTree = "<group>"; };
-		551DEB772527107400B44953 /* gpu_hw_d3d11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_hw_d3d11.h; sourceTree = "<group>"; };
 		551DEB792527107400B44953 /* memory_card_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_card_image.cpp; sourceTree = "<group>"; };
 		551DEB7A2527107400B44953 /* mdec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mdec.h; sourceTree = "<group>"; };
 		551DEB7B2527107400B44953 /* cdrom_async_reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdrom_async_reader.h; sourceTree = "<group>"; };
@@ -681,7 +675,6 @@
 		551DEB912527107400B44953 /* cd_image_hasher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_hasher.cpp; sourceTree = "<group>"; };
 		551DEB922527107400B44953 /* byte_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = byte_stream.h; sourceTree = "<group>"; };
 		551DEB932527107400B44953 /* cd_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd_image.h; sourceTree = "<group>"; };
-		551DEB942527107400B44953 /* win32_progress_callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = win32_progress_callback.h; sourceTree = "<group>"; };
 		551DEB952527107400B44953 /* scope_guard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scope_guard.h; sourceTree = "<group>"; };
 		551DEBA12527107400B44953 /* string_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_util.h; sourceTree = "<group>"; };
 		551DEBA22527107400B44953 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
@@ -713,7 +706,6 @@
 		551DEBBD2527107400B44953 /* dimensional_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dimensional_array.h; sourceTree = "<group>"; };
 		551DEBBE2527107400B44953 /* cd_xa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_xa.cpp; sourceTree = "<group>"; };
 		551DEBBF2527107400B44953 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
-		551DEBC02527107400B44953 /* win32_progress_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = win32_progress_callback.cpp; sourceTree = "<group>"; };
 		551DEBC12527107400B44953 /* window_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window_info.h; sourceTree = "<group>"; };
 		551DEBC32527107400B44953 /* builders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = builders.cpp; sourceTree = "<group>"; };
 		551DEBC42527107400B44953 /* staging_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = staging_buffer.h; sourceTree = "<group>"; };
@@ -771,7 +763,6 @@
 		551DEBF92527107500B44953 /* event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = event.cpp; sourceTree = "<group>"; };
 		551DEBFA2527107500B44953 /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rectangle.h; sourceTree = "<group>"; };
 		551DEBFB2527107500B44953 /* byte_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = byte_stream.cpp; sourceTree = "<group>"; };
-		551DEBFC2527107500B44953 /* windows_headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = windows_headers.h; sourceTree = "<group>"; };
 		551DEBFD2527107500B44953 /* cd_image_hasher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd_image_hasher.h; sourceTree = "<group>"; };
 		551DEBFE2527107500B44953 /* make_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = make_array.h; sourceTree = "<group>"; };
 		551DEBFF2527107500B44953 /* minizip_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minizip_helpers.cpp; sourceTree = "<group>"; };
@@ -788,36 +779,24 @@
 		551DEC0D2527107500B44953 /* postprocessing_shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shader.h; sourceTree = "<group>"; };
 		551DEC0E2527107500B44953 /* postprocessing_shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shader.cpp; sourceTree = "<group>"; };
 		551DEC0F2527107500B44953 /* font_roboto_regular.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font_roboto_regular.inl; sourceTree = "<group>"; };
-		551DEC102527107500B44953 /* display_vs.hlsl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_vs.hlsl.h; sourceTree = "<group>"; };
 		551DEC112527107500B44953 /* ini_settings_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ini_settings_interface.cpp; sourceTree = "<group>"; };
 		551DEC132527107500B44953 /* ini_settings_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini_settings_interface.h; sourceTree = "<group>"; };
-		551DEC142527107500B44953 /* controller_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = controller_interface.h; sourceTree = "<group>"; };
 		551DEC152527107500B44953 /* imgui_styles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_styles.cpp; sourceTree = "<group>"; };
 		551DEC162527107500B44953 /* opengl_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl_host_display.h; sourceTree = "<group>"; };
 		551DEC172527107500B44953 /* postprocessing_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shadergen.h; sourceTree = "<group>"; };
 		551DEC192527107500B44953 /* opengl_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_host_display.cpp; sourceTree = "<group>"; };
 		551DEC1C2527107500B44953 /* postprocessing_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_chain.cpp; sourceTree = "<group>"; };
 		551DEC1D2527107500B44953 /* imgui_styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_styles.h; sourceTree = "<group>"; };
-		551DEC1E2527107500B44953 /* icon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = icon.h; sourceTree = "<group>"; };
-		551DEC1F2527107500B44953 /* save_state_selector_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = save_state_selector_ui.h; sourceTree = "<group>"; };
-		551DEC202527107500B44953 /* save_state_selector_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = save_state_selector_ui.cpp; sourceTree = "<group>"; };
 		551DEC212527107500B44953 /* postprocessing_chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_chain.h; sourceTree = "<group>"; };
 		551DEC222527107500B44953 /* imgui_impl_opengl3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_impl_opengl3.h; sourceTree = "<group>"; };
-		551DEC232527107500B44953 /* imgui_impl_dx11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_impl_dx11.h; sourceTree = "<group>"; };
 		551DEC242527107500B44953 /* game_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_list.cpp; sourceTree = "<group>"; };
 		551DEC252527107500B44953 /* game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_settings.cpp; sourceTree = "<group>"; };
-		551DEC262527107500B44953 /* common_host_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = common_host_interface.cpp; sourceTree = "<group>"; };
 		551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shadergen.cpp; sourceTree = "<group>"; };
 		551DEC2E2527107500B44953 /* vulkan_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_host_display.h; sourceTree = "<group>"; };
-		551DEC312527107500B44953 /* display_ps.hlsl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = display_ps.hlsl.h; sourceTree = "<group>"; };
 		551DEC322527107500B44953 /* game_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_list.h; sourceTree = "<group>"; };
 		551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_opengl3.cpp; sourceTree = "<group>"; };
-		551DEC352527107500B44953 /* controller_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = controller_interface.cpp; sourceTree = "<group>"; };
 		551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_vulkan.cpp; sourceTree = "<group>"; };
-		551DEC372527107500B44953 /* icon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = icon.cpp; sourceTree = "<group>"; };
-		551DEC382527107500B44953 /* imgui_impl_dx11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_dx11.cpp; sourceTree = "<group>"; };
 		551DEC3A2527107500B44953 /* vulkan_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_host_display.cpp; sourceTree = "<group>"; };
-		551DEC3B2527107500B44953 /* common_host_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common_host_interface.h; sourceTree = "<group>"; };
 		551DEC3C2527107500B44953 /* imgui_impl_vulkan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_impl_vulkan.h; sourceTree = "<group>"; };
 		551DEC3F2527107500B44953 /* game_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_settings.h; sourceTree = "<group>"; };
 		551DECFF252716D800B44953 /* libcue.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcue.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1430,8 +1409,6 @@
 				551DEB372527107400B44953 /* dma.cpp */,
 				551DEB282527107400B44953 /* dma.h */,
 				551DEB5C2527107400B44953 /* gpu_commands.cpp */,
-				551DEB402527107400B44953 /* gpu_hw_d3d11.cpp */,
-				551DEB772527107400B44953 /* gpu_hw_d3d11.h */,
 				551DEB762527107400B44953 /* gpu_hw_opengl.cpp */,
 				551DEB422527107400B44953 /* gpu_hw_opengl.h */,
 				551DEB722527107400B44953 /* gpu_hw_shadergen.cpp */,
@@ -1566,10 +1543,7 @@
 				551DEBC22527107400B44953 /* vulkan */,
 				551DEB8C2527107400B44953 /* wav_writer.cpp */,
 				551DEBB12527107400B44953 /* wav_writer.h */,
-				551DEBC02527107400B44953 /* win32_progress_callback.cpp */,
-				551DEB942527107400B44953 /* win32_progress_callback.h */,
 				551DEBC12527107400B44953 /* window_info.h */,
-				551DEBFC2527107500B44953 /* windows_headers.h */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -1637,21 +1611,11 @@
 		551DEC0C2527107500B44953 /* frontend-common */ = {
 			isa = PBXGroup;
 			children = (
-				551DEC262527107500B44953 /* common_host_interface.cpp */,
-				551DEC3B2527107500B44953 /* common_host_interface.h */,
-				551DEC352527107500B44953 /* controller_interface.cpp */,
-				551DEC142527107500B44953 /* controller_interface.h */,
-				551DEC312527107500B44953 /* display_ps.hlsl.h */,
-				551DEC102527107500B44953 /* display_vs.hlsl.h */,
 				551DEC0F2527107500B44953 /* font_roboto_regular.inl */,
 				551DEC242527107500B44953 /* game_list.cpp */,
 				551DEC322527107500B44953 /* game_list.h */,
 				551DEC252527107500B44953 /* game_settings.cpp */,
 				551DEC3F2527107500B44953 /* game_settings.h */,
-				551DEC372527107500B44953 /* icon.cpp */,
-				551DEC1E2527107500B44953 /* icon.h */,
-				551DEC382527107500B44953 /* imgui_impl_dx11.cpp */,
-				551DEC232527107500B44953 /* imgui_impl_dx11.h */,
 				551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */,
 				551DEC222527107500B44953 /* imgui_impl_opengl3.h */,
 				551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */,
@@ -1668,8 +1632,6 @@
 				551DEC0D2527107500B44953 /* postprocessing_shader.h */,
 				551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */,
 				551DEC172527107500B44953 /* postprocessing_shadergen.h */,
-				551DEC202527107500B44953 /* save_state_selector_ui.cpp */,
-				551DEC1F2527107500B44953 /* save_state_selector_ui.h */,
 				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
 				551DEC2E2527107500B44953 /* vulkan_host_display.h */,
 			);
@@ -3243,8 +3205,6 @@
 			files = (
 				551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */,
 				551DEC632527107500B44953 /* host_display.cpp in Sources */,
-				551DECBD2527107500B44953 /* common_host_interface.cpp in Sources */,
-				551DECC52527107500B44953 /* controller_interface.cpp in Sources */,
 				551DEC4F2527107500B44953 /* spu.cpp in Sources */,
 				551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */,
 				551DECA02527107500B44953 /* texture.cpp in Sources */,
@@ -3307,7 +3267,6 @@
 				551DECC42527107500B44953 /* imgui_impl_opengl3.cpp in Sources */,
 				551DEC762527107500B44953 /* log.cpp in Sources */,
 				551DEC522527107500B44953 /* resources.cpp in Sources */,
-				551DECC72527107500B44953 /* icon.cpp in Sources */,
 				551DECB12527107500B44953 /* postprocessing_shader.cpp in Sources */,
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				551DEC9D2527107500B44953 /* context.cpp in Sources */,
@@ -3342,7 +3301,6 @@
 				551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */,
 				551DEC6D2527107500B44953 /* cpu_types.cpp in Sources */,
 				551DEC782527107500B44953 /* audio_stream.cpp in Sources */,
-				551DECBA2527107500B44953 /* save_state_selector_ui.cpp in Sources */,
 				551DEF372527232900B44953 /* cpu_recompiler_multiarch.cpp in Sources */,
 				551DECA82527107500B44953 /* cd_image_chd.cpp in Sources */,
 				551DEC692527107500B44953 /* gpu_hw_opengl.cpp in Sources */,

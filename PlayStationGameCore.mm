@@ -32,7 +32,6 @@
 #include "core/host_interface.h"
 #include "common/audio_stream.h"
 #include "frontend-common/opengl_host_display.h"
-#include "controller_interface.h"
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -443,6 +442,133 @@ void OpenEmuHostInterface::OnSystemDestroyed()
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 {
 	
+}
+
+void OpenEmuHostInterface::UpdateControllers()
+{
+	for (u32 i = 0; i < NUM_CONTROLLER_AND_CARD_PORTS; i++) {
+		switch (g_settings.controller_types[i]) {
+			case ControllerType::None:
+				break;
+				
+			case ControllerType::DigitalController:
+				UpdateControllersDigitalController(i);
+				break;
+				
+			case ControllerType::AnalogController:
+				UpdateControllersAnalogController(i);
+				break;
+				
+			default:
+				ReportFormattedError("Unhandled controller type '%s'.",
+									 Settings::GetControllerTypeDisplayName(g_settings.controller_types[i]));
+				break;
+		}
+	}
+}
+
+void OpenEmuHostInterface::UpdateControllersDigitalController(u32 index)
+{
+	DigitalController* controller = static_cast<DigitalController*>(System::GetController(index));
+	DebugAssert(controller);
+	
+	static constexpr std::array<std::pair<DigitalController::Button, OEPSXButton>, 14> mapping = {
+		{{DigitalController::Button::Left, OEPSXButtonLeft},
+			{DigitalController::Button::Right, OEPSXButtonRight},
+			{DigitalController::Button::Up, OEPSXButtonUp},
+			{DigitalController::Button::Down, OEPSXButtonDown},
+			{DigitalController::Button::Circle, OEPSXButtonCircle},
+			{DigitalController::Button::Cross, OEPSXButtonCross},
+			{DigitalController::Button::Triangle, OEPSXButtonTriangle},
+			{DigitalController::Button::Square, OEPSXButtonSquare},
+			{DigitalController::Button::Start, OEPSXButtonStart},
+			{DigitalController::Button::Select, OEPSXButtonSelect},
+			{DigitalController::Button::L1, OEPSXButtonL1},
+			{DigitalController::Button::L2, OEPSXButtonL2},
+			{DigitalController::Button::R1, OEPSXButtonR1},
+			{DigitalController::Button::R2, OEPSXButtonR2}}};
+	
+	for (const auto& it : mapping) {
+		
+	}
+#if 0
+  if (m_supports_input_bitmasks)
+  {
+	const u16 active = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_MASK);
+	for (const auto& it : mapping)
+	  controller->SetButtonState(it.first, (active & (static_cast<u16>(1u) << it.second)) != 0u);
+  }
+  else
+  {
+	for (const auto& it : mapping)
+	{
+	  const int16_t state = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, it.second);
+	  controller->SetButtonState(it.first, state != 0);
+	}
+  }
+#endif
+}
+
+void OpenEmuHostInterface::UpdateControllersAnalogController(u32 index)
+{
+	AnalogController* controller = static_cast<AnalogController*>(System::GetController(index));
+	DebugAssert(controller);
+	
+	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 16> button_mapping = {
+		{{AnalogController::Button::Left, OEPSXButtonLeft},
+			{AnalogController::Button::Right, OEPSXButtonRight},
+			{AnalogController::Button::Up, OEPSXButtonUp},
+			{AnalogController::Button::Down, OEPSXButtonDown},
+			{AnalogController::Button::Circle, OEPSXButtonCircle},
+			{AnalogController::Button::Cross, OEPSXButtonCross},
+			{AnalogController::Button::Triangle, OEPSXButtonTriangle},
+			{AnalogController::Button::Square, OEPSXButtonSquare},
+			{AnalogController::Button::Start, OEPSXButtonStart},
+			{AnalogController::Button::Select, OEPSXButtonSelect},
+			{AnalogController::Button::L1, OEPSXButtonL1},
+			{AnalogController::Button::L2, OEPSXButtonL2},
+			{AnalogController::Button::L3, OEPSXButtonL3},
+			{AnalogController::Button::R1, OEPSXButtonR1},
+			{AnalogController::Button::R2, OEPSXButtonR2},
+			{AnalogController::Button::R3, OEPSXButtonR3}}};
+	
+	static constexpr std::array<std::pair<AnalogController::Axis, std::pair<OEPSXButton, OEPSXButton>>, 4> axis_mapping = {
+		{{AnalogController::Axis::LeftX, {OEPSXLeftAnalogLeft, OEPSXLeftAnalogRight}},
+			{AnalogController::Axis::LeftY, {OEPSXLeftAnalogUp, OEPSXLeftAnalogDown}},
+			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
+			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
+	
+#if 0
+  if (m_supports_input_bitmasks)
+  {
+	const u16 active = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_MASK);
+	for (const auto& it : button_mapping)
+	  controller->SetButtonState(it.first, (active & (static_cast<u16>(1u) << it.second)) != 0u);
+  }
+  else
+  {
+	for (const auto& it : button_mapping)
+	{
+	  const int16_t state = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, it.second);
+	  controller->SetButtonState(it.first, state != 0);
+	}
+  }
+
+  for (const auto& it : axis_mapping)
+  {
+	const int16_t state = g_retro_input_state_callback(index, RETRO_DEVICE_ANALOG, it.second.first, it.second.second);
+	controller->SetAxisState(static_cast<s32>(it.first), std::clamp(static_cast<float>(state) / 32767.0f, -1.0f, 1.0f));
+  }
+#endif
+	
+	//TODO: implement?
+//	if (m_rumble_interface_valid)
+//	{
+//		const u16 strong = static_cast<u16>(static_cast<u32>(controller->GetVibrationMotorStrength(0) * 65535.0f));
+//		const u16 weak = static_cast<u16>(static_cast<u32>(controller->GetVibrationMotorStrength(1) * 65535.0f));
+//		m_rumble_interface.set_rumble_state(index, RETRO_RUMBLE_STRONG, strong);
+//		m_rumble_interface.set_rumble_state(index, RETRO_RUMBLE_WEAK, weak);
+//	}
 }
 
 #pragma mark OpenEmuAudioStream methods -
