@@ -2831,7 +2831,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 551DEB0825270CC800B44953 /* Build configuration list for PBXNativeTarget "DuckStation" */;
 			buildPhases = (
-				559D6725252C5FE700D1F1FF /* Gen scm source */,
+				559D6725252C5FE700D1F1FF /* Generate SCM Source */,
 				551DEAFE25270CC800B44953 /* Sources */,
 				551DEAFF25270CC800B44953 /* Frameworks */,
 				551DEB0025270CC800B44953 /* Resources */,
@@ -3175,7 +3175,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		559D6725252C5FE700D1F1FF /* Gen scm source */ = {
+		559D6725252C5FE700D1F1FF /* Generate SCM Source */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -3184,13 +3184,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"\"$(SRCROOT)\"/duckstation/src/scmversion/scmversion.h",
+				"$(SRCROOT)/duckstation/src/scmversion/scmversion.h",
 			);
-			name = "Gen scm source";
+			name = "Generate SCM Source";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"\"$(SRCROOT)\"/duckstation/src/scmversion/scmversion.cpp",
+				"$(SRCROOT)/duckstation/src/scmversion/scmversion.cpp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
