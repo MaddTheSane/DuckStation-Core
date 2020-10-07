@@ -31,6 +31,8 @@
 #include "core/host_display.h"
 #include "core/host_interface.h"
 #include "common/audio_stream.h"
+#include "core/digital_controller.h"
+#include "core/analog_controller.h"
 #include "frontend-common/opengl_host_display.h"
 #undef TickCount
 #include <limits>
@@ -126,10 +128,6 @@ private:
 	
 	void LoadSettings();
 	void UpdateSettings();
-	void UpdateControllers();
-	void UpdateControllersDigitalController(u32 index);
-	void UpdateControllersAnalogController(u32 index);
-	//void GetSystemAVInfo(struct retro_system_av_info* info, bool use_resolution_scale);
 	void UpdateSystemAVInfo(bool use_resolution_scale);
 	void UpdateGeometry();
 	void UpdateLogging();
@@ -211,14 +209,118 @@ static __weak PlayStationGameCore *_current;
 	
 }
 
+static void updateDigitalControllerButton(OEPSXButton button, DigitalController *controller, bool down) {
+	static constexpr std::array<std::pair<DigitalController::Button, OEPSXButton>, 14> mapping = {
+		{{DigitalController::Button::Left, OEPSXButtonLeft},
+			{DigitalController::Button::Right, OEPSXButtonRight},
+			{DigitalController::Button::Up, OEPSXButtonUp},
+			{DigitalController::Button::Down, OEPSXButtonDown},
+			{DigitalController::Button::Circle, OEPSXButtonCircle},
+			{DigitalController::Button::Cross, OEPSXButtonCross},
+			{DigitalController::Button::Triangle, OEPSXButtonTriangle},
+			{DigitalController::Button::Square, OEPSXButtonSquare},
+			{DigitalController::Button::Start, OEPSXButtonStart},
+			{DigitalController::Button::Select, OEPSXButtonSelect},
+			{DigitalController::Button::L1, OEPSXButtonL1},
+			{DigitalController::Button::L2, OEPSXButtonL2},
+			{DigitalController::Button::R1, OEPSXButtonR1},
+			{DigitalController::Button::R2, OEPSXButtonR2}}};
+	for (const auto& it : mapping) {
+		if (it.second == button) {
+			controller->SetButtonState(it.first, !down);
+			break;
+		}
+	}
+}
+
+static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down) {
+	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 16> button_mapping = {
+		{{AnalogController::Button::Left, OEPSXButtonLeft},
+			{AnalogController::Button::Right, OEPSXButtonRight},
+			{AnalogController::Button::Up, OEPSXButtonUp},
+			{AnalogController::Button::Down, OEPSXButtonDown},
+			{AnalogController::Button::Circle, OEPSXButtonCircle},
+			{AnalogController::Button::Cross, OEPSXButtonCross},
+			{AnalogController::Button::Triangle, OEPSXButtonTriangle},
+			{AnalogController::Button::Square, OEPSXButtonSquare},
+			{AnalogController::Button::Start, OEPSXButtonStart},
+			{AnalogController::Button::Select, OEPSXButtonSelect},
+			{AnalogController::Button::L1, OEPSXButtonL1},
+			{AnalogController::Button::L2, OEPSXButtonL2},
+			{AnalogController::Button::L3, OEPSXButtonL3},
+			{AnalogController::Button::R1, OEPSXButtonR1},
+			{AnalogController::Button::R2, OEPSXButtonR2},
+			{AnalogController::Button::R3, OEPSXButtonR3}}};
+	for (const auto& it : button_mapping) {
+		if (it.second == button) {
+			controller->SetButtonState(it.first, !down);
+			break;
+		}
+	}
+}
+
+static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, CGFloat amount) {
+	static constexpr std::array<std::pair<AnalogController::Axis, std::pair<OEPSXButton, OEPSXButton>>, 4> axis_mapping = {
+		{{AnalogController::Axis::LeftX, {OEPSXLeftAnalogLeft, OEPSXLeftAnalogRight}},
+			{AnalogController::Axis::LeftY, {OEPSXLeftAnalogUp, OEPSXLeftAnalogDown}},
+			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
+			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
+
+}
 
 - (oneway void)didPushPSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
-	
+	switch (g_settings.controller_types[player]) {
+		case ControllerType::None:
+			break;
+			
+		case ControllerType::DigitalController:
+		{
+			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
+			updateDigitalControllerButton(button, controller, true);
+		}
+			break;
+			
+		case ControllerType::AnalogController:
+		{
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			updateAnalogControllerButton(button, controller, true);
+		}
+			//UpdateControllersAnalogController(i);
+			break;
+			
+		default:
+			//ReportFormattedError("Unhandled controller type '%s'.",
+			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
+			break;
+	}
 }
 
 
 - (oneway void)didReleasePSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
-	
+	switch (g_settings.controller_types[player]) {
+		case ControllerType::None:
+			break;
+			
+		case ControllerType::DigitalController:
+		{
+			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
+			updateDigitalControllerButton(button, controller, false);
+		}
+			break;
+			
+		case ControllerType::AnalogController:
+		{
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			updateAnalogControllerButton(button, controller, false);
+		}
+			//UpdateControllersAnalogController(i);
+			break;
+			
+		default:
+			//ReportFormattedError("Unhandled controller type '%s'.",
+			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
+			break;
+	}
 }
 
 
@@ -444,71 +546,7 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	
 }
 
-void OpenEmuHostInterface::UpdateControllers()
-{
-	for (u32 i = 0; i < NUM_CONTROLLER_AND_CARD_PORTS; i++) {
-		switch (g_settings.controller_types[i]) {
-			case ControllerType::None:
-				break;
-				
-			case ControllerType::DigitalController:
-				UpdateControllersDigitalController(i);
-				break;
-				
-			case ControllerType::AnalogController:
-				UpdateControllersAnalogController(i);
-				break;
-				
-			default:
-				ReportFormattedError("Unhandled controller type '%s'.",
-									 Settings::GetControllerTypeDisplayName(g_settings.controller_types[i]));
-				break;
-		}
-	}
-}
-
-void OpenEmuHostInterface::UpdateControllersDigitalController(u32 index)
-{
-	DigitalController* controller = static_cast<DigitalController*>(System::GetController(index));
-	DebugAssert(controller);
-	
-	static constexpr std::array<std::pair<DigitalController::Button, OEPSXButton>, 14> mapping = {
-		{{DigitalController::Button::Left, OEPSXButtonLeft},
-			{DigitalController::Button::Right, OEPSXButtonRight},
-			{DigitalController::Button::Up, OEPSXButtonUp},
-			{DigitalController::Button::Down, OEPSXButtonDown},
-			{DigitalController::Button::Circle, OEPSXButtonCircle},
-			{DigitalController::Button::Cross, OEPSXButtonCross},
-			{DigitalController::Button::Triangle, OEPSXButtonTriangle},
-			{DigitalController::Button::Square, OEPSXButtonSquare},
-			{DigitalController::Button::Start, OEPSXButtonStart},
-			{DigitalController::Button::Select, OEPSXButtonSelect},
-			{DigitalController::Button::L1, OEPSXButtonL1},
-			{DigitalController::Button::L2, OEPSXButtonL2},
-			{DigitalController::Button::R1, OEPSXButtonR1},
-			{DigitalController::Button::R2, OEPSXButtonR2}}};
-	
-	for (const auto& it : mapping) {
-		
-	}
 #if 0
-  if (m_supports_input_bitmasks)
-  {
-	const u16 active = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_MASK);
-	for (const auto& it : mapping)
-	  controller->SetButtonState(it.first, (active & (static_cast<u16>(1u) << it.second)) != 0u);
-  }
-  else
-  {
-	for (const auto& it : mapping)
-	{
-	  const int16_t state = g_retro_input_state_callback(index, RETRO_DEVICE_JOYPAD, 0, it.second);
-	  controller->SetButtonState(it.first, state != 0);
-	}
-  }
-#endif
-}
-
 void OpenEmuHostInterface::UpdateControllersAnalogController(u32 index)
 {
 	AnalogController* controller = static_cast<AnalogController*>(System::GetController(index));
@@ -570,6 +608,8 @@ void OpenEmuHostInterface::UpdateControllersAnalogController(u32 index)
 //		m_rumble_interface.set_rumble_state(index, RETRO_RUMBLE_WEAK, weak);
 //	}
 }
+
+#endif
 
 #pragma mark OpenEmuAudioStream methods -
 
