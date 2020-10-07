@@ -46,6 +46,10 @@ class OpenEmuAudioStream;
 class OpenEmuOpenGLHostDisplay;
 class OpenEmuHostInterface;
 
+static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, CGFloat amount);
+static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down);
+static void updateDigitalControllerButton(OEPSXButton button, DigitalController *controller, bool down);
+
 class OpenEmuAudioStream final : public AudioStream
 {
 public:
@@ -206,66 +210,26 @@ static __weak PlayStationGameCore *_current;
 }
 
 - (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
-	
-}
-
-static void updateDigitalControllerButton(OEPSXButton button, DigitalController *controller, bool down) {
-	static constexpr std::array<std::pair<DigitalController::Button, OEPSXButton>, 14> mapping = {
-		{{DigitalController::Button::Left, OEPSXButtonLeft},
-			{DigitalController::Button::Right, OEPSXButtonRight},
-			{DigitalController::Button::Up, OEPSXButtonUp},
-			{DigitalController::Button::Down, OEPSXButtonDown},
-			{DigitalController::Button::Circle, OEPSXButtonCircle},
-			{DigitalController::Button::Cross, OEPSXButtonCross},
-			{DigitalController::Button::Triangle, OEPSXButtonTriangle},
-			{DigitalController::Button::Square, OEPSXButtonSquare},
-			{DigitalController::Button::Start, OEPSXButtonStart},
-			{DigitalController::Button::Select, OEPSXButtonSelect},
-			{DigitalController::Button::L1, OEPSXButtonL1},
-			{DigitalController::Button::L2, OEPSXButtonL2},
-			{DigitalController::Button::R1, OEPSXButtonR1},
-			{DigitalController::Button::R2, OEPSXButtonR2}}};
-	for (const auto& it : mapping) {
-		if (it.second == button) {
-			controller->SetButtonState(it.first, !down);
+	switch (g_settings.controller_types[player]) {
+		case ControllerType::None:
 			break;
-		}
-	}
-}
-
-static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down) {
-	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 16> button_mapping = {
-		{{AnalogController::Button::Left, OEPSXButtonLeft},
-			{AnalogController::Button::Right, OEPSXButtonRight},
-			{AnalogController::Button::Up, OEPSXButtonUp},
-			{AnalogController::Button::Down, OEPSXButtonDown},
-			{AnalogController::Button::Circle, OEPSXButtonCircle},
-			{AnalogController::Button::Cross, OEPSXButtonCross},
-			{AnalogController::Button::Triangle, OEPSXButtonTriangle},
-			{AnalogController::Button::Square, OEPSXButtonSquare},
-			{AnalogController::Button::Start, OEPSXButtonStart},
-			{AnalogController::Button::Select, OEPSXButtonSelect},
-			{AnalogController::Button::L1, OEPSXButtonL1},
-			{AnalogController::Button::L2, OEPSXButtonL2},
-			{AnalogController::Button::L3, OEPSXButtonL3},
-			{AnalogController::Button::R1, OEPSXButtonR1},
-			{AnalogController::Button::R2, OEPSXButtonR2},
-			{AnalogController::Button::R3, OEPSXButtonR3}}};
-	for (const auto& it : button_mapping) {
-		if (it.second == button) {
-			controller->SetButtonState(it.first, !down);
+			
+		case ControllerType::DigitalController:
 			break;
+			
+		case ControllerType::AnalogController:
+		{
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			updateAnalogAxis(button, controller, value);
 		}
+			//UpdateControllersAnalogController(i);
+			break;
+			
+		default:
+			//ReportFormattedError("Unhandled controller type '%s'.",
+			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
+			break;
 	}
-}
-
-static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, CGFloat amount) {
-	static constexpr std::array<std::pair<AnalogController::Axis, std::pair<OEPSXButton, OEPSXButton>>, 4> axis_mapping = {
-		{{AnalogController::Axis::LeftX, {OEPSXLeftAnalogLeft, OEPSXLeftAnalogRight}},
-			{AnalogController::Axis::LeftY, {OEPSXLeftAnalogUp, OEPSXLeftAnalogDown}},
-			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
-			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
-
 }
 
 - (oneway void)didPushPSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
@@ -622,4 +586,65 @@ void OpenEmuAudioStream::FramesAvailable()
 	ReadFrames(m_output_buffer.data(), num_frames, false);
 	id<OEAudioBuffer> rb = [_current audioBufferAtIndex:0];
 	[rb write:m_output_buffer.data() maxLength:num_frames * sizeof(SampleType)];
+}
+
+#pragma mark - Controller mapping
+
+static void updateDigitalControllerButton(OEPSXButton button, DigitalController *controller, bool down) {
+	static constexpr std::array<std::pair<DigitalController::Button, OEPSXButton>, 14> mapping = {
+		{{DigitalController::Button::Left, OEPSXButtonLeft},
+			{DigitalController::Button::Right, OEPSXButtonRight},
+			{DigitalController::Button::Up, OEPSXButtonUp},
+			{DigitalController::Button::Down, OEPSXButtonDown},
+			{DigitalController::Button::Circle, OEPSXButtonCircle},
+			{DigitalController::Button::Cross, OEPSXButtonCross},
+			{DigitalController::Button::Triangle, OEPSXButtonTriangle},
+			{DigitalController::Button::Square, OEPSXButtonSquare},
+			{DigitalController::Button::Start, OEPSXButtonStart},
+			{DigitalController::Button::Select, OEPSXButtonSelect},
+			{DigitalController::Button::L1, OEPSXButtonL1},
+			{DigitalController::Button::L2, OEPSXButtonL2},
+			{DigitalController::Button::R1, OEPSXButtonR1},
+			{DigitalController::Button::R2, OEPSXButtonR2}}};
+	for (const auto& it : mapping) {
+		if (it.second == button) {
+			controller->SetButtonState(it.first, !down);
+			break;
+		}
+	}
+}
+
+static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down) {
+	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 16> button_mapping = {
+		{{AnalogController::Button::Left, OEPSXButtonLeft},
+			{AnalogController::Button::Right, OEPSXButtonRight},
+			{AnalogController::Button::Up, OEPSXButtonUp},
+			{AnalogController::Button::Down, OEPSXButtonDown},
+			{AnalogController::Button::Circle, OEPSXButtonCircle},
+			{AnalogController::Button::Cross, OEPSXButtonCross},
+			{AnalogController::Button::Triangle, OEPSXButtonTriangle},
+			{AnalogController::Button::Square, OEPSXButtonSquare},
+			{AnalogController::Button::Start, OEPSXButtonStart},
+			{AnalogController::Button::Select, OEPSXButtonSelect},
+			{AnalogController::Button::L1, OEPSXButtonL1},
+			{AnalogController::Button::L2, OEPSXButtonL2},
+			{AnalogController::Button::L3, OEPSXButtonL3},
+			{AnalogController::Button::R1, OEPSXButtonR1},
+			{AnalogController::Button::R2, OEPSXButtonR2},
+			{AnalogController::Button::R3, OEPSXButtonR3}}};
+	for (const auto& it : button_mapping) {
+		if (it.second == button) {
+			controller->SetButtonState(it.first, !down);
+			break;
+		}
+	}
+}
+
+static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, CGFloat amount) {
+	static constexpr std::array<std::pair<AnalogController::Axis, std::pair<OEPSXButton, OEPSXButton>>, 4> axis_mapping = {
+		{{AnalogController::Axis::LeftX, {OEPSXLeftAnalogLeft, OEPSXLeftAnalogRight}},
+			{AnalogController::Axis::LeftY, {OEPSXLeftAnalogUp, OEPSXLeftAnalogDown}},
+			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
+			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
+
 }
