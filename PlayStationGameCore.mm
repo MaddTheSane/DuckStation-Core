@@ -34,6 +34,7 @@
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
 #include "frontend-common/opengl_host_display.h"
+#include "frontend-common/game_settings.h"
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -124,22 +125,11 @@ protected:
 	void CheckForSettingsChanges(const Settings& old_settings) override;
 	
 private:
-	bool SetCoreOptions();
-	bool HasCoreVariablesChanged();
-	void InitLogging();
-	void InitDiskControlInterface();
-	void InitRumbleInterface();
-	
 	void LoadSettings();
 	void UpdateSettings();
 	void UpdateSystemAVInfo(bool use_resolution_scale);
 	void UpdateGeometry();
 	void UpdateLogging();
-	
-	// Hardware renderer setup.
-	bool RequestHardwareRendererContext();
-	void SwitchToHardwareRenderer();
-	void SwitchToSoftwareRenderer();
 	
 	static void HardwareRendererContextReset();
 	static void HardwareRendererContextDestroy();
@@ -148,7 +138,6 @@ private:
 	std::unique_ptr<HostDisplay> m_hw_render_display;
 	bool m_hw_render_callback_valid = false;
 	bool m_using_hardware_renderer = false;
-	std::optional<u32> m_next_disc_index;
 	
 	//retro_rumble_interface m_rumble_interface = {};
 	bool m_rumble_interface_valid = false;
@@ -176,37 +165,76 @@ static __weak PlayStationGameCore *_current;
 	return self;
 }
 
+- (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
+{
+	
+	return NO;
+}
 
+- (OEIntSize)aspectSize
+{
+	return (OEIntSize){ 4, 3 };
+}
 
 - (OEGameCoreRendering)gameCoreRendering
 {
-	//return OEGameCoreRenderingMetal1Video;
+	//TODO: return OEGameCoreRenderingMetal1Video;
 	return OEGameCoreRenderingOpenGL3Video;
 }
 
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
 {
-	
+	switch (g_settings.controller_types[0]) {
+		case ControllerType::NamcoGunCon:
+			//TODO: implement
+			break;
+		default:
+			break;
+	}
 }
 
 - (oneway void)leftMouseDownAtPoint:(OEIntPoint)point
 {
-	
+	switch (g_settings.controller_types[0]) {
+		case ControllerType::NamcoGunCon:
+			//TODO: implement
+			break;
+		default:
+			break;
+	}
 }
 
 - (oneway void)leftMouseUp
 {
-	
+	switch (g_settings.controller_types[0]) {
+		case ControllerType::NamcoGunCon:
+			//TODO: implement
+			break;
+		default:
+			break;
+	}
 }
 
 - (oneway void)rightMouseDownAtPoint:(OEIntPoint)point
 {
-	
+	switch (g_settings.controller_types[0]) {
+		case ControllerType::NamcoGunCon:
+			//TODO: implement
+			break;
+		default:
+			break;
+	}
 }
 
 - (oneway void)rightMouseUp
 {
-	
+	switch (g_settings.controller_types[0]) {
+		case ControllerType::NamcoGunCon:
+			//TODO: implement
+			break;
+		default:
+			break;
+	}
 }
 
 - (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
@@ -392,6 +420,8 @@ bool OpenEmuHostInterface::Initialize() {
 	if (!HostInterface::Initialize())
 	  return false;
 
+	FixIncompatibleSettings(false);
+	
 	return true;
 }
 
@@ -402,6 +432,7 @@ void OpenEmuHostInterface::InitInterfaces()
 
 void OpenEmuHostInterface::Shutdown()
 {
+	HostInterface::Shutdown();
 	
 }
 
@@ -443,7 +474,11 @@ std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 {
-	return [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"].fileSystemRepresentation;
+	NSString *path = [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
+		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
+	}
+	return path.fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
