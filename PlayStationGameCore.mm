@@ -211,32 +211,20 @@ static __weak PlayStationGameCore *_current;
 
 - (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
 	switch (g_settings.controller_types[player]) {
-		case ControllerType::None:
-			break;
-			
-		case ControllerType::DigitalController:
-			break;
-			
 		case ControllerType::AnalogController:
 		{
 			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
 			updateAnalogAxis(button, controller, value);
 		}
-			//UpdateControllersAnalogController(i);
 			break;
 			
 		default:
-			//ReportFormattedError("Unhandled controller type '%s'.",
-			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
 			break;
 	}
 }
 
 - (oneway void)didPushPSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
 	switch (g_settings.controller_types[player]) {
-		case ControllerType::None:
-			break;
-			
 		case ControllerType::DigitalController:
 		{
 			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
@@ -249,12 +237,9 @@ static __weak PlayStationGameCore *_current;
 			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
 			updateAnalogControllerButton(button, controller, true);
 		}
-			//UpdateControllersAnalogController(i);
 			break;
 			
 		default:
-			//ReportFormattedError("Unhandled controller type '%s'.",
-			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
 			break;
 	}
 }
@@ -262,9 +247,6 @@ static __weak PlayStationGameCore *_current;
 
 - (oneway void)didReleasePSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
 	switch (g_settings.controller_types[player]) {
-		case ControllerType::None:
-			break;
-			
 		case ControllerType::DigitalController:
 		{
 			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
@@ -277,12 +259,9 @@ static __weak PlayStationGameCore *_current;
 			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
 			updateAnalogControllerButton(button, controller, false);
 		}
-			//UpdateControllersAnalogController(i);
 			break;
 			
 		default:
-			//ReportFormattedError("Unhandled controller type '%s'.",
-			//					 Settings::GetControllerTypeDisplayName(g_settings.controller_types[player]));
 			break;
 	}
 }
@@ -406,8 +385,8 @@ bool OpenEmuOpenGLHostDisplay::Render() {
 
 #pragma mark OpenEmuHostInterface methods -
 
-OpenEmuHostInterface::OpenEmuHostInterface() = default;
-OpenEmuHostInterface::~OpenEmuHostInterface() = default;
+OpenEmuHostInterface::OpenEmuHostInterface()=default;
+OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
 bool OpenEmuHostInterface::Initialize() {
 	if (!HostInterface::Initialize())
@@ -512,8 +491,8 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 
 #pragma mark OpenEmuAudioStream methods -
 
-OpenEmuAudioStream::OpenEmuAudioStream() = default;
-OpenEmuAudioStream::~OpenEmuAudioStream() = default;
+OpenEmuAudioStream::OpenEmuAudioStream()=default;
+OpenEmuAudioStream::~OpenEmuAudioStream()=default;
 
 void OpenEmuAudioStream::FramesAvailable()
 {
@@ -550,7 +529,7 @@ static void updateDigitalControllerButton(OEPSXButton button, DigitalController 
 }
 
 static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down) {
-	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 16> button_mapping = {
+	static constexpr std::array<std::pair<AnalogController::Button, OEPSXButton>, 17> button_mapping = {
 		{{AnalogController::Button::Left, OEPSXButtonLeft},
 			{AnalogController::Button::Right, OEPSXButtonRight},
 			{AnalogController::Button::Up, OEPSXButtonUp},
@@ -566,7 +545,8 @@ static void updateAnalogControllerButton(OEPSXButton button, AnalogController *c
 			{AnalogController::Button::L3, OEPSXButtonL3},
 			{AnalogController::Button::R1, OEPSXButtonR1},
 			{AnalogController::Button::R2, OEPSXButtonR2},
-			{AnalogController::Button::R3, OEPSXButtonR3}}};
+			{AnalogController::Button::R3, OEPSXButtonR3},
+			{AnalogController::Button::Analog, OEPSXButtonAnalogMode}}};
 	for (const auto& it : button_mapping) {
 		if (it.second == button) {
 			controller->SetButtonState(it.first, !down);
