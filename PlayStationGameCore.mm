@@ -372,7 +372,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 
 void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
 {
-	
+	OpenGLHostDisplay::DestroyRenderDevice();
 }
 
 void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height) {
@@ -381,11 +381,11 @@ void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_
 
 void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 {
-	
+	_current.renderDelegate.enableVSync = enabled;
 }
 
 bool OpenEmuOpenGLHostDisplay::Render() {
-	return false;
+	return OpenGLHostDisplay::Render();
 }
 
 
