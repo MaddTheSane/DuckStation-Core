@@ -123,9 +123,9 @@ protected:
 	std::unique_ptr<AudioStream> CreateAudioStream(AudioBackend backend) override;
 	void OnSystemDestroyed() override;
 	void CheckForSettingsChanges(const Settings& old_settings) override;
+	void LoadSettings() override;
 	
 private:
-	void LoadSettings();
 	void UpdateSettings();
 	void UpdateSystemAVInfo(bool use_resolution_scale);
 	void UpdateGeometry();
@@ -520,6 +520,11 @@ void OpenEmuHostInterface::OnSystemDestroyed()
 }
 
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
+{
+	
+}
+
+void OpenEmuHostInterface::LoadSettings()
 {
 	
 }
