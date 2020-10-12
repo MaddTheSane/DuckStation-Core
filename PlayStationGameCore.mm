@@ -28,6 +28,7 @@
 #define TickCount DuckTickCount
 #include "core/types.h"
 #include "core/system.h"
+#include "common/log.h"
 #include "core/host_display.h"
 #include "core/host_interface.h"
 #include "common/audio_stream.h"
@@ -77,9 +78,7 @@ public:
 	OpenEmuOpenGLHostDisplay();
 	~OpenEmuOpenGLHostDisplay();
 	
-	RenderAPI GetRenderAPI() const override {
-		return RenderAPI::OpenGL;
-	}
+	RenderAPI GetRenderAPI() const override;
 	
 	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device) override;
 	void DestroyRenderDevice() override;
@@ -156,10 +155,17 @@ static __weak PlayStationGameCore *_current;
 	OpenEmuHostInterface *duckInterface;
 }
 
+static void logCallback(void* pUserParam, const char* channelName, const char* functionName,
+			 LOGLEVEL level, const char* message)
+{
+	NSLog(@"%s %s %d %s", channelName, functionName, level, message);
+}
+
 - (instancetype)init
 {
 	if (self = [super init]) {
 		_current = self;
+		Log::RegisterCallback(&logCallback, nullptr);
 		duckInterface = new OpenEmuHostInterface();
 	}
 	return self;
@@ -167,8 +173,8 @@ static __weak PlayStationGameCore *_current;
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
-	
-	return NO;
+	SystemBootParameters params(path.fileSystemRepresentation);
+	return duckInterface->BootSystem(params);
 }
 
 - (OEIntSize)aspectSize
@@ -356,6 +362,7 @@ static __weak PlayStationGameCore *_current;
 #include "core/gpu.h"
 #include "common/gl/program.h"
 #include "common/gl/texture.h"
+#include "common/gl/context_agl.h"
 #undef TickCount
 #include <array>
 #include <tuple>
@@ -367,7 +374,19 @@ OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()=default;
 
 bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device)
 {
-	return false;
+	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
+
+	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
+	if (!m_gl_context)
+	{
+	  //Log_ErrorPrintf("Failed to create any GL context");
+	  return false;
+	}
+
+	m_window_info = wi;
+	m_window_info.surface_width = m_gl_context->GetSurfaceWidth();
+	m_window_info.surface_height = m_gl_context->GetSurfaceHeight();
+	return true;
 }
 
 void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
@@ -386,6 +405,10 @@ void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 
 bool OpenEmuOpenGLHostDisplay::Render() {
 	return OpenGLHostDisplay::Render();
+}
+
+FrontendCommon::OpenGLHostDisplay::RenderAPI OpenEmuOpenGLHostDisplay::GetRenderAPI() const {
+	return RenderAPI::OpenGL;
 }
 
 
