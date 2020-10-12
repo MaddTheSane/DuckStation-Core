@@ -729,29 +729,17 @@
 		551DEBD62527107500B44953 /* stream_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stream_buffer.cpp; sourceTree = "<group>"; };
 		551DEBD72527107500B44953 /* file_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_system.cpp; sourceTree = "<group>"; };
 		551DEBD82527107500B44953 /* bitutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitutils.h; sourceTree = "<group>"; };
-		551DEBDA2527107500B44953 /* context_egl_x11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_egl_x11.cpp; sourceTree = "<group>"; };
-		551DEBDB2527107500B44953 /* context_egl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_egl.cpp; sourceTree = "<group>"; };
 		551DEBDC2527107500B44953 /* program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program.cpp; sourceTree = "<group>"; };
 		551DEBDD2527107500B44953 /* shader_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_cache.h; sourceTree = "<group>"; };
-		551DEBDE2527107500B44953 /* context_egl_android.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_egl_android.cpp; sourceTree = "<group>"; };
-		551DEBDF2527107500B44953 /* context_glx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_glx.h; sourceTree = "<group>"; };
 		551DEBE02527107500B44953 /* context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context.cpp; sourceTree = "<group>"; };
 		551DEBE12527107500B44953 /* shader_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_cache.cpp; sourceTree = "<group>"; };
 		551DEBE22527107500B44953 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context.h; sourceTree = "<group>"; };
-		551DEBE32527107500B44953 /* context_glx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_glx.cpp; sourceTree = "<group>"; };
 		551DEBE42527107500B44953 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
-		551DEBE52527107500B44953 /* context_egl_wayland.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_egl_wayland.h; sourceTree = "<group>"; };
-		551DEBE62527107500B44953 /* context_egl_x11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_egl_x11.h; sourceTree = "<group>"; };
-		551DEBE72527107500B44953 /* context_wgl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_wgl.cpp; sourceTree = "<group>"; };
-		551DEBE82527107500B44953 /* context_egl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_egl.h; sourceTree = "<group>"; };
-		551DEBE92527107500B44953 /* context_wgl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_wgl.h; sourceTree = "<group>"; };
 		551DEBEA2527107500B44953 /* stream_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_buffer.h; sourceTree = "<group>"; };
 		551DEBEB2527107500B44953 /* context_agl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_agl.h; sourceTree = "<group>"; };
 		551DEBEC2527107500B44953 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; };
 		551DEBED2527107500B44953 /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
 		551DEBEE2527107500B44953 /* program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = program.h; sourceTree = "<group>"; };
-		551DEBEF2527107500B44953 /* context_egl_wayland.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context_egl_wayland.cpp; sourceTree = "<group>"; };
-		551DEBF02527107500B44953 /* context_egl_android.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_egl_android.h; sourceTree = "<group>"; };
 		551DEBF12527107500B44953 /* x11_window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = x11_window.cpp; sourceTree = "<group>"; };
 		551DEBF22527107500B44953 /* x11_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x11_window.h; sourceTree = "<group>"; };
 		551DEBF32527107500B44953 /* stream_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stream_buffer.cpp; sourceTree = "<group>"; };
@@ -1475,6 +1463,8 @@
 		551DEB862527107400B44953 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				551DEBD92527107500B44953 /* gl */,
+				551DEBC22527107400B44953 /* vulkan */,
 				551DEB8D2527107400B44953 /* align.h */,
 				551DEBA82527107400B44953 /* assert.cpp */,
 				551DEC002527107500B44953 /* assert.h */,
@@ -1503,7 +1493,6 @@
 				551DEBBA2527107400B44953 /* fifo_queue.h */,
 				551DEBD72527107500B44953 /* file_system.cpp */,
 				551DEC052527107500B44953 /* file_system.h */,
-				551DEBD92527107500B44953 /* gl */,
 				551DEBA52527107400B44953 /* hash_combine.h */,
 				551DEBAA2527107400B44953 /* heap_array.h */,
 				551DEB902527107400B44953 /* image.cpp */,
@@ -1538,7 +1527,6 @@
 				551DEBF62527107500B44953 /* timestamp.cpp */,
 				551DEC032527107500B44953 /* timestamp.h */,
 				551DEBA32527107400B44953 /* types.h */,
-				551DEBC22527107400B44953 /* vulkan */,
 				551DEB8C2527107400B44953 /* wav_writer.cpp */,
 				551DEBB12527107400B44953 /* wav_writer.h */,
 				551DEBC12527107400B44953 /* window_info.h */,
@@ -1550,24 +1538,24 @@
 			isa = PBXGroup;
 			children = (
 				551DEBC32527107400B44953 /* builders.cpp */,
-				551DEBC82527107400B44953 /* context.cpp */,
-				551DEBC92527107400B44953 /* shader_cache.cpp */,
-				551DEBCF2527107500B44953 /* shader_compiler.cpp */,
-				551DEBCD2527107400B44953 /* staging_buffer.cpp */,
-				551DEBCA2527107400B44953 /* staging_texture.cpp */,
-				551DEBD62527107500B44953 /* stream_buffer.cpp */,
-				551DEBCE2527107500B44953 /* swap_chain.cpp */,
-				551DEBCC2527107400B44953 /* texture.cpp */,
-				551DEBC52527107400B44953 /* util.cpp */,
 				551DEBD52527107500B44953 /* builders.h */,
+				551DEBC82527107400B44953 /* context.cpp */,
 				551DEBCB2527107400B44953 /* context.h */,
+				551DEBC92527107400B44953 /* shader_cache.cpp */,
 				551DEBC72527107400B44953 /* shader_cache.h */,
+				551DEBCF2527107500B44953 /* shader_compiler.cpp */,
 				551DEBD02527107500B44953 /* shader_compiler.h */,
+				551DEBCD2527107400B44953 /* staging_buffer.cpp */,
 				551DEBC42527107400B44953 /* staging_buffer.h */,
+				551DEBCA2527107400B44953 /* staging_texture.cpp */,
 				551DEBC62527107400B44953 /* staging_texture.h */,
+				551DEBD62527107500B44953 /* stream_buffer.cpp */,
 				551DEBD12527107500B44953 /* stream_buffer.h */,
+				551DEBCE2527107500B44953 /* swap_chain.cpp */,
 				551DEBD22527107500B44953 /* swap_chain.h */,
+				551DEBCC2527107400B44953 /* texture.cpp */,
 				551DEBD42527107500B44953 /* texture.h */,
+				551DEBC52527107400B44953 /* util.cpp */,
 				551DEBD32527107500B44953 /* util.h */,
 			);
 			path = vulkan;
@@ -1576,32 +1564,20 @@
 		551DEBD92527107500B44953 /* gl */ = {
 			isa = PBXGroup;
 			children = (
-				551DEBDA2527107500B44953 /* context_egl_x11.cpp */,
-				551DEBDB2527107500B44953 /* context_egl.cpp */,
-				551DEBDC2527107500B44953 /* program.cpp */,
-				551DEBDD2527107500B44953 /* shader_cache.h */,
-				551DEBDE2527107500B44953 /* context_egl_android.cpp */,
-				551DEBDF2527107500B44953 /* context_glx.h */,
-				551DEBE02527107500B44953 /* context.cpp */,
-				551DEBE12527107500B44953 /* shader_cache.cpp */,
-				551DEBE22527107500B44953 /* context.h */,
-				551DEBE32527107500B44953 /* context_glx.cpp */,
-				551DEBE42527107500B44953 /* texture.cpp */,
-				551DEBE52527107500B44953 /* context_egl_wayland.h */,
-				551DEBE62527107500B44953 /* context_egl_x11.h */,
-				551DEBE72527107500B44953 /* context_wgl.cpp */,
-				551DEBE82527107500B44953 /* context_egl.h */,
-				551DEBE92527107500B44953 /* context_wgl.h */,
-				551DEBEA2527107500B44953 /* stream_buffer.h */,
 				551DEBEB2527107500B44953 /* context_agl.h */,
 				551DEBEC2527107500B44953 /* context_agl.mm */,
-				551DEBED2527107500B44953 /* texture.h */,
+				551DEBE02527107500B44953 /* context.cpp */,
+				551DEBE22527107500B44953 /* context.h */,
+				551DEBDC2527107500B44953 /* program.cpp */,
 				551DEBEE2527107500B44953 /* program.h */,
-				551DEBEF2527107500B44953 /* context_egl_wayland.cpp */,
-				551DEBF02527107500B44953 /* context_egl_android.h */,
+				551DEBE12527107500B44953 /* shader_cache.cpp */,
+				551DEBDD2527107500B44953 /* shader_cache.h */,
+				551DEBF32527107500B44953 /* stream_buffer.cpp */,
+				551DEBEA2527107500B44953 /* stream_buffer.h */,
+				551DEBE42527107500B44953 /* texture.cpp */,
+				551DEBED2527107500B44953 /* texture.h */,
 				551DEBF12527107500B44953 /* x11_window.cpp */,
 				551DEBF22527107500B44953 /* x11_window.h */,
-				551DEBF32527107500B44953 /* stream_buffer.cpp */,
 			);
 			path = gl;
 			sourceTree = "<group>";
