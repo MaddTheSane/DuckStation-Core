@@ -158,6 +158,7 @@ static __weak PlayStationGameCore *_current;
 static void logCallback(void* pUserParam, const char* channelName, const char* functionName,
 			 LOGLEVEL level, const char* message)
 {
+	printf("%s %s %d %s", channelName, functionName, level, message);
 	NSLog(@"%s %s %d %s", channelName, functionName, level, message);
 }
 
@@ -166,6 +167,7 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	if (self = [super init]) {
 		_current = self;
 		Log::RegisterCallback(&logCallback, nullptr);
+		Log::SetFilterLevel(LOGLEVEL_DEV);
 		duckInterface = new OpenEmuHostInterface();
 	}
 	return self;
@@ -174,6 +176,7 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
 	SystemBootParameters params(path.fileSystemRepresentation);
+	duckInterface->Initialize();
 	return duckInterface->BootSystem(params);
 }
 
@@ -450,7 +453,8 @@ bool OpenEmuHostInterface::Initialize() {
 
 void OpenEmuHostInterface::InitInterfaces()
 {
-	
+	WindowInfo wInfo = WindowInfo();
+	m_display->CreateRenderDevice(wInfo, "", false);
 }
 
 void OpenEmuHostInterface::Shutdown()
