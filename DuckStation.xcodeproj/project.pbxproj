@@ -6,6 +6,21 @@
 	objectVersion = 54;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		55759F1C253586FA00153823 /* Build & Install DuckStation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 55759F1D253586FA00153823 /* Build configuration list for PBXAggregateTarget "Build & Install DuckStation" */;
+			buildPhases = (
+				55759F2F2535870200153823 /* ShellScript */,
+			);
+			dependencies = (
+				55759F40253587DC00153823 /* PBXTargetDependency */,
+			);
+			name = "Build & Install DuckStation";
+			productName = "Build & Install DuckStation";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEB1025270DA600B44953 /* OpenEmuBase.framework */; };
 		551DEB1725270F2A00B44953 /* PlayStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */; };
@@ -556,6 +571,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF4F52527C36800B44953;
 			remoteInfo = "vulkan-loader";
+		};
+		55759F3F253587DC00153823 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 551DEB0125270CC800B44953;
+			remoteInfo = DuckStation;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -3104,6 +3126,9 @@
 					551DF5992527C50200B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
+					55759F1C253586FA00153823 = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
 				};
 			};
 			buildConfigurationList = 551DEAFD25270CC800B44953 /* Build configuration list for PBXProject "DuckStation" */;
@@ -3133,6 +3158,7 @@
 				551DF3EA2527BDED00B44953 /* vixl */,
 				551DF4F52527C36800B44953 /* vulkan-loader */,
 				551DF5992527C50200B44953 /* glslangd */,
+				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
 /* End PBXProject section */
@@ -3151,6 +3177,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		55759F2F2535870200153823 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
+		};
 		559D6725252C5FE700D1F1FF /* Generate SCM Source */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -3567,6 +3610,11 @@
 			isa = PBXTargetDependency;
 			target = 551DF4F52527C36800B44953 /* vulkan-loader */;
 			targetProxy = 551DF5472527C38B00B44953 /* PBXContainerItemProxy */;
+		};
+		55759F40253587DC00153823 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 551DEB0125270CC800B44953 /* DuckStation */;
+			targetProxy = 55759F3F253587DC00153823 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4161,6 +4209,22 @@
 			};
 			name = Release;
 		};
+		55759F1E253586FA00153823 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55759F1F253586FA00153823 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4295,6 +4359,15 @@
 			buildConfigurations = (
 				551DF59C2527C50200B44953 /* Debug */,
 				551DF59D2527C50200B44953 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55759F1D253586FA00153823 /* Build configuration list for PBXAggregateTarget "Build & Install DuckStation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55759F1E253586FA00153823 /* Debug */,
+				55759F1F253586FA00153823 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
