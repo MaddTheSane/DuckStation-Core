@@ -51,6 +51,7 @@ class OpenEmuHostInterface;
 static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, AnalogController *controller, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, DigitalController *controller, bool down);
+static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
 class OpenEmuAudioStream final : public AudioStream
 {
@@ -97,8 +98,6 @@ public:
 	OpenEmuHostInterface();
 	~OpenEmuHostInterface() override;
 	
-	void InitInterfaces();
-	
 	ALWAYS_INLINE u32 GetResolutionScale() const { return g_settings.gpu_resolution_scale; }
 	
 	bool Initialize() override;
@@ -125,18 +124,13 @@ protected:
 	void LoadSettings() override;
 	
 private:
-	void UpdateSettings();
-	void UpdateSystemAVInfo(bool use_resolution_scale);
-	void UpdateGeometry();
-	void UpdateLogging();
-	
 	static void HardwareRendererContextReset();
 	static void HardwareRendererContextDestroy();
+	bool CreateDisplay();
 	
 	//retro_hw_render_callback m_hw_render_callback = {};
 	std::unique_ptr<HostDisplay> m_hw_render_display;
 	bool m_hw_render_callback_valid = false;
-	bool m_using_hardware_renderer = false;
 	
 	//retro_rumble_interface m_rumble_interface = {};
 	bool m_rumble_interface_valid = false;
@@ -158,8 +152,9 @@ static __weak PlayStationGameCore *_current;
 static void logCallback(void* pUserParam, const char* channelName, const char* functionName,
 			 LOGLEVEL level, const char* message)
 {
-	printf("%s %s %d %s", channelName, functionName, level, message);
-	NSLog(@"%s %s %d %s", channelName, functionName, level, message);
+	NSString *logStr = [NSString stringWithFormat:@"%s %s %d %s", channelName, functionName, level, message];
+	printf("%s", logStr.UTF8String);
+	NSLog(@"%@", logStr);
 }
 
 - (instancetype)init
@@ -355,6 +350,16 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	return 44100;
 }
 
+- (OEIntSize)bufferSize
+{
+	return (OEIntSize){ 640, 480 };
+}
+
+- (void)executeFrame
+{
+	
+}
+
 @end
 
 #pragma mark -
@@ -386,6 +391,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 	  return false;
 	}
 
+	gladLoadGL();
 	m_window_info = wi;
 	m_window_info.surface_width = m_gl_context->GetSurfaceWidth();
 	m_window_info.surface_height = m_gl_context->GetSurfaceHeight();
@@ -446,15 +452,12 @@ bool OpenEmuHostInterface::Initialize() {
 	if (!HostInterface::Initialize())
 	  return false;
 
+	if (!CreateDisplay()) {
+		return false;
+	}
 	FixIncompatibleSettings(false);
 	
 	return true;
-}
-
-void OpenEmuHostInterface::InitInterfaces()
-{
-	WindowInfo wInfo = WindowInfo();
-	m_display->CreateRenderDevice(wInfo, "", false);
 }
 
 void OpenEmuHostInterface::Shutdown()
@@ -520,7 +523,9 @@ std::string OpenEmuHostInterface::GetBIOSDirectory()
 
 bool OpenEmuHostInterface::AcquireHostDisplay()
 {
-	m_display = std::make_unique<OpenEmuOpenGLHostDisplay>();
+	if (!m_display) {
+		return CreateDisplay();
+	}
 	return true;
 }
 
@@ -533,6 +538,7 @@ void OpenEmuHostInterface::ReleaseHostDisplay()
 	
 	m_display->DestroyRenderDevice();
 	m_display.reset();
+	m_display = NULL;
 }
 
 std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
@@ -543,7 +549,6 @@ std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBacken
 void OpenEmuHostInterface::OnSystemDestroyed()
 {
   HostInterface::OnSystemDestroyed();
-  m_using_hardware_renderer = false;
 }
 
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
@@ -554,6 +559,20 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 void OpenEmuHostInterface::LoadSettings()
 {
 	
+}
+
+bool OpenEmuHostInterface::CreateDisplay()
+{
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>();
+	WindowInfo wi = WindowInfoFromGameCore(_current);
+	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device) ||
+		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device)) {
+		ReportError("Failed to create/initialize display render device");
+		return false;
+	}
+	
+	m_display = std::move(display);
+	return true;
 }
 
 #pragma mark OpenEmuAudioStream methods -
@@ -637,4 +656,13 @@ static void updateAnalogAxis(OEPSXButton button, AnalogController *controller, C
 			return;
 		}
 	}
+}
+
+static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core)
+{
+	WindowInfo wi = WindowInfo();
+	//wi.type = WindowInfo::Type::MacOS;
+	wi.surface_width = 640;
+	wi.surface_height = 480;
+	return wi;
 }
