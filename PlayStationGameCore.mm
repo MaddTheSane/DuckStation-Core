@@ -244,10 +244,10 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 }
 
 - (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
-	switch (g_settings.controller_types[player]) {
+	switch (g_settings.controller_types[player-1]) {
 		case ControllerType::AnalogController:
 		{
-			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player-1)));
 			updateAnalogAxis(button, controller, value);
 		}
 			break;
@@ -258,17 +258,17 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 }
 
 - (oneway void)didPushPSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
-	switch (g_settings.controller_types[player]) {
+	switch (g_settings.controller_types[player-1]) {
 		case ControllerType::DigitalController:
 		{
-			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
+			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player-1)));
 			updateDigitalControllerButton(button, controller, true);
 		}
 			break;
 			
 		case ControllerType::AnalogController:
 		{
-			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player-1)));
 			updateAnalogControllerButton(button, controller, true);
 		}
 			break;
@@ -280,17 +280,17 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 
 
 - (oneway void)didReleasePSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
-	switch (g_settings.controller_types[player]) {
+	switch (g_settings.controller_types[player-1]) {
 		case ControllerType::DigitalController:
 		{
-			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player)));
+			DigitalController* controller = static_cast<DigitalController*>(System::GetController(u32(player-1)));
 			updateDigitalControllerButton(button, controller, false);
 		}
 			break;
 			
 		case ControllerType::AnalogController:
 		{
-			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player)));
+			AnalogController* controller = static_cast<AnalogController*>(System::GetController(u32(player-1)));
 			updateAnalogControllerButton(button, controller, false);
 		}
 			break;
@@ -413,7 +413,20 @@ void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 }
 
 bool OpenEmuOpenGLHostDisplay::Render() {
-	return OpenGLHostDisplay::Render();
+	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
+
+	glDisable(GL_SCISSOR_TEST);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	RenderDisplay();
+
+	RenderSoftwareCursor();
+
+	m_gl_context->SwapBuffers();
+
+	return true;
 }
 
 FrontendCommon::OpenGLHostDisplay::RenderAPI OpenEmuOpenGLHostDisplay::GetRenderAPI() const {
