@@ -165,6 +165,8 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 		_current = self;
 		Log::RegisterCallback(&logCallback, nullptr);
 		Log::SetFilterLevel(LOGLEVEL_DEV);
+		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
+		g_settings.controller_types[0] = ControllerType::AnalogController;
 		duckInterface = new OpenEmuHostInterface();
 	}
 	return self;
@@ -571,7 +573,7 @@ void OpenEmuHostInterface::OnSystemDestroyed()
 
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 {
-	
+	HostInterface::CheckForSettingsChanges(old_settings);
 }
 
 void OpenEmuHostInterface::LoadSettings()
