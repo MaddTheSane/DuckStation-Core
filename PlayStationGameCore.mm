@@ -115,6 +115,8 @@ public:
 	std::string GetStringSettingValue(const char* section, const char* key, const char* default_value = "") override;
 	std::string GetBIOSDirectory() override;
 	
+	void Render();
+
 protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
@@ -307,10 +309,6 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	
 }
 
-- (void)performBlock:(void (^)())block {
-	
-}
-
 - (void)rewind:(BOOL)flag {
 	
 }
@@ -357,7 +355,9 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 
 - (void)executeFrame
 {
+	System::RunFrame();
 	
+	duckInterface->Render();
 }
 
 @end
@@ -464,6 +464,11 @@ void OpenEmuHostInterface::Shutdown()
 {
 	HostInterface::Shutdown();
 	
+}
+
+void OpenEmuHostInterface::Render()
+{
+	m_display->Render();
 }
 
 void OpenEmuHostInterface::ReportError(const char* message)

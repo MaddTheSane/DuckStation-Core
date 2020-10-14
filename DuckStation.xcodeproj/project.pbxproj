@@ -3740,6 +3740,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"LIBRETRO=1",
 					"$(inherited)",
+					WITH_RECOMPILER,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
@@ -3779,6 +3780,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"LIBRETRO=1",
 					"$(inherited)",
+					WITH_RECOMPILER,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
