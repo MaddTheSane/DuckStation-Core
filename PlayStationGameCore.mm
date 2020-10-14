@@ -167,6 +167,10 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 		Log::SetFilterLevel(LOGLEVEL_DEV);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
+		g_settings.display_crop_mode = DisplayCropMode::Overscan;
+		g_settings.gpu_pgxp_enable = true;
+		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
+		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		duckInterface = new OpenEmuHostInterface();
 	}
 	return self;
@@ -174,9 +178,22 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
+	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
 	SystemBootParameters params(path.fileSystemRepresentation);
 	duckInterface->Initialize();
 	return duckInterface->BootSystem(params);
+}
+
+- (void)resetEmulation
+{
+	duckInterface->ResetSystem();
+}
+
+- (void)stopEmulation
+{
+	duckInterface->Shutdown();
+	
+	[super stopEmulation];
 }
 
 - (OEIntSize)aspectSize
@@ -300,39 +317,6 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 		default:
 			break;
 	}
-}
-
-
-- (void)fastForward:(BOOL)flag {
-	
-}
-
-- (void)fastForwardAtSpeed:(CGFloat)fastForwardSpeed {
-	
-}
-
-- (void)rewind:(BOOL)flag {
-	
-}
-
-- (void)rewindAtSpeed:(CGFloat)rewindSpeed {
-	
-}
-
-- (void)setFrameCallback:(void (^)(NSTimeInterval))block {
-	
-}
-
-- (void)slowMotionAtSpeed:(CGFloat)slowMotionSpeed {
-	
-}
-
-- (void)stepFrameBackward {
-	
-}
-
-- (void)stepFrameForward {
-	
 }
 
 - (NSUInteger)channelCount
@@ -508,8 +492,10 @@ void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
 
 void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
 {
-	if (image)
-	  *code = System::GetGameCodeForImage(image);
+	if (image) {
+		*code = System::GetGameCodeForImage(image);
+		*title = System::GetGameCodeForImage(image);
+	}
 }
 
 std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
@@ -519,7 +505,11 @@ std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
 
 std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
 {
-	return [_current.batterySavesDirectoryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation;
+	NSString *path = _current.batterySavesDirectoryPath;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
+		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
+	}
+	return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
