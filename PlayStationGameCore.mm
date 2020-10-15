@@ -126,8 +126,6 @@ protected:
 	void LoadSettings() override;
 	
 private:
-	static void HardwareRendererContextReset();
-	static void HardwareRendererContextDestroy();
 	bool CreateDisplay();
 	
 	//retro_hw_render_callback m_hw_render_callback = {};
@@ -135,8 +133,6 @@ private:
 	bool m_hw_render_callback_valid = false;
 	
 	//retro_rumble_interface m_rumble_interface = {};
-	bool m_rumble_interface_valid = false;
-	bool m_supports_input_bitmasks = false;
 	bool m_interfaces_initialized = false;
 };
 
@@ -153,19 +149,10 @@ private:
     bool isInitialized;
 }
 
-static void logCallback(void* pUserParam, const char* channelName, const char* functionName,
-			 LOGLEVEL level, const char* message)
-{
-	NSString *logStr = [NSString stringWithFormat:@"%s %s %d %s", channelName, functionName, level, message];
-	printf("%s", logStr.UTF8String);
-	NSLog(@"%@", logStr);
-}
-
 - (instancetype)init
 {
 	if (self = [super init]) {
 		_current = self;
-		Log::RegisterCallback(&logCallback, nullptr);
 		Log::SetFilterLevel(LOGLEVEL_DEV);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
@@ -185,6 +172,18 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
     bootPath = path;
 
     return true;
+}
+
+- (NSUInteger)discCount
+{
+	return System::HasMediaPlaylist() ? System::GetMediaPlaylistCount() : 1;
+}
+
+- (void)setDisc:(NSUInteger)discNumber
+{
+	if (System::HasMediaPlaylist()) {
+		System::SwitchMediaFromPlaylist(u32(discNumber - 1));
+	}
 }
 
 - (void)resetEmulation
