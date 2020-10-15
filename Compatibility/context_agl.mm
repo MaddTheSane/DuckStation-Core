@@ -1,4 +1,3 @@
-#include "PlayStationGameCore.h"
 #include "context_agl.h"
 #include "common/assert.h"
 #include "common/log.h"
@@ -28,9 +27,6 @@ std::unique_ptr<ContextAGL> context = std::make_unique<ContextAGL>(wi);
 
 bool ContextAGL::Initialize(const Version* versions_to_try, size_t num_versions_to_try)
 {
-
-    MakeCurrent();
-    
   return true;
 }
 
@@ -61,20 +57,12 @@ bool ContextAGL::UpdateDimensions()
 
 bool ContextAGL::SwapBuffers()
 {
-    [_current.renderDelegate didRenderFrameOnAlternateThread];
-    
+
   return true;
 }
 
 bool ContextAGL::MakeCurrent()
 {
-    [_current.renderDelegate willRenderFrameOnAlternateThread];
-    
-    // Set the background color of the context to black
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    SwapBuffers();
-
   return true;
 }
 

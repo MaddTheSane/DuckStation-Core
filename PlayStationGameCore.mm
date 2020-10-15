@@ -193,17 +193,6 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	return OEGameCoreRenderingOpenGL3Video;
 }
 
-- (BOOL)hasAlternateRenderingThread
-{
-    return YES;
-}
-
-- (BOOL)needsDoubleBufferedFBO
-{
-    return NO;
-}
-
-
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
 {
 	switch (g_settings.controller_types[0]) {
@@ -367,15 +356,6 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 - (OEIntSize)bufferSize
 {
 	return (OEIntSize){ 640, 480 };
-}
-
-- (void)startEmulation
-{
-    [self.renderDelegate willRenderFrameOnAlternateThread];
-    [super startEmulation];
-    
-    //Disable the OE framelimiting
-    [self.renderDelegate suspendFPSLimiting];
 }
 
 - (void)executeFrame
