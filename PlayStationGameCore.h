@@ -32,4 +32,5 @@ OE_EXPORTED_CLASS
 
 @end
 
+static __weak PlayStationGameCore *_current;
 NS_ASSUME_NONNULL_END

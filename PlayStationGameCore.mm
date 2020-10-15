@@ -144,11 +144,13 @@ private:
 
 @end
 
-static __weak PlayStationGameCore *_current;
+
 
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
+    NSString *bootPath;
+    bool isInitialized;
 }
 
 static void logCallback(void* pUserParam, const char* channelName, const char* functionName,
@@ -168,15 +170,16 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
 		duckInterface = new OpenEmuHostInterface();
+       
 	}
 	return self;
 }
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
-	SystemBootParameters params(path.fileSystemRepresentation);
-	duckInterface->Initialize();
-	return duckInterface->BootSystem(params);
+    bootPath = path;
+
+    return true;
 }
 
 - (OEIntSize)aspectSize
@@ -189,6 +192,17 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	//TODO: return OEGameCoreRenderingMetal1Video;
 	return OEGameCoreRenderingOpenGL3Video;
 }
+
+- (BOOL)hasAlternateRenderingThread
+{
+    return YES;
+}
+
+- (BOOL)needsDoubleBufferedFBO
+{
+    return NO;
+}
+
 
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
 {
@@ -355,8 +369,23 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 	return (OEIntSize){ 640, 480 };
 }
 
+- (void)startEmulation
+{
+    [self.renderDelegate willRenderFrameOnAlternateThread];
+    [super startEmulation];
+    
+    //Disable the OE framelimiting
+    [self.renderDelegate suspendFPSLimiting];
+}
+
 - (void)executeFrame
 {
+    if (!isInitialized){
+        SystemBootParameters params(bootPath.fileSystemRepresentation);
+        duckInterface->Initialize();
+        isInitialized = duckInterface->BootSystem(params);
+    }
+    
 	System::RunFrame();
 	
 	duckInterface->Render();
@@ -590,7 +619,7 @@ bool OpenEmuHostInterface::CreateDisplay()
 		ReportError("Failed to create/initialize display render device");
 		return false;
 	}
-	
+//	
 	m_display = std::move(display);
 	return true;
 }
