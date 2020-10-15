@@ -614,7 +614,7 @@ void OpenEmuAudioStream::FramesAvailable()
 	const u32 num_frames = GetSamplesAvailable();
 	ReadFrames(m_output_buffer.data(), num_frames, false);
 	id<OEAudioBuffer> rb = [_current audioBufferAtIndex:0];
-	[rb write:m_output_buffer.data() maxLength:num_frames * sizeof(SampleType)];
+	[rb write:m_output_buffer.data() maxLength:num_frames * m_channels * sizeof(SampleType)];
 }
 
 #pragma mark - Controller mapping
