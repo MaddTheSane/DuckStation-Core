@@ -93,7 +93,6 @@
 		551DEC9D2527107500B44953 /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBE02527107500B44953 /* context.cpp */; };
 		551DEC9E2527107500B44953 /* shader_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBE12527107500B44953 /* shader_cache.cpp */; };
 		551DECA02527107500B44953 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBE42527107500B44953 /* texture.cpp */; };
-		551DECA22527107500B44953 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBEC2527107500B44953 /* context_agl.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		551DECA52527107500B44953 /* stream_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBF32527107500B44953 /* stream_buffer.cpp */; };
 		551DECA62527107500B44953 /* progress_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBF42527107500B44953 /* progress_callback.cpp */; };
 		551DECA72527107500B44953 /* timestamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBF62527107500B44953 /* timestamp.cpp */; };
@@ -485,6 +484,7 @@
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
+		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1185,6 +1185,7 @@
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
+		EE14C0B225389FBE00464C74 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1348,6 +1349,7 @@
 		551DEB0D25270D4700B44953 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EE14C0B125389F9400464C74 /* Compatibility */,
 				551DEB1225270E0300B44953 /* OEPSXSystemResponderClient.h */,
 				551DEB1425270E6B00B44953 /* PlayStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
@@ -2515,6 +2517,14 @@
 			path = scmversion;
 			sourceTree = "<group>";
 		};
+		EE14C0B125389F9400464C74 /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				EE14C0B225389FBE00464C74 /* context_agl.mm */,
+			);
+			path = Compatibility;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3222,6 +3232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */,
 				551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */,
 				551DEC632527107500B44953 /* host_display.cpp in Sources */,
 				551DEC4F2527107500B44953 /* spu.cpp in Sources */,
@@ -3297,7 +3308,6 @@
 				551DEC6C2527107500B44953 /* gpu.cpp in Sources */,
 				551DF5702527C44400B44953 /* imgui_impl_vulkan.cpp in Sources */,
 				551DEC9E2527107500B44953 /* shader_cache.cpp in Sources */,
-				551DECA22527107500B44953 /* context_agl.mm in Sources */,
 				551DEC852527107500B44953 /* string.cpp in Sources */,
 				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
 				551DEC5F2527107500B44953 /* interrupt_controller.cpp in Sources */,
@@ -3743,6 +3753,7 @@
 					WITH_RECOMPILER,
 				);
 				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)\"/duckstation/dep/glad/include",
 					"\"$(SRCROOT)\"/duckstation/dep/tinyxml2/include",
@@ -3783,6 +3794,7 @@
 					WITH_RECOMPILER,
 				);
 				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)\"/duckstation/dep/glad/include",
 					"\"$(SRCROOT)\"/duckstation/dep/tinyxml2/include",
