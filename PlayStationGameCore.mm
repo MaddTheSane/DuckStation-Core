@@ -626,7 +626,7 @@ static void updateDigitalControllerButton(OEPSXButton button, DigitalController 
 			{DigitalController::Button::R2, OEPSXButtonR2}}};
 	for (const auto& it : mapping) {
 		if (it.second == button) {
-			controller->SetButtonState(it.first, !down);
+			controller->SetButtonState(it.first, down);
 			break;
 		}
 	}
@@ -653,7 +653,7 @@ static void updateAnalogControllerButton(OEPSXButton button, AnalogController *c
 			{AnalogController::Button::Analog, OEPSXButtonAnalogMode}}};
 	for (const auto& it : button_mapping) {
 		if (it.second == button) {
-			controller->SetButtonState(it.first, !down);
+			controller->SetButtonState(it.first, down);
 			break;
 		}
 	}
