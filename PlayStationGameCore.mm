@@ -31,6 +31,7 @@
 #include "common/log.h"
 #include "core/host_display.h"
 #include "core/host_interface.h"
+#include "core/gpu.h"
 #include "common/audio_stream.h"
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
@@ -116,6 +117,12 @@ public:
 	std::string GetBIOSDirectory() override;
 	
 	void Render();
+	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
+	{
+		if (m_display) {
+			m_display->ResizeRenderWindow(new_window_width, new_window_height);
+		}
+	}
 
 protected:
 	bool AcquireHostDisplay() override;
@@ -153,7 +160,7 @@ private:
 {
 	if (self = [super init]) {
 		_current = self;
-		Log::SetFilterLevel(LOGLEVEL_DEV);
+		Log::SetFilterLevel(LOGLEVEL_TRACE);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
 		g_settings.controller_types[1] = ControllerType::AnalogController;
@@ -202,6 +209,16 @@ private:
 - (OEIntSize)aspectSize
 {
 	return (OEIntSize){ 4, 3 };
+}
+
+- (BOOL)tryToResizeVideoTo:(OEIntSize)size
+{
+	if (!System::IsShutdown()) {
+		duckInterface->ResizeRenderWindow(size.width, size.height);
+		
+		g_gpu->UpdateResolutionScale();
+	}
+	return YES;
 }
 
 - (OEGameCoreRendering)gameCoreRendering
@@ -400,7 +417,7 @@ void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
 }
 
 void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height) {
-	
+	OpenGLHostDisplay::ResizeRenderWindow(new_window_width, new_window_height);
 }
 
 void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
