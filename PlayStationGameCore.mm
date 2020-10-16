@@ -251,7 +251,16 @@ static void logCallback(void* pUserParam, const char* channelName, const char* f
 
 - (oneway void)didMovePSXJoystickDirection:(OEPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player {
     player -= 1;
-    
+    switch (button) {
+        case OEPSXLeftAnalogLeft:
+        case OEPSXLeftAnalogUp:
+        case OEPSXRightAnalogLeft:
+        case OEPSXRightAnalogUp:
+            value *= -1;
+            break;
+        default:
+            break;
+    }
 	switch (g_settings.controller_types[player]) {
 		case ControllerType::AnalogController:
 		{
@@ -687,13 +696,9 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
 			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
 	for (const auto& it : axis_mapping) {
-		if (it.second.first == button) {
-			controller->SetAxisState(it.first, std::clamp(static_cast<float>(amount), 0.0f, 1.0f));
-			return;
-		} else if (it.second.second == button) {
-			controller->SetAxisState(it.first, std::clamp(static_cast<float>(amount), -1.0f, 0.0f));
-			return;
-		}
+        if (it.second.first == button || it.second.second == button) {
+            controller->SetAxisState(it.first, static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
+        }
 	}
 }
 
