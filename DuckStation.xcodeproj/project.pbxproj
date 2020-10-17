@@ -1314,6 +1314,7 @@
 				551DEB0325270CC800B44953 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		551DEB0325270CC800B44953 /* Products */ = {
 			isa = PBXGroup;
