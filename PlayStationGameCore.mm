@@ -29,6 +29,8 @@
 #include "core/types.h"
 #include "core/system.h"
 #include "common/log.h"
+#include "common/file_system.h"
+#include "common/byte_stream.h"
 #include "core/host_display.h"
 #include "core/host_interface.h"
 #include "common/audio_stream.h"
@@ -173,6 +175,33 @@ private:
     bootPath = path;
 
     return true;
+}
+
+- (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
+{
+	std::unique_ptr<ByteStream> stream = FileSystem::OpenFile(fileName.fileSystemRepresentation, BYTESTREAM_OPEN_READ);
+	if (!stream) {
+		block(NO, nil);
+		return;
+	}
+
+	const bool result = System::LoadState(stream.get());
+	
+	block(result, nil);
+}
+
+- (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
+{
+	std::unique_ptr<ByteStream> stream = FileSystem::OpenFile(fileName.fileSystemRepresentation, BYTESTREAM_OPEN_CREATE | BYTESTREAM_OPEN_WRITE | BYTESTREAM_OPEN_TRUNCATE |
+									   BYTESTREAM_OPEN_ATOMIC_UPDATE | BYTESTREAM_OPEN_STREAMED | BYTESTREAM_OPEN_CREATE_PATH);
+	if (!stream) {
+		block(NO, nil);
+		return;
+	}
+
+	const bool result = System::SaveState(stream.get());
+	
+	block(result, nil);
 }
 
 - (NSUInteger)discCount
