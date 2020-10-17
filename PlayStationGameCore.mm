@@ -161,6 +161,8 @@ private:
 		g_settings.controller_types[0] = ControllerType::AnalogController;
 		g_settings.controller_types[1] = ControllerType::AnalogController;
 		g_settings.display_crop_mode = DisplayCropMode::Overscan;
+		// match PS2's speed-up
+		g_settings.cdrom_read_speedup = 8;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
