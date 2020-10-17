@@ -166,6 +166,8 @@ private:
 		g_settings.controller_types[1] = ControllerType::AnalogController;
 		g_settings.display_crop_mode = DisplayCropMode::Overscan;
 		g_settings.gpu_pgxp_enable = true;
+		g_settings.gpu_pgxp_vertex_cache = true;
+		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		duckInterface = new OpenEmuHostInterface();
