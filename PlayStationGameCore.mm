@@ -55,6 +55,7 @@ class OpenEmuHostInterface;
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
+// We're keeping this: I think it'll be useful when OpenEmu supports Metal.
 static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
 class OpenEmuAudioStream final : public AudioStream
@@ -86,9 +87,6 @@ public:
 	RenderAPI GetRenderAPI() const override;
 	
 	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device) override;
-	void DestroyRenderDevice() override;
-	
-	void ResizeRenderWindow(s32 new_window_width, s32 new_window_height) override;
 	
 	void SetVSync(bool enabled) override;
 	
@@ -131,16 +129,10 @@ protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
 	std::unique_ptr<AudioStream> CreateAudioStream(AudioBackend backend) override;
-	void OnSystemDestroyed() override;
-	void CheckForSettingsChanges(const Settings& old_settings) override;
 	void LoadSettings() override;
 	
 private:
 	bool CreateDisplay();
-	
-	//retro_hw_render_callback m_hw_render_callback = {};
-	std::unique_ptr<HostDisplay> m_hw_render_display;
-	bool m_hw_render_callback_valid = false;
 	
 	//retro_rumble_interface m_rumble_interface = {};
 	bool m_interfaces_initialized = false;
@@ -550,15 +542,6 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
-{
-	OpenGLHostDisplay::DestroyRenderDevice();
-}
-
-void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height) {
-	OpenGLHostDisplay::ResizeRenderWindow(new_window_width, new_window_height);
-}
-
 void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 {
 	_current.renderDelegate.enableVSync = enabled;
@@ -707,11 +690,6 @@ bool OpenEmuHostInterface::AcquireHostDisplay()
 
 void OpenEmuHostInterface::ReleaseHostDisplay()
 {
-	if (m_hw_render_display) {
-		m_hw_render_display->DestroyRenderDevice();
-		m_hw_render_display.reset();
-	}
-	
 	m_display->DestroyRenderDevice();
 	m_display.reset();
 	m_display = NULL;
@@ -720,16 +698,6 @@ void OpenEmuHostInterface::ReleaseHostDisplay()
 std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
 {
 	return std::make_unique<OpenEmuAudioStream>();
-}
-
-void OpenEmuHostInterface::OnSystemDestroyed()
-{
-  HostInterface::OnSystemDestroyed();
-}
-
-void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
-{
-	HostInterface::CheckForSettingsChanges(old_settings);
 }
 
 void OpenEmuHostInterface::LoadSettings()
