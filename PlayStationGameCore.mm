@@ -171,15 +171,17 @@ private:
 		g_settings.cdrom_read_speedup = 8;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
+		g_settings.gpu_texture_filter = GPUTextureFilter::JINC2;
 		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
+		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
 			if (!success) {
-				Log_WarningPrintf("Game settings for particular discs didn't load.");
+				Log_WarningPrintf("Game settings for particular discs didn't load, path %s", gameSettingsURL.fileSystemRepresentation);
 			}
 		} else {
 			Log_WarningPrintf("Game settings for particular discs wasn't found.");
