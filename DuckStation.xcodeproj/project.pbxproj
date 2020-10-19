@@ -200,19 +200,6 @@
 		551DF0482527B3A700B44953 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF03C2527B3A700B44953 /* khrplatform.h */; };
 		551DF04B2527B3A700B44953 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0422527B3A700B44953 /* glad.c */; };
 		551DF0522527B3B300B44953 /* libglad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF02C2527B39200B44953 /* libglad.a */; };
-		551DF0882527B4A000B44953 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0762527B4A000B44953 /* imgui.h */; };
-		551DF0892527B4A000B44953 /* imconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0772527B4A000B44953 /* imconfig.h */; };
-		551DF08A2527B4A000B44953 /* imgui_stdlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0782527B4A000B44953 /* imgui_stdlib.h */; };
-		551DF08B2527B4A000B44953 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF07F2527B4A000B44953 /* imstb_textedit.h */; };
-		551DF08C2527B4A000B44953 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0802527B4A000B44953 /* imgui_widgets.cpp */; };
-		551DF08D2527B4A000B44953 /* imstb_truetype.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0812527B4A000B44953 /* imstb_truetype.h */; };
-		551DF08E2527B4A000B44953 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0822527B4A000B44953 /* imgui.cpp */; };
-		551DF08F2527B4A000B44953 /* imgui_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0832527B4A000B44953 /* imgui_internal.h */; };
-		551DF0902527B4A000B44953 /* imstb_rectpack.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0842527B4A000B44953 /* imstb_rectpack.h */; };
-		551DF0912527B4A000B44953 /* imgui_stdlib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0852527B4A000B44953 /* imgui_stdlib.cpp */; };
-		551DF0922527B4A000B44953 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0862527B4A000B44953 /* imgui_demo.cpp */; };
-		551DF0932527B4A000B44953 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0872527B4A000B44953 /* imgui_draw.cpp */; };
-		551DF09C2527B4C500B44953 /* libimgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF0682527B48B00B44953 /* libimgui.a */; };
 		551DF0BB2527B50A00B44953 /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0B52527B50A00B44953 /* tinyxml2.h */; };
 		551DF0BC2527B50A00B44953 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0BA2527B50A00B44953 /* tinyxml2.cpp */; };
 		551DF0C62527B51700B44953 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF0A72527B4F800B44953 /* libtinyxml.a */; };
@@ -482,6 +469,7 @@
 		557776E7253D0FEF000D0651 /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 557776BF253D0F73000D0651 /* ConvertUTF.c */; };
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
+		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
@@ -514,13 +502,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF02B2527B39200B44953;
 			remoteInfo = glad;
-		};
-		551DF09A2527B4B800B44953 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 551DF0672527B48B00B44953;
-			remoteInfo = imgui;
 		};
 		551DF0C42527B51100B44953 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -577,6 +558,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DEB0125270CC800B44953;
 			remoteInfo = DuckStation;
+		};
+		557777AE253D1769000D0651 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 557776D2253D0FD9000D0651;
+			remoteInfo = SimpleINI;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -896,19 +884,6 @@
 		551DF0412527B3A700B44953 /* glad_egl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad_egl.c; sourceTree = "<group>"; };
 		551DF0422527B3A700B44953 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 		551DF0432527B3A700B44953 /* glad_glx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad_glx.c; sourceTree = "<group>"; };
-		551DF0682527B48B00B44953 /* libimgui.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libimgui.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		551DF0762527B4A000B44953 /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
-		551DF0772527B4A000B44953 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
-		551DF0782527B4A000B44953 /* imgui_stdlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_stdlib.h; sourceTree = "<group>"; };
-		551DF07F2527B4A000B44953 /* imstb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_textedit.h; sourceTree = "<group>"; };
-		551DF0802527B4A000B44953 /* imgui_widgets.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_widgets.cpp; sourceTree = "<group>"; };
-		551DF0812527B4A000B44953 /* imstb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_truetype.h; sourceTree = "<group>"; };
-		551DF0822527B4A000B44953 /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
-		551DF0832527B4A000B44953 /* imgui_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_internal.h; sourceTree = "<group>"; };
-		551DF0842527B4A000B44953 /* imstb_rectpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imstb_rectpack.h; sourceTree = "<group>"; };
-		551DF0852527B4A000B44953 /* imgui_stdlib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_stdlib.cpp; sourceTree = "<group>"; };
-		551DF0862527B4A000B44953 /* imgui_demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_demo.cpp; sourceTree = "<group>"; };
-		551DF0872527B4A000B44953 /* imgui_draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_draw.cpp; sourceTree = "<group>"; };
 		551DF0A72527B4F800B44953 /* libtinyxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtinyxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DF0B52527B50A00B44953 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
 		551DF0BA2527B50A00B44953 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
@@ -1192,6 +1167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */,
 				551DF6A92527C5B800B44953 /* libglslangd.a in Frameworks */,
 				551DF5462527C38500B44953 /* libvulkan-loader.a in Frameworks */,
 				551DF4842527BE2800B44953 /* libvixl.a in Frameworks */,
@@ -1200,7 +1176,6 @@
 				551DF2032527B81700B44953 /* libstb.a in Frameworks */,
 				551DF0E02527B55B00B44953 /* libcubeb.a in Frameworks */,
 				551DF0C62527B51700B44953 /* libtinyxml.a in Frameworks */,
-				551DF09C2527B4C500B44953 /* libimgui.a in Frameworks */,
 				551DF0522527B3B300B44953 /* libglad.a in Frameworks */,
 				551DEF8F2527268C00B44953 /* Cocoa.framework in Frameworks */,
 				551DEEB125271B4800B44953 /* libFLAC.a in Frameworks */,
@@ -1232,13 +1207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		551DF02A2527B39200B44953 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		551DF0662527B48B00B44953 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1330,7 +1298,6 @@
 				551DED44252717DF00B44953 /* libchdr.a */,
 				551DEE2A25271B0700B44953 /* libFLAC.a */,
 				551DF02C2527B39200B44953 /* libglad.a */,
-				551DF0682527B48B00B44953 /* libimgui.a */,
 				551DF0A72527B4F800B44953 /* libtinyxml.a */,
 				551DF0D22527B54900B44953 /* libcubeb.a */,
 				551DF1EB2527B7B700B44953 /* libstb.a */,
@@ -1648,7 +1615,6 @@
 				551DF0E12527B56C00B44953 /* cubeb */,
 				551DF0352527B3A700B44953 /* glad */,
 				551DF5BA2527C58D00B44953 /* glslang */,
-				551DF0722527B4A000B44953 /* imgui */,
 				551DED4B252717EC00B44953 /* libchdr */,
 				551DED05252716F100B44953 /* libcue */,
 				551DEE3225271B1B00B44953 /* libFLAC */,
@@ -1898,41 +1864,6 @@
 				551DF0412527B3A700B44953 /* glad_egl.c */,
 				551DF0422527B3A700B44953 /* glad.c */,
 				551DF0432527B3A700B44953 /* glad_glx.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		551DF0722527B4A000B44953 /* imgui */ = {
-			isa = PBXGroup;
-			children = (
-				551DF0752527B4A000B44953 /* include */,
-				551DF07E2527B4A000B44953 /* src */,
-			);
-			path = imgui;
-			sourceTree = "<group>";
-		};
-		551DF0752527B4A000B44953 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				551DF0762527B4A000B44953 /* imgui.h */,
-				551DF0772527B4A000B44953 /* imconfig.h */,
-				551DF0782527B4A000B44953 /* imgui_stdlib.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		551DF07E2527B4A000B44953 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				551DF07F2527B4A000B44953 /* imstb_textedit.h */,
-				551DF0802527B4A000B44953 /* imgui_widgets.cpp */,
-				551DF0812527B4A000B44953 /* imstb_truetype.h */,
-				551DF0822527B4A000B44953 /* imgui.cpp */,
-				551DF0832527B4A000B44953 /* imgui_internal.h */,
-				551DF0842527B4A000B44953 /* imstb_rectpack.h */,
-				551DF0852527B4A000B44953 /* imgui_stdlib.cpp */,
-				551DF0862527B4A000B44953 /* imgui_demo.cpp */,
-				551DF0872527B4A000B44953 /* imgui_draw.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -2637,20 +2568,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		551DF0642527B48B00B44953 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DF0892527B4A000B44953 /* imconfig.h in Headers */,
-				551DF08D2527B4A000B44953 /* imstb_truetype.h in Headers */,
-				551DF08A2527B4A000B44953 /* imgui_stdlib.h in Headers */,
-				551DF0902527B4A000B44953 /* imstb_rectpack.h in Headers */,
-				551DF0882527B4A000B44953 /* imgui.h in Headers */,
-				551DF08B2527B4A000B44953 /* imstb_textedit.h in Headers */,
-				551DF08F2527B4A000B44953 /* imgui_internal.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		551DF0A32527B4F800B44953 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2885,6 +2802,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				557777AF253D1769000D0651 /* PBXTargetDependency */,
 				551DF5482527C38B00B44953 /* PBXTargetDependency */,
 				551DF4832527BE2100B44953 /* PBXTargetDependency */,
 				551DF3A22527BBD600B44953 /* PBXTargetDependency */,
@@ -2892,7 +2810,6 @@
 				551DF2022527B81100B44953 /* PBXTargetDependency */,
 				551DF0DF2527B55100B44953 /* PBXTargetDependency */,
 				551DF0C52527B51100B44953 /* PBXTargetDependency */,
-				551DF09B2527B4B800B44953 /* PBXTargetDependency */,
 				551DF0542527B3B800B44953 /* PBXTargetDependency */,
 				551DEEB025271B3C00B44953 /* PBXTargetDependency */,
 				551DED772527185100B44953 /* PBXTargetDependency */,
@@ -2969,23 +2886,6 @@
 			name = glad;
 			productName = glad;
 			productReference = 551DF02C2527B39200B44953 /* libglad.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		551DF0672527B48B00B44953 /* imgui */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 551DF0692527B48B00B44953 /* Build configuration list for PBXNativeTarget "imgui" */;
-			buildPhases = (
-				551DF0642527B48B00B44953 /* Headers */,
-				551DF0652527B48B00B44953 /* Sources */,
-				551DF0662527B48B00B44953 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = imgui;
-			productName = imgui;
-			productReference = 551DF0682527B48B00B44953 /* libimgui.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		551DF0A62527B4F800B44953 /* tinyxml */ = {
@@ -3164,9 +3064,6 @@
 					551DF02B2527B39200B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
-					551DF0672527B48B00B44953 = {
-						CreatedOnToolsVersion = 12.2;
-					};
 					551DF0A62527B4F800B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -3217,7 +3114,6 @@
 				551DED43252717DF00B44953 /* chdr */,
 				551DEE2925271B0700B44953 /* FLAC */,
 				551DF02B2527B39200B44953 /* glad */,
-				551DF0672527B48B00B44953 /* imgui */,
 				551DF0A62527B4F800B44953 /* tinyxml */,
 				551DF0D12527B54900B44953 /* cubeb */,
 				551DF1EA2527B7B700B44953 /* stb */,
@@ -3458,18 +3354,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		551DF0652527B48B00B44953 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DF0912527B4A000B44953 /* imgui_stdlib.cpp in Sources */,
-				551DF08C2527B4A000B44953 /* imgui_widgets.cpp in Sources */,
-				551DF0922527B4A000B44953 /* imgui_demo.cpp in Sources */,
-				551DF0932527B4A000B44953 /* imgui_draw.cpp in Sources */,
-				551DF08E2527B4A000B44953 /* imgui.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		551DF0A42527B4F800B44953 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3646,11 +3530,6 @@
 			target = 551DF02B2527B39200B44953 /* glad */;
 			targetProxy = 551DF0532527B3B800B44953 /* PBXContainerItemProxy */;
 		};
-		551DF09B2527B4B800B44953 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 551DF0672527B48B00B44953 /* imgui */;
-			targetProxy = 551DF09A2527B4B800B44953 /* PBXContainerItemProxy */;
-		};
 		551DF0C52527B51100B44953 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 551DF0A62527B4F800B44953 /* tinyxml */;
@@ -3690,6 +3569,11 @@
 			isa = PBXTargetDependency;
 			target = 551DEB0125270CC800B44953 /* DuckStation */;
 			targetProxy = 55759F3F253587DC00153823 /* PBXContainerItemProxy */;
+		};
+		557777AF253D1769000D0651 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 557776D2253D0FD9000D0651 /* SimpleINI */;
+			targetProxy = 557777AE253D1769000D0651 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4053,27 +3937,6 @@
 			};
 			name = Release;
 		};
-		551DF06A2527B48B00B44953 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		551DF06B2527B48B00B44953 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		551DF0A92527B4F800B44953 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4331,6 +4194,7 @@
 					SI_CONVERT_GENERIC,
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/simpleini/include\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4391,15 +4255,6 @@
 			buildConfigurations = (
 				551DF02E2527B39200B44953 /* Debug */,
 				551DF02F2527B39200B44953 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		551DF0692527B48B00B44953 /* Build configuration list for PBXNativeTarget "imgui" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				551DF06A2527B48B00B44953 /* Debug */,
-				551DF06B2527B48B00B44953 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
