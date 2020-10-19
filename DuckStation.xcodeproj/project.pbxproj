@@ -483,6 +483,8 @@
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		557776E7253D0FEF000D0651 /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 557776BF253D0F73000D0651 /* ConvertUTF.c */; };
+		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
+		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
@@ -1186,6 +1188,10 @@
 		557776BB253D0F73000D0651 /* ConvertUTF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvertUTF.h; sourceTree = "<group>"; };
 		557776BF253D0F73000D0651 /* ConvertUTF.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConvertUTF.c; sourceTree = "<group>"; };
 		557776D3253D0FD9000D0651 /* libSimpleINI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSimpleINI.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		55777758253D126C000D0651 /* memory_arena.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_arena.cpp; sourceTree = "<group>"; };
+		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
+		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
+		5577776C253D127F000D0651 /* page_fault_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = page_fault_handler.cpp; sourceTree = "<group>"; };
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
 		EE14C0B225389FBE00464C74 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1541,10 +1547,14 @@
 				551DEBFE2527107500B44953 /* make_array.h */,
 				551DEBF82527107500B44953 /* md5_digest.cpp */,
 				551DEBAD2527107400B44953 /* md5_digest.h */,
+				55777758253D126C000D0651 /* memory_arena.cpp */,
+				55777759253D126C000D0651 /* memory_arena.h */,
 				551DEBFF2527107500B44953 /* minizip_helpers.cpp */,
 				551DEBB52527107400B44953 /* minizip_helpers.h */,
 				551DEB8A2527107400B44953 /* null_audio_stream.cpp */,
 				551DEBB22527107400B44953 /* null_audio_stream.h */,
+				5577776C253D127F000D0651 /* page_fault_handler.cpp */,
+				5577776B253D127F000D0651 /* page_fault_handler.h */,
 				551DEBF42527107500B44953 /* progress_callback.cpp */,
 				551DEBB02527107400B44953 /* progress_callback.h */,
 				551DEBFA2527107500B44953 /* rectangle.h */,
@@ -3336,9 +3346,11 @@
 				551DF5802527C48A00B44953 /* staging_buffer.cpp in Sources */,
 				551DEC862527107500B44953 /* cd_image_bin.cpp in Sources */,
 				551DF5832527C48A00B44953 /* shader_compiler.cpp in Sources */,
+				5577775A253D126C000D0651 /* memory_arena.cpp in Sources */,
 				551DEC4C2527107500B44953 /* psf_loader.cpp in Sources */,
 				551DEC822527107500B44953 /* timer.cpp in Sources */,
 				551DF5882527C48A00B44953 /* util.cpp in Sources */,
+				5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */,
 				551DF5842527C48A00B44953 /* swap_chain.cpp in Sources */,
 				551DEC6F2527107500B44953 /* cpu_code_cache.cpp in Sources */,
 				551DEC842527107500B44953 /* cubeb_audio_stream.cpp in Sources */,
