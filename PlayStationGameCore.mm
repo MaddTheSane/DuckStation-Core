@@ -748,7 +748,7 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	
 	const GameSettings::Entry* gs = GetGameFixes(System::GetRunningCode());
 	if (gs) {
-		gs->ApplySettings(false);
+		gs->ApplySettings(display_osd_messages);
 	} else {
 		Log_InfoPrintf("Unable to find game-specific settings for %s.", System::GetRunningCode().c_str());
 	}
@@ -759,7 +759,7 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 	HostInterface::OnRunningGameChanged();
 
 	Settings old_settings(std::move(g_settings));
-	ApplyGameSettings(true);
+	ApplyGameSettings(false);
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
 }
