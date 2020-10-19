@@ -106,12 +106,10 @@
 		551DECB12527107500B44953 /* postprocessing_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC0E2527107500B44953 /* postprocessing_shader.cpp */; };
 		551DECB22527107500B44953 /* font_roboto_regular.inl in Resources */ = {isa = PBXBuildFile; fileRef = 551DEC0F2527107500B44953 /* font_roboto_regular.inl */; };
 		551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC112527107500B44953 /* ini_settings_interface.cpp */; };
-		551DECB52527107500B44953 /* imgui_styles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC152527107500B44953 /* imgui_styles.cpp */; };
 		551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC192527107500B44953 /* opengl_host_display.cpp */; };
 		551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC1C2527107500B44953 /* postprocessing_chain.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
 		551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */; };
-		551DECC42527107500B44953 /* imgui_impl_opengl3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */; };
 		551DED1E252716F100B44953 /* cdtext.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0D252716F100B44953 /* cdtext.h */; };
 		551DED1F252716F100B44953 /* libcue.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0E252716F100B44953 /* libcue.h */; };
 		551DED20252716F100B44953 /* rem.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0F252716F100B44953 /* rem.h */; };
@@ -367,7 +365,6 @@
 		551DF5372527C37600B44953 /* vulkan_beta.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF51F2527C37600B44953 /* vulkan_beta.h */; };
 		551DF5382527C37600B44953 /* vulkan_loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF5232527C37600B44953 /* vulkan_loader.cpp */; };
 		551DF5462527C38500B44953 /* libvulkan-loader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF4F62527C36800B44953 /* libvulkan-loader.a */; };
-		551DF5702527C44400B44953 /* imgui_impl_vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */; };
 		551DF5712527C44400B44953 /* vulkan_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC3A2527107500B44953 /* vulkan_host_display.cpp */; };
 		551DF57F2527C48A00B44953 /* stream_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBD62527107500B44953 /* stream_buffer.cpp */; };
 		551DF5802527C48A00B44953 /* staging_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCD2527107400B44953 /* staging_buffer.cpp */; };
@@ -793,21 +790,15 @@
 		551DEC0F2527107500B44953 /* font_roboto_regular.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font_roboto_regular.inl; sourceTree = "<group>"; };
 		551DEC112527107500B44953 /* ini_settings_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ini_settings_interface.cpp; sourceTree = "<group>"; };
 		551DEC132527107500B44953 /* ini_settings_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini_settings_interface.h; sourceTree = "<group>"; };
-		551DEC152527107500B44953 /* imgui_styles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_styles.cpp; sourceTree = "<group>"; };
 		551DEC162527107500B44953 /* opengl_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl_host_display.h; sourceTree = "<group>"; };
 		551DEC172527107500B44953 /* postprocessing_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shadergen.h; sourceTree = "<group>"; };
 		551DEC192527107500B44953 /* opengl_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_host_display.cpp; sourceTree = "<group>"; };
 		551DEC1C2527107500B44953 /* postprocessing_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_chain.cpp; sourceTree = "<group>"; };
-		551DEC1D2527107500B44953 /* imgui_styles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_styles.h; sourceTree = "<group>"; };
 		551DEC212527107500B44953 /* postprocessing_chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_chain.h; sourceTree = "<group>"; };
-		551DEC222527107500B44953 /* imgui_impl_opengl3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_impl_opengl3.h; sourceTree = "<group>"; };
 		551DEC252527107500B44953 /* game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_settings.cpp; sourceTree = "<group>"; };
 		551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shadergen.cpp; sourceTree = "<group>"; };
 		551DEC2E2527107500B44953 /* vulkan_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_host_display.h; sourceTree = "<group>"; };
-		551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_opengl3.cpp; sourceTree = "<group>"; };
-		551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_impl_vulkan.cpp; sourceTree = "<group>"; };
 		551DEC3A2527107500B44953 /* vulkan_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_host_display.cpp; sourceTree = "<group>"; };
-		551DEC3C2527107500B44953 /* imgui_impl_vulkan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui_impl_vulkan.h; sourceTree = "<group>"; };
 		551DEC3F2527107500B44953 /* game_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_settings.h; sourceTree = "<group>"; };
 		551DECFF252716D800B44953 /* libcue.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcue.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DED0D252716F100B44953 /* cdtext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdtext.h; sourceTree = "<group>"; };
@@ -1635,12 +1626,6 @@
 				551DEC0F2527107500B44953 /* font_roboto_regular.inl */,
 				551DEC252527107500B44953 /* game_settings.cpp */,
 				551DEC3F2527107500B44953 /* game_settings.h */,
-				551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */,
-				551DEC222527107500B44953 /* imgui_impl_opengl3.h */,
-				551DEC362527107500B44953 /* imgui_impl_vulkan.cpp */,
-				551DEC3C2527107500B44953 /* imgui_impl_vulkan.h */,
-				551DEC152527107500B44953 /* imgui_styles.cpp */,
-				551DEC1D2527107500B44953 /* imgui_styles.h */,
 				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
 				551DEC132527107500B44953 /* ini_settings_interface.h */,
 				551DEC192527107500B44953 /* opengl_host_display.cpp */,
@@ -3366,11 +3351,9 @@
 				551DEC672527107500B44953 /* gpu_hw_shadergen.cpp in Sources */,
 				551DEC402527107500B44953 /* bus.cpp in Sources */,
 				551DECA52527107500B44953 /* stream_buffer.cpp in Sources */,
-				551DECB52527107500B44953 /* imgui_styles.cpp in Sources */,
 				551DEC5C2527107500B44953 /* host_interface_progress_callback.cpp in Sources */,
 				551DEB1725270F2A00B44953 /* PlayStationGameCore.mm in Sources */,
 				551DF57F2527C48A00B44953 /* stream_buffer.cpp in Sources */,
-				551DECC42527107500B44953 /* imgui_impl_opengl3.cpp in Sources */,
 				551DEC762527107500B44953 /* log.cpp in Sources */,
 				551DEC522527107500B44953 /* resources.cpp in Sources */,
 				551DECB12527107500B44953 /* postprocessing_shader.cpp in Sources */,
@@ -3381,7 +3364,6 @@
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
 				551DECA72527107500B44953 /* timestamp.cpp in Sources */,
 				551DEC6C2527107500B44953 /* gpu.cpp in Sources */,
-				551DF5702527C44400B44953 /* imgui_impl_vulkan.cpp in Sources */,
 				551DEC9E2527107500B44953 /* shader_cache.cpp in Sources */,
 				551DEC852527107500B44953 /* string.cpp in Sources */,
 				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
