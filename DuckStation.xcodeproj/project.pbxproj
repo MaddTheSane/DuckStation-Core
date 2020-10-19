@@ -109,7 +109,6 @@
 		551DECB52527107500B44953 /* imgui_styles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC152527107500B44953 /* imgui_styles.cpp */; };
 		551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC192527107500B44953 /* opengl_host_display.cpp */; };
 		551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC1C2527107500B44953 /* postprocessing_chain.cpp */; };
-		551DECBB2527107500B44953 /* game_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC242527107500B44953 /* game_list.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
 		551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */; };
 		551DECC42527107500B44953 /* imgui_impl_opengl3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC332527107500B44953 /* imgui_impl_opengl3.cpp */; };
@@ -3302,7 +3301,6 @@
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				551DEC9D2527107500B44953 /* context.cpp in Sources */,
 				551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */,
-				551DECBB2527107500B44953 /* game_list.cpp in Sources */,
 				551DEC742527107500B44953 /* string_util.cpp in Sources */,
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
 				551DECA72527107500B44953 /* timestamp.cpp in Sources */,

@@ -40,6 +40,7 @@
 #include "frontend-common/opengl_host_display.h"
 #include "frontend-common/game_settings.h"
 #include "core/cheats.h"
+Log_SetChannel(OpenEmuHost);
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -116,7 +117,12 @@ public:
 	std::string GetShaderCacheBasePath() const override;
 	std::string GetStringSettingValue(const char* section, const char* key, const char* default_value = "") override;
 	std::string GetBIOSDirectory() override;
+	void ApplyGameSettings(bool display_osd_messages);
+	void OnRunningGameChanged() override;
 	
+	bool LoadCompatibilitySettings(const char* path);
+	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
+
 	void Render();
 	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 	{
@@ -134,8 +140,8 @@ protected:
 private:
 	bool CreateDisplay();
 	
-	//retro_rumble_interface m_rumble_interface = {};
 	bool m_interfaces_initialized = false;
+	GameSettings::Database m_game_settings;
 };
 
 @interface PlayStationGameCore () <OEPSXSystemResponderClient>
@@ -168,7 +174,15 @@ private:
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		duckInterface = new OpenEmuHostInterface();
-       
+		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
+		if (gameSettingsURL) {
+			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
+			if (!success) {
+				Log_WarningPrintf("Game settings for particular discs didn't load.");
+			}
+		} else {
+			Log_WarningPrintf("Game settings for particular discs wasn't found.");
+		}
 	}
 	return self;
 }
@@ -531,7 +545,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
 	if (!m_gl_context)
 	{
-	  //Log_ErrorPrintf("Failed to create any GL context");
+	  Log_ErrorPrintf("Failed to create any GL context");
 	  return false;
 	}
 
@@ -597,6 +611,7 @@ OpenEmuHostInterface::OpenEmuHostInterface()=default;
 OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
 bool OpenEmuHostInterface::Initialize() {
+	m_user_directory = [_current supportDirectoryPath].fileSystemRepresentation;
 	if (!HostInterface::Initialize())
 	  return false;
 
@@ -621,12 +636,12 @@ void OpenEmuHostInterface::Render()
 
 void OpenEmuHostInterface::ReportError(const char* message)
 {
-	
+	Log_ErrorPrint(message);
 }
 
 void OpenEmuHostInterface::ReportMessage(const char* message)
 {
-	
+	Log_WarningPrint(message);
 }
 
 bool OpenEmuHostInterface::ConfirmMessage(const char* message)
@@ -636,7 +651,7 @@ bool OpenEmuHostInterface::ConfirmMessage(const char* message)
 
 void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
 {
-	
+	Log_InfoPrint(message.c_str());
 }
 
 void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
@@ -717,6 +732,40 @@ bool OpenEmuHostInterface::CreateDisplay()
 //	
 	m_display = std::move(display);
 	return true;
+}
+
+void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
+{
+	// this gets called while booting, so can't use valid
+	if (System::IsShutdown() || System::GetRunningCode().empty() || !g_settings.apply_game_settings)
+		return;
+	
+	const GameSettings::Entry* gs = GetGameFixes(System::GetRunningCode());
+	if (gs) {
+		gs->ApplySettings(false);
+	} else {
+		Log_InfoPrintf("Unable to find game-specific settings for %s.", System::GetRunningCode().c_str());
+	}
+}
+
+void OpenEmuHostInterface::OnRunningGameChanged()
+{
+	HostInterface::OnRunningGameChanged();
+
+	Settings old_settings(std::move(g_settings));
+	ApplyGameSettings(true);
+	FixIncompatibleSettings(false);
+	CheckForSettingsChanges(old_settings);
+}
+
+bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
+{
+	return m_game_settings.Load(path);
+}
+
+const GameSettings::Entry* OpenEmuHostInterface::GetGameFixes(const std::string& game_code)
+{
+	return m_game_settings.GetEntry(game_code);
 }
 
 #pragma mark OpenEmuAudioStream methods -
