@@ -1352,9 +1352,11 @@
 				551DEB202527107400B44953 /* core */,
 				551DEC0C2527107500B44953 /* frontend-common */,
 			);
+			indentWidth = 2;
 			name = core;
 			path = duckstation/src;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
