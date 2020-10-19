@@ -155,6 +155,7 @@ private:
 	OpenEmuHostInterface *duckInterface;
     NSString *bootPath;
     bool isInitialized;
+	NSInteger _maxDiscs;
 }
 
 - (instancetype)init
@@ -190,7 +191,20 @@ private:
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
 	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
-    bootPath = path;
+	if ([[path pathExtension] compare:@"ccd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
+		//DuckStation doens't handle CCD files gracefully. Replace with the likely-present .IMG instead
+		path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"];
+	} else if([path.pathExtension.lowercaseString isEqualToString:@"m3u"]) {
+		// Parse number of discs in m3u
+		NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue" /*|.*\\.ccd" ccd disabled for now*/ options:NSRegularExpressionCaseInsensitive error:nil];
+		NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
+		
+		NSLog(@"[Mednafen] Loaded m3u containing %lu cue sheets or ccd", numberOfMatches);
+		
+		_maxDiscs = numberOfMatches;
+	}
+    bootPath = [path copy];
 
     return true;
 }
@@ -320,13 +334,14 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 - (NSUInteger)discCount
 {
-	return System::HasMediaPlaylist() ? System::GetMediaPlaylistCount() : 1;
+	return _maxDiscs ? _maxDiscs : 1;
 }
 
 - (void)setDisc:(NSUInteger)discNumber
 {
 	if (System::HasMediaPlaylist()) {
-		System::SwitchMediaFromPlaylist(u32(discNumber - 1));
+		uint32_t index = (uint32_t)discNumber - 1; // 0-based index
+		System::SwitchMediaFromPlaylist(index);
 	}
 }
 
