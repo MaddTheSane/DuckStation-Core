@@ -432,9 +432,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
     }
 	switch (g_settings.controller_types[player]) {
 		case ControllerType::AnalogController:
-		{
 			updateAnalogAxis(button, (int)player, value);
-		}
 			break;
 			
 		default:
@@ -447,15 +445,11 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
     
 	switch (g_settings.controller_types[player]) {
 		case ControllerType::DigitalController:
-		{
 			updateDigitalControllerButton(button, (int)player, true);
-		}
 			break;
 			
 		case ControllerType::AnalogController:
-		{
 			updateAnalogControllerButton(button, (int)player, true);
-		}
 			break;
 			
 		default:
@@ -469,15 +463,11 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
     
 	switch (g_settings.controller_types[player]) {
 		case ControllerType::DigitalController:
-		{
 			updateDigitalControllerButton(button, (int)player, false);
-		}
 			break;
 			
 		case ControllerType::AnalogController:
-		{
 			updateAnalogControllerButton(button, (int)player, false);
-		}
 			break;
 			
 		default:
@@ -543,10 +533,9 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 
 	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
-	if (!m_gl_context)
-	{
-	  Log_ErrorPrintf("Failed to create any GL context");
-	  return false;
+	if (!m_gl_context) {
+		Log_ErrorPrintf("Failed to create any GL context");
+		return false;
 	}
 
 	gladLoadGL();
