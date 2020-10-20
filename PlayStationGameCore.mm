@@ -618,6 +618,7 @@ OpenEmuHostInterface::OpenEmuHostInterface()=default;
 OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
 bool OpenEmuHostInterface::Initialize() {
+	m_program_directory = [NSBundle bundleForClass:[PlayStationGameCore class]].resourceURL.fileSystemRepresentation;
 	m_user_directory = [_current supportDirectoryPath].fileSystemRepresentation;
 	if (!HostInterface::Initialize())
 	  return false;
@@ -671,7 +672,11 @@ void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::st
 
 std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
 {
-	return "";
+	NSString *path = _current.batterySavesDirectoryPath;
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
+		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
+	}
+	return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"Shared Memory Card-%d.mcd", slot]].fileSystemRepresentation;
 }
 
 std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
