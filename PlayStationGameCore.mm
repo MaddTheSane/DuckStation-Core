@@ -154,6 +154,7 @@ private:
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
     NSString *bootPath;
+	NSString *saveStatePath;
     bool isInitialized;
 	NSInteger _maxDiscs;
 }
@@ -172,7 +173,7 @@ private:
 		g_settings.cdrom_read_speedup = 8;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
-		g_settings.gpu_texture_filter = GPUTextureFilter::JINC2;
+		g_settings.gpu_texture_filter = GPUTextureFilter::Bilinear;
 		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
@@ -203,7 +204,7 @@ private:
 		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue" /*|.*\\.ccd" ccd disabled for now*/ options:NSRegularExpressionCaseInsensitive error:nil];
 		NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
 		
-		NSLog(@"[Mednafen] Loaded m3u containing %lu cue sheets or ccd", numberOfMatches);
+		NSLog(@"[DuckStation] Loaded m3u containing %lu cue sheets", numberOfMatches);
 		
 		_maxDiscs = numberOfMatches;
 	}
@@ -214,13 +215,12 @@ private:
 
 - (void)loadStateFromFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-	std::unique_ptr<ByteStream> stream = FileSystem::OpenFile(fileName.fileSystemRepresentation, BYTESTREAM_OPEN_READ);
-	if (!stream) {
-		block(NO, nil);
+	if (!isInitialized) {
+		saveStatePath = [fileName copy];
+		block(YES, nil);
 		return;
 	}
-
-	const bool result = System::LoadState(stream.get());
+	const bool result = duckInterface->LoadState(fileName.fileSystemRepresentation);
 	
 	block(result, nil);
 }
@@ -519,6 +519,10 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
         SystemBootParameters params(bootPath.fileSystemRepresentation);
         duckInterface->Initialize();
         isInitialized = duckInterface->BootSystem(params);
+		if (saveStatePath) {
+			duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
+			saveStatePath = nil;
+		}
     }
     
 	System::RunFrame();
