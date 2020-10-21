@@ -130,6 +130,13 @@ public:
 		CheckForSettingsChanges(old_settings);
 	}
 	
+	void ChangePXGP(bool set_on)
+	{
+		Settings old_settings(std::move(g_settings));
+		g_settings.gpu_pgxp_enable = set_on;
+		CheckForSettingsChanges(old_settings);
+	}
+	
 	void Render();
 	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 	{
@@ -189,6 +196,7 @@ private:
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
 		_displayModes[@"duckstation/GPU/TextureFilter"] = @0;
+		_displayModes[@"duckstation/PXGP"] = @YES;
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
@@ -557,6 +565,8 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValue(@"Bilinear", @"duckstation/GPU/TextureFilter", 1),
 		OptionWithValue(@"JINC2", @"duckstation/GPU/TextureFilter", 2),
 		OptionWithValue(@"xBR", @"duckstation/GPU/TextureFilter", 3),
+		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
+		OEDisplayMode_OptionDefaultWithValue(@"PXGP", @"duckstation/PXGP", @YES)
 	];
 	
 #undef OptionWithValue
@@ -569,7 +579,11 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	OEDisplayModeListGetPrefKeyValueFromModeName(self.displayModes, displayMode, &key, &currentVal);
 	_displayModes[key] = currentVal;
 
-	duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
+	if ([key isEqualToString:@"duckstation/GPU/TextureFilter"]) {
+		duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
+	} else if ([key isEqualToString:@"duckstation/PXGP"]) {
+		duckInterface->ChangePXGP([currentVal boolValue]);
+	}
 }
 
 @end
