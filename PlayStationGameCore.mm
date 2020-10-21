@@ -162,8 +162,10 @@ private:
 
 @end
 
-
-
+//static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
+//static NSString * const DuckStationPGXPActive = @"duckstation/PXGP";
+#define DuckStationTextureFilterKey @"duckstation/GPU/TextureFilter"
+#define DuckStationPGXPActive @"duckstation/PXGP"
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
@@ -195,8 +197,8 @@ private:
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		_displayModes[@"duckstation/GPU/TextureFilter"] = @0;
-		_displayModes[@"duckstation/PXGP"] = @YES;
+		_displayModes[DuckStationTextureFilterKey] = @0;
+		_displayModes[DuckStationPGXPActive] = @YES;
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
@@ -557,24 +559,19 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
 	OEGameCoreDisplayModePrefValueNameKey : @(v) , \
 	OEGameCoreDisplayModeIndentationLevelKey : @(1) }
-#define OptionToggleWithValue(n, k, v) \
-@{ \
-	OEGameCoreDisplayModeNameKey : n, \
-	OEGameCoreDisplayModePrefKeyNameKey : k, \
-	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
-	OEGameCoreDisplayModePrefValueNameKey : @(![_displayModes[k] isEqual:@(v)]) }
+#define OptionToggleable(n, k) \
+	OEDisplayMode_OptionToggleableWithState(n, k, _displayModes[k])
 
-//	OEDisplayMode_OptionWithStateValue(n, k, @([_displayModes[k] isEqual:@ v]), @#v)
-//OEGameCoreDisplayModeIndentationLevelKey : @(1)
 	return @[
 		@{ OEGameCoreDisplayModeLabelKey : @"Texture Filtering" },
-		OptionWithValue(@"Nearest Neighbor", @"duckstation/GPU/TextureFilter", 0),
-		OptionWithValue(@"Bilinear", @"duckstation/GPU/TextureFilter", 1),
-		OptionWithValue(@"JINC2", @"duckstation/GPU/TextureFilter", 2),
-		OptionWithValue(@"xBR", @"duckstation/GPU/TextureFilter", 3),
+		OptionWithValue(@"Nearest Neighbor", DuckStationTextureFilterKey, 0),
+		OptionWithValue(@"Bilinear", DuckStationTextureFilterKey, 1),
+		OptionWithValue(@"JINC2", DuckStationTextureFilterKey, 2),
+		OptionWithValue(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
-//		OEDisplayMode_OptionToggleableWithState(@"PXGP", @"duckstation/PXGP", _displayModes[@"duckstation/PXGP"]),
-		OptionToggleWithValue(@"PXGP", @"duckstation/PXGP", YES),
+//		OEDisplayMode_OptionToggleableDefault(@"PXGP", @"duckstation/PXGP"),
+//		OEDisplayMode_OptionToggleableWithState(@"PXGP", @"duckstation/PXGP", @NO),
+		OptionToggleable(@"PGXP", DuckStationPGXPActive),
 //		OEDisplayMode_OptionDefaultWithValue(@"PXGP", @"duckstation/PXGP", @YES)
 	];
 	
@@ -588,9 +585,9 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	OEDisplayModeListGetPrefKeyValueFromModeName(self.displayModes, displayMode, &key, &currentVal);
 	_displayModes[key] = currentVal;
 
-	if ([key isEqualToString:@"duckstation/GPU/TextureFilter"]) {
+	if ([key isEqualToString:DuckStationTextureFilterKey]) {
 		duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
-	} else if ([key isEqualToString:@"duckstation/PXGP"]) {
+	} else if ([key isEqualToString:DuckStationPGXPActive]) {
 		duckInterface->ChangePXGP([currentVal boolValue]);
 	}
 }
