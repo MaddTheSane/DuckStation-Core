@@ -197,7 +197,7 @@ private:
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		_displayModes[DuckStationTextureFilterKey] = @0;
+		_displayModes[DuckStationTextureFilterKey] = @0; //GPUTextureFilter::Nearest
 		_displayModes[DuckStationPGXPActive] = @YES;
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
@@ -569,13 +569,12 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValue(@"JINC2", DuckStationTextureFilterKey, 2),
 		OptionWithValue(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
-//		OEDisplayMode_OptionToggleableDefault(@"PXGP", @"duckstation/PXGP"),
-//		OEDisplayMode_OptionToggleableWithState(@"PXGP", @"duckstation/PXGP", @NO),
+		// FIXME: This isn't toggling the option. Need to find out why...
 		OptionToggleable(@"PGXP", DuckStationPGXPActive),
-//		OEDisplayMode_OptionDefaultWithValue(@"PXGP", @"duckstation/PXGP", @YES)
 	];
 	
 #undef OptionWithValue
+#undef OptionToggleable
 }
 
 - (void)changeDisplayWithMode:(NSString *)displayMode
