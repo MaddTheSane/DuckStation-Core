@@ -554,9 +554,16 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 @{ \
 	OEGameCoreDisplayModeNameKey : n, \
 	OEGameCoreDisplayModePrefKeyNameKey : k, \
-	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@ v]), \
-	OEGameCoreDisplayModePrefValueNameKey : @#v , \
+	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
+	OEGameCoreDisplayModePrefValueNameKey : @(v) , \
 	OEGameCoreDisplayModeIndentationLevelKey : @(1) }
+#define OptionToggleWithValue(n, k, v) \
+@{ \
+	OEGameCoreDisplayModeNameKey : n, \
+	OEGameCoreDisplayModePrefKeyNameKey : k, \
+	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
+	OEGameCoreDisplayModePrefValueNameKey : @(![_displayModes[k] isEqual:@(v)]) }
+
 //	OEDisplayMode_OptionWithStateValue(n, k, @([_displayModes[k] isEqual:@ v]), @#v)
 //OEGameCoreDisplayModeIndentationLevelKey : @(1)
 	return @[
@@ -566,7 +573,9 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValue(@"JINC2", @"duckstation/GPU/TextureFilter", 2),
 		OptionWithValue(@"xBR", @"duckstation/GPU/TextureFilter", 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
-		OEDisplayMode_OptionDefaultWithValue(@"PXGP", @"duckstation/PXGP", @YES)
+//		OEDisplayMode_OptionToggleableWithState(@"PXGP", @"duckstation/PXGP", _displayModes[@"duckstation/PXGP"]),
+		OptionToggleWithValue(@"PXGP", @"duckstation/PXGP", YES),
+//		OEDisplayMode_OptionDefaultWithValue(@"PXGP", @"duckstation/PXGP", @YES)
 	];
 	
 #undef OptionWithValue
