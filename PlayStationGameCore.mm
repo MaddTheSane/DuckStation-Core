@@ -387,7 +387,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 - (BOOL)tryToResizeVideoTo:(OEIntSize)size
 {
-	if (!System::IsShutdown()) {
+	if (!System::IsShutdown() && isInitialized) {
 		duckInterface->ResizeRenderWindow(size.width, size.height);
 		
 		g_gpu->UpdateResolutionScale();
