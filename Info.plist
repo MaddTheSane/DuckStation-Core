@@ -30,6 +30,8 @@
 		<dict>
 			<key>OEGameCoreRequiresFiles</key>
 			<true/>
+			<key>OEGameCoreSupportsDisplayModeChange</key>
+			<true/>
 			<key>OEGameCoreSupportsMultipleDiscs</key>
 			<true/>
 			<key>OERequiredFiles</key>

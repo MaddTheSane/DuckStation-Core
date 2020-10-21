@@ -123,6 +123,13 @@ public:
 	bool LoadCompatibilitySettings(const char* path);
 	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
 
+	void ChangeFiltering(GPUTextureFilter new_filter)
+	{
+		Settings old_settings(std::move(g_settings));
+		g_settings.gpu_texture_filter = new_filter;
+		CheckForSettingsChanges(old_settings);
+	}
+	
 	void Render();
 	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 	{
@@ -157,6 +164,7 @@ private:
 	NSString *saveStatePath;
     bool isInitialized;
 	NSInteger _maxDiscs;
+	NSMutableDictionary <NSString *, id> *_displayModes;
 }
 
 - (instancetype)init
@@ -170,15 +178,17 @@ private:
 		g_settings.display_crop_mode = DisplayCropMode::Overscan;
 		g_settings.gpu_disable_interlacing = true;
 		// match PS2's speed-up
-		g_settings.cdrom_read_speedup = 8;
+		g_settings.cdrom_read_speedup = 4;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
-		g_settings.gpu_texture_filter = GPUTextureFilter::Bilinear;
+		g_settings.gpu_texture_filter = GPUTextureFilter::Nearest;
 		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
+		_displayModes = [[NSMutableDictionary alloc] init];
+		_displayModes[@"duckstation/GPU/TextureFilter"] = @0;
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
@@ -528,6 +538,38 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	System::RunFrame();
 	
 	duckInterface->Render();
+}
+
+- (NSArray <NSDictionary <NSString *, id> *> *)displayModes
+{
+#define OptionWithValue(n, k, v) \
+@{ \
+	OEGameCoreDisplayModeNameKey : n, \
+	OEGameCoreDisplayModePrefKeyNameKey : k, \
+	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@ v]), \
+	OEGameCoreDisplayModePrefValueNameKey : @#v , \
+	OEGameCoreDisplayModeIndentationLevelKey : @(1) }
+//	OEDisplayMode_OptionWithStateValue(n, k, @([_displayModes[k] isEqual:@ v]), @#v)
+//OEGameCoreDisplayModeIndentationLevelKey : @(1)
+	return @[
+		@{ OEGameCoreDisplayModeLabelKey : @"Texture Filtering" },
+		OptionWithValue(@"Nearest Neighbor", @"duckstation/GPU/TextureFilter", 0),
+		OptionWithValue(@"Bilinear", @"duckstation/GPU/TextureFilter", 1),
+		OptionWithValue(@"JINC2", @"duckstation/GPU/TextureFilter", 2),
+		OptionWithValue(@"xBR", @"duckstation/GPU/TextureFilter", 3),
+	];
+	
+#undef OptionWithValue
+}
+
+- (void)changeDisplayWithMode:(NSString *)displayMode
+{
+	NSString *key;
+	id currentVal;
+	OEDisplayModeListGetPrefKeyValueFromModeName(self.displayModes, displayMode, &key, &currentVal);
+	_displayModes[key] = currentVal;
+
+	duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
 }
 
 @end
