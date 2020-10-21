@@ -38,6 +38,7 @@
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
 #include "frontend-common/opengl_host_display.h"
+#include "frontend-common/vulkan_host_display.h"
 #include "frontend-common/game_settings.h"
 #include "core/cheats.h"
 Log_SetChannel(OpenEmuHost);
@@ -79,21 +80,14 @@ private:
 	std::vector<SampleType> m_output_buffer;
 };
 
-class OpenEmuOpenGLHostDisplay final : public FrontendCommon::OpenGLHostDisplay
+class OpenEmuVulkanHostDisplay final : public FrontendCommon::VulkanHostDisplay
 {
 public:
-	OpenEmuOpenGLHostDisplay();
-	~OpenEmuOpenGLHostDisplay();
-	
-	RenderAPI GetRenderAPI() const override;
-	
-	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device) override;
+	OpenEmuVulkanHostDisplay();
+	~OpenEmuVulkanHostDisplay();
 	
 	void SetVSync(bool enabled) override;
-	
-	bool Render() override;
 };
-
 
 class OpenEmuHostInterface : public HostInterface
 {
@@ -397,8 +391,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 - (OEGameCoreRendering)gameCoreRendering
 {
-	//TODO: return OEGameCoreRenderingMetal1Video;
-	return OEGameCoreRenderingOpenGL3Video;
+	return OEGameCoreRenderingMetal1Video;
 }
 
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
@@ -608,50 +601,12 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 #pragma mark OpenEmuOpenGLHostDisplay methods -
 
-OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay()=default;
-OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()=default;
+OpenEmuVulkanHostDisplay::OpenEmuVulkanHostDisplay()=default;
+OpenEmuVulkanHostDisplay::~OpenEmuVulkanHostDisplay()=default;
 
-bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device)
-{
-	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
-
-	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
-	if (!m_gl_context) {
-		Log_ErrorPrintf("Failed to create any GL context");
-		return false;
-	}
-
-	gladLoadGL();
-	m_window_info = wi;
-	m_window_info.surface_width = m_gl_context->GetSurfaceWidth();
-	m_window_info.surface_height = m_gl_context->GetSurfaceHeight();
-	return true;
-}
-
-void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
+void OpenEmuVulkanHostDisplay::SetVSync(bool enabled)
 {
 	_current.renderDelegate.enableVSync = enabled;
-}
-
-bool OpenEmuOpenGLHostDisplay::Render() {
-	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
-
-	glDisable(GL_SCISSOR_TEST);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	RenderDisplay();
-
-	RenderSoftwareCursor();
-
-	m_gl_context->SwapBuffers();
-
-	return true;
-}
-
-FrontendCommon::OpenGLHostDisplay::RenderAPI OpenEmuOpenGLHostDisplay::GetRenderAPI() const {
-	return RenderAPI::OpenGL;
 }
 
 
@@ -799,7 +754,7 @@ void OpenEmuHostInterface::LoadSettings()
 
 bool OpenEmuHostInterface::CreateDisplay()
 {
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>();
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuVulkanHostDisplay>();
 	WindowInfo wi = WindowInfoFromGameCore(_current);
 	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device) ||
 		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device)) {
@@ -938,5 +893,6 @@ static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core)
 	//wi.type = WindowInfo::Type::MacOS;
 	wi.surface_width = 640;
 	wi.surface_height = 480;
+	wi.surface_handle = (__bridge void*)(core.renderDelegate.presentationFramebuffer);
 	return wi;
 }
