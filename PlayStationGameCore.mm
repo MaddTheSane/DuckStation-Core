@@ -171,10 +171,10 @@ private:
 
 @end
 
-//static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
-//static NSString * const DuckStationPGXPActive = @"duckstation/PXGP";
-#define DuckStationTextureFilterKey @"duckstation/GPU/TextureFilter"
-#define DuckStationPGXPActive @"duckstation/PXGP"
+static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
+static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
+//#define DuckStationTextureFilterKey @"duckstation/GPU/TextureFilter"
+//#define DuckStationPGXPActiveKey @"duckstation/PXGP"
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
@@ -569,7 +569,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		Class valueClass;
 		id defaultValue;
 	} defaultValues[] = {
-		{ DuckStationPGXPActive,         [NSNumber class], @YES  },
+		{ DuckStationPGXPActiveKey,      [NSNumber class], @YES  },
 		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
 	};
 	/* validate the defaults to avoid crashes caused by users playing
@@ -587,8 +587,8 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 - (void)loadConfiguration
 {
-	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActive];
-	NSNumber *textureFilter = _displayModes[DuckStationPGXPActive];
+	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActiveKey];
+	NSNumber *textureFilter = _displayModes[DuckStationPGXPActiveKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
 		settings.pxgp = [pxgpActive boolValue];
@@ -618,7 +618,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValueIndented(@"JINC2", DuckStationTextureFilterKey, 2),
 		OptionWithValueIndented(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
-		OptionToggleable(@"PGXP", DuckStationPGXPActive),
+		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
 	];
 	
 #undef OptionWithValue
@@ -634,7 +634,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 	if ([key isEqualToString:DuckStationTextureFilterKey]) {
 		duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
-	} else if ([key isEqualToString:DuckStationPGXPActive]) {
+	} else if ([key isEqualToString:DuckStationPGXPActiveKey]) {
 		duckInterface->ChangePXGP(![currentVal boolValue]);
 		_displayModes[key] = @(![currentVal boolValue]);
 	}
