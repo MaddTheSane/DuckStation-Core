@@ -618,7 +618,6 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValueIndented(@"JINC2", DuckStationTextureFilterKey, 2),
 		OptionWithValueIndented(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
-		// FIXME: This isn't toggling the option. Need to find out why...
 		OptionToggleable(@"PGXP", DuckStationPGXPActive),
 	];
 	
