@@ -59,6 +59,13 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
 // We're keeping this: I think it'll be useful when OpenEmu supports Metal.
 static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
+static __weak PlayStationGameCore *_current;
+
+struct OpenEmuChangeSettings {
+	std::optional<GPUTextureFilter> textureFilter = {};
+	std::optional<bool> pxgp = {};
+};
+
 class OpenEmuAudioStream final : public AudioStream
 {
 public:
@@ -123,18 +130,20 @@ public:
 	bool LoadCompatibilitySettings(const char* path);
 	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
 
-	void ChangeFiltering(GPUTextureFilter new_filter)
+	void ChangeSettings(OpenEmuChangeSettings new_settings);
+	
+	inline void ChangeFiltering(GPUTextureFilter new_filter)
 	{
-		Settings old_settings(std::move(g_settings));
-		g_settings.gpu_texture_filter = new_filter;
-		CheckForSettingsChanges(old_settings);
+		OpenEmuChangeSettings new_settings;
+		new_settings.textureFilter = new_filter;
+		ChangeSettings(new_settings);
 	}
 	
-	void ChangePXGP(bool set_on)
+	inline void ChangePXGP(bool set_on)
 	{
-		Settings old_settings(std::move(g_settings));
-		g_settings.gpu_pgxp_enable = set_on;
-		CheckForSettingsChanges(old_settings);
+		OpenEmuChangeSettings new_settings;
+		new_settings.pxgp = set_on;
+		ChangeSettings(new_settings);
 	}
 	
 	void Render();
@@ -197,8 +206,6 @@ private:
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		_displayModes[DuckStationTextureFilterKey] = @0; //GPUTextureFilter::Nearest
-		_displayModes[DuckStationPGXPActive] = @YES;
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
@@ -550,24 +557,66 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	duckInterface->Render();
 }
 
+- (NSDictionary<NSString *,id> *)displayModeInfo
+{
+	return [_displayModes copy];
+}
+
+- (void)setDisplayModeInfo:(NSDictionary<NSString *, id> *)displayModeInfo
+{
+	const struct {
+		NSString *const key;
+		Class valueClass;
+		id defaultValue;
+	} defaultValues[] = {
+		{ DuckStationPGXPActive,         [NSNumber class], @YES  },
+		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
+	};
+	/* validate the defaults to avoid crashes caused by users playing
+	 * around where they shouldn't */
+	_displayModes = [[NSMutableDictionary alloc] init];
+	int n = sizeof(defaultValues)/sizeof(defaultValues[0]);
+	for (int i=0; i<n; i++) {
+		id thisPref = displayModeInfo[defaultValues[i].key];
+		if ([thisPref isKindOfClass:defaultValues[i].valueClass])
+			_displayModes[defaultValues[i].key] = thisPref;
+		else
+			_displayModes[defaultValues[i].key] = defaultValues[i].defaultValue;
+	}
+}
+
+- (void)loadConfiguration
+{
+	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActive];
+	NSNumber *textureFilter = _displayModes[DuckStationPGXPActive];
+	OpenEmuChangeSettings settings;
+	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
+		settings.pxgp = [pxgpActive boolValue];
+	}
+	if (textureFilter && [textureFilter isKindOfClass:[NSNumber class]]) {
+		settings.textureFilter = GPUTextureFilter([textureFilter intValue]);
+	}
+	duckInterface->ChangeSettings(settings);
+}
+
 - (NSArray <NSDictionary <NSString *, id> *> *)displayModes
 {
-#define OptionWithValue(n, k, v) \
+#define OptionWithValueIndented(n, k, v) \
 @{ \
 	OEGameCoreDisplayModeNameKey : n, \
 	OEGameCoreDisplayModePrefKeyNameKey : k, \
 	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
 	OEGameCoreDisplayModePrefValueNameKey : @(v) , \
-	OEGameCoreDisplayModeIndentationLevelKey : @(1) }
+	OEGameCoreDisplayModeIndentationLevelKey : @1 }
 #define OptionToggleable(n, k) \
 	OEDisplayMode_OptionToggleableWithState(n, k, _displayModes[k])
 
 	return @[
 		@{ OEGameCoreDisplayModeLabelKey : @"Texture Filtering" },
-		OptionWithValue(@"Nearest Neighbor", DuckStationTextureFilterKey, 0),
-		OptionWithValue(@"Bilinear", DuckStationTextureFilterKey, 1),
-		OptionWithValue(@"JINC2", DuckStationTextureFilterKey, 2),
-		OptionWithValue(@"xBR", DuckStationTextureFilterKey, 3),
+		OptionWithValueIndented(@"Nearest Neighbor", DuckStationTextureFilterKey, 0),
+		OptionWithValueIndented(@"Bilinear", DuckStationTextureFilterKey, 1),
+		OptionWithValueIndented(@"JINC2", DuckStationTextureFilterKey, 2),
+		OptionWithValueIndented(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
 		// FIXME: This isn't toggling the option. Need to find out why...
 		OptionToggleable(@"PGXP", DuckStationPGXPActive),
@@ -587,7 +636,8 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	if ([key isEqualToString:DuckStationTextureFilterKey]) {
 		duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
 	} else if ([key isEqualToString:DuckStationPGXPActive]) {
-		duckInterface->ChangePXGP([currentVal boolValue]);
+		duckInterface->ChangePXGP(![currentVal boolValue]);
+		_displayModes[key] = @(![currentVal boolValue]);
 	}
 }
 
@@ -691,7 +741,7 @@ bool OpenEmuHostInterface::Initialize() {
 	if (!CreateDisplay()) {
 		return false;
 	}
-	FixIncompatibleSettings(false);
+	LoadSettings();
 	
 	return true;
 }
@@ -794,7 +844,7 @@ std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBacken
 
 void OpenEmuHostInterface::LoadSettings()
 {
-	
+	[_current loadConfiguration];
 }
 
 bool OpenEmuHostInterface::CreateDisplay()
@@ -843,6 +893,19 @@ bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
 const GameSettings::Entry* OpenEmuHostInterface::GetGameFixes(const std::string& game_code)
 {
 	return m_game_settings.GetEntry(game_code);
+}
+
+void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
+{
+	Settings old_settings(std::move(g_settings));
+	if (new_settings.pxgp.has_value()) {
+		g_settings.gpu_pgxp_enable = new_settings.pxgp.value();
+	}
+	if (new_settings.textureFilter.has_value()) {
+		g_settings.gpu_texture_filter = new_settings.textureFilter.value();
+	}
+	FixIncompatibleSettings(false);
+	CheckForSettingsChanges(old_settings);
 }
 
 #pragma mark OpenEmuAudioStream methods -
