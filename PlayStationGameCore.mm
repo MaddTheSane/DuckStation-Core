@@ -64,6 +64,7 @@ static __weak PlayStationGameCore *_current;
 struct OpenEmuChangeSettings {
 	std::optional<GPUTextureFilter> textureFilter = {};
 	std::optional<bool> pxgp = {};
+	std::optional<bool> deinterlaced = {};
 };
 
 class OpenEmuAudioStream final : public AudioStream
@@ -102,7 +103,7 @@ public:
 };
 
 
-class OpenEmuHostInterface : public HostInterface
+class OpenEmuHostInterface final: public HostInterface
 {
 public:
 	OpenEmuHostInterface();
@@ -129,6 +130,7 @@ public:
 	
 	bool LoadCompatibilitySettings(const char* path);
 	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
+	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
 
 	void ChangeSettings(OpenEmuChangeSettings new_settings);
 	
@@ -173,8 +175,7 @@ private:
 
 static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
 static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
-//#define DuckStationTextureFilterKey @"duckstation/GPU/TextureFilter"
-//#define DuckStationPGXPActiveKey @"duckstation/PXGP"
+static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterlaced";
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
@@ -182,6 +183,7 @@ static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
 	NSString *saveStatePath;
     bool isInitialized;
 	NSInteger _maxDiscs;
+@public
 	NSMutableDictionary <NSString *, id> *_displayModes;
 }
 
@@ -570,6 +572,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		id defaultValue;
 	} defaultValues[] = {
 		{ DuckStationPGXPActiveKey,      [NSNumber class], @YES  },
+		{ DuckStationDeinterlacedKey,    [NSNumber class], @YES  },
 		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
 	};
 	/* validate the defaults to avoid crashes caused by users playing
@@ -589,12 +592,16 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 {
 	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActiveKey];
 	NSNumber *textureFilter = _displayModes[DuckStationPGXPActiveKey];
+	NSNumber *deinterlace = _displayModes[DuckStationDeinterlacedKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
 		settings.pxgp = [pxgpActive boolValue];
 	}
 	if (textureFilter && [textureFilter isKindOfClass:[NSNumber class]]) {
 		settings.textureFilter = GPUTextureFilter([textureFilter intValue]);
+	}
+	if (deinterlace && [deinterlace isKindOfClass:[NSNumber class]]) {
+		settings.deinterlaced = [deinterlace boolValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -619,6 +626,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		OptionWithValueIndented(@"xBR", DuckStationTextureFilterKey, 3),
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
 		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
+		OptionToggleable(@"Deinterlace", DuckStationDeinterlacedKey),
 	];
 	
 #undef OptionWithValue
@@ -629,15 +637,20 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 {
 	NSString *key;
 	id currentVal;
+	OpenEmuChangeSettings settings;
 	OEDisplayModeListGetPrefKeyValueFromModeName(self.displayModes, displayMode, &key, &currentVal);
 	_displayModes[key] = currentVal;
 
 	if ([key isEqualToString:DuckStationTextureFilterKey]) {
-		duckInterface->ChangeFiltering(GPUTextureFilter([currentVal intValue]));
+		settings.textureFilter = GPUTextureFilter([currentVal intValue]);
 	} else if ([key isEqualToString:DuckStationPGXPActiveKey]) {
-		duckInterface->ChangePXGP(![currentVal boolValue]);
+		settings.pxgp = ![currentVal boolValue];
+		_displayModes[key] = @(![currentVal boolValue]);
+	} else if ([key isEqualToString:DuckStationDeinterlacedKey]) {
+		settings.deinterlaced = ![currentVal boolValue];
 		_displayModes[key] = @(![currentVal boolValue]);
 	}
+	duckInterface->ChangeSettings(settings);
 }
 
 @end
@@ -884,6 +897,18 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 	CheckForSettingsChanges(old_settings);
 }
 
+void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
+{
+	HostInterface::CheckForSettingsChanges(old_settings);
+	PlayStationGameCore *gc = _current;
+	if (gc == nil) {
+		return;
+	}
+	gc->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
+	gc->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
+	gc->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
+}
+
 bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
 {
 	return m_game_settings.Load(path);
@@ -902,6 +927,9 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	}
 	if (new_settings.textureFilter.has_value()) {
 		g_settings.gpu_texture_filter = new_settings.textureFilter.value();
+	}
+	if (new_settings.deinterlaced.has_value()) {
+		g_settings.gpu_disable_interlacing = new_settings.deinterlaced.value();
 	}
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
