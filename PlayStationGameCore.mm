@@ -826,7 +826,7 @@ std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 
 std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
 {
-	return "";
+	return default_value;
 }
 
 std::string OpenEmuHostInterface::GetBIOSDirectory()
