@@ -134,20 +134,6 @@ public:
 
 	void ChangeSettings(OpenEmuChangeSettings new_settings);
 	
-	inline void ChangeFiltering(GPUTextureFilter new_filter)
-	{
-		OpenEmuChangeSettings new_settings;
-		new_settings.textureFilter = new_filter;
-		ChangeSettings(new_settings);
-	}
-	
-	inline void ChangePXGP(bool set_on)
-	{
-		OpenEmuChangeSettings new_settings;
-		new_settings.pxgp = set_on;
-		ChangeSettings(new_settings);
-	}
-	
 	void Render();
 	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 	{
