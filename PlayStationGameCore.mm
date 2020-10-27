@@ -591,7 +591,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 - (void)loadConfiguration
 {
 	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActiveKey];
-	NSNumber *textureFilter = _displayModes[DuckStationPGXPActiveKey];
+	NSNumber *textureFilter = _displayModes[DuckStationTextureFilterKey];
 	NSNumber *deinterlace = _displayModes[DuckStationDeinterlacedKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
