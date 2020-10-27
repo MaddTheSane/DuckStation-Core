@@ -692,6 +692,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 
 void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 {
+	OpenGLHostDisplay::SetVSync(enabled);
 	_current.renderDelegate.enableVSync = enabled;
 }
 

@@ -3703,6 +3703,7 @@
 					SI_CONVERT_GENERIC,
 					"$(inherited)",
 					WITH_RECOMPILER,
+					GL_SILENCE_DEPRECATION,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
@@ -3745,6 +3746,7 @@
 					SI_CONVERT_GENERIC,
 					"$(inherited)",
 					WITH_RECOMPILER,
+					GL_SILENCE_DEPRECATION,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
