@@ -219,7 +219,7 @@ static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterla
 		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue" /*|.*\\.ccd" ccd disabled for now*/ options:NSRegularExpressionCaseInsensitive error:nil];
 		NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
 		
-		NSLog(@"[DuckStation] Loaded m3u containing %lu cue sheets", numberOfMatches);
+		Log_InfoPrintf("[DuckStation] Loaded m3u containing %lu cue sheets", numberOfMatches);
 		
 		_maxDiscs = numberOfMatches;
 	}
@@ -631,10 +631,8 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		settings.textureFilter = GPUTextureFilter([currentVal intValue]);
 	} else if ([key isEqualToString:DuckStationPGXPActiveKey]) {
 		settings.pxgp = ![currentVal boolValue];
-		_displayModes[key] = @(![currentVal boolValue]);
 	} else if ([key isEqualToString:DuckStationDeinterlacedKey]) {
 		settings.deinterlaced = ![currentVal boolValue];
-		_displayModes[key] = @(![currentVal boolValue]);
 	}
 	duckInterface->ChangeSettings(settings);
 }
