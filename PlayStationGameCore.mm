@@ -185,6 +185,7 @@ static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterla
 		g_settings.gpu_disable_interlacing = true;
 		// match PS2's speed-up
 		g_settings.cdrom_read_speedup = 4;
+		g_settings.gpu_multisamples = 4;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
 		g_settings.gpu_texture_filter = GPUTextureFilter::Nearest;
