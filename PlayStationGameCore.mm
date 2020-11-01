@@ -803,7 +803,7 @@ std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 {
-	NSString *path = [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache"];
+	NSString *path = [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
