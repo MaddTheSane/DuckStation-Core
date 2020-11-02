@@ -957,16 +957,11 @@
 		551DF2552527B87F00B44953 /* CpuArch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CpuArch.c; sourceTree = "<group>"; };
 		551DF2562527B87F00B44953 /* LzmaLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaLib.c; sourceTree = "<group>"; };
 		551DF27F2527B8F900B44953 /* libminizip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libminizip.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		551DF2922527B91300B44953 /* MiniZip64_Changes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MiniZip64_Changes.txt; sourceTree = "<group>"; };
-		551DF2932527B91300B44953 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		551DF2952527B91300B44953 /* iowin32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iowin32.h; sourceTree = "<group>"; };
 		551DF2962527B91300B44953 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		551DF2972527B91300B44953 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
 		551DF2982527B91300B44953 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
 		551DF2992527B91300B44953 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
-		551DF29A2527B91300B44953 /* MiniZip64_info.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MiniZip64_info.txt; sourceTree = "<group>"; };
-		551DF29B2527B91300B44953 /* minizip.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = minizip.vcxproj.filters; sourceTree = "<group>"; };
-		551DF29C2527B91300B44953 /* minizip.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = minizip.vcxproj; sourceTree = "<group>"; };
 		551DF29E2527B91300B44953 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
 		551DF29F2527B91300B44953 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		551DF2A02527B91300B44953 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
@@ -2049,12 +2044,7 @@
 		551DF2912527B91300B44953 /* minizip */ = {
 			isa = PBXGroup;
 			children = (
-				551DF2922527B91300B44953 /* MiniZip64_Changes.txt */,
-				551DF2932527B91300B44953 /* CMakeLists.txt */,
 				551DF2942527B91300B44953 /* include */,
-				551DF29A2527B91300B44953 /* MiniZip64_info.txt */,
-				551DF29B2527B91300B44953 /* minizip.vcxproj.filters */,
-				551DF29C2527B91300B44953 /* minizip.vcxproj */,
 				551DF29D2527B91300B44953 /* src */,
 			);
 			path = minizip;

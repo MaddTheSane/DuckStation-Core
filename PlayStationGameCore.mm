@@ -65,6 +65,7 @@ struct OpenEmuChangeSettings {
 	std::optional<GPUTextureFilter> textureFilter = {};
 	std::optional<bool> pxgp = {};
 	std::optional<bool> deinterlaced = {};
+	std::optional<u32> multisamples = {};
 };
 
 class OpenEmuAudioStream final : public AudioStream
@@ -162,6 +163,7 @@ private:
 static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
 static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
 static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterlaced";
+static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
@@ -561,6 +563,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		{ DuckStationPGXPActiveKey,      [NSNumber class], @YES  },
 		{ DuckStationDeinterlacedKey,    [NSNumber class], @YES  },
 		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
+		{ DuckStationAntialiasKey,       [NSNumber class], @4 },
 	};
 	/* validate the defaults to avoid crashes caused by users playing
 	 * around where they shouldn't */
@@ -580,6 +583,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	NSNumber *pxgpActive = _displayModes[DuckStationPGXPActiveKey];
 	NSNumber *textureFilter = _displayModes[DuckStationTextureFilterKey];
 	NSNumber *deinterlace = _displayModes[DuckStationDeinterlacedKey];
+	NSNumber *antialias = _displayModes[DuckStationAntialiasKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
 		settings.pxgp = [pxgpActive boolValue];
@@ -589,6 +593,9 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	}
 	if (deinterlace && [deinterlace isKindOfClass:[NSNumber class]]) {
 		settings.deinterlaced = [deinterlace boolValue];
+	}
+	if (antialias && [antialias isKindOfClass:[NSNumber class]]) {
+		settings.multisamples = [antialias unsignedIntValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -602,6 +609,12 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
 	OEGameCoreDisplayModePrefValueNameKey : @(v) , \
 	OEGameCoreDisplayModeIndentationLevelKey : @1 }
+#define OptionWithValue(n, k, v) \
+@{ \
+	OEGameCoreDisplayModeNameKey : n, \
+	OEGameCoreDisplayModePrefKeyNameKey : k, \
+	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
+	OEGameCoreDisplayModePrefValueNameKey : @(v) }
 #define OptionToggleable(n, k) \
 	OEDisplayMode_OptionToggleableWithState(n, k, _displayModes[k])
 
@@ -614,6 +627,7 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
 		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
 		OptionToggleable(@"Deinterlace", DuckStationDeinterlacedKey),
+		OEDisplayMode_Submenu(@"MSAA", @[OptionWithValue(@"Off", DuckStationAntialiasKey, 1), OptionWithValue(@"2x", DuckStationAntialiasKey, 2), OptionWithValue(@"4x", DuckStationAntialiasKey, 4), OptionWithValue(@"8x", DuckStationAntialiasKey, 8), OptionWithValue(@"16x", DuckStationAntialiasKey, 16)]),
 	];
 	
 #undef OptionWithValue
@@ -634,6 +648,8 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 		settings.pxgp = ![currentVal boolValue];
 	} else if ([key isEqualToString:DuckStationDeinterlacedKey]) {
 		settings.deinterlaced = ![currentVal boolValue];
+	} else if ([key isEqualToString:DuckStationAntialiasKey]) {
+		settings.multisamples = [currentVal unsignedIntValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -893,6 +909,7 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	gc->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
 	gc->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
 	gc->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
+	gc->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
 }
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
@@ -916,6 +933,9 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	}
 	if (new_settings.deinterlaced.has_value()) {
 		g_settings.gpu_disable_interlacing = new_settings.deinterlaced.value();
+	}
+	if (new_settings.multisamples.has_value()) {
+		g_settings.gpu_multisamples = new_settings.multisamples.value();
 	}
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
