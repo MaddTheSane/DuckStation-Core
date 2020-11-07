@@ -220,7 +220,19 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		// Parse number of discs in m3u
 		NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue" /*|.*\\.ccd" ccd disabled for now*/ options:NSRegularExpressionCaseInsensitive error:nil];
+		NSRegularExpression *ccdRegex = [NSRegularExpression regularExpressionWithPattern:@".*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
+		NSUInteger numberOfCcds = [ccdRegex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
 		NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
+		if (numberOfCcds > 0) {
+			if (error) {
+				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
+					NSLocalizedDescriptionKey: @".ccd Files Aren't Supported",
+					NSLocalizedFailureReasonErrorKey: @"DuckStation currently doesn't support .ccd files in .m3u playlists.",
+					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then replace the playlist contents with the new .cue files."
+				}];
+			}
+			return NO;
+		}
 		
 		Log_InfoPrintf("[DuckStation] Loaded m3u containing %lu cue sheets", numberOfMatches);
 		
