@@ -62,10 +62,10 @@ static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 static __weak PlayStationGameCore *_current;
 
 struct OpenEmuChangeSettings {
-	std::optional<GPUTextureFilter> textureFilter = {};
-	std::optional<bool> pxgp = {};
-	std::optional<bool> deinterlaced = {};
-	std::optional<u32> multisamples = {};
+	std::optional<GPUTextureFilter> textureFilter = std::nullopt;
+	std::optional<bool> pxgp = std::nullopt;
+	std::optional<bool> deinterlaced = std::nullopt;
+	std::optional<u32> multisamples = std::nullopt;
 };
 
 class OpenEmuAudioStream final : public AudioStream
@@ -840,6 +840,9 @@ std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 
 std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
 {
+	if (strcmp("AutoEnableAnalog", key) == 0) {
+		return "true";
+	}
 	return default_value;
 }
 
