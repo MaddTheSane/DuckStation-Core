@@ -614,13 +614,6 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 
 - (NSArray <NSDictionary <NSString *, id> *> *)displayModes
 {
-#define OptionWithValueIndented(n, k, v) \
-@{ \
-	OEGameCoreDisplayModeNameKey : n, \
-	OEGameCoreDisplayModePrefKeyNameKey : k, \
-	OEGameCoreDisplayModeStateKey : @([_displayModes[k] isEqual:@(v)]), \
-	OEGameCoreDisplayModePrefValueNameKey : @(v) , \
-	OEGameCoreDisplayModeIndentationLevelKey : @1 }
 #define OptionWithValue(n, k, v) \
 @{ \
 	OEGameCoreDisplayModeNameKey : n, \
@@ -631,12 +624,14 @@ static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
 	OEDisplayMode_OptionToggleableWithState(n, k, _displayModes[k])
 
 	return @[
-		@{ OEGameCoreDisplayModeLabelKey : @"Texture Filtering" },
-		OptionWithValueIndented(@"Nearest Neighbor", DuckStationTextureFilterKey, 0),
-		OptionWithValueIndented(@"Bilinear", DuckStationTextureFilterKey, 1),
-		OptionWithValueIndented(@"JINC2", DuckStationTextureFilterKey, 2),
-		OptionWithValueIndented(@"xBR", DuckStationTextureFilterKey, 3),
-		@{OEGameCoreDisplayModeSeparatorItemKey : @0},
+		OEDisplayMode_Submenu(@"Texture Filtering",
+							  @[OptionWithValue(@"Nearest Neighbor", DuckStationTextureFilterKey, int(GPUTextureFilter::Nearest)),
+								OptionWithValue(@"Bilinear", DuckStationTextureFilterKey, int(GPUTextureFilter::Bilinear)),
+								OptionWithValue(@"Bilinear (No Edge Blending)", DuckStationTextureFilterKey, int(GPUTextureFilter::BilinearBinAlpha)),
+								OptionWithValue(@"JINC2", DuckStationTextureFilterKey, int(GPUTextureFilter::JINC2)),
+								OptionWithValue(@"JINC2 (No Edge Blending)", DuckStationTextureFilterKey, int(GPUTextureFilter::JINC2BinAlpha)),
+								OptionWithValue(@"xBR", DuckStationTextureFilterKey, int(GPUTextureFilter::xBR)),
+								OptionWithValue(@"xBR (No Edge Blending)", DuckStationTextureFilterKey, int(GPUTextureFilter::xBRBinAlpha))]),
 		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
 		OptionToggleable(@"Deinterlace", DuckStationDeinterlacedKey),
 		OEDisplayMode_Submenu(@"MSAA", @[OptionWithValue(@"Off", DuckStationAntialiasKey, 1), OptionWithValue(@"2x", DuckStationAntialiasKey, 2), OptionWithValue(@"4x", DuckStationAntialiasKey, 4), OptionWithValue(@"8x", DuckStationAntialiasKey, 8), OptionWithValue(@"16x", DuckStationAntialiasKey, 16)]),
