@@ -103,13 +103,9 @@
 		551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBFF2527107500B44953 /* minizip_helpers.cpp */; };
 		551DECAE2527107500B44953 /* cd_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC042527107500B44953 /* cd_image.cpp */; };
 		551DECAF2527107500B44953 /* shiftjis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC072527107500B44953 /* shiftjis.cpp */; };
-		551DECB12527107500B44953 /* postprocessing_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC0E2527107500B44953 /* postprocessing_shader.cpp */; };
-		551DECB22527107500B44953 /* font_roboto_regular.inl in Resources */ = {isa = PBXBuildFile; fileRef = 551DEC0F2527107500B44953 /* font_roboto_regular.inl */; };
 		551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC112527107500B44953 /* ini_settings_interface.cpp */; };
 		551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC192527107500B44953 /* opengl_host_display.cpp */; };
-		551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC1C2527107500B44953 /* postprocessing_chain.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
-		551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */; };
 		551DED1E252716F100B44953 /* cdtext.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0D252716F100B44953 /* cdtext.h */; };
 		551DED1F252716F100B44953 /* libcue.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0E252716F100B44953 /* libcue.h */; };
 		551DED20252716F100B44953 /* rem.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0F252716F100B44953 /* rem.h */; };
@@ -773,18 +769,11 @@
 		551DEC082527107500B44953 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
 		551DEC092527107500B44953 /* cd_xa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd_xa.h; sourceTree = "<group>"; };
 		551DEC0A2527107500B44953 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
-		551DEC0D2527107500B44953 /* postprocessing_shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shader.h; sourceTree = "<group>"; };
-		551DEC0E2527107500B44953 /* postprocessing_shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shader.cpp; sourceTree = "<group>"; };
-		551DEC0F2527107500B44953 /* font_roboto_regular.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font_roboto_regular.inl; sourceTree = "<group>"; };
 		551DEC112527107500B44953 /* ini_settings_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ini_settings_interface.cpp; sourceTree = "<group>"; };
 		551DEC132527107500B44953 /* ini_settings_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini_settings_interface.h; sourceTree = "<group>"; };
 		551DEC162527107500B44953 /* opengl_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl_host_display.h; sourceTree = "<group>"; };
-		551DEC172527107500B44953 /* postprocessing_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shadergen.h; sourceTree = "<group>"; };
 		551DEC192527107500B44953 /* opengl_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_host_display.cpp; sourceTree = "<group>"; };
-		551DEC1C2527107500B44953 /* postprocessing_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_chain.cpp; sourceTree = "<group>"; };
-		551DEC212527107500B44953 /* postprocessing_chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_chain.h; sourceTree = "<group>"; };
 		551DEC252527107500B44953 /* game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_settings.cpp; sourceTree = "<group>"; };
-		551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shadergen.cpp; sourceTree = "<group>"; };
 		551DEC2E2527107500B44953 /* vulkan_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_host_display.h; sourceTree = "<group>"; };
 		551DEC3A2527107500B44953 /* vulkan_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_host_display.cpp; sourceTree = "<group>"; };
 		551DEC3F2527107500B44953 /* game_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_settings.h; sourceTree = "<group>"; };
@@ -1587,19 +1576,12 @@
 			children = (
 				551DEBA92527107400B44953 /* cubeb_audio_stream.cpp */,
 				551DEBAC2527107400B44953 /* cubeb_audio_stream.h */,
-				551DEC0F2527107500B44953 /* font_roboto_regular.inl */,
 				551DEC252527107500B44953 /* game_settings.cpp */,
 				551DEC3F2527107500B44953 /* game_settings.h */,
 				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
 				551DEC132527107500B44953 /* ini_settings_interface.h */,
 				551DEC192527107500B44953 /* opengl_host_display.cpp */,
 				551DEC162527107500B44953 /* opengl_host_display.h */,
-				551DEC1C2527107500B44953 /* postprocessing_chain.cpp */,
-				551DEC212527107500B44953 /* postprocessing_chain.h */,
-				551DEC0E2527107500B44953 /* postprocessing_shader.cpp */,
-				551DEC0D2527107500B44953 /* postprocessing_shader.h */,
-				551DEC2C2527107500B44953 /* postprocessing_shadergen.cpp */,
-				551DEC172527107500B44953 /* postprocessing_shadergen.h */,
 				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
 				551DEC2E2527107500B44953 /* vulkan_host_display.h */,
 			);
@@ -3127,7 +3109,6 @@
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
 				551DEB1B2527100D00B44953 /* database in Resources */,
-				551DECB22527107500B44953 /* font_roboto_regular.inl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3210,7 +3191,6 @@
 				551DEC602527107500B44953 /* pad.cpp in Sources */,
 				551DEC832527107500B44953 /* assert.cpp in Sources */,
 				551DF5812527C48A00B44953 /* texture.cpp in Sources */,
-				551DECC12527107500B44953 /* postprocessing_shadergen.cpp in Sources */,
 				551DEC9B2527107500B44953 /* program.cpp in Sources */,
 				559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */,
 				551DECAA2527107500B44953 /* event.cpp in Sources */,
@@ -3244,10 +3224,8 @@
 				551DF57F2527C48A00B44953 /* stream_buffer.cpp in Sources */,
 				551DEC762527107500B44953 /* log.cpp in Sources */,
 				551DEC522527107500B44953 /* resources.cpp in Sources */,
-				551DECB12527107500B44953 /* postprocessing_shader.cpp in Sources */,
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				551DEC9D2527107500B44953 /* context.cpp in Sources */,
-				551DECB92527107500B44953 /* postprocessing_chain.cpp in Sources */,
 				551DEC742527107500B44953 /* string_util.cpp in Sources */,
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
 				551DECA72527107500B44953 /* timestamp.cpp in Sources */,
