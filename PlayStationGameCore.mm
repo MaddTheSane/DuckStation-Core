@@ -985,9 +985,9 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
 			{DigitalController::Button::R1, OEPSXButtonR1},
 			{DigitalController::Button::R2, OEPSXButtonR2}}};
     
-	for (const auto& it : mapping) {
-		if (it.second == button) {
-			controller->SetButtonState(it.first, down);
+	for (const auto& [dsButton, oeButton] : mapping) {
+		if (oeButton == button) {
+			controller->SetButtonState(dsButton, down);
 			break;
 		}
 	}
@@ -1015,9 +1015,9 @@ static void updateAnalogControllerButton(OEPSXButton button, int player, bool do
 			{AnalogController::Button::R3, OEPSXButtonR3},
 			{AnalogController::Button::Analog, OEPSXButtonAnalogMode}}};
     
-	for (const auto& it : button_mapping) {
-		if (it.second == button) {
-			controller->SetButtonState(it.first, down);
+	for (const auto& [dsButton, oeButton] : button_mapping) {
+		if (oeButton == button) {
+			controller->SetButtonState(dsButton, down);
 			break;
 		}
 	}
@@ -1031,9 +1031,9 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 			{AnalogController::Axis::LeftY, {OEPSXLeftAnalogUp, OEPSXLeftAnalogDown}},
 			{AnalogController::Axis::RightX, {OEPSXRightAnalogLeft, OEPSXRightAnalogRight}},
 			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
-	for (const auto& it : axis_mapping) {
-        if (it.second.first == button || it.second.second == button) {
-            controller->SetAxisState(it.first, static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
+	for (const auto& [dsAxis, oeAxes] : axis_mapping) {
+        if (oeAxes.first == button || oeAxes.second == button) {
+            controller->SetAxisState(dsAxis, static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
         }
 	}
 }
