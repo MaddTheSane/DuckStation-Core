@@ -228,7 +228,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
 					NSLocalizedDescriptionKey: @".ccd Files Aren't Supported",
 					NSLocalizedFailureReasonErrorKey: @"DuckStation currently doesn't support .ccd files in .m3u playlists.",
-					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then replace the playlist contents with the new .cue files."
+					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then replace the playlist to point to the new .cue files."
 				}];
 			}
 			return NO;
