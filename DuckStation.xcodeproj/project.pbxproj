@@ -467,6 +467,7 @@
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
+		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
 
@@ -1143,6 +1144,8 @@
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
 		5577776C253D127F000D0651 /* page_fault_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = page_fault_handler.cpp; sourceTree = "<group>"; };
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
+		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
+		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		EE14C0B225389FBE00464C74 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1347,6 +1350,8 @@
 			children = (
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
+				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
+				55F4A91F2561EF8C00410099 /* analog_joystick.h */,
 				551DEB242527107400B44953 /* bios.cpp */,
 				551DEB2D2527107400B44953 /* bios.h */,
 				551DEB232527107400B44953 /* bus.cpp */,
@@ -3241,6 +3246,7 @@
 				551DEC812527107500B44953 /* cd_image_cue.cpp in Sources */,
 				551DEC582527107500B44953 /* namco_guncon.cpp in Sources */,
 				551DEC552527107500B44953 /* host_interface.cpp in Sources */,
+				55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */,
 				551DEC772527107500B44953 /* wav_writer.cpp in Sources */,
 				551DF5712527C44400B44953 /* vulkan_host_display.cpp in Sources */,
 				551DEC412527107500B44953 /* bios.cpp in Sources */,
