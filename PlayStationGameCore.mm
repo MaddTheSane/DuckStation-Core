@@ -40,7 +40,6 @@
 #include "frontend-common/opengl_host_display.h"
 #include "frontend-common/game_settings.h"
 #include "core/cheats.h"
-Log_SetChannel(OpenEmuHost);
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -48,6 +47,7 @@ Log_SetChannel(OpenEmuHost);
 #include <vector>
 #include <string>
 #include <memory>
+#include <os/log.h>
 
 class OpenEmuAudioStream;
 class OpenEmuOpenGLHostDisplay;
@@ -60,6 +60,7 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
 static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
 static __weak PlayStationGameCore *_current;
+static os_log_t OE_CORE_LOG;
 
 struct OpenEmuChangeSettings {
 	std::optional<GPUTextureFilter> textureFilter = std::nullopt;
@@ -160,6 +161,35 @@ private:
 
 @end
 
+static void OELogFunc(void* pUserParam, const char* channelName, const char* functionName,
+					  LOGLEVEL level, const char* message)
+{
+	switch (level) {
+		case LOGLEVEL_ERROR:
+			os_log_error(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			break;
+			
+		case LOGLEVEL_WARNING:
+		case LOGLEVEL_PERF:
+			os_log(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			break;
+			
+		case LOGLEVEL_INFO:
+		case LOGLEVEL_SUCCESS:
+			os_log_info(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			break;
+			
+		case LOGLEVEL_DEV:
+		case LOGLEVEL_DEBUG:
+		case LOGLEVEL_PROFILE:
+			os_log_debug(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			break;
+			
+		default:
+			break;
+	}
+}
+
 static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureFilter";
 static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
 static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterlaced";
@@ -171,8 +201,13 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	NSString *saveStatePath;
     bool isInitialized;
 	NSInteger _maxDiscs;
-@public
+@package
 	NSMutableDictionary <NSString *, id> *_displayModes;
+}
+
++ (void)initialize
+{
+	OE_CORE_LOG = os_log_create("org.openemu.DuckStation", "");
 }
 
 - (instancetype)init
@@ -180,6 +215,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	if (self = [super init]) {
 		_current = self;
 		Log::SetFilterLevel(LOGLEVEL_TRACE);
+		Log::RegisterCallback(OELogFunc, NULL);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
 		g_settings.controller_types[1] = ControllerType::AnalogController;
@@ -201,10 +237,10 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
 			if (!success) {
-				Log_WarningPrintf("Game settings for particular discs didn't load, path %s", gameSettingsURL.fileSystemRepresentation);
+				os_log(OE_CORE_LOG, "Game settings for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
 			}
 		} else {
-			Log_WarningPrintf("Game settings for particular discs wasn't found.");
+			os_log(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
 		}
 	}
 	return self;
@@ -234,7 +270,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			return NO;
 		}
 		
-		Log_InfoPrintf("[DuckStation] Loaded m3u containing %lu cue sheets", numberOfMatches);
+		os_log_debug(OE_CORE_LOG, "Loaded m3u containing %lu cue sheets", numberOfMatches);
 		
 		_maxDiscs = numberOfMatches;
 	}
@@ -687,7 +723,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 
 	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
 	if (!m_gl_context) {
-		Log_ErrorPrintf("Failed to create any GL context");
+		os_log_fault(OE_CORE_LOG, "Failed to create any GL context");
 		return false;
 	}
 
@@ -780,22 +816,23 @@ void OpenEmuHostInterface::Render()
 
 void OpenEmuHostInterface::ReportError(const char* message)
 {
-	Log_ErrorPrint(message);
+	os_log_error(OE_CORE_LOG, "Internal DuckStation error: %{public}s", message);
 }
 
 void OpenEmuHostInterface::ReportMessage(const char* message)
 {
-	Log_WarningPrint(message);
+	os_log_info(OE_CORE_LOG, "DuckStation info: %{public}s", message);
 }
 
 bool OpenEmuHostInterface::ConfirmMessage(const char* message)
 {
+	os_log(OE_CORE_LOG, "DuckStation asking for confirmation about '%{public}s', assuming true", message);
 	return true;
 }
 
 void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
 {
-	Log_InfoPrint(message.c_str());
+	os_log_info(OE_CORE_LOG, "DuckStation OSD: %{public}s", message.c_str());
 }
 
 void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
@@ -803,6 +840,8 @@ void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::st
 	if (image) {
 		*code = System::GetGameCodeForImage(image);
 		*title = System::GetGameCodeForImage(image);
+	} else {
+		os_log(OE_CORE_LOG, "unable to identify game at %{private}s: missing CDImage parameter.", path);
 	}
 }
 
@@ -877,7 +916,7 @@ bool OpenEmuHostInterface::CreateDisplay()
 	WindowInfo wi = WindowInfoFromGameCore(_current);
 	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device) ||
 		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device)) {
-		ReportError("Failed to create/initialize display render device");
+		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
 		return false;
 	}
 //	
@@ -895,7 +934,7 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	if (gs) {
 		gs->ApplySettings(display_osd_messages);
 	} else {
-		Log_InfoPrintf("Unable to find game-specific settings for %s.", System::GetRunningCode().c_str());
+		os_log_info(OE_CORE_LOG, "Unable to find game-specific settings for %{public}s.", System::GetRunningCode().c_str());
 	}
 }
 
