@@ -214,7 +214,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	if (self = [super init]) {
 		_current = self;
-		Log::SetFilterLevel(LOGLEVEL_TRACE);
+//		Log::SetFilterLevel(LOGLEVEL_TRACE);
 		Log::RegisterCallback(OELogFunc, NULL);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
@@ -296,7 +296,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	std::unique_ptr<ByteStream> stream = FileSystem::OpenFile(fileName.fileSystemRepresentation, BYTESTREAM_OPEN_CREATE | BYTESTREAM_OPEN_WRITE | BYTESTREAM_OPEN_TRUNCATE |
 									   BYTESTREAM_OPEN_ATOMIC_UPDATE | BYTESTREAM_OPEN_STREAMED | BYTESTREAM_OPEN_CREATE_PATH);
 	if (!stream) {
-		block(NO, nil);
+		block(NO, [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:@{NSFilePathErrorKey: fileName}]);
 		return;
 	}
 
@@ -305,98 +305,11 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	block(result, nil);
 }
 
-static bool IsHexCharacter(char c)
-{
-	return (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f') || (c >= '0' && c <= '9');
-}
-
-static bool LoadFromPCSXRString(CheatList &list, NSData* filename)
-{
-	auto fp = FileSystem::ManagedCFilePtr(fmemopen((void*)filename.bytes, filename.length, "rb"), [](std::FILE* fp) { std::fclose(fp); });
-	if (!fp) {
-		return false;
-	}
-	
-	char line[1024];
-	CheatCode current_code;
-	while (std::fgets(line, sizeof(line), fp.get())) {
-		char* start = line;
-		while (*start != '\0' && std::isspace(*start)) {
-			start++;
-		}
-		
-		// skip empty lines
-		if (*start == '\0') {
-			continue;
-		}
-		
-		char* end = start + std::strlen(start) - 1;
-		while (end > start && std::isspace(*end)) {
-			*end = '\0';
-			end--;
-		}
-		
-		// skip comments and empty line
-		if (*start == '#' || *start == ';' || *start == '/' || *start == '\"') {
-			continue;
-		}
-		
-		if (*start == '[' && *end == ']') {
-			start++;
-			*end = '\0';
-			
-			// new cheat
-			if (current_code.Valid()) {
-				list.AddCode(current_code);
-			}
-			
-			current_code = {};
-			current_code.enabled = false;
-			if (*start == '*') {
-				current_code.enabled = true;
-				start++;
-			}
-			
-			current_code.description.append(start);
-			continue;
-		}
-		
-		while (!IsHexCharacter(*start) && start != end) {
-			start++;
-		}
-		if (start == end) {
-			continue;
-		}
-		
-		char* end_ptr;
-		CheatCode::Instruction inst;
-		inst.first = static_cast<u32>(std::strtoul(start, &end_ptr, 16));
-		inst.second = 0;
-		if (end_ptr) {
-			while (!IsHexCharacter(*end_ptr) && end_ptr != end) {
-				end_ptr++;
-			}
-			if (end_ptr != end) {
-				inst.second = static_cast<u32>(std::strtoul(end_ptr, nullptr, 16));
-			}
-		}
-		current_code.instructions.push_back(inst);
-	}
-	
-	if (current_code.Valid()) {
-		list.AddCode(current_code);
-	}
-	
-	//Log_InfoPrintf("Loaded %zu cheats from '%s' (PCSXR format)", m_codes.size(), filename);
-	return list.GetCodeCount() != 0;
-}
-
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
 	//TODO: implement better
 	auto list = std::make_unique<CheatList>();
-	NSData *ourDat = [code dataUsingEncoding:NSUTF8StringEncoding];
-	LoadFromPCSXRString(*list.get(), ourDat);
+	list->LoadFromPCSXRString(code.UTF8String);
 	//list->Apply();
 	//System::SetCheatList(std::move(list));
 }
