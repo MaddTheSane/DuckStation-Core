@@ -466,6 +466,8 @@
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
+		5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A838256A0AD0009556D6 /* gpu_backend.cpp */; };
+		5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
@@ -1143,6 +1145,10 @@
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
 		5577776C253D127F000D0651 /* page_fault_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = page_fault_handler.cpp; sourceTree = "<group>"; };
+		5591A836256A0AD0009556D6 /* gpu_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_backend.h; sourceTree = "<group>"; };
+		5591A837256A0AD0009556D6 /* gpu_sw_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_sw_backend.h; sourceTree = "<group>"; };
+		5591A838256A0AD0009556D6 /* gpu_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_backend.cpp; sourceTree = "<group>"; };
+		5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_sw_backend.cpp; sourceTree = "<group>"; };
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
@@ -1348,6 +1354,10 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				5591A838256A0AD0009556D6 /* gpu_backend.cpp */,
+				5591A836256A0AD0009556D6 /* gpu_backend.h */,
+				5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */,
+				5591A837256A0AD0009556D6 /* gpu_sw_backend.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -3172,6 +3182,7 @@
 				551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */,
 				551DECA02527107500B44953 /* texture.cpp in Sources */,
 				551DEC4E2527107500B44953 /* gte.cpp in Sources */,
+				5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */,
 				551DEC512527107500B44953 /* mdec.cpp in Sources */,
 				551DEC562527107500B44953 /* digital_controller.cpp in Sources */,
 				551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */,
@@ -3201,6 +3212,7 @@
 				551DECAA2527107500B44953 /* event.cpp in Sources */,
 				551DEC492527107500B44953 /* cpu_recompiler_code_generator_generic.cpp in Sources */,
 				551DECBC2527107500B44953 /* game_settings.cpp in Sources */,
+				5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */,
 				551DF5802527C48A00B44953 /* staging_buffer.cpp in Sources */,
 				551DEC862527107500B44953 /* cd_image_bin.cpp in Sources */,
 				551DF5832527C48A00B44953 /* shader_compiler.cpp in Sources */,
@@ -3678,6 +3690,7 @@
 					"$(inherited)",
 					WITH_RECOMPILER,
 					GL_SILENCE_DEPRECATION,
+					WITH_FASTMEM,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
@@ -3721,6 +3734,7 @@
 					"$(inherited)",
 					WITH_RECOMPILER,
 					GL_SILENCE_DEPRECATION,
+					WITH_FASTMEM,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
