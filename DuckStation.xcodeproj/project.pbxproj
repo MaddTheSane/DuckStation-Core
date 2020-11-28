@@ -285,13 +285,6 @@
 		551DF4452527BDFB00B44953 /* code-buffer-vixl.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4062527BDFB00B44953 /* code-buffer-vixl.h */; };
 		551DF4462527BDFB00B44953 /* assembler-base-vixl.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4072527BDFB00B44953 /* assembler-base-vixl.h */; };
 		551DF4472527BDFB00B44953 /* compiler-intrinsics-vixl.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4082527BDFB00B44953 /* compiler-intrinsics-vixl.h */; };
-		551DF4482527BDFB00B44953 /* location-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40A2527BDFB00B44953 /* location-aarch32.h */; };
-		551DF4492527BDFB00B44953 /* assembler-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40B2527BDFB00B44953 /* assembler-aarch32.h */; };
-		551DF44A2527BDFB00B44953 /* operands-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40C2527BDFB00B44953 /* operands-aarch32.h */; };
-		551DF44B2527BDFB00B44953 /* instructions-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40D2527BDFB00B44953 /* instructions-aarch32.h */; };
-		551DF44C2527BDFB00B44953 /* macro-assembler-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40E2527BDFB00B44953 /* macro-assembler-aarch32.h */; };
-		551DF44D2527BDFB00B44953 /* constants-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF40F2527BDFB00B44953 /* constants-aarch32.h */; };
-		551DF44E2527BDFB00B44953 /* disasm-aarch32.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4102527BDFB00B44953 /* disasm-aarch32.h */; };
 		551DF44F2527BDFB00B44953 /* cpu-features.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4112527BDFB00B44953 /* cpu-features.h */; };
 		551DF4502527BDFB00B44953 /* code-generation-scopes-vixl.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4122527BDFB00B44953 /* code-generation-scopes-vixl.h */; };
 		551DF4512527BDFB00B44953 /* globals-vixl.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF4132527BDFB00B44953 /* globals-vixl.h */; };
@@ -313,10 +306,7 @@
 		551DF4612527BDFB00B44953 /* compiler-intrinsics-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4282527BDFB00B44953 /* compiler-intrinsics-vixl.cc */; };
 		551DF4692527BDFB00B44953 /* instrument-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4322527BDFB00B44953 /* instrument-aarch64.cc */; };
 		551DF46A2527BDFB00B44953 /* cpu-features-auditor-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4332527BDFB00B44953 /* cpu-features-auditor-aarch64.cc */; };
-		551DF46B2527BDFB00B44953 /* pointer-auth-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4342527BDFB00B44953 /* pointer-auth-aarch64.cc */; };
 		551DF46C2527BDFB00B44953 /* instructions-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4352527BDFB00B44953 /* instructions-aarch64.cc */; };
-		551DF46D2527BDFB00B44953 /* logic-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4362527BDFB00B44953 /* logic-aarch64.cc */; };
-		551DF46E2527BDFB00B44953 /* simulator-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4372527BDFB00B44953 /* simulator-aarch64.cc */; };
 		551DF46F2527BDFB00B44953 /* macro-assembler-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4382527BDFB00B44953 /* macro-assembler-aarch64.cc */; };
 		551DF4702527BDFB00B44953 /* disasm-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF4392527BDFB00B44953 /* disasm-aarch64.cc */; };
 		551DF4712527BDFB00B44953 /* operands-aarch64.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43A2527BDFB00B44953 /* operands-aarch64.cc */; };
@@ -959,13 +949,6 @@
 		551DF4062527BDFB00B44953 /* code-buffer-vixl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "code-buffer-vixl.h"; sourceTree = "<group>"; };
 		551DF4072527BDFB00B44953 /* assembler-base-vixl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "assembler-base-vixl.h"; sourceTree = "<group>"; };
 		551DF4082527BDFB00B44953 /* compiler-intrinsics-vixl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "compiler-intrinsics-vixl.h"; sourceTree = "<group>"; };
-		551DF40A2527BDFB00B44953 /* location-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "location-aarch32.h"; sourceTree = "<group>"; };
-		551DF40B2527BDFB00B44953 /* assembler-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "assembler-aarch32.h"; sourceTree = "<group>"; };
-		551DF40C2527BDFB00B44953 /* operands-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "operands-aarch32.h"; sourceTree = "<group>"; };
-		551DF40D2527BDFB00B44953 /* instructions-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "instructions-aarch32.h"; sourceTree = "<group>"; };
-		551DF40E2527BDFB00B44953 /* macro-assembler-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "macro-assembler-aarch32.h"; sourceTree = "<group>"; };
-		551DF40F2527BDFB00B44953 /* constants-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "constants-aarch32.h"; sourceTree = "<group>"; };
-		551DF4102527BDFB00B44953 /* disasm-aarch32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "disasm-aarch32.h"; sourceTree = "<group>"; };
 		551DF4112527BDFB00B44953 /* cpu-features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cpu-features.h"; sourceTree = "<group>"; };
 		551DF4122527BDFB00B44953 /* code-generation-scopes-vixl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "code-generation-scopes-vixl.h"; sourceTree = "<group>"; };
 		551DF4132527BDFB00B44953 /* globals-vixl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "globals-vixl.h"; sourceTree = "<group>"; };
@@ -987,10 +970,7 @@
 		551DF4282527BDFB00B44953 /* compiler-intrinsics-vixl.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "compiler-intrinsics-vixl.cc"; sourceTree = "<group>"; };
 		551DF4322527BDFB00B44953 /* instrument-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "instrument-aarch64.cc"; sourceTree = "<group>"; };
 		551DF4332527BDFB00B44953 /* cpu-features-auditor-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "cpu-features-auditor-aarch64.cc"; sourceTree = "<group>"; };
-		551DF4342527BDFB00B44953 /* pointer-auth-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "pointer-auth-aarch64.cc"; sourceTree = "<group>"; };
 		551DF4352527BDFB00B44953 /* instructions-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "instructions-aarch64.cc"; sourceTree = "<group>"; };
-		551DF4362527BDFB00B44953 /* logic-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "logic-aarch64.cc"; sourceTree = "<group>"; };
-		551DF4372527BDFB00B44953 /* simulator-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "simulator-aarch64.cc"; sourceTree = "<group>"; };
 		551DF4382527BDFB00B44953 /* macro-assembler-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "macro-assembler-aarch64.cc"; sourceTree = "<group>"; };
 		551DF4392527BDFB00B44953 /* disasm-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "disasm-aarch64.cc"; sourceTree = "<group>"; };
 		551DF43A2527BDFB00B44953 /* operands-aarch64.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "operands-aarch64.cc"; sourceTree = "<group>"; };
@@ -2077,27 +2057,12 @@
 				551DF4062527BDFB00B44953 /* code-buffer-vixl.h */,
 				551DF4072527BDFB00B44953 /* assembler-base-vixl.h */,
 				551DF4082527BDFB00B44953 /* compiler-intrinsics-vixl.h */,
-				551DF4092527BDFB00B44953 /* aarch32 */,
 				551DF4112527BDFB00B44953 /* cpu-features.h */,
 				551DF4122527BDFB00B44953 /* code-generation-scopes-vixl.h */,
 				551DF4132527BDFB00B44953 /* globals-vixl.h */,
 				551DF4142527BDFB00B44953 /* aarch64 */,
 			);
 			path = vixl;
-			sourceTree = "<group>";
-		};
-		551DF4092527BDFB00B44953 /* aarch32 */ = {
-			isa = PBXGroup;
-			children = (
-				551DF40A2527BDFB00B44953 /* location-aarch32.h */,
-				551DF40B2527BDFB00B44953 /* assembler-aarch32.h */,
-				551DF40C2527BDFB00B44953 /* operands-aarch32.h */,
-				551DF40D2527BDFB00B44953 /* instructions-aarch32.h */,
-				551DF40E2527BDFB00B44953 /* macro-assembler-aarch32.h */,
-				551DF40F2527BDFB00B44953 /* constants-aarch32.h */,
-				551DF4102527BDFB00B44953 /* disasm-aarch32.h */,
-			);
-			path = aarch32;
 			sourceTree = "<group>";
 		};
 		551DF4142527BDFB00B44953 /* aarch64 */ = {
@@ -2123,11 +2088,11 @@
 		551DF4252527BDFB00B44953 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				551DF4262527BDFB00B44953 /* cpu-features.cc */,
-				551DF4272527BDFB00B44953 /* utils-vixl.cc */,
-				551DF4282527BDFB00B44953 /* compiler-intrinsics-vixl.cc */,
 				551DF4312527BDFB00B44953 /* aarch64 */,
 				551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */,
+				551DF4282527BDFB00B44953 /* compiler-intrinsics-vixl.cc */,
+				551DF4262527BDFB00B44953 /* cpu-features.cc */,
+				551DF4272527BDFB00B44953 /* utils-vixl.cc */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -2137,10 +2102,7 @@
 			children = (
 				551DF4322527BDFB00B44953 /* instrument-aarch64.cc */,
 				551DF4332527BDFB00B44953 /* cpu-features-auditor-aarch64.cc */,
-				551DF4342527BDFB00B44953 /* pointer-auth-aarch64.cc */,
 				551DF4352527BDFB00B44953 /* instructions-aarch64.cc */,
-				551DF4362527BDFB00B44953 /* logic-aarch64.cc */,
-				551DF4372527BDFB00B44953 /* simulator-aarch64.cc */,
 				551DF4382527BDFB00B44953 /* macro-assembler-aarch64.cc */,
 				551DF4392527BDFB00B44953 /* disasm-aarch64.cc */,
 				551DF43A2527BDFB00B44953 /* operands-aarch64.cc */,
@@ -2605,22 +2567,17 @@
 			files = (
 				551DF44F2527BDFB00B44953 /* cpu-features.h in Headers */,
 				551DF4552527BDFB00B44953 /* decoder-aarch64.h in Headers */,
-				551DF44D2527BDFB00B44953 /* constants-aarch32.h in Headers */,
 				551DF4592527BDFB00B44953 /* cpu-features-auditor-aarch64.h in Headers */,
 				551DF4452527BDFB00B44953 /* code-buffer-vixl.h in Headers */,
 				551DF45E2527BDFB00B44953 /* abi-aarch64.h in Headers */,
 				551DF45C2527BDFB00B44953 /* assembler-aarch64.h in Headers */,
 				551DF45B2527BDFB00B44953 /* instrument-aarch64.h in Headers */,
-				551DF44A2527BDFB00B44953 /* operands-aarch32.h in Headers */,
 				551DF4462527BDFB00B44953 /* assembler-base-vixl.h in Headers */,
 				551DF4522527BDFB00B44953 /* cpu-aarch64.h in Headers */,
-				551DF44C2527BDFB00B44953 /* macro-assembler-aarch32.h in Headers */,
 				551DF4402527BDFB00B44953 /* pool-manager.h in Headers */,
-				551DF4492527BDFB00B44953 /* assembler-aarch32.h in Headers */,
 				551DF4412527BDFB00B44953 /* pool-manager-impl.h in Headers */,
 				551DF4562527BDFB00B44953 /* simulator-constants-aarch64.h in Headers */,
 				551DF4572527BDFB00B44953 /* macro-assembler-aarch64.h in Headers */,
-				551DF44E2527BDFB00B44953 /* disasm-aarch32.h in Headers */,
 				551DF4472527BDFB00B44953 /* compiler-intrinsics-vixl.h in Headers */,
 				551DF4432527BDFB00B44953 /* macro-assembler-interface.h in Headers */,
 				551DF4512527BDFB00B44953 /* globals-vixl.h in Headers */,
@@ -2629,9 +2586,7 @@
 				551DF4532527BDFB00B44953 /* constants-aarch64.h in Headers */,
 				551DF4582527BDFB00B44953 /* instructions-aarch64.h in Headers */,
 				551DF43F2527BDFB00B44953 /* platform-vixl.h in Headers */,
-				551DF44B2527BDFB00B44953 /* instructions-aarch32.h in Headers */,
 				551DF45D2527BDFB00B44953 /* operands-aarch64.h in Headers */,
-				551DF4482527BDFB00B44953 /* location-aarch32.h in Headers */,
 				551DF4422527BDFB00B44953 /* invalset-vixl.h in Headers */,
 				551DF4502527BDFB00B44953 /* code-generation-scopes-vixl.h in Headers */,
 				551DF4542527BDFB00B44953 /* disasm-aarch64.h in Headers */,
@@ -3344,7 +3299,6 @@
 				551DF46F2527BDFB00B44953 /* macro-assembler-aarch64.cc in Sources */,
 				551DF4612527BDFB00B44953 /* compiler-intrinsics-vixl.cc in Sources */,
 				551DF4732527BDFB00B44953 /* cpu-aarch64.cc in Sources */,
-				551DF46B2527BDFB00B44953 /* pointer-auth-aarch64.cc in Sources */,
 				551DF46A2527BDFB00B44953 /* cpu-features-auditor-aarch64.cc in Sources */,
 				551DF4692527BDFB00B44953 /* instrument-aarch64.cc in Sources */,
 				551DF4722527BDFB00B44953 /* decoder-aarch64.cc in Sources */,
@@ -3353,8 +3307,6 @@
 				551DF4712527BDFB00B44953 /* operands-aarch64.cc in Sources */,
 				551DF45F2527BDFB00B44953 /* cpu-features.cc in Sources */,
 				551DF4742527BDFB00B44953 /* assembler-aarch64.cc in Sources */,
-				551DF46D2527BDFB00B44953 /* logic-aarch64.cc in Sources */,
-				551DF46E2527BDFB00B44953 /* simulator-aarch64.cc in Sources */,
 				551DF4702527BDFB00B44953 /* disasm-aarch64.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3987,7 +3939,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					VIXL_CODE_BUFFER_MALLOC,
 					"$(inherited)",
-					VIXL_INCLUDE_TARGET_AARCH64,
+					VIXL_INCLUDE_TARGET_A64,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4003,7 +3955,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					VIXL_CODE_BUFFER_MALLOC,
 					"$(inherited)",
-					VIXL_INCLUDE_TARGET_AARCH64,
+					VIXL_INCLUDE_TARGET_A64,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
