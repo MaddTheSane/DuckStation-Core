@@ -466,6 +466,7 @@
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
+		5586A4562571F10700F77A43 /* libretro_game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5586A4552571F10700F77A43 /* libretro_game_settings.cpp */; };
 		5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A838256A0AD0009556D6 /* gpu_backend.cpp */; };
 		5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
@@ -1145,6 +1146,8 @@
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
 		5577776C253D127F000D0651 /* page_fault_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = page_fault_handler.cpp; sourceTree = "<group>"; };
+		5586A4542571F10700F77A43 /* libretro_game_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libretro_game_settings.h; sourceTree = "<group>"; };
+		5586A4552571F10700F77A43 /* libretro_game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libretro_game_settings.cpp; sourceTree = "<group>"; };
 		5591A836256A0AD0009556D6 /* gpu_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_backend.h; sourceTree = "<group>"; };
 		5591A837256A0AD0009556D6 /* gpu_sw_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_sw_backend.h; sourceTree = "<group>"; };
 		5591A838256A0AD0009556D6 /* gpu_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_backend.cpp; sourceTree = "<group>"; };
@@ -1339,6 +1342,7 @@
 		551DEB1925270FA100B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				5586A4532571F0B600F77A43 /* duckstation-libretro */,
 				551DF7372527C7B600B44953 /* scmversion */,
 				551DECEA2527160600B44953 /* ext */,
 				551DEB862527107400B44953 /* common */,
@@ -2468,6 +2472,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		5586A4532571F0B600F77A43 /* duckstation-libretro */ = {
+			isa = PBXGroup;
+			children = (
+				5586A4552571F10700F77A43 /* libretro_game_settings.cpp */,
+				5586A4542571F10700F77A43 /* libretro_game_settings.h */,
+			);
+			path = "duckstation-libretro";
+			sourceTree = "<group>";
+		};
 		EE14C0B125389F9400464C74 /* Compatibility */ = {
 			isa = PBXGroup;
 			children = (
@@ -3203,6 +3216,7 @@
 				551DECAE2527107500B44953 /* cd_image.cpp in Sources */,
 				551DEC482527107500B44953 /* cpu_recompiler_code_generator.cpp in Sources */,
 				551DF4D92527C2D200B44953 /* gpu_hw_vulkan.cpp in Sources */,
+				5586A4562571F10700F77A43 /* libretro_game_settings.cpp in Sources */,
 				551DEC592527107500B44953 /* gpu_commands.cpp in Sources */,
 				551DEC602527107500B44953 /* pad.cpp in Sources */,
 				551DEC832527107500B44953 /* assert.cpp in Sources */,

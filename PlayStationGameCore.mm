@@ -39,6 +39,7 @@
 #include "core/analog_controller.h"
 #include "frontend-common/opengl_host_display.h"
 #include "frontend-common/game_settings.h"
+#include "duckstation-libretro/libretro_game_settings.h"
 #include "core/cheats.h"
 #undef TickCount
 #include <limits>
@@ -130,8 +131,6 @@ public:
 	void ApplyGameSettings(bool display_osd_messages);
 	void OnRunningGameChanged() override;
 	
-	bool LoadCompatibilitySettings(const char* path);
-	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
 	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
 
 	void ChangeSettings(OpenEmuChangeSettings new_settings);
@@ -143,6 +142,8 @@ public:
 			m_display->ResizeRenderWindow(new_window_width, new_window_height);
 		}
 	}
+	
+	virtual std::unique_ptr<ByteStream> OpenPackageFile(const char* path, u32 flags) override;
 
 protected:
 	bool AcquireHostDisplay() override;
@@ -154,7 +155,6 @@ private:
 	bool CreateDisplay();
 	
 	bool m_interfaces_initialized = false;
-	GameSettings::Database m_game_settings;
 };
 
 @interface PlayStationGameCore () <OEPSXSystemResponderClient>
@@ -233,15 +233,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
-		if (gameSettingsURL) {
-			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
-			if (!success) {
-				os_log(OE_CORE_LOG, "Game settings for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
-			}
-		} else {
-			os_log(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
-		}
 	}
 	return self;
 }
@@ -719,12 +710,17 @@ bool OpenEmuHostInterface::Initialize() {
 void OpenEmuHostInterface::Shutdown()
 {
 	HostInterface::Shutdown();
-	
 }
 
 void OpenEmuHostInterface::Render()
 {
 	m_display->Render();
+}
+
+std::unique_ptr<ByteStream> OpenEmuHostInterface::OpenPackageFile(const char* path, u32 flags)
+{
+	os_log_debug(OE_CORE_LOG, "Ignoring request for package file '%{public}s'", path);
+	return {};
 }
 
 void OpenEmuHostInterface::ReportError(const char* message)
@@ -843,7 +839,7 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	if (System::IsShutdown() || System::GetRunningCode().empty() || !g_settings.apply_game_settings)
 		return;
 	
-	const GameSettings::Entry* gs = GetGameFixes(System::GetRunningCode());
+	std::unique_ptr<GameSettings::Entry> gs = GetSettingsForGame(System::GetRunningCode());
 	if (gs) {
 		gs->ApplySettings(display_osd_messages);
 	} else {
@@ -872,16 +868,6 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	gc->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
 	gc->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
 	gc->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
-}
-
-bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
-{
-	return m_game_settings.Load(path);
-}
-
-const GameSettings::Entry* OpenEmuHostInterface::GetGameFixes(const std::string& game_code)
-{
-	return m_game_settings.GetEntry(game_code);
 }
 
 void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
