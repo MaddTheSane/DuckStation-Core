@@ -103,7 +103,6 @@
 		551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBFF2527107500B44953 /* minizip_helpers.cpp */; };
 		551DECAE2527107500B44953 /* cd_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC042527107500B44953 /* cd_image.cpp */; };
 		551DECAF2527107500B44953 /* shiftjis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC072527107500B44953 /* shiftjis.cpp */; };
-		551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC112527107500B44953 /* ini_settings_interface.cpp */; };
 		551DECB72527107500B44953 /* opengl_host_display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC192527107500B44953 /* opengl_host_display.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
 		551DED1E252716F100B44953 /* cdtext.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0D252716F100B44953 /* cdtext.h */; };
@@ -462,10 +461,8 @@
 		551DF70C2527C6E800B44953 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF24B2527B87F00B44953 /* LzmaEnc.c */; };
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
-		557776E7253D0FEF000D0651 /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 557776BF253D0F73000D0651 /* ConvertUTF.c */; };
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
-		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
 		5586A4562571F10700F77A43 /* libretro_game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5586A4552571F10700F77A43 /* libretro_game_settings.cpp */; };
 		5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A838256A0AD0009556D6 /* gpu_backend.cpp */; };
 		5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */; };
@@ -558,13 +555,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DEB0125270CC800B44953;
 			remoteInfo = DuckStation;
-		};
-		557777AE253D1769000D0651 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 557776D2253D0FD9000D0651;
-			remoteInfo = SimpleINI;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -773,8 +763,6 @@
 		551DEC082527107500B44953 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image.h; sourceTree = "<group>"; };
 		551DEC092527107500B44953 /* cd_xa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd_xa.h; sourceTree = "<group>"; };
 		551DEC0A2527107500B44953 /* string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
-		551DEC112527107500B44953 /* ini_settings_interface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ini_settings_interface.cpp; sourceTree = "<group>"; };
-		551DEC132527107500B44953 /* ini_settings_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini_settings_interface.h; sourceTree = "<group>"; };
 		551DEC162527107500B44953 /* opengl_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl_host_display.h; sourceTree = "<group>"; };
 		551DEC192527107500B44953 /* opengl_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = opengl_host_display.cpp; sourceTree = "<group>"; };
 		551DEC252527107500B44953 /* game_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_settings.cpp; sourceTree = "<group>"; };
@@ -1138,10 +1126,6 @@
 		551DF7392527C7B600B44953 /* gen_scmversion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = gen_scmversion.sh; sourceTree = "<group>"; };
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
-		557776BA253D0F73000D0651 /* SimpleIni.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleIni.h; sourceTree = "<group>"; };
-		557776BB253D0F73000D0651 /* ConvertUTF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvertUTF.h; sourceTree = "<group>"; };
-		557776BF253D0F73000D0651 /* ConvertUTF.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ConvertUTF.c; sourceTree = "<group>"; };
-		557776D3253D0FD9000D0651 /* libSimpleINI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSimpleINI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		55777758253D126C000D0651 /* memory_arena.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_arena.cpp; sourceTree = "<group>"; };
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
@@ -1163,7 +1147,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */,
 				551DF6A92527C5B800B44953 /* libglslangd.a in Frameworks */,
 				551DF5462527C38500B44953 /* libvulkan-loader.a in Frameworks */,
 				551DF4842527BE2800B44953 /* libvixl.a in Frameworks */,
@@ -1265,13 +1248,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		557776D1253D0FD9000D0651 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1302,7 +1278,6 @@
 				551DF3EB2527BDED00B44953 /* libvixl.a */,
 				551DF4F62527C36800B44953 /* libvulkan-loader.a */,
 				551DF59A2527C50200B44953 /* libglslangd.a */,
-				557776D3253D0FD9000D0651 /* libSimpleINI.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1597,8 +1572,6 @@
 				551DEBAC2527107400B44953 /* cubeb_audio_stream.h */,
 				551DEC252527107500B44953 /* game_settings.cpp */,
 				551DEC3F2527107500B44953 /* game_settings.h */,
-				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
-				551DEC132527107500B44953 /* ini_settings_interface.h */,
 				551DEC192527107500B44953 /* opengl_host_display.cpp */,
 				551DEC162527107500B44953 /* opengl_host_display.h */,
 				551DEC3A2527107500B44953 /* vulkan_host_display.cpp */,
@@ -1618,7 +1591,6 @@
 				551DEE3225271B1B00B44953 /* libFLAC */,
 				551DF2342527B87F00B44953 /* lzma */,
 				551DF2912527B91300B44953 /* minizip */,
-				557776B6253D0F73000D0651 /* simpleini */,
 				551DF2042527B82400B44953 /* stb */,
 				551DF0B22527B50A00B44953 /* tinyxml2 */,
 				551DF3FB2527BDFB00B44953 /* vixl */,
@@ -2446,32 +2418,6 @@
 			path = scmversion;
 			sourceTree = "<group>";
 		};
-		557776B6253D0F73000D0651 /* simpleini */ = {
-			isa = PBXGroup;
-			children = (
-				557776B9253D0F73000D0651 /* include */,
-				557776BE253D0F73000D0651 /* src */,
-			);
-			path = simpleini;
-			sourceTree = "<group>";
-		};
-		557776B9253D0F73000D0651 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				557776BA253D0F73000D0651 /* SimpleIni.h */,
-				557776BB253D0F73000D0651 /* ConvertUTF.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		557776BE253D0F73000D0651 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				557776BF253D0F73000D0651 /* ConvertUTF.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
 		5586A4532571F0B600F77A43 /* duckstation-libretro */ = {
 			isa = PBXGroup;
 			children = (
@@ -2782,13 +2728,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		557776CF253D0FD9000D0651 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -2804,7 +2743,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				557777AF253D1769000D0651 /* PBXTargetDependency */,
 				551DF5482527C38B00B44953 /* PBXTargetDependency */,
 				551DF4832527BE2100B44953 /* PBXTargetDependency */,
 				551DF3A22527BBD600B44953 /* PBXTargetDependency */,
@@ -3026,23 +2964,6 @@
 			productReference = 551DF59A2527C50200B44953 /* libglslangd.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		557776D2253D0FD9000D0651 /* SimpleINI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 557776D4253D0FD9000D0651 /* Build configuration list for PBXNativeTarget "SimpleINI" */;
-			buildPhases = (
-				557776CF253D0FD9000D0651 /* Headers */,
-				557776D0253D0FD9000D0651 /* Sources */,
-				557776D1253D0FD9000D0651 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SimpleINI;
-			productName = SimpleINI;
-			productReference = 557776D3253D0FD9000D0651 /* libSimpleINI.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3093,9 +3014,6 @@
 					55759F1C253586FA00153823 = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
-					557776D2253D0FD9000D0651 = {
-						CreatedOnToolsVersion = 12.0.1;
-					};
 				};
 			};
 			buildConfigurationList = 551DEAFD25270CC800B44953 /* Build configuration list for PBXProject "DuckStation" */;
@@ -3124,7 +3042,6 @@
 				551DF3EA2527BDED00B44953 /* vixl */,
 				551DF4F52527C36800B44953 /* vulkan-loader */,
 				551DF5992527C50200B44953 /* glslangd */,
-				557776D2253D0FD9000D0651 /* SimpleINI */,
 				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
@@ -3263,7 +3180,6 @@
 				551DEC6C2527107500B44953 /* gpu.cpp in Sources */,
 				551DEC9E2527107500B44953 /* shader_cache.cpp in Sources */,
 				551DEC852527107500B44953 /* string.cpp in Sources */,
-				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
 				551DEC5F2527107500B44953 /* interrupt_controller.cpp in Sources */,
 				551DEC8C2527107500B44953 /* cd_xa.cpp in Sources */,
 				551DEC682527107500B44953 /* controller.cpp in Sources */,
@@ -3501,14 +3417,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		557776D0253D0FD9000D0651 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				557776E7253D0FEF000D0651 /* ConvertUTF.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3571,11 +3479,6 @@
 			isa = PBXTargetDependency;
 			target = 551DEB0125270CC800B44953 /* DuckStation */;
 			targetProxy = 55759F3F253587DC00153823 /* PBXContainerItemProxy */;
-		};
-		557777AF253D1769000D0651 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 557776D2253D0FD9000D0651 /* SimpleINI */;
-			targetProxy = 557777AE253D1769000D0651 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3715,7 +3618,6 @@
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 					"\"$(SRCROOT)/duckstation/dep/imgui/include\"",
-					"\"$(SRCROOT)/duckstation/dep/simpleini/include\"",
 					"\"$(SRCROOT)/duckstation/dep/cubeb/include\"",
 					"\"$(SRCROOT)/duckstation/dep/stb/include\"",
 					"\"$(SRCROOT)/duckstation/dep/xbyak/xbyak\"",
@@ -3759,7 +3661,6 @@
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 					"\"$(SRCROOT)/duckstation/dep/imgui/include\"",
-					"\"$(SRCROOT)/duckstation/dep/simpleini/include\"",
 					"\"$(SRCROOT)/duckstation/dep/cubeb/include\"",
 					"\"$(SRCROOT)/duckstation/dep/stb/include\"",
 					"\"$(SRCROOT)/duckstation/dep/xbyak/xbyak\"",
@@ -4175,39 +4076,6 @@
 			};
 			name = Release;
 		};
-		557776D5253D0FD9000D0651 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					SI_CONVERT_GENERIC,
-					"$(inherited)",
-				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/simpleini/include\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		557776D6253D0FD9000D0651 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					SI_CONVERT_GENERIC,
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/simpleini/include\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4342,15 +4210,6 @@
 			buildConfigurations = (
 				55759F1E253586FA00153823 /* Debug */,
 				55759F1F253586FA00153823 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		557776D4253D0FD9000D0651 /* Build configuration list for PBXNativeTarget "SimpleINI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				557776D5253D0FD9000D0651 /* Debug */,
-				557776D6253D0FD9000D0651 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
