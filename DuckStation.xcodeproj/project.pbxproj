@@ -124,15 +124,11 @@
 		551DED64252717EC00B44953 /* chd.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED53252717EC00B44953 /* chd.h */; };
 		551DED65252717EC00B44953 /* huffman.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED54252717EC00B44953 /* huffman.h */; };
 		551DED66252717EC00B44953 /* coretypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED55252717EC00B44953 /* coretypes.h */; };
-		551DED67252717EC00B44953 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED58252717EC00B44953 /* bitstream.c */; };
-		551DED68252717EC00B44953 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED59252717EC00B44953 /* cdrom.c */; };
-		551DED69252717EC00B44953 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED5A252717EC00B44953 /* md5.h */; };
-		551DED6A252717EC00B44953 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5B252717EC00B44953 /* sha1.c */; };
-		551DED6B252717EC00B44953 /* chd.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5C252717EC00B44953 /* chd.c */; };
-		551DED6C252717EC00B44953 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5D252717EC00B44953 /* huffman.c */; };
-		551DED6D252717EC00B44953 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED5E252717EC00B44953 /* sha1.h */; };
-		551DED6E252717EC00B44953 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5F252717EC00B44953 /* md5.c */; };
-		551DED6F252717EC00B44953 /* flac.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED60252717EC00B44953 /* flac.c */; };
+		551DED67252717EC00B44953 /* libchdr_bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED58252717EC00B44953 /* libchdr_bitstream.c */; };
+		551DED68252717EC00B44953 /* libchdr_cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED59252717EC00B44953 /* libchdr_cdrom.c */; };
+		551DED6B252717EC00B44953 /* libchdr_chd.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5C252717EC00B44953 /* libchdr_chd.c */; };
+		551DED6C252717EC00B44953 /* libchdr_huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5D252717EC00B44953 /* libchdr_huffman.c */; };
+		551DED6F252717EC00B44953 /* libchdr_flac.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED60252717EC00B44953 /* libchdr_flac.c */; };
 		551DED782527185800B44953 /* libchdr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DED44252717DF00B44953 /* libchdr.a */; };
 		551DEE7725271B1B00B44953 /* export.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DEE3A25271B1B00B44953 /* export.h */; };
 		551DEE7825271B1B00B44953 /* stream_encoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DEE3B25271B1B00B44953 /* stream_encoder.h */; };
@@ -454,6 +450,7 @@
 		5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A838256A0AD0009556D6 /* gpu_backend.cpp */; };
 		5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
+		55B005972577050800A2FD4E /* chdconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B005962577050800A2FD4E /* chdconfig.h */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
@@ -771,15 +768,11 @@
 		551DED53252717EC00B44953 /* chd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chd.h; sourceTree = "<group>"; };
 		551DED54252717EC00B44953 /* huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
 		551DED55252717EC00B44953 /* coretypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coretypes.h; sourceTree = "<group>"; };
-		551DED58252717EC00B44953 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
-		551DED59252717EC00B44953 /* cdrom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdrom.c; sourceTree = "<group>"; };
-		551DED5A252717EC00B44953 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
-		551DED5B252717EC00B44953 /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
-		551DED5C252717EC00B44953 /* chd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chd.c; sourceTree = "<group>"; };
-		551DED5D252717EC00B44953 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huffman.c; sourceTree = "<group>"; };
-		551DED5E252717EC00B44953 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
-		551DED5F252717EC00B44953 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
-		551DED60252717EC00B44953 /* flac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flac.c; sourceTree = "<group>"; };
+		551DED58252717EC00B44953 /* libchdr_bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_bitstream.c; sourceTree = "<group>"; };
+		551DED59252717EC00B44953 /* libchdr_cdrom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_cdrom.c; sourceTree = "<group>"; };
+		551DED5C252717EC00B44953 /* libchdr_chd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_chd.c; sourceTree = "<group>"; };
+		551DED5D252717EC00B44953 /* libchdr_huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_huffman.c; sourceTree = "<group>"; };
+		551DED60252717EC00B44953 /* libchdr_flac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_flac.c; sourceTree = "<group>"; };
 		551DEE2A25271B0700B44953 /* libFLAC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFLAC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DEE3A25271B1B00B44953 /* export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = export.h; sourceTree = "<group>"; };
 		551DEE3B25271B1B00B44953 /* stream_encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stream_encoder.h; sourceTree = "<group>"; };
@@ -1104,6 +1097,7 @@
 		5591A838256A0AD0009556D6 /* gpu_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_backend.cpp; sourceTree = "<group>"; };
 		5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_sw_backend.cpp; sourceTree = "<group>"; };
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
+		55B005962577050800A2FD4E /* chdconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chdconfig.h; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		EE14C0B225389FBE00464C74 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; };
@@ -1625,6 +1619,7 @@
 				551DED51252717EC00B44953 /* bitstream.h */,
 				551DED52252717EC00B44953 /* cdrom.h */,
 				551DED53252717EC00B44953 /* chd.h */,
+				55B005962577050800A2FD4E /* chdconfig.h */,
 				551DED55252717EC00B44953 /* coretypes.h */,
 				551DED50252717EC00B44953 /* flac.h */,
 				551DED54252717EC00B44953 /* huffman.h */,
@@ -1635,15 +1630,11 @@
 		551DED57252717EC00B44953 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				551DED58252717EC00B44953 /* bitstream.c */,
-				551DED59252717EC00B44953 /* cdrom.c */,
-				551DED5C252717EC00B44953 /* chd.c */,
-				551DED60252717EC00B44953 /* flac.c */,
-				551DED5D252717EC00B44953 /* huffman.c */,
-				551DED5F252717EC00B44953 /* md5.c */,
-				551DED5A252717EC00B44953 /* md5.h */,
-				551DED5B252717EC00B44953 /* sha1.c */,
-				551DED5E252717EC00B44953 /* sha1.h */,
+				551DED58252717EC00B44953 /* libchdr_bitstream.c */,
+				551DED59252717EC00B44953 /* libchdr_cdrom.c */,
+				551DED5C252717EC00B44953 /* libchdr_chd.c */,
+				551DED60252717EC00B44953 /* libchdr_flac.c */,
+				551DED5D252717EC00B44953 /* libchdr_huffman.c */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -2370,13 +2361,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				551DED65252717EC00B44953 /* huffman.h in Headers */,
-				551DED6D252717EC00B44953 /* sha1.h in Headers */,
 				551DED63252717EC00B44953 /* cdrom.h in Headers */,
 				551DED62252717EC00B44953 /* bitstream.h in Headers */,
 				551DED66252717EC00B44953 /* coretypes.h in Headers */,
-				551DED69252717EC00B44953 /* md5.h in Headers */,
 				551DED64252717EC00B44953 /* chd.h in Headers */,
 				551DED61252717EC00B44953 /* flac.h in Headers */,
+				55B005972577050800A2FD4E /* chdconfig.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3104,13 +3094,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				551DED6E252717EC00B44953 /* md5.c in Sources */,
-				551DED6C252717EC00B44953 /* huffman.c in Sources */,
-				551DED6A252717EC00B44953 /* sha1.c in Sources */,
-				551DED6B252717EC00B44953 /* chd.c in Sources */,
-				551DED67252717EC00B44953 /* bitstream.c in Sources */,
-				551DED68252717EC00B44953 /* cdrom.c in Sources */,
-				551DED6F252717EC00B44953 /* flac.c in Sources */,
+				551DED6C252717EC00B44953 /* libchdr_huffman.c in Sources */,
+				551DED6B252717EC00B44953 /* libchdr_chd.c in Sources */,
+				551DED67252717EC00B44953 /* libchdr_bitstream.c in Sources */,
+				551DED68252717EC00B44953 /* libchdr_cdrom.c in Sources */,
+				551DED6F252717EC00B44953 /* libchdr_flac.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3569,6 +3557,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 					"\"$(SRCROOT)/duckstation/dep/lzma/include\"",
+					"\"$(SRCROOT)/duckstation/dep/libchdr/include\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3584,6 +3573,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
 					"\"$(SRCROOT)/duckstation/dep/lzma/include\"",
+					"\"$(SRCROOT)/duckstation/dep/libchdr/include\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
