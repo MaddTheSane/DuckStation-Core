@@ -195,9 +195,6 @@
 		551DF0482527B3A700B44953 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF03C2527B3A700B44953 /* khrplatform.h */; };
 		551DF04B2527B3A700B44953 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0422527B3A700B44953 /* glad.c */; };
 		551DF0522527B3B300B44953 /* libglad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF02C2527B39200B44953 /* libglad.a */; };
-		551DF0BB2527B50A00B44953 /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0B52527B50A00B44953 /* tinyxml2.h */; };
-		551DF0BC2527B50A00B44953 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF0BA2527B50A00B44953 /* tinyxml2.cpp */; };
-		551DF0C62527B51700B44953 /* libtinyxml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF0A72527B4F800B44953 /* libtinyxml.a */; };
 		551DF0E02527B55B00B44953 /* libcubeb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF0D22527B54900B44953 /* libcubeb.a */; };
 		551DF1242527B56C00B44953 /* cubeb_export.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0E72527B56C00B44953 /* cubeb_export.h */; };
 		551DF1252527B56C00B44953 /* cubeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0E82527B56C00B44953 /* cubeb.h */; };
@@ -489,13 +486,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF02B2527B39200B44953;
 			remoteInfo = glad;
-		};
-		551DF0C42527B51100B44953 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 551DF0A62527B4F800B44953;
-			remoteInfo = tinyxml;
 		};
 		551DF0DE2527B55100B44953 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -855,9 +845,6 @@
 		551DF0412527B3A700B44953 /* glad_egl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad_egl.c; sourceTree = "<group>"; };
 		551DF0422527B3A700B44953 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
 		551DF0432527B3A700B44953 /* glad_glx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad_glx.c; sourceTree = "<group>"; };
-		551DF0A72527B4F800B44953 /* libtinyxml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtinyxml.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		551DF0B52527B50A00B44953 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
-		551DF0BA2527B50A00B44953 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
 		551DF0D22527B54900B44953 /* libcubeb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcubeb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DF0E72527B56C00B44953 /* cubeb_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_export.h; sourceTree = "<group>"; };
 		551DF0E82527B56C00B44953 /* cubeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb.h; sourceTree = "<group>"; };
@@ -1134,7 +1121,6 @@
 				551DF2902527B90800B44953 /* libminizip.a in Frameworks */,
 				551DF2032527B81700B44953 /* libstb.a in Frameworks */,
 				551DF0E02527B55B00B44953 /* libcubeb.a in Frameworks */,
-				551DF0C62527B51700B44953 /* libtinyxml.a in Frameworks */,
 				551DF0522527B3B300B44953 /* libglad.a in Frameworks */,
 				551DEF8F2527268C00B44953 /* Cocoa.framework in Frameworks */,
 				551DEEB125271B4800B44953 /* libFLAC.a in Frameworks */,
@@ -1166,13 +1152,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		551DF02A2527B39200B44953 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		551DF0A52527B4F800B44953 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1250,7 +1229,6 @@
 				551DED44252717DF00B44953 /* libchdr.a */,
 				551DEE2A25271B0700B44953 /* libFLAC.a */,
 				551DF02C2527B39200B44953 /* libglad.a */,
-				551DF0A72527B4F800B44953 /* libtinyxml.a */,
 				551DF0D22527B54900B44953 /* libcubeb.a */,
 				551DF1EB2527B7B700B44953 /* libstb.a */,
 				551DF2232527B85500B44953 /* libllzma.a */,
@@ -1572,7 +1550,6 @@
 				551DF2342527B87F00B44953 /* lzma */,
 				551DF2912527B91300B44953 /* minizip */,
 				551DF2042527B82400B44953 /* stb */,
-				551DF0B22527B50A00B44953 /* tinyxml2 */,
 				551DF3FB2527BDFB00B44953 /* vixl */,
 				551DF5072527C37600B44953 /* vulkan-loader */,
 			);
@@ -1814,31 +1791,6 @@
 				551DF0412527B3A700B44953 /* glad_egl.c */,
 				551DF0422527B3A700B44953 /* glad.c */,
 				551DF0432527B3A700B44953 /* glad_glx.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		551DF0B22527B50A00B44953 /* tinyxml2 */ = {
-			isa = PBXGroup;
-			children = (
-				551DF0B42527B50A00B44953 /* include */,
-				551DF0B92527B50A00B44953 /* src */,
-			);
-			path = tinyxml2;
-			sourceTree = "<group>";
-		};
-		551DF0B42527B50A00B44953 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				551DF0B52527B50A00B44953 /* tinyxml2.h */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		551DF0B92527B50A00B44953 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				551DF0BA2527B50A00B44953 /* tinyxml2.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -2478,14 +2430,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		551DF0A32527B4F800B44953 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DF0BB2527B50A00B44953 /* tinyxml2.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		551DF0CE2527B54900B44953 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2704,7 +2648,6 @@
 				551DF28F2527B90100B44953 /* PBXTargetDependency */,
 				551DF2022527B81100B44953 /* PBXTargetDependency */,
 				551DF0DF2527B55100B44953 /* PBXTargetDependency */,
-				551DF0C52527B51100B44953 /* PBXTargetDependency */,
 				551DF0542527B3B800B44953 /* PBXTargetDependency */,
 				551DEEB025271B3C00B44953 /* PBXTargetDependency */,
 				551DED772527185100B44953 /* PBXTargetDependency */,
@@ -2781,23 +2724,6 @@
 			name = glad;
 			productName = glad;
 			productReference = 551DF02C2527B39200B44953 /* libglad.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		551DF0A62527B4F800B44953 /* tinyxml */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 551DF0A82527B4F800B44953 /* Build configuration list for PBXNativeTarget "tinyxml" */;
-			buildPhases = (
-				551DF0A32527B4F800B44953 /* Headers */,
-				551DF0A42527B4F800B44953 /* Sources */,
-				551DF0A52527B4F800B44953 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = tinyxml;
-			productName = tinyxml;
-			productReference = 551DF0A72527B4F800B44953 /* libtinyxml.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		551DF0D12527B54900B44953 /* cubeb */ = {
@@ -2942,9 +2868,6 @@
 					551DF02B2527B39200B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
-					551DF0A62527B4F800B44953 = {
-						CreatedOnToolsVersion = 12.2;
-					};
 					551DF0D12527B54900B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -2989,7 +2912,6 @@
 				551DED43252717DF00B44953 /* chdr */,
 				551DEE2925271B0700B44953 /* FLAC */,
 				551DF02B2527B39200B44953 /* glad */,
-				551DF0A62527B4F800B44953 /* tinyxml */,
 				551DF0D12527B54900B44953 /* cubeb */,
 				551DF1EA2527B7B700B44953 /* stb */,
 				551DF2222527B85500B44953 /* llzma */,
@@ -3227,14 +3149,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		551DF0A42527B4F800B44953 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DF0BC2527B50A00B44953 /* tinyxml2.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		551DF0CF2527B54900B44953 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3391,11 +3305,6 @@
 			isa = PBXTargetDependency;
 			target = 551DF02B2527B39200B44953 /* glad */;
 			targetProxy = 551DF0532527B3B800B44953 /* PBXContainerItemProxy */;
-		};
-		551DF0C52527B51100B44953 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 551DF0A62527B4F800B44953 /* tinyxml */;
-			targetProxy = 551DF0C42527B51100B44953 /* PBXContainerItemProxy */;
 		};
 		551DF0DF2527B55100B44953 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3565,7 +3474,6 @@
 					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)\"/duckstation/dep/glad/include",
-					"\"$(SRCROOT)\"/duckstation/dep/tinyxml2/include",
 					"\"$(SRCROOT)\"/duckstation/dep/libcue/include",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
@@ -3608,7 +3516,6 @@
 					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)\"/duckstation/dep/glad/include",
-					"\"$(SRCROOT)\"/duckstation/dep/tinyxml2/include",
 					"\"$(SRCROOT)\"/duckstation/dep/libcue/include",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
 					"\"$(SRCROOT)/duckstation/dep/libFLAC/include\"",
@@ -3786,27 +3693,6 @@
 			name = Debug;
 		};
 		551DF02F2527B39200B44953 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		551DF0A92527B4F800B44953 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		551DF0AA2527B4F800B44953 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -4081,15 +3967,6 @@
 			buildConfigurations = (
 				551DF02E2527B39200B44953 /* Debug */,
 				551DF02F2527B39200B44953 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		551DF0A82527B4F800B44953 /* Build configuration list for PBXNativeTarget "tinyxml" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				551DF0A92527B4F800B44953 /* Debug */,
-				551DF0AA2527B4F800B44953 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
