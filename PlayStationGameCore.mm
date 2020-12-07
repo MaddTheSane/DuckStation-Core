@@ -828,7 +828,7 @@ bool OpenEmuHostInterface::CreateDisplay()
 		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
 		return false;
 	}
-//	
+	
 	m_display = std::move(display);
 	return true;
 }
