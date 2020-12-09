@@ -175,7 +175,6 @@ static void OELogFunc(void* pUserParam, const char* channelName, const char* fun
 			break;
 			
 		case LOGLEVEL_INFO:
-		case LOGLEVEL_SUCCESS:
 			os_log_info(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
 			break;
 			
