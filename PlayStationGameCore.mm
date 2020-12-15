@@ -166,22 +166,23 @@ static void OELogFunc(void* pUserParam, const char* channelName, const char* fun
 {
 	switch (level) {
 		case LOGLEVEL_ERROR:
-			os_log_error(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_WARNING:
 		case LOGLEVEL_PERF:
-			os_log(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			os_log(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_INFO:
-			os_log_info(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+		case LOGLEVEL_VERBOSE:
+			os_log_info(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_DEV:
 		case LOGLEVEL_DEBUG:
 		case LOGLEVEL_PROFILE:
-			os_log_debug(OE_CORE_LOG, "%{public}s: channel %{public}s; %{public}s", functionName, channelName, message);
+			os_log_debug(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		default:
@@ -245,7 +246,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	} else if([path.pathExtension.lowercaseString isEqualToString:@"m3u"]) {
 		// Parse number of discs in m3u
 		NSString *m3uString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue" /*|.*\\.ccd" ccd disabled for now*/ options:NSRegularExpressionCaseInsensitive error:nil];
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@".*\\.cue|.*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
 		NSRegularExpression *ccdRegex = [NSRegularExpression regularExpressionWithPattern:@".*\\.ccd" options:NSRegularExpressionCaseInsensitive error:nil];
 		NSUInteger numberOfCcds = [ccdRegex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
 		NSUInteger numberOfMatches = [regex numberOfMatchesInString:m3uString options:0 range:NSMakeRange(0, m3uString.length)];
