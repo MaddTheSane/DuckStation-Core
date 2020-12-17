@@ -443,6 +443,7 @@
 		551DF70C2527C6E800B44953 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF24B2527B87F00B44953 /* LzmaEnc.c */; };
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
+		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		5586A4562571F10700F77A43 /* libretro_game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5586A4552571F10700F77A43 /* libretro_game_settings.cpp */; };
@@ -1084,6 +1085,8 @@
 		551DF7392527C7B600B44953 /* gen_scmversion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = gen_scmversion.sh; sourceTree = "<group>"; };
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
+		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
+		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		55777758253D126C000D0651 /* memory_arena.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_arena.cpp; sourceTree = "<group>"; };
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
@@ -1282,10 +1285,6 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				5591A838256A0AD0009556D6 /* gpu_backend.cpp */,
-				5591A836256A0AD0009556D6 /* gpu_backend.h */,
-				5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */,
-				5591A837256A0AD0009556D6 /* gpu_sw_backend.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -1324,6 +1323,8 @@
 				551DEB632527107400B44953 /* digital_controller.h */,
 				551DEB372527107400B44953 /* dma.cpp */,
 				551DEB282527107400B44953 /* dma.h */,
+				5591A838256A0AD0009556D6 /* gpu_backend.cpp */,
+				5591A836256A0AD0009556D6 /* gpu_backend.h */,
 				551DEB5C2527107400B44953 /* gpu_commands.cpp */,
 				551DEB762527107400B44953 /* gpu_hw_opengl.cpp */,
 				551DEB422527107400B44953 /* gpu_hw_opengl.h */,
@@ -1333,6 +1334,8 @@
 				551DEB482527107400B44953 /* gpu_hw_vulkan.h */,
 				551DEB5A2527107400B44953 /* gpu_hw.cpp */,
 				551DEB5F2527107400B44953 /* gpu_hw.h */,
+				5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */,
+				5591A837256A0AD0009556D6 /* gpu_sw_backend.h */,
 				551DEB442527107400B44953 /* gpu_sw.cpp */,
 				551DEB512527107400B44953 /* gpu_sw.h */,
 				551DEB7C2527107400B44953 /* gpu.cpp */,
@@ -1348,6 +1351,8 @@
 				551DEB3F2527107400B44953 /* host_interface.h */,
 				551DEB652527107400B44953 /* interrupt_controller.cpp */,
 				551DEB752527107400B44953 /* interrupt_controller.h */,
+				55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */,
+				55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */,
 				551DEB4A2527107400B44953 /* mdec.cpp */,
 				551DEB7A2527107400B44953 /* mdec.h */,
 				551DEB792527107400B44953 /* memory_card_image.cpp */,
@@ -2991,6 +2996,7 @@
 				551DEC6B2527107500B44953 /* memory_card_image.cpp in Sources */,
 				551DEC462527107500B44953 /* dma.cpp in Sources */,
 				551DECA92527107500B44953 /* md5_digest.cpp in Sources */,
+				55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */,
 				551DEC8B2527107500B44953 /* iso_reader.cpp in Sources */,
 				551DEC4D2527107500B44953 /* gpu_sw.cpp in Sources */,
 				551DECAE2527107500B44953 /* cd_image.cpp in Sources */,
