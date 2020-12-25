@@ -444,6 +444,12 @@
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
+		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
+		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
+		5574165425969BDE00580158 /* xxh_x86dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164C25969BDE00580158 /* xxh_x86dispatch.h */; };
+		5574165525969BDE00580158 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 5574165125969BDE00580158 /* xxhash.c */; };
+		5574167325969C2400580158 /* libxxhash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5574163425969BB300580158 /* libxxhash.a */; };
+		5574168525969C8200580158 /* xxh_dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 5574168425969C8200580158 /* xxh_dispatch.c */; };
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		5586A4562571F10700F77A43 /* libretro_game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5586A4552571F10700F77A43 /* libretro_game_settings.cpp */; };
@@ -525,6 +531,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF4F52527C36800B44953;
 			remoteInfo = "vulkan-loader";
+		};
+		5574167425969C2400580158 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5574163325969BB300580158;
+			remoteInfo = xxhash;
 		};
 		55759F3F253587DC00153823 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1087,6 +1100,14 @@
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
+		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
+		5574161425969B1A00580158 /* texture_replacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture_replacements.h; sourceTree = "<group>"; };
+		5574163425969BB300580158 /* libxxhash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxxhash.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5574164B25969BDE00580158 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		5574164C25969BDE00580158 /* xxh_x86dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxh_x86dispatch.h; sourceTree = "<group>"; };
+		5574165125969BDE00580158 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
+		5574165225969BDE00580158 /* xxh_x86dispatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxh_x86dispatch.c; sourceTree = "<group>"; };
+		5574168425969C8200580158 /* xxh_dispatch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xxh_dispatch.c; sourceTree = "<group>"; };
 		55777758253D126C000D0651 /* memory_arena.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_arena.cpp; sourceTree = "<group>"; };
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
@@ -1112,6 +1133,7 @@
 				551DF6A92527C5B800B44953 /* libglslangd.a in Frameworks */,
 				551DF5462527C38500B44953 /* libvulkan-loader.a in Frameworks */,
 				551DF4842527BE2800B44953 /* libvixl.a in Frameworks */,
+				5574167325969C2400580158 /* libxxhash.a in Frameworks */,
 				551DF3AE2527BC3800B44953 /* libllzma.a in Frameworks */,
 				551DF2902527B90800B44953 /* libminizip.a in Frameworks */,
 				551DF2032527B81700B44953 /* libstb.a in Frameworks */,
@@ -1202,6 +1224,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5574163225969BB300580158 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1231,6 +1260,7 @@
 				551DF3EB2527BDED00B44953 /* libvixl.a */,
 				551DF4F62527C36800B44953 /* libvulkan-loader.a */,
 				551DF59A2527C50200B44953 /* libglslangd.a */,
+				5574163425969BB300580158 /* libxxhash.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1253,6 +1283,7 @@
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
 				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
 				551DEB1925270FA100B44953 /* core */,
+				5574168425969C8200580158 /* xxh_dispatch.c */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1384,6 +1415,8 @@
 				551DEB592527107400B44953 /* spu.h */,
 				551DEB682527107400B44953 /* system.cpp */,
 				551DEB742527107400B44953 /* system.h */,
+				5574161325969B1A00580158 /* texture_replacements.cpp */,
+				5574161425969B1A00580158 /* texture_replacements.h */,
 				551DEB6C2527107400B44953 /* timers.cpp */,
 				551DEB212527107400B44953 /* timers.h */,
 				551DEB822527107400B44953 /* timing_event.cpp */,
@@ -1537,6 +1570,7 @@
 		551DECEA2527160600B44953 /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				5574164625969BDE00580158 /* xxhash */,
 				551DF0E12527B56C00B44953 /* cubeb */,
 				551DF0352527B3A700B44953 /* glad */,
 				551DF5BA2527C58D00B44953 /* glslang */,
@@ -2325,6 +2359,33 @@
 			path = scmversion;
 			sourceTree = "<group>";
 		};
+		5574164625969BDE00580158 /* xxhash */ = {
+			isa = PBXGroup;
+			children = (
+				5574164A25969BDE00580158 /* include */,
+				5574165025969BDE00580158 /* src */,
+			);
+			path = xxhash;
+			sourceTree = "<group>";
+		};
+		5574164A25969BDE00580158 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5574164B25969BDE00580158 /* xxhash.h */,
+				5574164C25969BDE00580158 /* xxh_x86dispatch.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5574165025969BDE00580158 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				5574165125969BDE00580158 /* xxhash.c */,
+				5574165225969BDE00580158 /* xxh_x86dispatch.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		5586A4532571F0B600F77A43 /* duckstation-libretro */ = {
 			isa = PBXGroup;
 			children = (
@@ -2619,6 +2680,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5574163025969BB300580158 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5574165425969BDE00580158 /* xxh_x86dispatch.h in Headers */,
+				5574165325969BDE00580158 /* xxhash.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -2644,6 +2714,7 @@
 				551DEEB025271B3C00B44953 /* PBXTargetDependency */,
 				551DED772527185100B44953 /* PBXTargetDependency */,
 				551DED332527172400B44953 /* PBXTargetDependency */,
+				5574167525969C2400580158 /* PBXTargetDependency */,
 			);
 			name = DuckStation;
 			productName = DuckStation;
@@ -2837,6 +2908,23 @@
 			productReference = 551DF59A2527C50200B44953 /* libglslangd.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		5574163325969BB300580158 /* xxhash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "xxhash" */;
+			buildPhases = (
+				5574163025969BB300580158 /* Headers */,
+				5574163125969BB300580158 /* Sources */,
+				5574163225969BB300580158 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = xxhash;
+			productName = xxhash;
+			productReference = 5574163425969BB300580158 /* libxxhash.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2881,6 +2969,9 @@
 					551DF5992527C50200B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
+					5574163325969BB300580158 = {
+						CreatedOnToolsVersion = 12.3;
+					};
 					55759F1C253586FA00153823 = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
@@ -2911,6 +3002,7 @@
 				551DF3EA2527BDED00B44953 /* vixl */,
 				551DF4F52527C36800B44953 /* vulkan-loader */,
 				551DF5992527C50200B44953 /* glslangd */,
+				5574163325969BB300580158 /* xxhash */,
 				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
@@ -2985,6 +3077,7 @@
 				551DEC562527107500B44953 /* digital_controller.cpp in Sources */,
 				551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */,
 				551DEC532527107500B44953 /* cpu_disasm.cpp in Sources */,
+				5574161525969B1A00580158 /* texture_replacements.cpp in Sources */,
 				551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */,
 				551DEC5B2527107500B44953 /* negcon.cpp in Sources */,
 				551DF5862527C48A00B44953 /* shader_cache.cpp in Sources */,
@@ -3273,6 +3366,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5574163125969BB300580158 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5574165525969BDE00580158 /* xxhash.c in Sources */,
+				5574168525969C8200580158 /* xxh_dispatch.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3325,6 +3427,11 @@
 			isa = PBXTargetDependency;
 			target = 551DF4F52527C36800B44953 /* vulkan-loader */;
 			targetProxy = 551DF5472527C38B00B44953 /* PBXContainerItemProxy */;
+		};
+		5574167525969C2400580158 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5574163325969BB300580158 /* xxhash */;
+			targetProxy = 5574167425969C2400580158 /* PBXContainerItemProxy */;
 		};
 		55759F40253587DC00153823 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3478,6 +3585,7 @@
 					"\"$(SRCROOT)/duckstation/dep/lzma/include\"",
 					"\"$(SRCROOT)/duckstation/dep/vulkan-loader/include\"",
 					"\"$(SRCROOT)/duckstation/dep/glslang\"",
+					"\"$(SRCROOT)/duckstation/dep/xxhash/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3520,6 +3628,7 @@
 					"\"$(SRCROOT)/duckstation/dep/lzma/include\"",
 					"\"$(SRCROOT)/duckstation/dep/vulkan-loader/include\"",
 					"\"$(SRCROOT)/duckstation/dep/glslang\"",
+					"\"$(SRCROOT)/duckstation/dep/xxhash/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3892,6 +4001,26 @@
 			};
 			name = Release;
 		};
+		5574163625969BB300580158 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5574163725969BB300580158 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		55759F1E253586FA00153823 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4024,6 +4153,15 @@
 			buildConfigurations = (
 				551DF59C2527C50200B44953 /* Debug */,
 				551DF59D2527C50200B44953 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "xxhash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5574163625969BB300580158 /* Debug */,
+				5574163725969BB300580158 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
