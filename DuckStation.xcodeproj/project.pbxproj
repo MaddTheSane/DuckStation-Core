@@ -448,7 +448,7 @@
 		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
 		5574165425969BDE00580158 /* xxh_x86dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164C25969BDE00580158 /* xxh_x86dispatch.h */; };
 		5574165525969BDE00580158 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 5574165125969BDE00580158 /* xxhash.c */; };
-		5574167325969C2400580158 /* libxxhash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5574163425969BB300580158 /* libxxhash.a */; };
+		5574167325969C2400580158 /* libdxxhash.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5574163425969BB300580158 /* libdxxhash.a */; };
 		5574168525969C8200580158 /* xxh_dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 5574168425969C8200580158 /* xxh_dispatch.c */; };
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
@@ -1102,7 +1102,7 @@
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
 		5574161425969B1A00580158 /* texture_replacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture_replacements.h; sourceTree = "<group>"; };
-		5574163425969BB300580158 /* libxxhash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libxxhash.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5574163425969BB300580158 /* libdxxhash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdxxhash.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5574164B25969BDE00580158 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		5574164C25969BDE00580158 /* xxh_x86dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxh_x86dispatch.h; sourceTree = "<group>"; };
 		5574165125969BDE00580158 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
@@ -1133,7 +1133,7 @@
 				551DF6A92527C5B800B44953 /* libglslangd.a in Frameworks */,
 				551DF5462527C38500B44953 /* libvulkan-loader.a in Frameworks */,
 				551DF4842527BE2800B44953 /* libvixl.a in Frameworks */,
-				5574167325969C2400580158 /* libxxhash.a in Frameworks */,
+				5574167325969C2400580158 /* libdxxhash.a in Frameworks */,
 				551DF3AE2527BC3800B44953 /* libllzma.a in Frameworks */,
 				551DF2902527B90800B44953 /* libminizip.a in Frameworks */,
 				551DF2032527B81700B44953 /* libstb.a in Frameworks */,
@@ -1260,7 +1260,7 @@
 				551DF3EB2527BDED00B44953 /* libvixl.a */,
 				551DF4F62527C36800B44953 /* libvulkan-loader.a */,
 				551DF59A2527C50200B44953 /* libglslangd.a */,
-				5574163425969BB300580158 /* libxxhash.a */,
+				5574163425969BB300580158 /* libdxxhash.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2908,9 +2908,9 @@
 			productReference = 551DF59A2527C50200B44953 /* libglslangd.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		5574163325969BB300580158 /* xxhash */ = {
+		5574163325969BB300580158 /* dxxhash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "xxhash" */;
+			buildConfigurationList = 5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "dxxhash" */;
 			buildPhases = (
 				5574163025969BB300580158 /* Headers */,
 				5574163125969BB300580158 /* Sources */,
@@ -2920,9 +2920,9 @@
 			);
 			dependencies = (
 			);
-			name = xxhash;
+			name = dxxhash;
 			productName = xxhash;
-			productReference = 5574163425969BB300580158 /* libxxhash.a */;
+			productReference = 5574163425969BB300580158 /* libdxxhash.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -3002,7 +3002,7 @@
 				551DF3EA2527BDED00B44953 /* vixl */,
 				551DF4F52527C36800B44953 /* vulkan-loader */,
 				551DF5992527C50200B44953 /* glslangd */,
-				5574163325969BB300580158 /* xxhash */,
+				5574163325969BB300580158 /* dxxhash */,
 				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
@@ -3430,7 +3430,7 @@
 		};
 		5574167525969C2400580158 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5574163325969BB300580158 /* xxhash */;
+			target = 5574163325969BB300580158 /* dxxhash */;
 			targetProxy = 5574167425969C2400580158 /* PBXContainerItemProxy */;
 		};
 		55759F40253587DC00153823 /* PBXTargetDependency */ = {
@@ -4157,7 +4157,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "xxhash" */ = {
+		5574163525969BB300580158 /* Build configuration list for PBXNativeTarget "dxxhash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5574163625969BB300580158 /* Debug */,
