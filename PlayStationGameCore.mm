@@ -37,6 +37,8 @@
 #include "common/audio_stream.h"
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
+#include "core/namco_guncon.h"
+#include "core/playstation_mouse.h"
 #include "frontend-common/opengl_host_display.h"
 #include "frontend-common/game_settings.h"
 #include "duckstation-libretro/libretro_game_settings.h"
@@ -207,7 +209,10 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 + (void)initialize
 {
-	OE_CORE_LOG = os_log_create("org.openemu.DuckStation", "");
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		OE_CORE_LOG = os_log_create("org.openemu.DuckStation", "");
+	});
 }
 
 - (instancetype)init
@@ -355,8 +360,14 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	switch (g_settings.controller_types[0]) {
 		case ControllerType::NamcoGunCon:
-			//TODO: implement
+		case ControllerType::PlayStationMouse:
+		{
+			//TODO: scale input!
+			HostDisplay* display = g_host_interface->GetDisplay();
+			display->SetMousePosition(point.x, point.y);
+		}
 			break;
+			
 		default:
 			break;
 	}
@@ -366,8 +377,21 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	switch (g_settings.controller_types[0]) {
 		case ControllerType::NamcoGunCon:
-			//TODO: implement
+		{
+			[self mouseMovedAtPoint:point];
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			controller->SetButtonState(NamcoGunCon::Button::Trigger, true);
+		}
 			break;
+			
+		case ControllerType::PlayStationMouse:
+		{
+			[self mouseMovedAtPoint:point];
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Left, true);
+		}
+			break;
+			
 		default:
 			break;
 	}
@@ -377,8 +401,19 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	switch (g_settings.controller_types[0]) {
 		case ControllerType::NamcoGunCon:
-			//TODO: implement
+		{
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			controller->SetButtonState(NamcoGunCon::Button::Trigger, false);
+		}
 			break;
+			
+		case ControllerType::PlayStationMouse:
+		{
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Left, false);
+		}
+			break;
+
 		default:
 			break;
 	}
@@ -388,8 +423,21 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	switch (g_settings.controller_types[0]) {
 		case ControllerType::NamcoGunCon:
-			//TODO: implement
+		{
+//			[self mouseMovedAtPoint:point];
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, true);
+		}
 			break;
+			
+		case ControllerType::PlayStationMouse:
+		{
+			[self mouseMovedAtPoint:point];
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Right, true);
+		}
+			break;
+			
 		default:
 			break;
 	}
@@ -399,8 +447,19 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	switch (g_settings.controller_types[0]) {
 		case ControllerType::NamcoGunCon:
-			//TODO: implement
+		{
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, false);
+		}
 			break;
+			
+		case ControllerType::PlayStationMouse:
+		{
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Right, false);
+		}
+			break;
+
 		default:
 			break;
 	}
@@ -440,6 +499,30 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			updateAnalogControllerButton(button, (int)player, true);
 			break;
 			
+		case ControllerType::NamcoGunCon:
+		{
+			if (player != 0) {
+				break;
+			}
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			switch (button) {
+				case OEPSXButtonCircle:
+				case OEPSXButtonSquare:
+					controller->SetButtonState(NamcoGunCon::Button::A, true);
+					break;
+					
+				case OEPSXButtonCross:
+				case OEPSXButtonTriangle:
+				case OEPSXButtonStart:
+					controller->SetButtonState(NamcoGunCon::Button::B, true);
+					break;
+
+				default:
+					break;
+			}
+		}
+			break;
+			
 		default:
 			break;
 	}
@@ -458,6 +541,30 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			updateAnalogControllerButton(button, (int)player, false);
 			break;
 			
+		case ControllerType::NamcoGunCon:
+		{
+			if (player != 0) {
+				break;
+			}
+			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			switch (button) {
+				case OEPSXButtonCircle:
+				case OEPSXButtonSquare:
+					controller->SetButtonState(NamcoGunCon::Button::A, false);
+					break;
+					
+				case OEPSXButtonCross:
+				case OEPSXButtonTriangle:
+				case OEPSXButtonStart:
+					controller->SetButtonState(NamcoGunCon::Button::B, false);
+					break;
+
+				default:
+					break;
+			}
+		}
+			break;
+
 		default:
 			break;
 	}
@@ -854,6 +961,67 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 	Settings old_settings(std::move(g_settings));
 	ApplyGameSettings(false);
 	FixIncompatibleSettings(false);
+	{
+		const std::string &type = System::GetRunningCode();
+		NSString *nsType = [@(type.c_str()) uppercaseString];
+		// PlayStation GunCon supported games
+		NSArray<NSString *> *psxGunConGames =
+		@[
+			//@"SLES-02746", // Die Hard Trilogy 2 - Viva Las Vegas (Europe)
+			//@"SLES-02747", // Die Hard Trilogy 2 - Viva Las Vegas (France)
+			//@"SLES-02748", // Die Hard Trilogy 2 - Viva Las Vegas (Germany)
+			//@"SLES-02749", // Die Hard Trilogy 2 - Viva Las Vegas (Italy)
+			//@"SLUS-01015", // Die Hard Trilogy 2 - Viva Las Vegas (USA)
+			@"SLUS-00654", // Elemental Gearbolt (USA)
+			@"SLES-03990", // Extreme Ghostbusters - The Ultimate Invasion (Europe)
+			@"SCES-02543", // Ghoul Panic (Europe)
+			@"SLPS-02680", // Oh! Bakyuuun (Japan)
+			@"SCPS-10038", // Gensei Kyokou Seirei Kidoudan - Elemental Gearbolt (Japan)
+			@"SLES-03689", // Gunfighter - The Legend of Jesse James (Europe)
+			@"SLUS-01398", // Gunfighter - The Legend of Jesse James (USA)
+			@"SLPS-01106", // Guntu - Western Front June, 1944 - Tetsu no Kioku (Japan)
+			@"SLES-00755", // Judge Dredd (Europe)
+			@"SLUS-00630", // Judge Dredd (USA)
+			@"SLES-01001", // Maximum Force (Europe)
+			@"SLUS-00503", // Maximum Force (USA)
+			@"SLES-02244", // Mighty Hits Special (Europe)
+			@"SLPS-02165", // Mighty Hits Special (Japan)
+			@"SLES-03278", // Moorhuhn 2 - Die Jagd geht weiter (Germany)
+			@"SLES-03846", // Moorhen 3 - Chicken Chase (Europe) (En,Fr,De)
+			@"SLES-03898", // Moorhen 3 - Chicken Chase (Europe) (Es,It)
+			@"SLES-04174", // Moorhuhn X (Germany) (En,De)
+			@"SCES-00886", // Point Blank (Europe) (En,Fr,De) / (Rev 1)
+			@"SLPS-00929", // GunBullet (Japan) (GunBullet + GunCon)
+			@"SLPS-00930", // GunBullet (Japan) / (Rev 1)
+			@"SLUS-00481", // Point Blank (USA)
+			@"SCES-02180", // Point Blank 2 (Europe, Australia)
+			@"SLPS-01500", // Gunbarl (Japan, Asia)
+			@"SLUS-00796", // Point Blank 2 (USA)
+			@"SCES-03383", // Point Blank 3 (Europe)
+			@"SLPS-03100", // Gunbalina (Japan)
+			@"SLUS-01354", // Point Blank 3 (USA)
+			@"SCES-02569", // Rescue Shot (Europe)
+			@"SLPS-02555", // Rescue Shot Bubibo (Japan)
+			@"SLES-02732", // Resident Evil - Survivor (Europe)
+			@"SLES-02744", // Resident Evil - Survivor (France)
+			@"SLPS-02553", // Biohazard - Gun Survivor (Japan)
+			@"SLPS-02474", // Simple 1500 Series Vol. 24 - The Gun Shooting (Japan)
+			@"SLPM-86816", // Simple 1500 Series Vol. 63 - The Gun Shooting 2 (Japan)
+			//@"SLPS-00154", // Snatcher (Japan)
+			@"SCES-00657", // Time Crisis (Europe)
+			@"SLPS-00635", // Time Crisis (Japan) (Time Crisis + GunCon)
+			@"SLPS-00666", // Time Crisis (Japan)
+			@"SLUS-00405", // Time Crisis (USA)
+			@"SCES-02776", // Time Crisis - Project Titan (Europe)
+			@"SLPS-03188", // Time Crisis - Project Titan (Japan)
+			@"SLUS-01336", // Time Crisis - Project Titan (USA)
+		];
+		if ([psxGunConGames containsObject:nsType]) {
+			g_settings.controller_types[0] = ControllerType::NamcoGunCon;
+			g_settings.controller_types[1] = ControllerType::None;
+
+		}
+	}
 	CheckForSettingsChanges(old_settings);
 }
 
