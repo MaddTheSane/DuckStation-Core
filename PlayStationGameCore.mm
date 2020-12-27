@@ -100,7 +100,7 @@ public:
 	
 	RenderAPI GetRenderAPI() const override;
 	
-	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device) override;
+	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device, bool threaded_presentation) override;
 	
 	void SetVSync(bool enabled) override;
 	
@@ -728,7 +728,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay()=default;
 OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()=default;
 
-bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device)
+bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device, bool threaded_presentation)
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 
@@ -930,8 +930,8 @@ bool OpenEmuHostInterface::CreateDisplay()
 {
 	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>();
 	WindowInfo wi = WindowInfoFromGameCore(_current);
-	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device) ||
-		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device)) {
+	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
+		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device, false)) {
 		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
 		return false;
 	}
