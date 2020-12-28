@@ -456,6 +456,7 @@
 		558B28BE25994D9C00A3495F /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28BC25994D9C00A3495F /* postprocessing_chain.cpp */; };
 		558B28CF25994DCE00A3495F /* postprocessing_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28CD25994DCE00A3495F /* postprocessing_shader.cpp */; };
 		558B28E025994E0900A3495F /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28DF25994E0900A3495F /* postprocessing_shadergen.cpp */; };
+		558B28FE2599BAB400A3495F /* PlayStationGameHacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */; };
 		5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A838256A0AD0009556D6 /* gpu_backend.cpp */; };
 		5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */; };
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
@@ -1123,6 +1124,7 @@
 		558B28CE25994DCE00A3495F /* postprocessing_shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shader.h; sourceTree = "<group>"; };
 		558B28DE25994E0900A3495F /* postprocessing_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shadergen.h; sourceTree = "<group>"; };
 		558B28DF25994E0900A3495F /* postprocessing_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shadergen.cpp; sourceTree = "<group>"; };
+		558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayStationGameHacks.m; sourceTree = "<group>"; };
 		5591A836256A0AD0009556D6 /* gpu_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_backend.h; sourceTree = "<group>"; };
 		5591A837256A0AD0009556D6 /* gpu_sw_backend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_sw_backend.h; sourceTree = "<group>"; };
 		5591A838256A0AD0009556D6 /* gpu_backend.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_backend.cpp; sourceTree = "<group>"; };
@@ -1288,6 +1290,7 @@
 			children = (
 				EE14C0B125389F9400464C74 /* Compatibility */,
 				551DEB1225270E0300B44953 /* OEPSXSystemResponderClient.h */,
+				558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */,
 				551DEB1425270E6B00B44953 /* PlayStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
 				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
@@ -3117,6 +3120,7 @@
 				551DEC602527107500B44953 /* pad.cpp in Sources */,
 				551DEC832527107500B44953 /* assert.cpp in Sources */,
 				551DF5812527C48A00B44953 /* texture.cpp in Sources */,
+				558B28FE2599BAB400A3495F /* PlayStationGameHacks.m in Sources */,
 				551DEC9B2527107500B44953 /* program.cpp in Sources */,
 				559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */,
 				551DECAA2527107500B44953 /* event.cpp in Sources */,

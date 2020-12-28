@@ -596,6 +596,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
         SystemBootParameters params(bootPath.fileSystemRepresentation);
         duckInterface->Initialize();
         isInitialized = duckInterface->BootSystem(params);
+		duckInterface->OnRunningGameChanged();
 		if (saveStatePath) {
 			duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
 			saveStatePath = nil;
@@ -960,84 +961,27 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 
 	Settings old_settings(std::move(g_settings));
 	ApplyGameSettings(false);
-	FixIncompatibleSettings(false);
-	NSString *nsType;
-	{
+	do {
 		const std::string &type = System::GetRunningCode();
-		nsType = [@(type.c_str()) uppercaseString];
+		NSString *nsType = [@(type.c_str()) uppercaseString];
+		
+		PlayStationHacksNeeded hacks = GetHacksNeededForGame(nsType);
+		if (hacks == 0) {
+			break;
+		}
 		// PlayStation GunCon supported games
-		NSArray<NSString *> *psxGunConGames =
-		@[
-			//@"SLES-02746", // Die Hard Trilogy 2 - Viva Las Vegas (Europe)
-			//@"SLES-02747", // Die Hard Trilogy 2 - Viva Las Vegas (France)
-			//@"SLES-02748", // Die Hard Trilogy 2 - Viva Las Vegas (Germany)
-			//@"SLES-02749", // Die Hard Trilogy 2 - Viva Las Vegas (Italy)
-			//@"SLUS-01015", // Die Hard Trilogy 2 - Viva Las Vegas (USA)
-			@"SLUS-00654", // Elemental Gearbolt (USA)
-			@"SLES-03990", // Extreme Ghostbusters - The Ultimate Invasion (Europe)
-			@"SCES-02543", // Ghoul Panic (Europe)
-			@"SLPS-02680", // Oh! Bakyuuun (Japan)
-			@"SCPS-10038", // Gensei Kyokou Seirei Kidoudan - Elemental Gearbolt (Japan)
-			@"SLES-03689", // Gunfighter - The Legend of Jesse James (Europe)
-			@"SLUS-01398", // Gunfighter - The Legend of Jesse James (USA)
-			@"SLPS-01106", // Guntu - Western Front June, 1944 - Tetsu no Kioku (Japan)
-			@"SLES-00755", // Judge Dredd (Europe)
-			@"SLUS-00630", // Judge Dredd (USA)
-			@"SLES-01001", // Maximum Force (Europe)
-			@"SLUS-00503", // Maximum Force (USA)
-			@"SLES-02244", // Mighty Hits Special (Europe)
-			@"SLPS-02165", // Mighty Hits Special (Japan)
-			@"SLES-03278", // Moorhuhn 2 - Die Jagd geht weiter (Germany)
-			@"SLES-03846", // Moorhen 3 - Chicken Chase (Europe) (En,Fr,De)
-			@"SLES-03898", // Moorhen 3 - Chicken Chase (Europe) (Es,It)
-			@"SLES-04174", // Moorhuhn X (Germany) (En,De)
-			@"SCES-00886", // Point Blank (Europe) (En,Fr,De) / (Rev 1)
-			@"SLPS-00929", // GunBullet (Japan) (GunBullet + GunCon)
-			@"SLPS-00930", // GunBullet (Japan) / (Rev 1)
-			@"SLUS-00481", // Point Blank (USA)
-			@"SCES-02180", // Point Blank 2 (Europe, Australia)
-			@"SLPS-01500", // Gunbarl (Japan, Asia)
-			@"SLUS-00796", // Point Blank 2 (USA)
-			@"SCES-03383", // Point Blank 3 (Europe)
-			@"SLPS-03100", // Gunbalina (Japan)
-			@"SLUS-01354", // Point Blank 3 (USA)
-			@"SCES-02569", // Rescue Shot (Europe)
-			@"SLPS-02555", // Rescue Shot Bubibo (Japan)
-			@"SLES-02732", // Resident Evil - Survivor (Europe)
-			@"SLES-02744", // Resident Evil - Survivor (France)
-			@"SLPS-02553", // Biohazard - Gun Survivor (Japan)
-			@"SLPS-02474", // Simple 1500 Series Vol. 24 - The Gun Shooting (Japan)
-			@"SLPM-86816", // Simple 1500 Series Vol. 63 - The Gun Shooting 2 (Japan)
-			//@"SLPS-00154", // Snatcher (Japan)
-			@"SCES-00657", // Time Crisis (Europe)
-			@"SLPS-00635", // Time Crisis (Japan) (Time Crisis + GunCon)
-			@"SLPS-00666", // Time Crisis (Japan)
-			@"SLUS-00405", // Time Crisis (USA)
-			@"SCES-02776", // Time Crisis - Project Titan (Europe)
-			@"SLPS-03188", // Time Crisis - Project Titan (Japan)
-			@"SLUS-01336", // Time Crisis - Project Titan (USA)
-		];
-		if ([psxGunConGames containsObject:nsType]) {
+		
+		if ((hacks & PlayStationHacksControllers) == PlayStationHacksGunCon) {
 			g_settings.controller_types[0] = ControllerType::NamcoGunCon;
 			g_settings.controller_types[1] = ControllerType::AnalogController;
-
 		}
-	}
-	{
+
 		// PlayStation games requiring only 1 memory card inserted
-		NSArray<NSString *> *psxSingleMemoryCardGames =
-		@[
-			@"SCUS-94409", // Codename - Tenka (USA) (v1.0) / (v1.1)
-			@"SLES-00613", // Lifeforce Tenka (Europe)
-			@"SLES-00614", // Lifeforce Tenka (France)
-			@"SLES-00615", // Lifeforce Tenka (Germany)
-			@"SLES-00616", // Lifeforce Tenka (Italy)
-			@"SLES-00617", // Lifeforce Tenka (Spain)
-		];
-		if ([psxSingleMemoryCardGames containsObject:nsType]) {
+		if ((hacks & PlayStationHacksOnlyOneMemCard) == PlayStationHacksOnlyOneMemCard) {
 			g_settings.memory_card_types[1] = MemoryCardType::None;
 		}
-	}
+	} while (0);
+	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
 }
 
