@@ -961,9 +961,10 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 	Settings old_settings(std::move(g_settings));
 	ApplyGameSettings(false);
 	FixIncompatibleSettings(false);
+	NSString *nsType;
 	{
 		const std::string &type = System::GetRunningCode();
-		NSString *nsType = [@(type.c_str()) uppercaseString];
+		nsType = [@(type.c_str()) uppercaseString];
 		// PlayStation GunCon supported games
 		NSArray<NSString *> *psxGunConGames =
 		@[
@@ -1018,8 +1019,23 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		];
 		if ([psxGunConGames containsObject:nsType]) {
 			g_settings.controller_types[0] = ControllerType::NamcoGunCon;
-			g_settings.controller_types[1] = ControllerType::None;
+			g_settings.controller_types[1] = ControllerType::AnalogController;
 
+		}
+	}
+	{
+		// PlayStation games requiring only 1 memory card inserted
+		NSArray<NSString *> *psxSingleMemoryCardGames =
+		@[
+			@"SCUS-94409", // Codename - Tenka (USA) (v1.0) / (v1.1)
+			@"SLES-00613", // Lifeforce Tenka (Europe)
+			@"SLES-00614", // Lifeforce Tenka (France)
+			@"SLES-00615", // Lifeforce Tenka (Germany)
+			@"SLES-00616", // Lifeforce Tenka (Italy)
+			@"SLES-00617", // Lifeforce Tenka (Spain)
+		];
+		if ([psxSingleMemoryCardGames containsObject:nsType]) {
+			g_settings.memory_card_types[1] = MemoryCardType::None;
 		}
 	}
 	CheckForSettingsChanges(old_settings);
