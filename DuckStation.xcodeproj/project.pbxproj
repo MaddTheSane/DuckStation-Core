@@ -1294,8 +1294,8 @@
 				551DEB1425270E6B00B44953 /* PlayStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
 				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
-				551DEB1925270FA100B44953 /* core */,
 				5574168425969C8200580158 /* xxh_dispatch.c */,
+				551DEB1925270FA100B44953 /* core */,
 			);
 			name = Classes;
 			sourceTree = "<group>";

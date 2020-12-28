@@ -24,6 +24,6 @@
 
 #include <stdio.h>
 
-#if (defined(__x86_64__) || defined(__i386__) || defined(_M_IX86) || defined(_M_X64))
+#ifdef __x86_64__
 #include "duckstation/dep/xxhash/src/xxh_x86dispatch.c"
 #endif

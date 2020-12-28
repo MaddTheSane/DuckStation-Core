@@ -886,7 +886,7 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 			if (prepsxCompatHacks[gameCode]) {
 				prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap5PlayerPort2 | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap);
+				prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap5PlayerPort2);
 			}
 		}
 		
@@ -901,7 +901,7 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 		for (NSString *gameCode in psxGunConGames) {
 			if (prepsxCompatHacks[gameCode]) {
 				PlayStationHacksNeeded needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~PlayStationHacksControllers;
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksJustifier | needed);
+				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon | needed);
 			} else {
 				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon);
 			}

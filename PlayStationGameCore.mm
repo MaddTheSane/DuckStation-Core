@@ -974,8 +974,8 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		if (hacks == 0) {
 			break;
 		}
-		// PlayStation GunCon supported games
 		
+		// PlayStation GunCon supported games
 		if ((hacks & PlayStationHacksControllers) == PlayStationHacksGunCon) {
 			g_settings.controller_types[0] = ControllerType::NamcoGunCon;
 			g_settings.controller_types[1] = ControllerType::AnalogController;
