@@ -601,7 +601,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
         SystemBootParameters params(bootPath.fileSystemRepresentation);
         duckInterface->Initialize();
         isInitialized = duckInterface->BootSystem(params);
-		duckInterface->OnRunningGameChanged();
 		if (saveStatePath) {
 			duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
 			saveStatePath = nil;
@@ -971,7 +970,7 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		NSString *nsType = [@(type.c_str()) uppercaseString];
 		
 		PlayStationHacksNeeded hacks = GetHacksNeededForGame(nsType);
-		if (hacks == 0) {
+		if (hacks == PlayStationHacksNone) {
 			break;
 		}
 		

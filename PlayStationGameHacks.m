@@ -921,5 +921,5 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 	if ((num = psxCompatHacks[name])) {
 		return num.unsignedIntValue;
 	}
-	return 0;
+	return PlayStationHacksNone;
 }
