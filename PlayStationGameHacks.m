@@ -876,6 +876,124 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 		  //@"SLUS-00386", // Star Wars - Rebel Assault II - The Hidden Empire (USA) (Disc 2)
 		  ];
 
+		// PlayStation Konami Justifier exclusive games
+		// TODO: filter out games where the user would want to use a different input device.
+		NSArray<NSString *> *psxMouseGames =
+		@[
+			@"SLUS-00003", // A-Train
+			@"SLPS-00948", // Arkanoid Returns
+			@"SLUS-01567", // Baldies (USA)
+			@"SLES-04091", // Baldies (Europe)
+			@"SLUS-01170", // Breakout (USA)
+			@"SCES-00348", // Broken Sword - The Shadow of the Templars (Germany)
+			@"SCES-00414", // Broken Sword - The Shadow of the Templars (Spain)
+			@"SCES-00347", // Broken Sword - The Shadow of the Templars (France)
+			@"SLUS-00484", // Broken Sword - The Shadow of the Templars (USA)
+			@"SCES-00346", // Broken Sword - The Shadow of the Templars (Europe)
+			@"SCES-00468", // Broken Sword - The Shadow of the Templars (Italy)
+			@"SCES-00800", // Broken Sword 2 - The Smoking Mirror (Germany)
+			@"SCES-00801", // Broken Sword 2 - The Smoking Mirror (Italy)
+			@"SCES-00802", // Broken Sword 2 - The Smoking Mirror (Spain)
+			@"SCES-00799", // Broken Sword 2 - The Smoking Mirror (French)
+			@"SLUS-00812", // Broken Sword 2 - The Smoking Mirror (USA)
+			@"SCES-00798", // Broken Sword 2 - The Smoking Mirror (Europe)
+			@"SLUS-00539", // Clock Tower (USA)
+			@"SLES-00870", // Clock Tower (Europe)
+			@"SLES-00871", // Clock Tower (France)
+			@"SLES-00872", // Clock Tower (PAL?)
+			@"SLES-00872", // Clock Tower (PAL?)
+			@"SCPS-45173", // Clock Tower - Ghost Head (Japan)
+			@"SLPS-01290", // Clock Tower - Ghost Head (Japan)
+			@"SLPS-91175", // Clock Tower - Ghost Head (Playstation Best, Japan)
+			@"SLPM-80219", // Clock Tower - Ghost Head (Trial, Japan)
+			@"SLPS-00657", // Clock Tower 2 (Japan)
+			@"SLPS-91056", // Clock Tower 2 (Playstation Best, Japan)
+			@"SLPM-80062", // Clock Tower 2 (Trial, Japan)
+			@"SLUS-00695", // Clock Tower II - The Struggle Within (USA)
+			@"SLUS-00119", // Die Hard Trilogy (USA)
+			@"SLES-00445", // Die Hard Trilogy (Europe)
+			@"SLPS-00585", // Die Hard Trilogy (Japan)
+			@"SLUS-01015", // Die Hard Trilogy 2 - Viva Las Vegas (USA)
+			@"SLES-02746", // Die Hard Trilogy 2 - Viva Las Vegas (Europe)
+			@"SLES-02747", // Die Hard Trilogy 2 - Viva Las Vegas (France)
+			@"SLES-02748", // Die Hard Trilogy 2 - Viva Las Vegas (Germany)
+			@"SLES-02749", // Die Hard Trilogy 2 - Viva Las Vegas (Italy)
+			@"SLES-02750", // Die Hard Trilogy 2 - Viva Las Vegas (Spain)
+			@"SLUS-01015", // Die Hard Trilogy 2 - Viva Las Vegas (USA)
+			@"SCUS-94600", // Discworld (USA)
+			@"SCES-00012", // Discworld (???)
+			@"SLES-00193", // Discworld (Germany)
+			@"SLPS-00251", // Discworld (Japan)
+			@"SLPS-02656", // Discworld (Playstation Best, Japan)
+			@"SCES-00793", // Discworld II (PAL-E-I-S)
+			//@"SLES-00793", // Discworld II (UK)
+			@"SLES-00794", // Discworld II (France)
+			@"SCUS-94605", // Discworld II (USA)
+			@"SLES-00795", // Discworld II (Germany)
+			@"SLES-01549", // Discworld Noir (PAL-E-I-S)
+			@"SLES-02064", // Discworld Noir (Germany)
+			/* TODO: add the following:
+			 Arcade's Greatest Hits: The Atari Collection 2
+			 Arcade Party Pak
+			 Amerzone
+			 Area 51
+			 Ark of Time
+			 Atari Anniversary Edition
+			 Atlantis: The Lost Tales
+			 Command & Conquer: Red Alert
+			 Command & Conquer: Red Alert - Retaliation
+			 Constructor
+			 Cyberia
+			 Dracula: The Resurrection
+			 Dune 2000
+			 Elemental Gearbolt
+			 Final Doom#PlayStation edition|Final Doom
+			 Front Mission Alternative
+			 Galaxian 3
+			 Ghoul Panic
+			 Irritating Stick
+			 The Neverhood/Klaymen Klaymen: Neverhood no Nazon
+			 Lemmings
+			 Lemmings 3D
+			 Monopoly
+			 MTV Music Generator
+			 Myst
+			 My Disney Kitchen
+			 Necronomicon: The Dawning of Darkness
+			 Neorude
+			 Oh No! More Lemmings
+			 Perfect Assassin
+			 Prism Land Story
+			 Policenauts
+			 Project: Horned Owl
+			 Puchi Carat
+			 Quake II
+			 Railroad Tycoon II
+			 Rescue Shot
+			 Risk
+			 Riven
+			 RPG Maker
+			 Sentinel Returns
+			 Shanghai: True Valor
+			 SilverLoad
+			 SimCity 2000
+			 Snatcher
+			 Spin Jam
+			 Syndicate Wars
+			 Tempest X3
+			 Theme Aquarium
+			 Time Crisis
+			 Tokimeki Memorial
+			 Transport Tycoon
+			 Ubik
+			 Virtual Pool
+			 Warhammer: Dark Omen
+			 Warzone 2100
+			 X-COM: UFO Defense
+			 X-COM: Terror from the Deep
+			 Z
+			 */
+		];
 		
 		NSMutableDictionary<NSString *, NSNumber*> *prepsxCompatHacks = [NSMutableDictionary dictionary];
 		for (NSString *gameCode in psxMultiTapGames) {
@@ -904,6 +1022,15 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon | needed);
 			} else {
 				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon);
+			}
+		}
+		
+		for (NSString *gameCode in psxMouseGames) {
+			if (prepsxCompatHacks[gameCode]) {
+				PlayStationHacksNeeded needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~PlayStationHacksControllers;
+				prepsxCompatHacks[gameCode] = @(PlayStationHacksMouse | needed);
+			} else {
+				prepsxCompatHacks[gameCode] = @(PlayStationHacksMouse);
 			}
 		}
 		

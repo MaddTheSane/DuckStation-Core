@@ -975,9 +975,21 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		}
 		
 		// PlayStation GunCon supported games
-		if ((hacks & PlayStationHacksControllers) == PlayStationHacksGunCon) {
-			g_settings.controller_types[0] = ControllerType::NamcoGunCon;
-			g_settings.controller_types[1] = ControllerType::AnalogController;
+		switch (hacks & PlayStationHacksControllers) {
+			case PlayStationHacksGunCon:
+				g_settings.controller_types[0] = ControllerType::NamcoGunCon;
+				break;
+				
+			case PlayStationHacksMouse:
+				g_settings.controller_types[0] = ControllerType::PlayStationMouse;
+				break;
+				
+			case PlayStationHacksJustifier:
+				//TODO: implement?
+				break;
+				
+			default:
+				break;
 		}
 
 		// PlayStation games requiring only 1 memory card inserted
