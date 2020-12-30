@@ -13,16 +13,13 @@ ContextAGL::ContextAGL(const WindowInfo& wi) : Context(wi)
     Log_ErrorPrint("Could not open OpenGL.framework, function lookups will probably fail");
 }
 
-ContextAGL::~ContextAGL()
-{
-
-}
+ContextAGL::~ContextAGL() = default;
 
 std::unique_ptr<Context> ContextAGL::Create(const WindowInfo& wi, const Version* versions_to_try,
                                             size_t num_versions_to_try)
 {
-std::unique_ptr<ContextAGL> context = std::make_unique<ContextAGL>(wi);
-    return context;
+  std::unique_ptr<ContextAGL> context = std::make_unique<ContextAGL>(wi);
+  return context;
 }
 
 bool ContextAGL::Initialize(const Version* versions_to_try, size_t num_versions_to_try)
@@ -41,7 +38,6 @@ void* ContextAGL::GetProcAddress(const char* name)
 
 bool ContextAGL::ChangeSurface(const WindowInfo& new_wi)
 {
-
   return true;
 }
 
@@ -57,7 +53,6 @@ bool ContextAGL::UpdateDimensions()
 
 bool ContextAGL::SwapBuffers()
 {
-
   return true;
 }
 
@@ -68,7 +63,7 @@ bool ContextAGL::MakeCurrent()
 
 bool ContextAGL::DoneCurrent()
 {
-    return true;
+  return true;
 }
 
 bool ContextAGL::SetSwapInterval(s32 interval)
@@ -78,7 +73,7 @@ bool ContextAGL::SetSwapInterval(s32 interval)
 
 std::unique_ptr<Context> ContextAGL::CreateSharedContext(const WindowInfo& wi)
 {
- std::unique_ptr<ContextAGL> context = std::make_unique<ContextAGL>(wi);
+  std::unique_ptr<ContextAGL> context = std::make_unique<ContextAGL>(wi);
 
   return context;
 }
