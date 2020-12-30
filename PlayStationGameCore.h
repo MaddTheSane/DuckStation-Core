@@ -32,26 +32,41 @@ OE_EXPORTED_CLASS
 
 @end
 
-typedef NS_OPTIONS(uint32_t, PlayStationHacksNeeded) {
-	PlayStationHacksNone = 0,
-	
-	PlayStationHacksGunCon = 1 << 0,
-	PlayStationHacksJustifier = 2 << 0,
-	PlayStationHacksMouse = 3 << 0,
-	
-	PlayStationHacksControllers = PlayStationHacksGunCon | PlayStationHacksJustifier | PlayStationHacksMouse,
-	
-	PlayStationHacksOnlyOneMemCard = 1 << 4,
-
-	PlayStationHacksMultiTap = 1 << 5,
-	PlayStationHacksMultiTap5PlayerPort2 = 1 << 6,
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-PlayStationHacksNeeded GetHacksNeededForGame(NSString *name);
+/**
+ * PlayStation hacks specific to the DuckStation OpenEmu plug-in.
+ */
+typedef NS_OPTIONS(uint32_t, OEPSXHacks) {
+	//! No OpenEmu-specific hacks available/required.
+	OEPSXHacksNone = 0,
+	
+	//! Game works best with, or requires, a GunCon.
+	OEPSXHacksGunCon = 1 << 0,
+	//! Game works best with, or requires, a Konami Justifier.
+	//! @note Currently not supported by DuckStation.
+	OEPSXHacksJustifier = 2 << 0,
+	//! Game works best with, or requires, a mouse.
+	OEPSXHacksMouse = 3 << 0,
+	
+	//! All the hack-specific controller types.
+	//! @discussion Can be <code>and</code>ed to get the specific controller type the game needs or desires.
+	OEPSXHacksCustomControllers = OEPSXHacksGunCon | OEPSXHacksJustifier | OEPSXHacksMouse,
+	
+	//! Game requires only one memory card inserted.
+	OEPSXHacksOnlyOneMemcard = 1 << 4,
+
+	//! Game supports multi-tap.
+	//! @note Currently not implemented in DuckStation
+	OEPSXHacksMultiTap = 1 << 5,
+	//! Game requires multi-tap adaptor to be in the second controller port.
+	//! @note Currently not implemented in DuckStation
+	OEPSXHacksMultiTap5PlayerPort2 = 1 << 6,
+};
+
+extern OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name);
 
 #ifdef __cplusplus
 }

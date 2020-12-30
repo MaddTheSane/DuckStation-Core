@@ -24,7 +24,7 @@
 
 #import "PlayStationGameCore.h"
 
-PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
+OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 {
 	static NSDictionary<NSString *, NSNumber*> *psxCompatHacks;
 	static dispatch_once_t onceToken;
@@ -997,48 +997,48 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 		
 		NSMutableDictionary<NSString *, NSNumber*> *prepsxCompatHacks = [NSMutableDictionary dictionary];
 		for (NSString *gameCode in psxMultiTapGames) {
-			prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap);
+			prepsxCompatHacks[gameCode] = @(OEPSXHacksMultiTap);
 		}
 		
 		for (NSString *gameCode in psxMultiTap5PlayerPort2) {
 			if (prepsxCompatHacks[gameCode]) {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap5PlayerPort2 | prepsxCompatHacks[gameCode].unsignedIntValue);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksMultiTap5PlayerPort2 | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksMultiTap5PlayerPort2);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksMultiTap5PlayerPort2);
 			}
 		}
 		
 		for (NSString *gameCode in psxJustifierExclusiveGames) {
 			if (prepsxCompatHacks[gameCode]) {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksJustifier | prepsxCompatHacks[gameCode].unsignedIntValue);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksJustifier | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksJustifier);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksJustifier);
 			}
 		}
 
 		for (NSString *gameCode in psxGunConGames) {
 			if (prepsxCompatHacks[gameCode]) {
-				PlayStationHacksNeeded needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~PlayStationHacksControllers;
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon | needed);
+				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksGunCon | needed);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksGunCon);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksGunCon);
 			}
 		}
 		
 		for (NSString *gameCode in psxMouseGames) {
 			if (prepsxCompatHacks[gameCode]) {
-				PlayStationHacksNeeded needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~PlayStationHacksControllers;
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksMouse | needed);
+				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksMouse | needed);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksMouse);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksMouse);
 			}
 		}
 		
 		for (NSString *gameCode in psxSingleMemoryCardGames) {
 			if (prepsxCompatHacks[gameCode]) {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksOnlyOneMemCard | prepsxCompatHacks[gameCode].unsignedIntValue);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
-				prepsxCompatHacks[gameCode] = @(PlayStationHacksOnlyOneMemCard);
+				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard);
 			}
 		}
 
@@ -1048,5 +1048,5 @@ PlayStationHacksNeeded GetHacksNeededForGame(NSString *name)
 	if ((num = psxCompatHacks[name])) {
 		return num.unsignedIntValue;
 	}
-	return PlayStationHacksNone;
+	return OEPSXHacksNone;
 }

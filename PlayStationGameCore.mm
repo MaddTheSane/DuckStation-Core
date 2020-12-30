@@ -969,22 +969,22 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		const std::string &type = System::GetRunningCode();
 		NSString *nsType = [@(type.c_str()) uppercaseString];
 		
-		PlayStationHacksNeeded hacks = GetHacksNeededForGame(nsType);
-		if (hacks == PlayStationHacksNone) {
+		OEPSXHacks hacks = OEGetPSXHacksNeededForGame(nsType);
+		if (hacks == OEPSXHacksNone) {
 			break;
 		}
 		
 		// PlayStation GunCon supported games
-		switch (hacks & PlayStationHacksControllers) {
-			case PlayStationHacksGunCon:
+		switch (hacks & OEPSXHacksCustomControllers) {
+			case OEPSXHacksGunCon:
 				g_settings.controller_types[0] = ControllerType::NamcoGunCon;
 				break;
 				
-			case PlayStationHacksMouse:
+			case OEPSXHacksMouse:
 				g_settings.controller_types[0] = ControllerType::PlayStationMouse;
 				break;
 				
-			case PlayStationHacksJustifier:
+			case OEPSXHacksJustifier:
 				//TODO: implement?
 				break;
 				
@@ -993,7 +993,7 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		}
 
 		// PlayStation games requiring only 1 memory card inserted
-		if ((hacks & PlayStationHacksOnlyOneMemCard) == PlayStationHacksOnlyOneMemCard) {
+		if ((hacks & OEPSXHacksOnlyOneMemcard) == OEPSXHacksOnlyOneMemcard) {
 			g_settings.memory_card_types[1] = MemoryCardType::None;
 		}
 	} while (0);
