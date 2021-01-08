@@ -132,7 +132,7 @@ public:
 	void ApplyGameSettings(bool display_osd_messages);
 	void OnRunningGameChanged() override;
 	
-	bool LoadCompatibilitySettings(const char* path);
+	bool LoadCompatibilitySettings(NSURL* path);
 	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
 	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
 
@@ -247,7 +247,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		_displayModes = [[NSMutableDictionary alloc] init];
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
 		if (gameSettingsURL) {
-			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL.fileSystemRepresentation);
+			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
 				os_log(OE_CORE_LOG, "Game settings for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
 			}
@@ -1025,9 +1025,14 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	gc->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
 }
 
-bool OpenEmuHostInterface::LoadCompatibilitySettings(const char* path)
+bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 {
-	return m_game_settings.Load(path);
+	NSData *theDat = [NSData dataWithContentsOfURL:path];
+	if (!theDat) {
+		return false;
+	}
+	const std::string theStr = std::string((const char*)theDat.bytes, theDat.length);
+	return m_game_settings.Load(theStr);
 }
 
 const GameSettings::Entry* OpenEmuHostInterface::GetGameFixes(const std::string& game_code)
