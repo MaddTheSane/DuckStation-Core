@@ -4160,7 +4160,6 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/simpleini/include\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -4177,7 +4176,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/duckstation/dep/simpleini/include\"";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
