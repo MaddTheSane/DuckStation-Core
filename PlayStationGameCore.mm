@@ -254,6 +254,15 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		} else {
 			os_log(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
 		}
+		gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
+		if (gameSettingsURL) {
+			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
+			if (!success) {
+				os_log(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
+			}
+		} else {
+			os_log(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
+		}
 	}
 	return self;
 }
@@ -1004,9 +1013,9 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 		}
 
 		// PlayStation games requiring only 1 memory card inserted
-		if ((hacks & OEPSXHacksOnlyOneMemcard) == OEPSXHacksOnlyOneMemcard) {
-			g_settings.memory_card_types[1] = MemoryCardType::None;
-		}
+//		if ((hacks & OEPSXHacksOnlyOneMemcard) == OEPSXHacksOnlyOneMemcard) {
+//			g_settings.memory_card_types[1] = MemoryCardType::None;
+//		}
 	} while (0);
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);

@@ -30,6 +30,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		// PlayStation Multitap supported games (incomplete list)
+		// TODO: migrate to OEOverrides.ini when DuckStation adds support for multi-tap
 		NSDictionary<NSString *, NSNumber *> *psxMultiTapGames =
 		@{
 		  @"SLES-02339" : @3, // Arcade Party Pak (Europe, Australia)
@@ -761,6 +762,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		  @"SLUS-00644" : @8, // World Cup 98 (USA)
 		};
 		// 5-player-or-less games requiring Multitap on port 2 instead of port 1
+		// TODO: migrate to OEOverrides.ini when DuckStation adds support for multi-tap
 		NSArray<NSString *> *psxMultiTap5PlayerPort2 =
 		@[
 		  @"SLES-01893", // Bomberman (Europe)
@@ -776,6 +778,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		  @"SLPS-02934", // Zen Nihon Pro Wres - Ouja no Tamashii (Japan) (Reprint)
 		  ];
 
+#if 0
 		// PlayStation GunCon supported games
 		NSArray<NSString *> *psxGunConGames =
 		@[
@@ -839,6 +842,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			@"SLES-00616", // Lifeforce Tenka (Italy)
 			@"SLES-00617", // Lifeforce Tenka (Spain)
 		];
+#endif
 
 		// PlayStation Konami Justifier exclusive games
 		NSArray<NSString *> *psxJustifierExclusiveGames =
@@ -1016,6 +1020,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			}
 		}
 
+#if 0
 		for (NSString *gameCode in psxGunConGames) {
 			if (prepsxCompatHacks[gameCode]) {
 				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
@@ -1024,6 +1029,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksGunCon);
 			}
 		}
+#endif
 		
 		for (NSString *gameCode in psxMouseGames) {
 			if (prepsxCompatHacks[gameCode]) {
@@ -1034,6 +1040,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			}
 		}
 		
+#if 0
 		for (NSString *gameCode in psxSingleMemoryCardGames) {
 			if (prepsxCompatHacks[gameCode]) {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard | prepsxCompatHacks[gameCode].unsignedIntValue);
@@ -1041,6 +1048,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard);
 			}
 		}
+#endif
 
 		psxCompatHacks = [prepsxCompatHacks copy];
 	});
