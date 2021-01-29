@@ -24,7 +24,6 @@
 /* Begin PBXBuildFile section */
 		551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEB1025270DA600B44953 /* OpenEmuBase.framework */; };
 		551DEB1725270F2A00B44953 /* PlayStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */; };
-		551DEB1B2527100D00B44953 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 551DEB1A2527100D00B44953 /* database */; };
 		551DEC402527107500B44953 /* bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB232527107400B44953 /* bus.cpp */; };
 		551DEC412527107500B44953 /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB242527107400B44953 /* bios.cpp */; };
 		551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB2A2527107400B44953 /* cdrom_async_reader.cpp */; };
@@ -445,6 +444,7 @@
 		551DF70C2527C6E800B44953 /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DF24B2527B87F00B44953 /* LzmaEnc.c */; };
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
+		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
 		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
@@ -588,7 +588,6 @@
 		551DEB1225270E0300B44953 /* OEPSXSystemResponderClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OEPSXSystemResponderClient.h; path = ../OpenEmu/SystemPlugins/PlayStation/OEPSXSystemResponderClient.h; sourceTree = "<group>"; };
 		551DEB1425270E6B00B44953 /* PlayStationGameCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayStationGameCore.h; sourceTree = "<group>"; };
 		551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayStationGameCore.mm; sourceTree = "<group>"; };
-		551DEB1A2527100D00B44953 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; name = database; path = duckstation/data/database; sourceTree = "<group>"; };
 		551DEB212527107400B44953 /* timers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timers.h; sourceTree = "<group>"; };
 		551DEB222527107400B44953 /* shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shadergen.h; sourceTree = "<group>"; };
 		551DEB232527107400B44953 /* bus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bus.cpp; sourceTree = "<group>"; };
@@ -1134,6 +1133,7 @@
 		551DF7392527C7B600B44953 /* gen_scmversion.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = gen_scmversion.sh; sourceTree = "<group>"; };
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
+		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
@@ -1345,8 +1345,8 @@
 			isa = PBXGroup;
 			children = (
 				551DF7792527D21700B44953 /* DuckStation.icns */,
-				551DEB1A2527100D00B44953 /* database */,
 				551DEB0525270CC800B44953 /* Info.plist */,
+				5534EB9225C4C40B00A92DAE /* gamesettings.ini */,
 				55C3B2B825A9B03E001EE655 /* OEOverrides.ini */,
 			);
 			name = Resources;
@@ -3225,8 +3225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
+				5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */,
 				55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */,
-				551DEB1B2527100D00B44953 /* database in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

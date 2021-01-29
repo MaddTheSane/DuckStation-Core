@@ -245,7 +245,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 #endif
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini" subdirectory:@"database"];
+		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
