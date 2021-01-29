@@ -880,7 +880,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		  //@"SLUS-00386", // Star Wars - Rebel Assault II - The Hidden Empire (USA) (Disc 2)
 		  ];
 
-		// PlayStation Konami Justifier exclusive games
+		// PlayStation Mouse supported games
 		// TODO: filter out games where the user would want to use a different input device.
 		NSArray<NSString *> *psxMouseGames =
 		@[
@@ -936,6 +936,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			@"SLES-00795", // Discworld II (Germany)
 			@"SLES-01549", // Discworld Noir (PAL-E-I-S)
 			@"SLES-02064", // Discworld Noir (Germany)
+			//@"SLUS-00757", // Quake II (USA)
 			/* TODO: add the following:
 			 Arcade's Greatest Hits: The Atari Collection 2
 			 Arcade Party Pak

@@ -391,6 +391,20 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			HostDisplay* display = g_host_interface->GetDisplay();
 			display->SetMousePosition(point.x, point.y);
 		}
+			return;
+			break;
+			
+		default:
+			break;
+	}
+	
+	switch (g_settings.controller_types[1]) {
+		case ControllerType::PlayStationMouse:
+		{
+			//TODO: scale input!
+			HostDisplay* display = g_host_interface->GetDisplay();
+			display->SetMousePosition(point.x, point.y);
+		}
 			break;
 			
 		default:
@@ -407,8 +421,23 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
 			controller->SetButtonState(NamcoGunCon::Button::Trigger, true);
 		}
+			return;
 			break;
 			
+		case ControllerType::PlayStationMouse:
+		{
+			[self mouseMovedAtPoint:point];
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Left, true);
+		}
+			return;
+			break;
+			
+		default:
+			break;
+	}
+	
+	switch (g_settings.controller_types[1]) {
 		case ControllerType::PlayStationMouse:
 		{
 			[self mouseMovedAtPoint:point];
@@ -420,6 +449,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		default:
 			break;
 	}
+
 }
 
 - (oneway void)leftMouseUp
@@ -430,8 +460,22 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
 			controller->SetButtonState(NamcoGunCon::Button::Trigger, false);
 		}
+			return;
 			break;
 			
+		case ControllerType::PlayStationMouse:
+		{
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Left, false);
+		}
+			return;
+			break;
+
+		default:
+			break;
+	}
+	
+	switch (g_settings.controller_types[1]) {
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
@@ -442,6 +486,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		default:
 			break;
 	}
+
 }
 
 - (oneway void)rightMouseDownAtPoint:(OEIntPoint)point
@@ -453,6 +498,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
 			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, true);
 		}
+			return;
 			break;
 			
 		case ControllerType::PlayStationMouse:
@@ -461,11 +507,26 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
 			controller->SetButtonState(PlayStationMouse::Button::Right, true);
 		}
+			return;
 			break;
 			
 		default:
 			break;
 	}
+	
+	switch (g_settings.controller_types[1]) {
+		case ControllerType::PlayStationMouse:
+		{
+			[self mouseMovedAtPoint:point];
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
+			controller->SetButtonState(PlayStationMouse::Button::Right, true);
+		}
+			break;
+			
+		default:
+			break;
+	}
+
 }
 
 - (oneway void)rightMouseUp
@@ -476,11 +537,25 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
 			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, false);
 		}
+			return;
 			break;
 			
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			controller->SetButtonState(PlayStationMouse::Button::Right, false);
+		}
+			return;
+			break;
+
+		default:
+			break;
+	}
+	
+	switch (g_settings.controller_types[1]) {
+		case ControllerType::PlayStationMouse:
+		{
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
 			controller->SetButtonState(PlayStationMouse::Button::Right, false);
 		}
 			break;
