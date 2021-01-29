@@ -249,19 +249,19 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
-				os_log(OE_CORE_LOG, "Game settings for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
+				os_log_fault(OE_CORE_LOG, "Game settings for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
 			}
 		} else {
-			os_log(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
+			os_log_fault(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
 		}
 		gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
-				os_log(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, path %{private}s", gameSettingsURL.fileSystemRepresentation);
+				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load,  name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
 			}
 		} else {
-			os_log(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
+			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
 		}
 	}
 	return self;
@@ -284,8 +284,9 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			if (error) {
 				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
 					NSLocalizedDescriptionKey: @"Clone CD Files Aren't Supported",
+					NSDebugDescriptionErrorKey: @"Clone CD Files Aren't Supported",
 					NSLocalizedFailureReasonErrorKey: @"DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists.",
-					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then replace the playlist to point to the new .cue files."
+					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files."
 				}];
 			}
 			return NO;
