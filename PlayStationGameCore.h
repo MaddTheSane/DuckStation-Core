@@ -38,6 +38,7 @@ extern "C" {
 
 /**
  * PlayStation hacks specific to the DuckStation OpenEmu plug-in.
+ * TODO: Migrate all of these to OEOverrides.ini instead of being a compile-time thing.
  */
 typedef NS_OPTIONS(uint32_t, OEPSXHacks) {
 	//! No OpenEmu-specific hacks available/required.

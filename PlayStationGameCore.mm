@@ -39,7 +39,7 @@
 #include "core/analog_controller.h"
 #include "core/namco_guncon.h"
 #include "core/playstation_mouse.h"
-#include "frontend-common/opengl_host_display.h"
+#include "OpenEmuOpenGLHostDisplay.hpp"
 #include "frontend-common/game_settings.h"
 #include "core/cheats.h"
 #undef TickCount
@@ -62,7 +62,8 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
 static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
 static __weak PlayStationGameCore *_current;
-static os_log_t OE_CORE_LOG;
+extern os_log_t OE_CORE_LOG;
+os_log_t OE_CORE_LOG;
 
 struct OpenEmuChangeSettings {
 	std::optional<GPUTextureFilter> textureFilter = std::nullopt;
@@ -90,22 +91,6 @@ private:
 	// TODO: Optimize this buffer away.
 	std::vector<SampleType> m_output_buffer;
 };
-
-class OpenEmuOpenGLHostDisplay final : public FrontendCommon::OpenGLHostDisplay
-{
-public:
-	OpenEmuOpenGLHostDisplay();
-	~OpenEmuOpenGLHostDisplay();
-	
-	RenderAPI GetRenderAPI() const override;
-	
-	bool CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device, bool threaded_presentation) override;
-	
-	void SetVSync(bool enabled) override;
-	
-	bool Render() override;
-};
-
 
 class OpenEmuHostInterface final: public HostInterface
 {
@@ -815,69 +800,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 #define TickCount DuckTickCount
 #include "common/assert.h"
-#include "common/log.h"
-#include "core/gpu.h"
-#include "common/gl/program.h"
-#include "common/gl/texture.h"
-#include "common/gl/context_agl.h"
-#undef TickCount
-#include <array>
-#include <tuple>
-
-#pragma mark OpenEmuOpenGLHostDisplay methods -
-
-OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay()=default;
-OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()=default;
-
-bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device, bool threaded_presentation)
-{
-	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
-
-	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
-	if (!m_gl_context) {
-		os_log_fault(OE_CORE_LOG, "Failed to create any GL context");
-		return false;
-	}
-
-	gladLoadGL();
-	m_window_info = wi;
-	m_window_info.surface_width = m_gl_context->GetSurfaceWidth();
-	m_window_info.surface_height = m_gl_context->GetSurfaceHeight();
-	return true;
-}
-
-void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
-{
-	OpenGLHostDisplay::SetVSync(enabled);
-	_current.renderDelegate.enableVSync = enabled;
-}
-
-bool OpenEmuOpenGLHostDisplay::Render() {
-	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
-
-	glDisable(GL_SCISSOR_TEST);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	RenderDisplay();
-
-	RenderSoftwareCursor();
-
-	m_gl_context->SwapBuffers();
-
-	return true;
-}
-
-FrontendCommon::OpenGLHostDisplay::RenderAPI OpenEmuOpenGLHostDisplay::GetRenderAPI() const {
-	return RenderAPI::OpenGL;
-}
-
-
-#pragma mark -
-
-#define TickCount DuckTickCount
-#include "common/assert.h"
 #include "common/byte_stream.h"
 #include "common/file_system.h"
 #include "common/log.h"
@@ -1029,7 +951,7 @@ void OpenEmuHostInterface::LoadSettings()
 
 bool OpenEmuHostInterface::CreateDisplay()
 {
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>();
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>(_current);
 	WindowInfo wi = WindowInfoFromGameCore(_current);
 	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
 		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device, false)) {
