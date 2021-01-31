@@ -102,8 +102,9 @@ std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 
 																	 const void* data, u32 data_stride,
 																	 bool dynamic /* = false */)
 {
-	if (layers != 1 || levels != 1)
+	if (layers != 1 || levels != 1) {
 		return {};
+	}
 	
 	const auto [gl_internal_format, gl_format, gl_type] = s_display_pixel_format_mapping[static_cast<u32>(format)];
 	
@@ -111,8 +112,9 @@ std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 
 	Assert(!data || data_stride == (width * sizeof(u32)));
 	
 	GL::Texture tex;
-	if (!tex.Create(width, height, samples, gl_internal_format, gl_format, gl_type, data, data_stride))
+	if (!tex.Create(width, height, samples, gl_internal_format, gl_format, gl_type, data, data_stride)) {
 		return {};
+	}
 	
 	return std::make_unique<OEOGLHostDisplayTexture>(std::move(tex), format);
 }
@@ -124,12 +126,13 @@ void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x,
 	const auto [gl_internal_format, gl_format, gl_type] =
 	s_display_pixel_format_mapping[static_cast<u32>(texture->GetFormat())];
 	GLint alignment;
-	if (texture_data_stride & 1)
+	if (texture_data_stride & 1) {
 		alignment = 1;
-	else if (texture_data_stride & 2)
+	} else if (texture_data_stride & 2) {
 		alignment = 2;
-	else
+	} else {
 		alignment = 4;
+	}
 	
 	GLint old_texture_binding = 0, old_alignment = 0, old_row_length = 0;
 	glGetIntegerv(GL_TEXTURE_BINDING_2D, &old_texture_binding);
@@ -153,12 +156,13 @@ bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostD
 										u32 width, u32 height, void* out_data, u32 out_data_stride)
 {
 	GLint alignment;
-	if (out_data_stride & 1)
+	if (out_data_stride & 1) {
 		alignment = 1;
-	else if (out_data_stride & 2)
+	} else if (out_data_stride & 2) {
 		alignment = 2;
-	else
+	} else {
 		alignment = 4;
+	}
 	
 	GLint old_alignment = 0, old_row_length = 0;
 	glGetIntegerv(GL_PACK_ALIGNMENT, &old_alignment);
@@ -190,8 +194,7 @@ bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat form
 	const u32 stride = Common::AlignUpPow2(width * pixel_size, 4);
 	const u32 size_required = stride * height * pixel_size;
 	const u32 buffer_size = Common::AlignUpPow2(size_required * 2, 4 * 1024 * 1024);
-	if (!m_display_pixels_texture_pbo || m_display_pixels_texture_pbo->GetSize() < buffer_size)
-	{
+	if (!m_display_pixels_texture_pbo || m_display_pixels_texture_pbo->GetSize() < buffer_size) {
 		m_display_pixels_texture_pbo.reset();
 		m_display_pixels_texture_pbo = GL::StreamBuffer::Create(GL_PIXEL_UNPACK_BUFFER, buffer_size);
 		if (!m_display_pixels_texture_pbo)
@@ -205,8 +208,7 @@ bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat form
 	*out_buffer = map.pointer;
 	*out_pitch = stride;
 	
-	if (m_display_pixels_texture_id == 0)
-	{
+	if (m_display_pixels_texture_id == 0) {
 		glGenTextures(1, &m_display_pixels_texture_id);
 		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -245,8 +247,7 @@ void OpenEmuOpenGLHostDisplay::EndSetDisplayPixels()
 bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height, const void* buffer,
 										 u32 pitch)
 {
-	if (m_display_pixels_texture_id == 0)
-	{
+	if (m_display_pixels_texture_id == 0) {
 		glGenTextures(1, &m_display_pixels_texture_id);
 		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -254,9 +255,7 @@ bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
-	}
-	else
-	{
+	} else {
 		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
 	}
 	
@@ -287,10 +286,11 @@ void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 
 const char* OpenEmuOpenGLHostDisplay::GetGLSLVersionString() const
 {
-	if (GLAD_GL_VERSION_3_3)
+	if (GLAD_GL_VERSION_3_3) {
 		return "#version 330";
-	else
+	} else {
 		return "#version 130";
+	}
 }
 
 std::string OpenEmuOpenGLHostDisplay::GetGLSLVersionHeader() const
@@ -334,8 +334,9 @@ bool OpenEmuOpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_ca
 {
 	glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, reinterpret_cast<GLint*>(&m_uniform_buffer_alignment));
 	
-	if (!CreateResources())
+	if (!CreateResources()) {
 		return false;
+	}
 	
 	// Start with vsync on.
 	SetVSync(true);
@@ -345,9 +346,8 @@ bool OpenEmuOpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_ca
 
 bool OpenEmuOpenGLHostDisplay::MakeRenderContextCurrent()
 {
-	if (!m_gl_context->MakeCurrent())
-	{
-		Log_ErrorPrintf("Failed to make GL context current");
+	if (!m_gl_context->MakeCurrent()) {
+		os_log_fault(OE_CORE_LOG, "Failed to make GL context current");
 		return false;
 	}
 	
@@ -361,8 +361,9 @@ bool OpenEmuOpenGLHostDisplay::DoneRenderContextCurrent()
 
 void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
 {
-	if (!m_gl_context)
+	if (!m_gl_context) {
 		return;
+	}
 	
 	DestroyResources();
 	
@@ -374,9 +375,8 @@ bool OpenEmuOpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
 {
 	Assert(m_gl_context);
 	
-	if (!m_gl_context->ChangeSurface(new_wi))
-	{
-		Log_ErrorPrintf("Failed to change surface");
+	if (!m_gl_context->ChangeSurface(new_wi)) {
+		os_log_fault(OE_CORE_LOG, "Failed to change surface");
 		return false;
 	}
 	
@@ -389,8 +389,9 @@ bool OpenEmuOpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
 
 void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 {
-	if (!m_gl_context)
+	if (!m_gl_context) {
 		return;
+	}
 	
 	m_gl_context->ResizeSurface(static_cast<u32>(new_window_width), static_cast<u32>(new_window_height));
 	m_window_info.surface_width = m_gl_context->GetSurfaceWidth();
@@ -418,8 +419,9 @@ void OpenEmuOpenGLHostDisplay::DestroyRenderSurface()
 		return;
 	
 	m_window_info = {};
-	if (!m_gl_context->ChangeSurface(m_window_info))
-		Log_ErrorPrintf("Failed to switch to surfaceless");
+	if (!m_gl_context->ChangeSurface(m_window_info)) {
+		os_log_fault(OE_CORE_LOG, "Failed to switch to surfaceless");
+	}
 }
 
 bool OpenEmuOpenGLHostDisplay::CreateResources()
@@ -463,18 +465,16 @@ void main()
 	if (!m_display_program.Compile(GetGLSLVersionHeader() + fullscreen_quad_vertex_shader, {},
 								   GetGLSLVersionHeader() + display_fragment_shader) ||
 		!m_cursor_program.Compile(GetGLSLVersionHeader() + fullscreen_quad_vertex_shader, {},
-								  GetGLSLVersionHeader() + cursor_fragment_shader))
-	{
-		Log_ErrorPrintf("Failed to compile display shaders");
+								  GetGLSLVersionHeader() + cursor_fragment_shader)) {
+		os_log_fault(OE_CORE_LOG, "Failed to compile display shaders");
 		return false;
 	}
 	
 	m_display_program.BindFragData(0, "o_col0");
 	m_cursor_program.BindFragData(0, "o_col0");
 	
-	if (!m_display_program.Link() || !m_cursor_program.Link())
-	{
-		Log_ErrorPrintf("Failed to link display programs");
+	if (!m_display_program.Link() || !m_cursor_program.Link()) {
+		os_log_fault(OE_CORE_LOG, "Failed to link display programs");
 		return false;
 	}
 	
@@ -507,24 +507,20 @@ void OpenEmuOpenGLHostDisplay::DestroyResources()
 	m_post_processing_ubo.reset();
 	m_post_processing_stages.clear();
 	
-	if (m_display_pixels_texture_id != 0)
-	{
+	if (m_display_pixels_texture_id != 0) {
 		glDeleteTextures(1, &m_display_pixels_texture_id);
 		m_display_pixels_texture_id = 0;
 	}
 	
-	if (m_display_vao != 0)
-	{
+	if (m_display_vao != 0) {
 		glDeleteVertexArrays(1, &m_display_vao);
 		m_display_vao = 0;
 	}
-	if (m_display_linear_sampler != 0)
-	{
+	if (m_display_linear_sampler != 0) {
 		glDeleteSamplers(1, &m_display_linear_sampler);
 		m_display_linear_sampler = 0;
 	}
-	if (m_display_nearest_sampler != 0)
-	{
+	if (m_display_nearest_sampler != 0) {
 		glDeleteSamplers(1, &m_display_nearest_sampler);
 		m_display_nearest_sampler = 0;
 	}
@@ -553,13 +549,13 @@ bool OpenEmuOpenGLHostDisplay::Render()
 
 void OpenEmuOpenGLHostDisplay::RenderDisplay()
 {
-	if (!HasDisplayTexture())
+	if (!HasDisplayTexture()) {
 		return;
+	}
 	
 	const auto [left, top, width, height] = CalculateDrawRect(GetWindowWidth(), GetWindowHeight(), m_display_top_margin);
 	
-	if (!m_post_processing_chain.IsEmpty())
-	{
+	if (!m_post_processing_chain.IsEmpty()) {
 		ApplyPostProcessingChain(0, left, GetWindowHeight() - top - height, width, height, m_display_texture_handle,
 								 m_display_texture_width, m_display_texture_height, m_display_texture_view_x,
 								 m_display_texture_view_y, m_display_texture_view_width, m_display_texture_view_height);
@@ -587,8 +583,7 @@ void OpenEmuOpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s3
 	const float position_adjust = m_display_linear_filtering ? 0.5f : 0.0f;
 	const float size_adjust = m_display_linear_filtering ? 1.0f : 0.0f;
 	const float flip_adjust = (texture_view_height < 0) ? -1.0f : 1.0f;
-	m_display_program.Uniform4f(
-								0, (static_cast<float>(texture_view_x) + position_adjust) / static_cast<float>(texture_width),
+	m_display_program.Uniform4f(0, (static_cast<float>(texture_view_x) + position_adjust) / static_cast<float>(texture_width),
 								(static_cast<float>(texture_view_y) + (position_adjust * flip_adjust)) / static_cast<float>(texture_height),
 								(static_cast<float>(texture_view_width) - size_adjust) / static_cast<float>(texture_width),
 								(static_cast<float>(texture_view_height) - (size_adjust * flip_adjust)) / static_cast<float>(texture_height));
@@ -630,47 +625,43 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 wi
 
 bool OpenEmuOpenGLHostDisplay::SetPostProcessingChain(const std::string_view& config)
 {
-	if (config.empty())
-	{
+	if (config.empty()) {
 		m_post_processing_input_texture.Destroy();
 		m_post_processing_stages.clear();
 		m_post_processing_chain.ClearStages();
 		return true;
 	}
 	
-	if (!m_post_processing_chain.CreateFromString(config))
+	if (!m_post_processing_chain.CreateFromString(config)) {
 		return false;
+	}
 	
 	m_post_processing_stages.clear();
 	
 	FrontendCommon::PostProcessingShaderGen shadergen(HostDisplay::RenderAPI::OpenGL, false);
 	
-	for (u32 i = 0; i < m_post_processing_chain.GetStageCount(); i++)
-	{
+	for (u32 i = 0; i < m_post_processing_chain.GetStageCount(); i++) {
 		const FrontendCommon::PostProcessingShader& shader = m_post_processing_chain.GetShaderStage(i);
 		const std::string vs = shadergen.GeneratePostProcessingVertexShader(shader);
 		const std::string ps = shadergen.GeneratePostProcessingFragmentShader(shader);
 		
 		PostProcessingStage stage;
 		stage.uniforms_size = shader.GetUniformsSize();
-		if (!stage.program.Compile(vs, {}, ps))
-		{
-			Log_InfoPrintf("Failed to compile post-processing program, disabling.");
+		if (!stage.program.Compile(vs, {}, ps)) {
+			os_log_error(OE_CORE_LOG, "Failed to compile post-processing program, disabling.");
 			m_post_processing_stages.clear();
 			m_post_processing_chain.ClearStages();
 			return false;
 		}
 		
-		if (!shadergen.UseGLSLBindingLayout())
-		{
+		if (!shadergen.UseGLSLBindingLayout()) {
 			stage.program.BindUniformBlock("UBOBlock", 1);
 			stage.program.Bind();
 			stage.program.Uniform1i("samp0", 0);
 		}
 		
-		if (!stage.program.Link())
-		{
-			Log_InfoPrintf("Failed to link post-processing program, disabling.");
+		if (!stage.program.Link()) {
+			os_log_error(OE_CORE_LOG, "Failed to link post-processing program, disabling.");
 			m_post_processing_stages.clear();
 			m_post_processing_chain.ClearStages();
 			return false;
@@ -679,12 +670,10 @@ bool OpenEmuOpenGLHostDisplay::SetPostProcessingChain(const std::string_view& co
 		m_post_processing_stages.push_back(std::move(stage));
 	}
 	
-	if (!m_post_processing_ubo)
-	{
+	if (!m_post_processing_ubo) {
 		m_post_processing_ubo = GL::StreamBuffer::Create(GL_UNIFORM_BUFFER, 1 * 1024 * 1024);
-		if (!m_post_processing_ubo)
-		{
-			Log_InfoPrintf("Failed to allocate uniform buffer for postprocessing");
+		if (!m_post_processing_ubo) {
+			os_log_error(OE_CORE_LOG, "Failed to allocate uniform buffer for postprocessing");
 			m_post_processing_stages.clear();
 			m_post_processing_chain.ClearStages();
 			return false;
@@ -701,24 +690,19 @@ bool OpenEmuOpenGLHostDisplay::CheckPostProcessingRenderTargets(u32 target_width
 	DebugAssert(!m_post_processing_stages.empty());
 	
 	if (m_post_processing_input_texture.GetWidth() != target_width ||
-		m_post_processing_input_texture.GetHeight() != target_height)
-	{
+		m_post_processing_input_texture.GetHeight() != target_height) {
 		if (!m_post_processing_input_texture.Create(target_width, target_height, 1, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE) ||
-			!m_post_processing_input_texture.CreateFramebuffer())
-		{
+			!m_post_processing_input_texture.CreateFramebuffer()) {
 			return false;
 		}
 	}
 	
 	const u32 target_count = (static_cast<u32>(m_post_processing_stages.size()) - 1);
-	for (u32 i = 0; i < target_count; i++)
-	{
+	for (u32 i = 0; i < target_count; i++) {
 		PostProcessingStage& pps = m_post_processing_stages[i];
-		if (pps.output_texture.GetWidth() != target_width || pps.output_texture.GetHeight() != target_height)
-		{
+		if (pps.output_texture.GetWidth() != target_width || pps.output_texture.GetHeight() != target_height) {
 			if (!pps.output_texture.Create(target_width, target_height, 1, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE) ||
-				!pps.output_texture.CreateFramebuffer())
-			{
+				!pps.output_texture.CreateFramebuffer()) {
 				return false;
 			}
 		}
@@ -732,8 +716,7 @@ void OpenEmuOpenGLHostDisplay::ApplyPostProcessingChain(GLuint final_target, s32
 														s32 texture_height, s32 texture_view_x, s32 texture_view_y,
 														s32 texture_view_width, s32 texture_view_height)
 {
-	if (!CheckPostProcessingRenderTargets(GetWindowWidth(), GetWindowHeight()))
-	{
+	if (!CheckPostProcessingRenderTargets(GetWindowWidth(), GetWindowHeight())) {
 		RenderDisplay(final_left, GetWindowHeight() - final_top - final_height, final_width, final_height, texture_handle,
 					  texture_width, texture_height, texture_view_x, texture_view_y, texture_view_width,
 					  texture_view_height, m_display_linear_filtering);
@@ -758,15 +741,11 @@ void OpenEmuOpenGLHostDisplay::ApplyPostProcessingChain(GLuint final_target, s32
 	m_post_processing_ubo->Bind();
 	
 	const u32 final_stage = static_cast<u32>(m_post_processing_stages.size()) - 1u;
-	for (u32 i = 0; i < static_cast<u32>(m_post_processing_stages.size()); i++)
-	{
+	for (u32 i = 0; i < static_cast<u32>(m_post_processing_stages.size()); i++) {
 		PostProcessingStage& pps = m_post_processing_stages[i];
-		if (i == final_stage)
-		{
+		if (i == final_stage) {
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, final_target);
-		}
-		else
-		{
+		} else {
 			pps.output_texture.BindFramebuffer(GL_DRAW_FRAMEBUFFER);
 			glClear(GL_COLOR_BUFFER_BIT);
 		}
@@ -777,8 +756,7 @@ void OpenEmuOpenGLHostDisplay::ApplyPostProcessingChain(GLuint final_target, s32
 		glBindSampler(0, m_display_nearest_sampler);
 		
 		const auto map_result = m_post_processing_ubo->Map(m_uniform_buffer_alignment, pps.uniforms_size);
-		m_post_processing_chain.GetShaderStage(i).FillUniformBuffer(
-																	map_result.pointer, texture_width, texture_height, texture_view_x, texture_view_y, texture_view_width,
+		m_post_processing_chain.GetShaderStage(i).FillUniformBuffer(map_result.pointer, texture_width, texture_height, texture_view_x, texture_view_y, texture_view_width,
 																	texture_view_height, GetWindowWidth(), GetWindowHeight(), 0.0f);
 		m_post_processing_ubo->Unmap(pps.uniforms_size);
 		glBindBufferRange(GL_UNIFORM_BUFFER, 1, m_post_processing_ubo->GetGLBufferId(), map_result.buffer_offset,
@@ -793,4 +771,3 @@ void OpenEmuOpenGLHostDisplay::ApplyPostProcessingChain(GLuint final_target, s32
 	glBindSampler(0, 0);
 	m_post_processing_ubo->Unbind();
 }
-
