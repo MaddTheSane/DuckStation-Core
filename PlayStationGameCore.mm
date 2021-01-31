@@ -258,7 +258,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
-				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load,  name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
+				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
 			}
 		} else {
 			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
