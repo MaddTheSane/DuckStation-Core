@@ -301,26 +301,6 @@ std::string OpenEmuOpenGLHostDisplay::GetGLSLVersionHeader() const
 	return header;
 }
 
-static void APIENTRY GLDebugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length,
-									 const GLchar* message, const void* userParam)
-{
-	switch (severity)
-	{
-		case GL_DEBUG_SEVERITY_HIGH_KHR:
-			Log_ErrorPrintf(message);
-			break;
-		case GL_DEBUG_SEVERITY_MEDIUM_KHR:
-			Log_WarningPrint(message);
-			break;
-		case GL_DEBUG_SEVERITY_LOW_KHR:
-			Log_InfoPrintf(message);
-			break;
-		case GL_DEBUG_SEVERITY_NOTIFICATION:
-			// Log_DebugPrint(message);
-			break;
-	}
-}
-
 bool OpenEmuOpenGLHostDisplay::HasRenderDevice() const
 {
   return static_cast<bool>(m_gl_context);
@@ -332,7 +312,7 @@ bool OpenEmuOpenGLHostDisplay::HasRenderSurface() const
 }
 
 bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device,
-										   bool threaded_presentation)
+												  bool threaded_presentation)
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 	
@@ -350,20 +330,9 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 }
 
 bool OpenEmuOpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_cache_directory, bool debug_device,
-											   bool threaded_presentation)
+													  bool threaded_presentation)
 {
 	glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, reinterpret_cast<GLint*>(&m_uniform_buffer_alignment));
-	
-	if (debug_device && GLAD_GL_KHR_debug)
-	{
-		if (GetRenderAPI() == RenderAPI::OpenGLES)
-			glDebugMessageCallbackKHR(GLDebugCallback, nullptr);
-		else
-			glDebugMessageCallback(GLDebugCallback, nullptr);
-		
-		glEnable(GL_DEBUG_OUTPUT);
-		// glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-	}
 	
 	if (!CreateResources())
 		return false;
