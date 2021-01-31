@@ -136,6 +136,7 @@ protected:
 	std::unique_ptr<GL::StreamBuffer> m_post_processing_ubo;
 	std::vector<PostProcessingStage> m_post_processing_stages;
 	
+private:
 	PlayStationGameCore *_current;
 };
 

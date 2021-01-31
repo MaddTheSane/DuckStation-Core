@@ -41,14 +41,12 @@ Log_SetChannel(OpenEmuHostDisplay);
 
 extern os_log_t OE_CORE_LOG;
 
-namespace FrontendCommon {
-
-class OpenGLHostDisplayTexture : public HostDisplayTexture
+class OEOGLHostDisplayTexture : public HostDisplayTexture
 {
 public:
-	OpenGLHostDisplayTexture(GL::Texture texture, HostDisplayPixelFormat format)
+	OEOGLHostDisplayTexture(GL::Texture texture, HostDisplayPixelFormat format)
 	: m_texture(std::move(texture)), m_format(format){}
-	~OpenGLHostDisplayTexture() override = default;
+	~OEOGLHostDisplayTexture() override = default;
 	
 	void* GetHandle() const override { return reinterpret_cast<void*>(static_cast<uintptr_t>(m_texture.GetGLId())); }
 	u32 GetWidth() const override { return m_texture.GetWidth(); }
@@ -64,7 +62,6 @@ private:
 	GL::Texture m_texture;
 	HostDisplayPixelFormat m_format;
 };
-}
 
 OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
 {
@@ -117,13 +114,13 @@ std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 
 	if (!tex.Create(width, height, samples, gl_internal_format, gl_format, gl_type, data, data_stride))
 		return {};
 	
-	return std::make_unique<FrontendCommon::OpenGLHostDisplayTexture>(std::move(tex), format);
+	return std::make_unique<OEOGLHostDisplayTexture>(std::move(tex), format);
 }
 
 void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y, u32 width, u32 height,
 									  const void* texture_data, u32 texture_data_stride)
 {
-	FrontendCommon::OpenGLHostDisplayTexture* tex = static_cast<FrontendCommon::OpenGLHostDisplayTexture*>(texture);
+	OEOGLHostDisplayTexture* tex = static_cast<OEOGLHostDisplayTexture*>(texture);
 	const auto [gl_internal_format, gl_format, gl_type] =
 	s_display_pixel_format_mapping[static_cast<u32>(texture->GetFormat())];
 	GLint alignment;
@@ -448,12 +445,12 @@ bool OpenEmuOpenGLHostDisplay::SetFullscreen(bool fullscreen, u32 width, u32 hei
 
 void OpenEmuOpenGLHostDisplay::DestroyRenderSurface()
 {
-  if (!m_gl_context)
-	return;
-
-  m_window_info = {};
-  if (!m_gl_context->ChangeSurface(m_window_info))
-	Log_ErrorPrintf("Failed to switch to surfaceless");
+	if (!m_gl_context)
+		return;
+	
+	m_window_info = {};
+	if (!m_gl_context->ChangeSurface(m_window_info))
+		Log_ErrorPrintf("Failed to switch to surfaceless");
 }
 
 bool OpenEmuOpenGLHostDisplay::CreateResources()
@@ -653,7 +650,7 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 wi
 	glDisable(GL_SCISSOR_TEST);
 	glDepthMask(GL_FALSE);
 	m_cursor_program.Bind();
-	glBindTexture(GL_TEXTURE_2D, static_cast<FrontendCommon::OpenGLHostDisplayTexture*>(texture_handle)->GetGLID());
+	glBindTexture(GL_TEXTURE_2D, static_cast<OEOGLHostDisplayTexture*>(texture_handle)->GetGLID());
 	
 	m_cursor_program.Uniform4f(0, 0.0f, 0.0f, 1.0f, 1.0f);
 	glBindSampler(0, m_display_linear_sampler);
@@ -766,8 +763,6 @@ void OpenEmuOpenGLHostDisplay::ApplyPostProcessingChain(GLuint final_target, s32
 														s32 texture_height, s32 texture_view_x, s32 texture_view_y,
 														s32 texture_view_width, s32 texture_view_height)
 {
-	static constexpr std::array<float, 4> clear_color = {0.0f, 0.0f, 0.0f, 1.0f};
-	
 	if (!CheckPostProcessingRenderTargets(GetWindowWidth(), GetWindowHeight()))
 	{
 		RenderDisplay(final_left, GetWindowHeight() - final_top - final_height, final_width, final_height, texture_handle,
