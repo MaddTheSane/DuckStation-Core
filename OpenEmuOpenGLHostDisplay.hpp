@@ -96,7 +96,6 @@ protected:
 	virtual void DestroyResources() override;
 	
 	void RenderDisplay();
-	void RenderImGui();
 	void RenderSoftwareCursor();
 	
 	void RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle, u32 texture_width,
