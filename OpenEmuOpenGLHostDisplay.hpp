@@ -103,13 +103,6 @@ protected:
 					   s32 texture_view_height, bool linear_filter);
 	void RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height, HostDisplayTexture* texture_handle);
 	
-	struct PostProcessingStage
-	{
-		GL::Program program;
-		GL::Texture output_texture;
-		u32 uniforms_size;
-	};
-	
 	std::unique_ptr<GL::Context> m_gl_context;
 	
 	GL::Program m_display_program;
