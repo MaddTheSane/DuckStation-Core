@@ -111,11 +111,6 @@ protected:
 		u32 uniforms_size;
 	};
 	
-	bool CheckPostProcessingRenderTargets(u32 target_width, u32 target_height);
-	void ApplyPostProcessingChain(GLuint final_target, s32 final_left, s32 final_top, s32 final_width, s32 final_height,
-								  void* texture_handle, u32 texture_width, s32 texture_height, s32 texture_view_x,
-								  s32 texture_view_y, s32 texture_view_width, s32 texture_view_height);
-	
 	std::unique_ptr<GL::Context> m_gl_context;
 	
 	GL::Program m_display_program;
@@ -129,12 +124,6 @@ protected:
 	std::unique_ptr<GL::StreamBuffer> m_display_pixels_texture_pbo;
 	u32 m_display_pixels_texture_pbo_map_offset = 0;
 	u32 m_display_pixels_texture_pbo_map_size = 0;
-	
-	// TODO: remove PostProcessingChain?
-	FrontendCommon::PostProcessingChain m_post_processing_chain;
-	GL::Texture m_post_processing_input_texture;
-	std::unique_ptr<GL::StreamBuffer> m_post_processing_ubo;
-	std::vector<PostProcessingStage> m_post_processing_stages;
 	
 private:
 	PlayStationGameCore *_current;
