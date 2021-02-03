@@ -96,10 +96,11 @@ static constexpr std::array<std::tuple<GLenum, GLenum, GLenum>, static_cast<u32>
 	{GL_RGB5_A1, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV} // RGBA5551
   }};
 
-std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers, u32 levels,
-																	 u32 samples, HostDisplayPixelFormat format,
-																	 const void* data, u32 data_stride,
-																	 bool dynamic /* = false */)
+std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers,
+																			u32 levels, u32 samples,
+																			HostDisplayPixelFormat format,
+																			const void* data, u32 data_stride,
+																			bool dynamic /* = false */)
 {
 	if (layers != 1 || levels != 1) {
 		return {};
@@ -119,7 +120,7 @@ std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 
 }
 
 void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y, u32 width, u32 height,
-									  const void* texture_data, u32 texture_data_stride)
+											 const void* texture_data, u32 texture_data_stride)
 {
 	OEOGLHostDisplayTexture* tex = static_cast<OEOGLHostDisplayTexture*>(texture);
 	const auto [gl_internal_format, gl_format, gl_type] =
@@ -151,8 +152,9 @@ void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x,
 	glBindTexture(GL_TEXTURE_2D, old_texture_binding);
 }
 
-bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format, u32 x, u32 y,
-										u32 width, u32 height, void* out_data, u32 out_data_stride)
+bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format,
+											   u32 x, u32 y, u32 width, u32 height, void* out_data,
+											   u32 out_data_stride)
 {
 	GLint alignment;
 	if (out_data_stride & 1) {
@@ -173,8 +175,8 @@ bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostD
 	const auto [gl_internal_format, gl_format, gl_type] =
 	s_display_pixel_format_mapping[static_cast<u32>(texture_format)];
 	
-	GL::Texture::GetTextureSubImage(texture, 0, x, y, 0, width, height, 1, gl_format, gl_type, height * out_data_stride,
-									out_data);
+	GL::Texture::GetTextureSubImage(texture, 0, x, y, 0, width, height, 1, gl_format, gl_type,
+									height * out_data_stride, out_data);
 	
 	glPixelStorei(GL_PACK_ALIGNMENT, old_alignment);
 	glPixelStorei(GL_PACK_ROW_LENGTH, old_row_length);
@@ -186,8 +188,8 @@ bool OpenEmuOpenGLHostDisplay::SupportsDisplayPixelFormat(HostDisplayPixelFormat
 	return (std::get<0>(s_display_pixel_format_mapping[static_cast<u32>(format)]) != static_cast<GLenum>(0));
 }
 
-bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height, void** out_buffer,
-													 u32* out_pitch)
+bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
+													 void** out_buffer, u32* out_pitch)
 {
 	const u32 pixel_size = GetDisplayPixelFormatSize(format);
 	const u32 stride = Common::AlignUpPow2(width * pixel_size, 4);
@@ -196,8 +198,9 @@ bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat form
 	if (!m_display_pixels_texture_pbo || m_display_pixels_texture_pbo->GetSize() < buffer_size) {
 		m_display_pixels_texture_pbo.reset();
 		m_display_pixels_texture_pbo = GL::StreamBuffer::Create(GL_PIXEL_UNPACK_BUFFER, buffer_size);
-		if (!m_display_pixels_texture_pbo)
+		if (!m_display_pixels_texture_pbo) {
 			return false;
+		}
 	}
 	
 	const auto map = m_display_pixels_texture_pbo->Map(GetDisplayPixelFormatSize(format), size_required);
@@ -243,8 +246,8 @@ void OpenEmuOpenGLHostDisplay::EndSetDisplayPixels()
 	m_display_pixels_texture_pbo_map_size = 0;
 }
 
-bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height, const void* buffer,
-										 u32 pitch)
+bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
+												const void* buffer, u32 pitch)
 {
 	if (m_display_pixels_texture_id == 0) {
 		glGenTextures(1, &m_display_pixels_texture_id);
@@ -264,15 +267,16 @@ bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
-	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width, height,
-					  0, 0, width, height);
+	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width,
+					  height, 0, 0, width, height);
 	return true;
 }
 
 void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 {
-	if (m_gl_context->GetWindowInfo().type == WindowInfo::Type::Surfaceless)
+	if (m_gl_context->GetWindowInfo().type == WindowInfo::Type::Surfaceless) {
 		return;
+	}
 	
 	// Window framebuffer has to be bound to call SetSwapInterval.
 	GLint current_fbo = 0;
@@ -310,8 +314,8 @@ bool OpenEmuOpenGLHostDisplay::HasRenderSurface() const
 	return m_window_info.type != WindowInfo::Type::Surfaceless;
 }
 
-bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name, bool debug_device,
-												  bool threaded_presentation)
+bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name,
+												  bool debug_device, bool threaded_presentation)
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 	
@@ -414,8 +418,9 @@ bool OpenEmuOpenGLHostDisplay::SetFullscreen(bool fullscreen, u32 width, u32 hei
 
 void OpenEmuOpenGLHostDisplay::DestroyRenderSurface()
 {
-	if (!m_gl_context)
+	if (!m_gl_context) {
 		return;
+	}
 	
 	m_window_info = {};
 	if (!m_gl_context->ChangeSurface(m_window_info)) {
@@ -555,8 +560,9 @@ void OpenEmuOpenGLHostDisplay::RenderDisplay()
 }
 
 void OpenEmuOpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle,
-									  u32 texture_width, s32 texture_height, s32 texture_view_x, s32 texture_view_y,
-									  s32 texture_view_width, s32 texture_view_height, bool linear_filter)
+											 u32 texture_width, s32 texture_height, s32 texture_view_x,
+											 s32 texture_view_y, s32 texture_view_width, s32 texture_view_height,
+											 bool linear_filter)
 {
 	glViewport(left, bottom, width, height);
 	glDisable(GL_BLEND);
@@ -590,7 +596,7 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor()
 }
 
 void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height,
-											 HostDisplayTexture* texture_handle)
+													HostDisplayTexture* texture_handle)
 {
 	glViewport(left, bottom, width, height);
 	glEnable(GL_BLEND);
