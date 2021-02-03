@@ -588,11 +588,12 @@ void OpenEmuOpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s3
 
 void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor()
 {
-  if (!HasSoftwareCursor())
-	return;
-
-  const auto [left, top, width, height] = CalculateSoftwareCursorDrawRect();
-  RenderSoftwareCursor(left, GetWindowHeight() - top - height, width, height, m_cursor_texture.get());
+	if (!HasSoftwareCursor()) {
+		return;
+	}
+	
+	const auto [left, top, width, height] = CalculateSoftwareCursorDrawRect();
+	RenderSoftwareCursor(left, GetWindowHeight() - top - height, width, height, m_cursor_texture.get());
 }
 
 void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height,
