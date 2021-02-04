@@ -97,8 +97,6 @@ public:
 	OpenEmuHostInterface();
 	~OpenEmuHostInterface() override;
 	
-	ALWAYS_INLINE u32 GetResolutionScale() const { return g_settings.gpu_resolution_scale; }
-	
 	bool Initialize() override;
 	void Shutdown() override;
 	
