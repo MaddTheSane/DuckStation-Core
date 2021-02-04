@@ -52,7 +52,6 @@
 #include <os/log.h>
 
 class OpenEmuAudioStream;
-class OpenEmuOpenGLHostDisplay;
 class OpenEmuHostInterface;
 
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
@@ -118,7 +117,6 @@ public:
 	void OnRunningGameChanged() override;
 	
 	bool LoadCompatibilitySettings(NSURL* path);
-	const GameSettings::Entry* GetGameFixes(const std::string& game_code);
 	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
 
 	void ChangeSettings(OpenEmuChangeSettings new_settings);
@@ -969,7 +967,7 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	if (System::IsShutdown() || System::GetRunningCode().empty() || !g_settings.apply_game_settings)
 		return;
 	
-	const GameSettings::Entry* gs = GetGameFixes(System::GetRunningCode());
+	const GameSettings::Entry* gs = m_game_settings.GetEntry(System::GetRunningCode());
 	if (gs) {
 		gs->ApplySettings(display_osd_messages);
 	} else {
@@ -1040,11 +1038,6 @@ bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 	}
 	const std::string theStr = std::string((const char*)theDat.bytes, theDat.length);
 	return m_game_settings.Load(theStr);
-}
-
-const GameSettings::Entry* OpenEmuHostInterface::GetGameFixes(const std::string& game_code)
-{
-	return m_game_settings.GetEntry(game_code);
 }
 
 void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
