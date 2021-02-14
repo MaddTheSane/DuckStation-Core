@@ -40,7 +40,7 @@
 
 extern os_log_t OE_CORE_LOG;
 
-class OEOGLHostDisplayTexture : public HostDisplayTexture
+class OEOGLHostDisplayTexture final : public HostDisplayTexture
 {
 public:
 	OEOGLHostDisplayTexture(GL::Texture texture, HostDisplayPixelFormat format)
