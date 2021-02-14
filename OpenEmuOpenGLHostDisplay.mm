@@ -621,3 +621,24 @@ bool OpenEmuOpenGLHostDisplay::SetPostProcessingChain(const std::string_view& co
 {
 	return false;
 }
+
+static std::string GetFullscreenModeString(u32 width, u32 height, float refresh_rate)
+{
+	char val[64];
+	snprintf(val, sizeof(val), "%u x %u @ %f hz", width, height, refresh_rate);
+	return val;
+}
+
+HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList()
+{
+	AdapterAndModeList aml;
+	
+	if (m_gl_context) {
+		for (const GL::Context::FullscreenModeInfo& fmi : m_gl_context->EnumerateFullscreenModes()) {
+			aml.fullscreen_modes.push_back(GetFullscreenModeString(fmi.width, fmi.height, fmi.refresh_rate));
+		}
+	}
+	
+	return aml;
+	
+}

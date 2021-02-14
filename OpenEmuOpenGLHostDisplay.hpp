@@ -92,6 +92,7 @@ protected:
 	const char* GetGLSLVersionString() const;
 	std::string GetGLSLVersionHeader() const;
 	
+	virtual AdapterAndModeList GetAdapterAndModeList() override;
 	virtual bool CreateResources() override;
 	virtual void DestroyResources() override;
 	
