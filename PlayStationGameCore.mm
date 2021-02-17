@@ -61,7 +61,6 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
 static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
 
 static __weak PlayStationGameCore *_current;
-extern os_log_t OE_CORE_LOG;
 os_log_t OE_CORE_LOG;
 
 struct OpenEmuChangeSettings {
@@ -431,7 +430,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		default:
 			break;
 	}
-
 }
 
 - (oneway void)leftMouseUp
@@ -468,7 +466,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		default:
 			break;
 	}
-
 }
 
 - (oneway void)rightMouseDownAtPoint:(OEIntPoint)point
@@ -508,7 +505,6 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		default:
 			break;
 	}
-
 }
 
 - (oneway void)rightMouseUp

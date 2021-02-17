@@ -38,8 +38,6 @@
 #include <dlfcn.h>
 #include <os/log.h>
 
-extern os_log_t OE_CORE_LOG;
-
 class ContextOEGL final : public GL::Context
 {
 public:
