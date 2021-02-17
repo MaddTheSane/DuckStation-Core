@@ -671,8 +671,9 @@ HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList(
 ContextOEGL::ContextOEGL(const WindowInfo& wi) : Context(wi)
 {
 	m_opengl_module_handle = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_NOW);
-	if (!m_opengl_module_handle)
+	if (!m_opengl_module_handle) {
 		os_log_fault(OE_CORE_LOG, "Could not open OpenGL.framework, function lookups will probably fail");
+	}
 }
 
 ContextOEGL::~ContextOEGL() = default;
@@ -687,8 +688,9 @@ std::unique_ptr<GL::Context> ContextOEGL::Create(const WindowInfo& wi, const Ver
 void* ContextOEGL::GetProcAddress(const char* name)
 {
 	void* addr = m_opengl_module_handle ? dlsym(m_opengl_module_handle, name) : nullptr;
-	if (addr)
+	if (addr) {
 		return addr;
+	}
 	
 	return dlsym(RTLD_NEXT, name);
 }
