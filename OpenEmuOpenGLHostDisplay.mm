@@ -59,8 +59,6 @@ public:
 	std::unique_ptr<Context> CreateSharedContext(const WindowInfo& wi) override;
 	
 private:
-	ALWAYS_INLINE NSView* GetView() const { return static_cast<NSView*>((__bridge NSView*)m_wi.window_handle); }
-	
 	//! returns true if dimensions have changed
 	bool UpdateDimensions();
 	
