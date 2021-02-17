@@ -476,7 +476,6 @@
 		55B005972577050800A2FD4E /* chdconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B005962577050800A2FD4E /* chdconfig.h */; };
 		55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */ = {isa = PBXBuildFile; fileRef = 55C3B2B825A9B03E001EE655 /* OEOverrides.ini */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
-		EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE14C0B225389FBE00464C74 /* context_agl.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1181,7 +1180,6 @@
 		55C3B2B825A9B03E001EE655 /* OEOverrides.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = OEOverrides.ini; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
-		EE14C0B225389FBE00464C74 /* context_agl.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.objcpp; path = context_agl.mm; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2548,7 +2546,6 @@
 			isa = PBXGroup;
 			children = (
 				5575828325AE40E1002C812D /* samplerate */,
-				EE14C0B225389FBE00464C74 /* context_agl.mm */,
 			);
 			path = Compatibility;
 			sourceTree = "<group>";
@@ -3281,7 +3278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE14C0B325389FBE00464C74 /* context_agl.mm in Sources */,
 				551DEC632527107500B44953 /* host_display.cpp in Sources */,
 				551DEC4F2527107500B44953 /* spu.cpp in Sources */,
 				551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */,

@@ -31,14 +31,41 @@
 #include "common/assert.h"
 #include "common/log.h"
 #include "postprocessing_shadergen.h"
-#include "context_agl.h"
 #include <array>
 #include <tuple>
 #undef TickCount
 
+#include <dlfcn.h>
 #include <os/log.h>
 
 extern os_log_t OE_CORE_LOG;
+
+class ContextOEGL final : public GL::Context
+{
+public:
+	ContextOEGL(const WindowInfo& wi);
+	~ContextOEGL() override;
+	
+	static std::unique_ptr<Context> Create(const WindowInfo& wi, const Version* versions_to_try,
+										   size_t num_versions_to_try);
+	
+	void* GetProcAddress(const char* name) override;
+	bool ChangeSurface(const WindowInfo& new_wi) override;
+	void ResizeSurface(u32 new_surface_width = 0, u32 new_surface_height = 0) override;
+	bool SwapBuffers() override;
+	bool MakeCurrent() override;
+	bool DoneCurrent() override;
+	bool SetSwapInterval(s32 interval) override;
+	std::unique_ptr<Context> CreateSharedContext(const WindowInfo& wi) override;
+	
+private:
+	ALWAYS_INLINE NSView* GetView() const { return static_cast<NSView*>((__bridge NSView*)m_wi.window_handle); }
+	
+	//! returns true if dimensions have changed
+	bool UpdateDimensions();
+	
+	void* m_opengl_module_handle = nullptr;
+};
 
 class OEOGLHostDisplayTexture final : public HostDisplayTexture
 {
@@ -319,7 +346,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 	
-	m_gl_context = GL::ContextAGL::Create(wi, versArray.data(), versArray.size());
+	m_gl_context = ContextOEGL::Create(wi, versArray.data(), versArray.size());
 	if (!m_gl_context) {
 		os_log_fault(OE_CORE_LOG, "Failed to create any GL context");
 		return false;
@@ -641,4 +668,71 @@ HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList(
 	
 	return aml;
 	
+}
+
+ContextOEGL::ContextOEGL(const WindowInfo& wi) : Context(wi)
+{
+	m_opengl_module_handle = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_NOW);
+	if (!m_opengl_module_handle)
+		os_log_fault(OE_CORE_LOG, "Could not open OpenGL.framework, function lookups will probably fail");
+}
+
+ContextOEGL::~ContextOEGL() = default;
+
+std::unique_ptr<GL::Context> ContextOEGL::Create(const WindowInfo& wi, const Version* versions_to_try,
+											size_t num_versions_to_try)
+{
+	std::unique_ptr<ContextOEGL> context = std::make_unique<ContextOEGL>(wi);
+	return context;
+}
+
+void* ContextOEGL::GetProcAddress(const char* name)
+{
+	void* addr = m_opengl_module_handle ? dlsym(m_opengl_module_handle, name) : nullptr;
+	if (addr)
+		return addr;
+	
+	return dlsym(RTLD_NEXT, name);
+}
+
+bool ContextOEGL::ChangeSurface(const WindowInfo& new_wi)
+{
+	return true;
+}
+
+void ContextOEGL::ResizeSurface(u32 new_surface_width /*= 0*/, u32 new_surface_height /*= 0*/)
+{
+	UpdateDimensions();
+}
+
+bool ContextOEGL::UpdateDimensions()
+{
+	return true;
+}
+
+bool ContextOEGL::SwapBuffers()
+{
+	return true;
+}
+
+bool ContextOEGL::MakeCurrent()
+{
+	return true;
+}
+
+bool ContextOEGL::DoneCurrent()
+{
+	return true;
+}
+
+bool ContextOEGL::SetSwapInterval(s32 interval)
+{
+	return true;
+}
+
+std::unique_ptr<GL::Context> ContextOEGL::CreateSharedContext(const WindowInfo& wi)
+{
+	std::unique_ptr<ContextOEGL> context = std::make_unique<ContextOEGL>(wi);
+	
+	return context;
 }
