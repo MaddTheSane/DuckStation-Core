@@ -85,6 +85,8 @@ private:
 	HostDisplayPixelFormat m_format;
 };
 
+#pragma mark -
+
 OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
 {
 	
@@ -663,8 +665,9 @@ HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList(
 	}
 	
 	return aml;
-	
 }
+
+#pragma mark -
 
 ContextOEGL::ContextOEGL(const WindowInfo& wi) : Context(wi)
 {

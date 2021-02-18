@@ -817,7 +817,8 @@ OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
 bool OpenEmuHostInterface::Initialize() {
 	m_program_directory = [NSBundle bundleForClass:[PlayStationGameCore class]].resourceURL.fileSystemRepresentation;
-	m_user_directory = [_current supportDirectoryPath].fileSystemRepresentation;
+	GET_CURRENT_OR_RETURN(false);
+	m_user_directory = [current supportDirectoryPath].fileSystemRepresentation;
 	if (!HostInterface::Initialize())
 	  return false;
 
@@ -878,7 +879,8 @@ void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::st
 
 std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
 {
-	NSString *path = _current.batterySavesDirectoryPath;
+	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Shared Memory Card-%d.mcd", slot]].fileSystemRepresentation);
+	NSString *path = current.batterySavesDirectoryPath;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
@@ -887,7 +889,8 @@ std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
 
 std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
 {
-	NSString *path = _current.batterySavesDirectoryPath;
+	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation);
+	NSString *path = current.batterySavesDirectoryPath;
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
@@ -896,7 +899,8 @@ std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u
 
 std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
 {
-	NSString *path = [_current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"];
+	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation);
+	NSString *path = [current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
 	}
@@ -913,7 +917,8 @@ std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, con
 
 std::string OpenEmuHostInterface::GetBIOSDirectory()
 {
-	return _current.biosDirectoryPath.fileSystemRepresentation;
+	GET_CURRENT_OR_RETURN(NSHomeDirectory().fileSystemRepresentation);
+	return current.biosDirectoryPath.fileSystemRepresentation;
 }
 
 bool OpenEmuHostInterface::AcquireHostDisplay()
@@ -938,13 +943,15 @@ std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBacken
 
 void OpenEmuHostInterface::LoadSettings()
 {
-	[_current loadConfiguration];
+	GET_CURRENT_OR_RETURN();
+	[current loadConfiguration];
 }
 
 bool OpenEmuHostInterface::CreateDisplay()
 {
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>(_current);
-	WindowInfo wi = WindowInfoFromGameCore(_current);
+	GET_CURRENT_OR_RETURN(false);
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>(current);
+	WindowInfo wi = WindowInfoFromGameCore(current);
 	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
 		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device, false)) {
 		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
@@ -973,7 +980,7 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 {
 	HostInterface::OnRunningGameChanged();
 
-	Settings old_settings(std::move(g_settings));
+	const Settings old_settings = g_settings;
 	ApplyGameSettings(false);
 	do {
 		const std::string &type = System::GetRunningCode();
@@ -1014,14 +1021,12 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 {
 	HostInterface::CheckForSettingsChanges(old_settings);
-	PlayStationGameCore *gc = _current;
-	if (gc == nil) {
-		return;
-	}
-	gc->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
-	gc->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
-	gc->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
-	gc->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
+	GET_CURRENT_OR_RETURN();
+	
+	current->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
+	current->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
+	current->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
+	current->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
 }
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
@@ -1036,7 +1041,7 @@ bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 
 void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 {
-	Settings old_settings(std::move(g_settings));
+	const Settings old_settings = g_settings;
 	if (new_settings.pxgp.has_value()) {
 		g_settings.gpu_pgxp_enable = new_settings.pxgp.value();
 	}
@@ -1062,7 +1067,8 @@ void OpenEmuAudioStream::FramesAvailable()
 {
 	const u32 num_frames = GetSamplesAvailable();
 	ReadFrames(m_output_buffer.data(), num_frames, false);
-	id<OEAudioBuffer> rb = [_current audioBufferAtIndex:0];
+	GET_CURRENT_OR_RETURN();
+	id<OEAudioBuffer> rb = [current audioBufferAtIndex:0];
 	[rb write:m_output_buffer.data() maxLength:num_frames * m_channels * sizeof(SampleType)];
 }
 

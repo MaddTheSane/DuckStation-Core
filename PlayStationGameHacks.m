@@ -1006,7 +1006,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		}
 		
 		for (NSString *gameCode in psxMultiTap5PlayerPort2) {
-			if (prepsxCompatHacks[gameCode]) {
+			if (prepsxCompatHacks[gameCode] != nil) {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksMultiTap5PlayerPort2 | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksMultiTap5PlayerPort2);
@@ -1014,7 +1014,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		}
 		
 		for (NSString *gameCode in psxJustifierExclusiveGames) {
-			if (prepsxCompatHacks[gameCode]) {
+			if (prepsxCompatHacks[gameCode] != nil) {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksJustifier | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksJustifier);
@@ -1033,7 +1033,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 #endif
 		
 		for (NSString *gameCode in psxMouseGames) {
-			if (prepsxCompatHacks[gameCode]) {
+			if (prepsxCompatHacks[gameCode] != nil) {
 				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksMouse | needed);
 			} else {
@@ -1054,7 +1054,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		psxCompatHacks = [prepsxCompatHacks copy];
 	});
 	NSNumber *num;
-	if ((num = psxCompatHacks[name])) {
+	if ((num = psxCompatHacks[name]) != nil) {
 		return num.unsignedIntValue;
 	}
 	return OEPSXHacksNone;
