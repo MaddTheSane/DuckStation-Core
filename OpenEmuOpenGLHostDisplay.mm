@@ -30,7 +30,6 @@
 #include "common/align.h"
 #include "common/assert.h"
 #include "common/log.h"
-#include "postprocessing_shadergen.h"
 #include <array>
 #include <tuple>
 #undef TickCount
