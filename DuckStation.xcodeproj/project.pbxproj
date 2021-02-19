@@ -443,7 +443,7 @@
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
-		5534ECE125C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.mm */; };
+		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
 		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
@@ -1132,8 +1132,8 @@
 		551DF73C2527C7B600B44953 /* scmversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmversion.h; sourceTree = "<group>"; };
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
-		5534ECDF25C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenEmuOpenGLHostDisplay.mm; sourceTree = "<group>"; };
-		5534ECE025C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenEmuOpenGLHostDisplay.hpp; sourceTree = "<group>"; };
+		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
+		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
@@ -1356,8 +1356,8 @@
 			children = (
 				EE14C0B125389F9400464C74 /* Compatibility */,
 				551DEB1225270E0300B44953 /* OEPSXSystemResponderClient.h */,
-				5534ECE025C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.hpp */,
-				5534ECDF25C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.mm */,
+				5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */,
+				5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */,
 				558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */,
 				551DEB1425270E6B00B44953 /* PlayStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* PlayStationGameCore.mm */,
@@ -3363,7 +3363,7 @@
 				551DF5852527C48A00B44953 /* context.cpp in Sources */,
 				551DEC812527107500B44953 /* cd_image_cue.cpp in Sources */,
 				551DEC582527107500B44953 /* namco_guncon.cpp in Sources */,
-				5534ECE125C74E0C00A92DAE /* OpenEmuOpenGLHostDisplay.mm in Sources */,
+				5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */,
 				551DEC552527107500B44953 /* host_interface.cpp in Sources */,
 				55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */,
 				551DEC772527107500B44953 /* wav_writer.cpp in Sources */,

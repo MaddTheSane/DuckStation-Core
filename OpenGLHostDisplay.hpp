@@ -39,15 +39,15 @@
 #include "common/gl/texture.h"
 #include "common/window_info.h"
 #include "core/host_display.h"
-#include "postprocessing_chain.h"
 #include <memory>
 
 @class PlayStationGameCore;
 
-class OpenEmuOpenGLHostDisplay final: public HostDisplay {
+namespace OpenEmu {
+class OpenGLHostDisplay final: public HostDisplay {
 public:
-	OpenEmuOpenGLHostDisplay(PlayStationGameCore *core);
-	virtual ~OpenEmuOpenGLHostDisplay();
+	OpenGLHostDisplay(PlayStationGameCore *core);
+	virtual ~OpenGLHostDisplay();
 	virtual RenderAPI GetRenderAPI() const override;
 	virtual void* GetRenderDevice() const override;
 	virtual void* GetRenderContext() const override;
@@ -120,6 +120,7 @@ protected:
 	
 private:
 	PlayStationGameCore *_current;
+};
 };
 
 #endif /* OpenEmuOpenGLHostDisplay_hpp */

@@ -39,7 +39,7 @@
 #include "core/analog_controller.h"
 #include "core/namco_guncon.h"
 #include "core/playstation_mouse.h"
-#include "OpenEmuOpenGLHostDisplay.hpp"
+#include "OpenGLHostDisplay.hpp"
 #include "frontend-common/game_settings.h"
 #include "core/cheats.h"
 #undef TickCount
@@ -950,7 +950,7 @@ void OpenEmuHostInterface::LoadSettings()
 bool OpenEmuHostInterface::CreateDisplay()
 {
 	GET_CURRENT_OR_RETURN(false);
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmuOpenGLHostDisplay>(current);
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmu::OpenGLHostDisplay>(current);
 	WindowInfo wi = WindowInfoFromGameCore(current);
 	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
 		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device, false)) {

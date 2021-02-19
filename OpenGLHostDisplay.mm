@@ -26,7 +26,7 @@
 #import "PlayStationGameCore.h"
 
 #define TickCount DuckTickCount
-#include "OpenEmuOpenGLHostDisplay.hpp"
+#include "OpenGLHostDisplay.hpp"
 #include "common/align.h"
 #include "common/assert.h"
 #include "common/log.h"
@@ -37,11 +37,12 @@
 #include <dlfcn.h>
 #include <os/log.h>
 
-class ContextOEGL final : public GL::Context
+namespace OpenEmu {
+class ContextGL final : public GL::Context
 {
 public:
-	ContextOEGL(const WindowInfo& wi);
-	~ContextOEGL() override;
+	ContextGL(const WindowInfo& wi);
+	~ContextGL() override;
 	
 	static std::unique_ptr<Context> Create(const WindowInfo& wi, const Version* versions_to_try,
 										   size_t num_versions_to_try);
@@ -62,12 +63,14 @@ private:
 	void* m_opengl_module_handle = nullptr;
 };
 
-class OEOGLHostDisplayTexture final : public HostDisplayTexture
+#pragma mark -
+
+class OGLHostDisplayTexture final : public HostDisplayTexture
 {
 public:
-	OEOGLHostDisplayTexture(GL::Texture texture, HostDisplayPixelFormat format)
+	OGLHostDisplayTexture(GL::Texture texture, HostDisplayPixelFormat format)
 	: m_texture(std::move(texture)), m_format(format){}
-	~OEOGLHostDisplayTexture() override = default;
+	~OGLHostDisplayTexture() override = default;
 	
 	void* GetHandle() const override { return reinterpret_cast<void*>(static_cast<uintptr_t>(m_texture.GetGLId())); }
 	u32 GetWidth() const override { return m_texture.GetWidth(); }
@@ -86,27 +89,27 @@ private:
 
 #pragma mark -
 
-OpenEmuOpenGLHostDisplay::OpenEmuOpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
+OpenGLHostDisplay::OpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
 {
 	
 }
 
-OpenEmuOpenGLHostDisplay::~OpenEmuOpenGLHostDisplay()
+OpenGLHostDisplay::~OpenGLHostDisplay()
 {
 	AssertMsg(!m_gl_context, "Context should have been destroyed by now");
 }
 
-HostDisplay::RenderAPI OpenEmuOpenGLHostDisplay::GetRenderAPI() const
+HostDisplay::RenderAPI OpenGLHostDisplay::GetRenderAPI() const
 {
 	return RenderAPI::OpenGL;
 }
 
-void* OpenEmuOpenGLHostDisplay::GetRenderDevice() const
+void* OpenGLHostDisplay::GetRenderDevice() const
 {
 	return nullptr;
 }
 
-void* OpenEmuOpenGLHostDisplay::GetRenderContext() const
+void* OpenGLHostDisplay::GetRenderContext() const
 {
 	return m_gl_context.get();
 }
@@ -120,11 +123,11 @@ static constexpr std::array<std::tuple<GLenum, GLenum, GLenum>, static_cast<u32>
 	{GL_RGB5_A1, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV} // RGBA5551
   }};
 
-std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers,
-																			u32 levels, u32 samples,
-																			HostDisplayPixelFormat format,
-																			const void* data, u32 data_stride,
-																			bool dynamic /* = false */)
+std::unique_ptr<HostDisplayTexture> OpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers,
+																	 u32 levels, u32 samples,
+																	 HostDisplayPixelFormat format,
+																	 const void* data, u32 data_stride,
+																	 bool dynamic /* = false */)
 {
 	if (layers != 1 || levels != 1) {
 		return {};
@@ -140,13 +143,13 @@ std::unique_ptr<HostDisplayTexture> OpenEmuOpenGLHostDisplay::CreateTexture(u32 
 		return {};
 	}
 	
-	return std::make_unique<OEOGLHostDisplayTexture>(std::move(tex), format);
+	return std::make_unique<OpenEmu::OGLHostDisplayTexture>(std::move(tex), format);
 }
 
-void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y, u32 width, u32 height,
-											 const void* texture_data, u32 texture_data_stride)
+void OpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y, u32 width, u32 height,
+									  const void* texture_data, u32 texture_data_stride)
 {
-	OEOGLHostDisplayTexture* tex = static_cast<OEOGLHostDisplayTexture*>(texture);
+	OpenEmu::OGLHostDisplayTexture* tex = static_cast<OpenEmu::OGLHostDisplayTexture*>(texture);
 	const auto [gl_internal_format, gl_format, gl_type] =
 	s_display_pixel_format_mapping[static_cast<u32>(texture->GetFormat())];
 	GLint alignment;
@@ -176,7 +179,7 @@ void OpenEmuOpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x,
 	glBindTexture(GL_TEXTURE_2D, old_texture_binding);
 }
 
-bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format,
+bool OpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format,
 											   u32 x, u32 y, u32 width, u32 height, void* out_data,
 											   u32 out_data_stride)
 {
@@ -207,12 +210,12 @@ bool OpenEmuOpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostD
 	return true;
 }
 
-bool OpenEmuOpenGLHostDisplay::SupportsDisplayPixelFormat(HostDisplayPixelFormat format) const
+bool OpenGLHostDisplay::SupportsDisplayPixelFormat(HostDisplayPixelFormat format) const
 {
 	return (std::get<0>(s_display_pixel_format_mapping[static_cast<u32>(format)]) != static_cast<GLenum>(0));
 }
 
-bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
+bool OpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
 													 void** out_buffer, u32* out_pitch)
 {
 	const u32 pixel_size = GetDisplayPixelFormatSize(format);
@@ -249,7 +252,7 @@ bool OpenEmuOpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat form
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::EndSetDisplayPixels()
+void OpenGLHostDisplay::EndSetDisplayPixels()
 {
 	const u32 width = static_cast<u32>(m_display_texture_view_width);
 	const u32 height = static_cast<u32>(m_display_texture_view_height);
@@ -270,7 +273,7 @@ void OpenEmuOpenGLHostDisplay::EndSetDisplayPixels()
 	m_display_pixels_texture_pbo_map_size = 0;
 }
 
-bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
+bool OpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
 												const void* buffer, u32 pitch)
 {
 	if (m_display_pixels_texture_id == 0) {
@@ -296,7 +299,7 @@ bool OpenEmuOpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
+void OpenGLHostDisplay::SetVSync(bool enabled)
 {
 	if (m_gl_context->GetWindowInfo().type == WindowInfo::Type::Surfaceless) {
 		return;
@@ -311,7 +314,7 @@ void OpenEmuOpenGLHostDisplay::SetVSync(bool enabled)
 	_current.renderDelegate.enableVSync = enabled;
 }
 
-const char* OpenEmuOpenGLHostDisplay::GetGLSLVersionString() const
+const char* OpenGLHostDisplay::GetGLSLVersionString() const
 {
 	if (GLAD_GL_VERSION_3_3) {
 		return "#version 330";
@@ -320,7 +323,7 @@ const char* OpenEmuOpenGLHostDisplay::GetGLSLVersionString() const
 	}
 }
 
-std::string OpenEmuOpenGLHostDisplay::GetGLSLVersionHeader() const
+std::string OpenGLHostDisplay::GetGLSLVersionHeader() const
 {
 	std::string header = GetGLSLVersionString();
 	header += "\n\n";
@@ -328,22 +331,22 @@ std::string OpenEmuOpenGLHostDisplay::GetGLSLVersionHeader() const
 	return header;
 }
 
-bool OpenEmuOpenGLHostDisplay::HasRenderDevice() const
+bool OpenGLHostDisplay::HasRenderDevice() const
 {
   return static_cast<bool>(m_gl_context);
 }
 
-bool OpenEmuOpenGLHostDisplay::HasRenderSurface() const
+bool OpenGLHostDisplay::HasRenderSurface() const
 {
 	return m_window_info.type != WindowInfo::Type::Surfaceless;
 }
 
-bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name,
+bool OpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name,
 												  bool debug_device, bool threaded_presentation)
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 	
-	m_gl_context = ContextOEGL::Create(wi, versArray.data(), versArray.size());
+	m_gl_context = ContextGL::Create(wi, versArray.data(), versArray.size());
 	if (!m_gl_context) {
 		os_log_fault(OE_CORE_LOG, "Failed to create any GL context");
 		return false;
@@ -356,7 +359,7 @@ bool OpenEmuOpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::str
 	return true;
 }
 
-bool OpenEmuOpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_cache_directory, bool debug_device,
+bool OpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_cache_directory, bool debug_device,
 													  bool threaded_presentation)
 {
 	glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, reinterpret_cast<GLint*>(&m_uniform_buffer_alignment));
@@ -371,7 +374,7 @@ bool OpenEmuOpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_ca
 	return true;
 }
 
-bool OpenEmuOpenGLHostDisplay::MakeRenderContextCurrent()
+bool OpenGLHostDisplay::MakeRenderContextCurrent()
 {
 	if (!m_gl_context->MakeCurrent()) {
 		os_log_fault(OE_CORE_LOG, "Failed to make GL context current");
@@ -381,12 +384,12 @@ bool OpenEmuOpenGLHostDisplay::MakeRenderContextCurrent()
 	return true;
 }
 
-bool OpenEmuOpenGLHostDisplay::DoneRenderContextCurrent()
+bool OpenGLHostDisplay::DoneRenderContextCurrent()
 {
 	return m_gl_context->DoneCurrent();
 }
 
-void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
+void OpenGLHostDisplay::DestroyRenderDevice()
 {
 	if (!m_gl_context) {
 		return;
@@ -398,7 +401,7 @@ void OpenEmuOpenGLHostDisplay::DestroyRenderDevice()
 	m_gl_context.reset();
 }
 
-bool OpenEmuOpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
+bool OpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
 {
 	Assert(m_gl_context);
 	
@@ -414,7 +417,7 @@ bool OpenEmuOpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
+void OpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 {
 	if (!m_gl_context) {
 		return;
@@ -425,22 +428,22 @@ void OpenEmuOpenGLHostDisplay::ResizeRenderWindow(s32 new_window_width, s32 new_
 	m_window_info.surface_height = m_gl_context->GetSurfaceHeight();
 }
 
-bool OpenEmuOpenGLHostDisplay::SupportsFullscreen() const
+bool OpenGLHostDisplay::SupportsFullscreen() const
 {
 	return false;
 }
 
-bool OpenEmuOpenGLHostDisplay::IsFullscreen()
+bool OpenGLHostDisplay::IsFullscreen()
 {
 	return false;
 }
 
-bool OpenEmuOpenGLHostDisplay::SetFullscreen(bool fullscreen, u32 width, u32 height, float refresh_rate)
+bool OpenGLHostDisplay::SetFullscreen(bool fullscreen, u32 width, u32 height, float refresh_rate)
 {
 	return false;
 }
 
-void OpenEmuOpenGLHostDisplay::DestroyRenderSurface()
+void OpenGLHostDisplay::DestroyRenderSurface()
 {
 	if (!m_gl_context) {
 		return;
@@ -452,7 +455,7 @@ void OpenEmuOpenGLHostDisplay::DestroyRenderSurface()
 	}
 }
 
-bool OpenEmuOpenGLHostDisplay::CreateResources()
+bool OpenGLHostDisplay::CreateResources()
 {
 	static constexpr char fullscreen_quad_vertex_shader[] = R"(
 uniform vec4 u_src_rect;
@@ -528,7 +531,7 @@ void main()
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::DestroyResources()
+void OpenGLHostDisplay::DestroyResources()
 {
 	if (m_display_pixels_texture_id != 0) {
 		glDeleteTextures(1, &m_display_pixels_texture_id);
@@ -552,7 +555,7 @@ void OpenEmuOpenGLHostDisplay::DestroyResources()
 	m_display_program.Destroy();
 }
 
-bool OpenEmuOpenGLHostDisplay::Render()
+bool OpenGLHostDisplay::Render()
 {
 	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
 
@@ -570,7 +573,7 @@ bool OpenEmuOpenGLHostDisplay::Render()
 	return true;
 }
 
-void OpenEmuOpenGLHostDisplay::RenderDisplay()
+void OpenGLHostDisplay::RenderDisplay()
 {
 	if (!HasDisplayTexture()) {
 		return;
@@ -583,7 +586,7 @@ void OpenEmuOpenGLHostDisplay::RenderDisplay()
 				  m_display_texture_view_width, m_display_texture_view_height, m_display_linear_filtering);
 }
 
-void OpenEmuOpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle,
+void OpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle,
 											 u32 texture_width, s32 texture_height, s32 texture_view_x,
 											 s32 texture_view_y, s32 texture_view_width, s32 texture_view_height,
 											 bool linear_filter)
@@ -610,7 +613,7 @@ void OpenEmuOpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s3
 	glBindSampler(0, 0);
 }
 
-void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor()
+void OpenGLHostDisplay::RenderSoftwareCursor()
 {
 	if (!HasSoftwareCursor()) {
 		return;
@@ -620,7 +623,7 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor()
 	RenderSoftwareCursor(left, GetWindowHeight() - top - height, width, height, m_cursor_texture.get());
 }
 
-void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height,
+void OpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height,
 													HostDisplayTexture* texture_handle)
 {
 	glViewport(left, bottom, width, height);
@@ -632,7 +635,7 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 wi
 	glDisable(GL_SCISSOR_TEST);
 	glDepthMask(GL_FALSE);
 	m_cursor_program.Bind();
-	glBindTexture(GL_TEXTURE_2D, static_cast<OEOGLHostDisplayTexture*>(texture_handle)->GetGLID());
+	glBindTexture(GL_TEXTURE_2D, static_cast<OGLHostDisplayTexture*>(texture_handle)->GetGLID());
 	
 	m_cursor_program.Uniform4f(0, 0.0f, 0.0f, 1.0f, 1.0f);
 	glBindSampler(0, m_display_linear_sampler);
@@ -641,7 +644,7 @@ void OpenEmuOpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 wi
 	glBindSampler(0, 0);
 }
 
-bool OpenEmuOpenGLHostDisplay::SetPostProcessingChain(const std::string_view& config)
+bool OpenGLHostDisplay::SetPostProcessingChain(const std::string_view& config)
 {
 	return false;
 }
@@ -653,7 +656,7 @@ static std::string GetFullscreenModeString(u32 width, u32 height, float refresh_
 	return val;
 }
 
-HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList()
+HostDisplay::AdapterAndModeList OpenGLHostDisplay::GetAdapterAndModeList()
 {
 	AdapterAndModeList aml;
 	
@@ -668,7 +671,7 @@ HostDisplay::AdapterAndModeList OpenEmuOpenGLHostDisplay::GetAdapterAndModeList(
 
 #pragma mark -
 
-ContextOEGL::ContextOEGL(const WindowInfo& wi) : Context(wi)
+ContextGL::ContextGL(const WindowInfo& wi) : Context(wi)
 {
 	m_opengl_module_handle = dlopen("/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL", RTLD_NOW);
 	if (!m_opengl_module_handle) {
@@ -676,16 +679,16 @@ ContextOEGL::ContextOEGL(const WindowInfo& wi) : Context(wi)
 	}
 }
 
-ContextOEGL::~ContextOEGL() = default;
+ContextGL::~ContextGL() = default;
 
-std::unique_ptr<GL::Context> ContextOEGL::Create(const WindowInfo& wi, const Version* versions_to_try,
+std::unique_ptr<GL::Context> ContextGL::Create(const WindowInfo& wi, const Version* versions_to_try,
 											size_t num_versions_to_try)
 {
-	std::unique_ptr<ContextOEGL> context = std::make_unique<ContextOEGL>(wi);
+	std::unique_ptr<ContextGL> context = std::make_unique<ContextGL>(wi);
 	return context;
 }
 
-void* ContextOEGL::GetProcAddress(const char* name)
+void* ContextGL::GetProcAddress(const char* name)
 {
 	void* addr = m_opengl_module_handle ? dlsym(m_opengl_module_handle, name) : nullptr;
 	if (addr) {
@@ -695,44 +698,45 @@ void* ContextOEGL::GetProcAddress(const char* name)
 	return dlsym(RTLD_NEXT, name);
 }
 
-bool ContextOEGL::ChangeSurface(const WindowInfo& new_wi)
+bool ContextGL::ChangeSurface(const WindowInfo& new_wi)
 {
 	return true;
 }
 
-void ContextOEGL::ResizeSurface(u32 new_surface_width /*= 0*/, u32 new_surface_height /*= 0*/)
+void ContextGL::ResizeSurface(u32 new_surface_width /*= 0*/, u32 new_surface_height /*= 0*/)
 {
 	UpdateDimensions();
 }
 
-bool ContextOEGL::UpdateDimensions()
+bool ContextGL::UpdateDimensions()
 {
 	return true;
 }
 
-bool ContextOEGL::SwapBuffers()
+bool ContextGL::SwapBuffers()
 {
 	return true;
 }
 
-bool ContextOEGL::MakeCurrent()
+bool ContextGL::MakeCurrent()
 {
 	return true;
 }
 
-bool ContextOEGL::DoneCurrent()
+bool ContextGL::DoneCurrent()
 {
 	return true;
 }
 
-bool ContextOEGL::SetSwapInterval(s32 interval)
+bool ContextGL::SetSwapInterval(s32 interval)
 {
 	return true;
 }
 
-std::unique_ptr<GL::Context> ContextOEGL::CreateSharedContext(const WindowInfo& wi)
+std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi)
 {
-	std::unique_ptr<ContextOEGL> context = std::make_unique<ContextOEGL>(wi);
+	std::unique_ptr<ContextGL> context = std::make_unique<ContextGL>(wi);
 	
 	return context;
+}
 }
