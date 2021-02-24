@@ -111,7 +111,9 @@ public:
 	std::string GetStringSettingValue(const char* section, const char* key, const char* default_value = "") override;
 	std::string GetBIOSDirectory() override;
 	void ApplyGameSettings(bool display_osd_messages);
-	void OnRunningGameChanged() override;
+	void OnRunningGameChanged(const std::string& path, CDImage* image, const std::string& game_code,
+							  const std::string& game_title) override;
+	std::vector<std::string> GetSettingStringList(const char* section, const char* key) override;
 	
 	bool LoadCompatibilitySettings(NSURL* path);
 	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
@@ -132,7 +134,8 @@ protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
 	std::unique_ptr<AudioStream> CreateAudioStream(AudioBackend backend) override;
-	void LoadSettings() override;
+	void LoadSettings(SettingsInterface& si) override;
+	void LoadSettings();
 	
 private:
 	bool CreateDisplay();
@@ -941,6 +944,11 @@ std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBacken
 	return std::make_unique<OpenEmuAudioStream>();
 }
 
+void OpenEmuHostInterface::LoadSettings(SettingsInterface& si)
+{
+	HostInterface::LoadSettings(si);
+}
+
 void OpenEmuHostInterface::LoadSettings()
 {
 	GET_CURRENT_OR_RETURN();
@@ -976,9 +984,10 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	}
 }
 
-void OpenEmuHostInterface::OnRunningGameChanged()
+void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage* image, const std::string& game_code,
+												const std::string& game_title)
 {
-	HostInterface::OnRunningGameChanged();
+	HostInterface::OnRunningGameChanged(path, image, game_code, game_title);
 
 	const Settings old_settings = g_settings;
 	ApplyGameSettings(false);
@@ -1016,6 +1025,11 @@ void OpenEmuHostInterface::OnRunningGameChanged()
 	} while (0);
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
+}
+
+std::vector<std::string> OpenEmuHostInterface::GetSettingStringList(const char* section, const char* key)
+{
+	return {};
 }
 
 void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
