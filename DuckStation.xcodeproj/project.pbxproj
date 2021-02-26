@@ -577,6 +577,13 @@
 			remoteGlobalIDString = 557776D2253D0FD9000D0651;
 			remoteInfo = SimpleINI;
 		};
+		55E1683E25E994C1001F4110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 551DF5992527C50200B44953;
+			remoteInfo = glslang;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1178,6 +1185,8 @@
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
 		55B005962577050800A2FD4E /* chdconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chdconfig.h; sourceTree = "<group>"; };
 		55C3B2B825A9B03E001EE655 /* OEOverrides.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = OEOverrides.ini; sourceTree = "<group>"; };
+		55E1686025E99826001F4110 /* cheevos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cheevos.cpp; sourceTree = "<group>"; };
+		55E1686125E99826001F4110 /* cheevos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cheevos.h; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1635,6 +1644,8 @@
 		551DEC0C2527107500B44953 /* frontend-common */ = {
 			isa = PBXGroup;
 			children = (
+				55E1686025E99826001F4110 /* cheevos.cpp */,
+				55E1686125E99826001F4110 /* cheevos.h */,
 				551DEBA92527107400B44953 /* cubeb_audio_stream.cpp */,
 				551DEBAC2527107400B44953 /* cubeb_audio_stream.h */,
 				551DEC252527107500B44953 /* game_settings.cpp */,
@@ -2871,6 +2882,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55E1683F25E994C1001F4110 /* PBXTargetDependency */,
 				5575831C25AE4193002C812D /* PBXTargetDependency */,
 				557777AF253D1769000D0651 /* PBXTargetDependency */,
 				551DF5482527C38B00B44953 /* PBXTargetDependency */,
@@ -3241,14 +3253,18 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin,
+				$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin.dSYM,
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin",
+				"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin\"{,.dSYM}\ncp -rf \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
+			shellScript = "mkdir -p \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores\"\nrm -rf \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin\"{,.dSYM}\ncp -rfc \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin\"{,.dSYM} \"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/\"\n";
 		};
 		559D6725252C5FE700D1F1FF /* Generate SCM Source */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3681,6 +3697,11 @@
 			isa = PBXTargetDependency;
 			target = 557776D2253D0FD9000D0651 /* SimpleINI */;
 			targetProxy = 557777AE253D1769000D0651 /* PBXContainerItemProxy */;
+		};
+		55E1683F25E994C1001F4110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 551DF5992527C50200B44953 /* glslangd */;
+			targetProxy = 55E1683E25E994C1001F4110 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
