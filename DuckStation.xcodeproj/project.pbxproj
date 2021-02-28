@@ -475,6 +475,7 @@
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 		55B005972577050800A2FD4E /* chdconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B005962577050800A2FD4E /* chdconfig.h */; };
 		55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */ = {isa = PBXBuildFile; fileRef = 55C3B2B825A9B03E001EE655 /* OEOverrides.ini */; };
+		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1187,6 +1188,8 @@
 		55C3B2B825A9B03E001EE655 /* OEOverrides.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = OEOverrides.ini; sourceTree = "<group>"; };
 		55E1686025E99826001F4110 /* cheevos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cheevos.cpp; sourceTree = "<group>"; };
 		55E1686125E99826001F4110 /* cheevos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cheevos.h; sourceTree = "<group>"; };
+		55E1689025EC19A6001F4110 /* multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multitap.h; sourceTree = "<group>"; };
+		55E1689125EC19A6001F4110 /* multitap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multitap.cpp; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1478,6 +1481,8 @@
 				551DEB522527107400B44953 /* memory_card_image.h */,
 				551DEB692527107400B44953 /* memory_card.cpp */,
 				551DEB262527107400B44953 /* memory_card.h */,
+				55E1689125EC19A6001F4110 /* multitap.cpp */,
+				55E1689025EC19A6001F4110 /* multitap.h */,
 				551DEB5B2527107400B44953 /* namco_guncon.cpp */,
 				551DEB2C2527107400B44953 /* namco_guncon.h */,
 				551DEB602527107400B44953 /* negcon.cpp */,
@@ -3364,6 +3369,7 @@
 				551DEC762527107500B44953 /* log.cpp in Sources */,
 				551DEC522527107500B44953 /* resources.cpp in Sources */,
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
+				55E1689225EC19A6001F4110 /* multitap.cpp in Sources */,
 				551DEC9D2527107500B44953 /* context.cpp in Sources */,
 				551DEC742527107500B44953 /* string_util.cpp in Sources */,
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
