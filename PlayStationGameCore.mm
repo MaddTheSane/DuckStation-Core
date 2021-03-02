@@ -305,7 +305,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		return;
 	}
 
-	const bool result = System::SaveState(stream.get());
+	const bool result = System::SaveState(stream.get(), 0);
 	
 	block(result, nil);
 }
