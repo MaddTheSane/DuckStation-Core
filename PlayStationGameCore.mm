@@ -425,7 +425,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		case ControllerType::PlayStationMouse:
 		{
 			[self mouseMovedAtPoint:point];
-			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
 			controller->SetButtonState(PlayStationMouse::Button::Left, true);
 		}
 			break;
@@ -461,7 +461,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	switch (g_settings.controller_types[1]) {
 		case ControllerType::PlayStationMouse:
 		{
-			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
+			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
 			controller->SetButtonState(PlayStationMouse::Button::Left, false);
 		}
 			break;
