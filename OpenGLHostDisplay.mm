@@ -669,6 +669,13 @@ HostDisplay::AdapterAndModeList OpenGLHostDisplay::GetAdapterAndModeList()
 	return aml;
 }
 
+bool OpenGLHostDisplay::RenderScreenshot(u32 width, u32 height, std::vector<u32>* out_pixels, u32* out_stride,
+										 HostDisplayPixelFormat* out_format)
+{
+	// do nothing: OpenEmu handles all the screen shotting stuff.
+	return false;
+}
+
 #pragma mark -
 
 ContextGL::ContextGL(const WindowInfo& wi) : Context(wi)

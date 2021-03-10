@@ -873,8 +873,8 @@ void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
 void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
 {
 	if (image) {
-		*code = System::GetGameCodeForImage(image);
-		*title = System::GetGameCodeForImage(image);
+		*code = System::GetGameCodeForImage(image, true);
+		*title = System::GetGameCodeForImage(image, true);
 	} else {
 		os_log(OE_CORE_LOG, "unable to identify game at %{private}s: missing CDImage parameter.", path);
 	}
@@ -1017,11 +1017,6 @@ void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage
 			default:
 				break;
 		}
-
-		// PlayStation games requiring only 1 memory card inserted
-//		if ((hacks & OEPSXHacksOnlyOneMemcard) == OEPSXHacksOnlyOneMemcard) {
-//			g_settings.memory_card_types[1] = MemoryCardType::None;
-//		}
 	} while (0);
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);

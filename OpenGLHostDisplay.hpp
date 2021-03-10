@@ -88,6 +88,9 @@ public:
 	
 	virtual bool Render() override;
 	
+	virtual bool RenderScreenshot(u32 width, u32 height, std::vector<u32>* out_pixels, u32* out_stride,
+								  HostDisplayPixelFormat* out_format) override;
+	
 protected:
 	const char* GetGLSLVersionString() const;
 	std::string GetGLSLVersionHeader() const;

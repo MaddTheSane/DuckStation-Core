@@ -475,6 +475,8 @@
 		559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 559D6726252C600E00D1F1FF /* scmversion.cpp */; };
 		55B005972577050800A2FD4E /* chdconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55B005962577050800A2FD4E /* chdconfig.h */; };
 		55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */ = {isa = PBXBuildFile; fileRef = 55C3B2B825A9B03E001EE655 /* OEOverrides.ini */; };
+		55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */; };
+		55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */; };
 		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 /* End PBXBuildFile section */
@@ -1186,6 +1188,8 @@
 		559D6726252C600E00D1F1FF /* scmversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scmversion.cpp; sourceTree = "<group>"; };
 		55B005962577050800A2FD4E /* chdconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chdconfig.h; sourceTree = "<group>"; };
 		55C3B2B825A9B03E001EE655 /* OEOverrides.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = OEOverrides.ini; sourceTree = "<group>"; };
+		55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_ecm.cpp; sourceTree = "<group>"; };
+		55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_mds.cpp; sourceTree = "<group>"; };
 		55E1686025E99826001F4110 /* cheevos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cheevos.cpp; sourceTree = "<group>"; };
 		55E1686125E99826001F4110 /* cheevos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cheevos.h; sourceTree = "<group>"; };
 		55E1689025EC19A6001F4110 /* multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multitap.h; sourceTree = "<group>"; };
@@ -1537,8 +1541,10 @@
 				551DEBAF2527107400B44953 /* cd_image_bin.cpp */,
 				551DEBF72527107500B44953 /* cd_image_chd.cpp */,
 				551DEBA42527107400B44953 /* cd_image_cue.cpp */,
+				55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */,
 				551DEB912527107400B44953 /* cd_image_hasher.cpp */,
 				551DEBFD2527107500B44953 /* cd_image_hasher.h */,
+				55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */,
 				551DEB882527107400B44953 /* cd_image_memory.cpp */,
 				551DEC042527107500B44953 /* cd_image.cpp */,
 				551DEB932527107400B44953 /* cd_image.h */,
@@ -3316,11 +3322,13 @@
 				551DEC652527107500B44953 /* sio.cpp in Sources */,
 				551DEC572527107500B44953 /* gpu_hw.cpp in Sources */,
 				551DEC7B2527107500B44953 /* cd_image_hasher.cpp in Sources */,
+				55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */,
 				551DEC432527107500B44953 /* cheats.cpp in Sources */,
 				551DEC702527107500B44953 /* timing_event.cpp in Sources */,
 				551DEC6B2527107500B44953 /* memory_card_image.cpp in Sources */,
 				551DEC462527107500B44953 /* dma.cpp in Sources */,
 				551DECA92527107500B44953 /* md5_digest.cpp in Sources */,
+				55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */,
 				55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */,
 				551DEC8B2527107500B44953 /* iso_reader.cpp in Sources */,
 				551DEC4D2527107500B44953 /* gpu_sw.cpp in Sources */,
