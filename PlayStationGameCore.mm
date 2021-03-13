@@ -51,9 +51,6 @@
 #include <memory>
 #include <os/log.h>
 
-class OpenEmuAudioStream;
-class OpenEmuHostInterface;
-
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);

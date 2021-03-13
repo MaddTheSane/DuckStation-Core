@@ -180,8 +180,8 @@ void OpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y,
 }
 
 bool OpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format,
-											   u32 x, u32 y, u32 width, u32 height, void* out_data,
-											   u32 out_data_stride)
+										u32 x, u32 y, u32 width, u32 height, void* out_data,
+										u32 out_data_stride)
 {
 	GLint alignment;
 	if (out_data_stride & 1) {
@@ -216,7 +216,7 @@ bool OpenGLHostDisplay::SupportsDisplayPixelFormat(HostDisplayPixelFormat format
 }
 
 bool OpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
-													 void** out_buffer, u32* out_pitch)
+											  void** out_buffer, u32* out_pitch)
 {
 	const u32 pixel_size = GetDisplayPixelFormatSize(format);
 	const u32 stride = Common::AlignUpPow2(width * pixel_size, 4);
@@ -274,7 +274,7 @@ void OpenGLHostDisplay::EndSetDisplayPixels()
 }
 
 bool OpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
-												const void* buffer, u32 pitch)
+										 const void* buffer, u32 pitch)
 {
 	if (m_display_pixels_texture_id == 0) {
 		glGenTextures(1, &m_display_pixels_texture_id);
@@ -342,7 +342,7 @@ bool OpenGLHostDisplay::HasRenderSurface() const
 }
 
 bool OpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_view adapter_name,
-												  bool debug_device, bool threaded_presentation)
+										   bool debug_device, bool threaded_presentation)
 {
 	static constexpr std::array<GL::Context::Version, 3> versArray {{{GL::Context::Profile::Core, 4, 1}, {GL::Context::Profile::Core, 3, 3}, {GL::Context::Profile::Core, 3, 2}}};
 	
@@ -360,7 +360,7 @@ bool OpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_vie
 }
 
 bool OpenGLHostDisplay::InitializeRenderDevice(std::string_view shader_cache_directory, bool debug_device,
-													  bool threaded_presentation)
+											   bool threaded_presentation)
 {
 	glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, reinterpret_cast<GLint*>(&m_uniform_buffer_alignment));
 	
@@ -587,9 +587,9 @@ void OpenGLHostDisplay::RenderDisplay()
 }
 
 void OpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle,
-											 u32 texture_width, s32 texture_height, s32 texture_view_x,
-											 s32 texture_view_y, s32 texture_view_width, s32 texture_view_height,
-											 bool linear_filter)
+									  u32 texture_width, s32 texture_height, s32 texture_view_x,
+									  s32 texture_view_y, s32 texture_view_width, s32 texture_view_height,
+									  bool linear_filter)
 {
 	glViewport(left, bottom, width, height);
 	glDisable(GL_BLEND);
@@ -624,7 +624,7 @@ void OpenGLHostDisplay::RenderSoftwareCursor()
 }
 
 void OpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s32 height,
-													HostDisplayTexture* texture_handle)
+											 HostDisplayTexture* texture_handle)
 {
 	glViewport(left, bottom, width, height);
 	glEnable(GL_BLEND);
@@ -689,7 +689,7 @@ ContextGL::ContextGL(const WindowInfo& wi) : Context(wi)
 ContextGL::~ContextGL() = default;
 
 std::unique_ptr<GL::Context> ContextGL::Create(const WindowInfo& wi, const Version* versions_to_try,
-											size_t num_versions_to_try)
+											   size_t num_versions_to_try)
 {
 	std::unique_ptr<ContextGL> context = std::make_unique<ContextGL>(wi);
 	return context;
