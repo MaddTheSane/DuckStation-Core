@@ -87,6 +87,10 @@ private:
 	HostDisplayPixelFormat m_format;
 };
 
+}
+
+using namespace OpenEmu;
+
 #pragma mark -
 
 OpenGLHostDisplay::OpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
@@ -745,5 +749,4 @@ std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi
 	std::unique_ptr<ContextGL> context = std::make_unique<ContextGL>(wi);
 	
 	return context;
-}
 }
