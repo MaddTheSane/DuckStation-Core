@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  DuckStation
+
+  Created by C.W. Betts on 3/18/21.
+  
+*/
+
+/* Clone CD Files Aren't Supported */
+"Clone CD Files Aren't Supported" = "Clone CD Files Aren't Supported";
+
+/* Clone CD Files Aren't Supported (longer) */
+"DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists." = "DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists.";
+
+/* Clone CD Files Aren't Supported (suggestion) */
+"Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files." = "Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files.";

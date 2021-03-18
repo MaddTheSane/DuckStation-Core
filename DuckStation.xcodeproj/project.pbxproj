@@ -443,6 +443,7 @@
 		551DF77A2527D21700B44953 /* DuckStation.icns in Resources */ = {isa = PBXBuildFile; fileRef = 551DF7792527D21700B44953 /* DuckStation.icns */; };
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		552ED8672601DC8900846634 /* cd_image_pbp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8662601DC8900846634 /* cd_image_pbp.cpp */; };
+		552ED89D2603FA4100846634 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 552ED89F2603FA4100846634 /* Localizable.strings */; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
@@ -1144,6 +1145,7 @@
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
 		552ED8652601DC8900846634 /* pbp_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbp_types.h; sourceTree = "<group>"; };
 		552ED8662601DC8900846634 /* cd_image_pbp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_pbp.cpp; sourceTree = "<group>"; };
+		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
 		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
 		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
@@ -1366,6 +1368,7 @@
 				551DEB0525270CC800B44953 /* Info.plist */,
 				5534EB9225C4C40B00A92DAE /* gamesettings.ini */,
 				55C3B2B825A9B03E001EE655 /* OEOverrides.ini */,
+				552ED89F2603FA4100846634 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -3253,6 +3256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
+				552ED89D2603FA4100846634 /* Localizable.strings in Resources */,
 				5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */,
 				55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */,
 			);
@@ -3724,6 +3728,17 @@
 			targetProxy = 55E1683E25E994C1001F4110 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		552ED89F2603FA4100846634 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				552ED89E2603FA4100846634 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		551DEB0625270CC800B44953 /* Debug */ = {

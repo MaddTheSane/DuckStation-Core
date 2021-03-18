@@ -263,10 +263,10 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		if (numberOfCcds > 0) {
 			if (error) {
 				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
-					NSLocalizedDescriptionKey: @"Clone CD Files Aren't Supported",
+					NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"Clone CD Files Aren't Supported", nil, [NSBundle bundleForClass:[self class]], @"Clone CD Files Aren't Supported"),
 					NSDebugDescriptionErrorKey: @"Clone CD Files Aren't Supported",
-					NSLocalizedFailureReasonErrorKey: @"DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists.",
-					NSLocalizedRecoverySuggestionErrorKey: @"Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files."
+					NSLocalizedFailureReasonErrorKey: NSLocalizedStringFromTableInBundle(@"DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists.", nil, [NSBundle bundleForClass:[self class]], @"Clone CD Files Aren't Supported (longer)"),
+					NSLocalizedRecoverySuggestionErrorKey: NSLocalizedStringFromTableInBundle(@"Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files.", nil, [NSBundle bundleForClass:[self class]], @"Clone CD Files Aren't Supported (suggestion)")
 				}];
 			}
 			return NO;
