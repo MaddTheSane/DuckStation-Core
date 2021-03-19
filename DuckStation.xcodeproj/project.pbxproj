@@ -444,6 +444,7 @@
 		551DF93C2527DD0E00B44953 /* code-buffer-vixl.cc in Sources */ = {isa = PBXBuildFile; fileRef = 551DF43E2527BDFB00B44953 /* code-buffer-vixl.cc */; };
 		552ED8672601DC8900846634 /* cd_image_pbp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8662601DC8900846634 /* cd_image_pbp.cpp */; };
 		552ED89D2603FA4100846634 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 552ED89F2603FA4100846634 /* Localizable.strings */; };
+		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
@@ -1146,6 +1147,8 @@
 		552ED8652601DC8900846634 /* pbp_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbp_types.h; sourceTree = "<group>"; };
 		552ED8662601DC8900846634 /* cd_image_pbp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_pbp.cpp; sourceTree = "<group>"; };
 		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		552ED8BE26053D0400846634 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
+		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
 		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
 		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
@@ -1561,6 +1564,8 @@
 				551DEC092527107500B44953 /* cd_xa.h */,
 				551DEBF52527107500B44953 /* cpu_detect.h */,
 				551DEBBD2527107400B44953 /* dimensional_array.h */,
+				552ED8BE26053D0400846634 /* error.cpp */,
+				552ED8BF26053D0400846634 /* error.h */,
 				551DEBF92527107500B44953 /* event.cpp */,
 				551DEBA22527107400B44953 /* event.h */,
 				551DEBBA2527107400B44953 /* fifo_queue.h */,
@@ -3273,14 +3278,10 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin,
-				$BUILT_PRODUCTS_DIR/$PROJECT_NAME.oecoreplugin.dSYM,
 			);
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin",
-				"$USER_LIBRARY_DIR/Application Support/OpenEmu/Cores/$PROJECT_NAME.oecoreplugin.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3346,6 +3347,7 @@
 				551DEC482527107500B44953 /* cpu_recompiler_code_generator.cpp in Sources */,
 				558B28E025994E0900A3495F /* postprocessing_shadergen.cpp in Sources */,
 				558B28CF25994DCE00A3495F /* postprocessing_shader.cpp in Sources */,
+				552ED8C026053D0400846634 /* error.cpp in Sources */,
 				551DF4D92527C2D200B44953 /* gpu_hw_vulkan.cpp in Sources */,
 				551DEC592527107500B44953 /* gpu_commands.cpp in Sources */,
 				551DEC602527107500B44953 /* pad.cpp in Sources */,

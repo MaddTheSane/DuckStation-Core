@@ -217,12 +217,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
-#ifdef __aarch64__
-		//Until the Recompiler works.
-		g_settings.cpu_execution_mode = CPUExecutionMode::CachedInterpreter;
-#else
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
-#endif
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
