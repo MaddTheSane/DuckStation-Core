@@ -1036,7 +1036,7 @@ bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 	if (!theDat) {
 		return false;
 	}
-	const std::string theStr = std::string((const char*)theDat.bytes, theDat.length);
+	const std::string theStr((const char*)theDat.bytes, theDat.length);
 	return m_game_settings.Load(theStr);
 }
 
