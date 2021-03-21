@@ -251,8 +251,8 @@ bool OpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
 	}
 	
-	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width, height,
-					  0, 0, width, height);
+	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width,
+					  height, 0, 0, width, height);
 	return true;
 }
 
@@ -337,7 +337,7 @@ std::string OpenGLHostDisplay::GetGLSLVersionHeader() const
 
 bool OpenGLHostDisplay::HasRenderDevice() const
 {
-  return static_cast<bool>(m_gl_context);
+	return m_gl_context != nullptr;
 }
 
 bool OpenGLHostDisplay::HasRenderSurface() const
