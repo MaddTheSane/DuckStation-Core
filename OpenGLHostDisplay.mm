@@ -93,7 +93,8 @@ using namespace OpenEmu;
 
 #pragma mark -
 
-OpenGLHostDisplay::OpenGLHostDisplay(PlayStationGameCore *core) : _current(core)
+OpenGLHostDisplay::OpenGLHostDisplay(PlayStationGameCore *core) :
+_current(core)
 {
 	
 }

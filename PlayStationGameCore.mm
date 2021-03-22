@@ -304,7 +304,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
-	//TODO: implement better
+	//TODO: implement
 	auto list = std::make_unique<CheatList>();
 	list->LoadFromPCSXRString(code.UTF8String);
 	//list->Apply();
@@ -976,8 +976,8 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	}
 }
 
-void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage* image, const std::string& game_code,
-												const std::string& game_title)
+void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage* image,
+												const std::string& game_code, const std::string& game_title)
 {
 	HostInterface::OnRunningGameChanged(path, image, game_code, game_title);
 

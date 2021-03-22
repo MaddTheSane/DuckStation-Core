@@ -63,10 +63,12 @@ typedef NS_OPTIONS(uint32_t, OEPSXHacks) {
 	OEPSXHacksOnlyOneMemcard = 1 << 4,
 
 	//! Game supports multi-tap.
-	//! @note Currently not implemented in DuckStation
+	//! TODO: implement
+	//! @note Currently not implemented in the DuckStation plug-in.
 	OEPSXHacksMultiTap = 1 << 5,
 	//! Game requires multi-tap adaptor to be in the second controller port.
-	//! @note Currently not implemented in DuckStation
+	//! TODO: implement
+	//! @note Currently not implemented in the DuckStation plug-in.
 	OEPSXHacksMultiTap5PlayerPort2 = 1 << 6,
 };
 
