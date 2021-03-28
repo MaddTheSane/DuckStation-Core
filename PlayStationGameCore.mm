@@ -31,6 +31,8 @@
 #include "common/log.h"
 #include "common/file_system.h"
 #include "common/byte_stream.h"
+#include "common/cd_image.h"
+#include "common/error.h"
 #include "core/host_display.h"
 #include "core/host_interface.h"
 #include "core/gpu.h"
@@ -267,9 +269,23 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			return NO;
 		}
 		
-		os_log_debug(OE_CORE_LOG, "Loaded m3u containing %lu cue sheets", numberOfMatches);
+		os_log_debug(OE_CORE_LOG, "Loading m3u containing %lu cue sheets", numberOfMatches);
 		
 		_maxDiscs = numberOfMatches;
+	} else if([path.pathExtension.lowercaseString isEqualToString:@"pbp"]) {
+		Common::Error pbpError;
+		auto pbpImage = CDImage::OpenPBPImage(path.fileSystemRepresentation, &pbpError);
+		if (pbpImage) {
+			_maxDiscs = pbpImage->GetSubImageCount();
+			os_log_debug(OE_CORE_LOG, "Loading PBP containing %u discs", pbpImage->GetSubImageCount());
+			pbpImage.reset();
+		} else {
+			String str;
+			pbpError.GetCodeAndMessage(str);
+			std::string cppStr = std::string(str);
+			//TODO: Show the warning to the user!
+			os_log_info(OE_CORE_LOG, "Failed to load PBP: %s. Will continue to attempt to load, but no guaranteee of it loading successfully\nAlso, only one disc will load.", cppStr.c_str());
+		}
 	}
     bootPath = [path copy];
 
@@ -318,9 +334,9 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 - (void)setDisc:(NSUInteger)discNumber
 {
-	if (System::HasMediaPlaylist()) {
+	if (System::HasMediaSubImages()) {
 		uint32_t index = (uint32_t)discNumber - 1; // 0-based index
-		System::SwitchMediaFromPlaylist(index);
+		System::SwitchMediaSubImage(index);
 	}
 }
 
