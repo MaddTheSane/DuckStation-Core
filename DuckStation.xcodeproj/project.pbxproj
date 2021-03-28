@@ -1147,7 +1147,7 @@
 		551DF7792527D21700B44953 /* DuckStation.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DuckStation.icns; sourceTree = "<group>"; };
 		552ED8652601DC8900846634 /* pbp_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pbp_types.h; sourceTree = "<group>"; };
 		552ED8662601DC8900846634 /* cd_image_pbp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_pbp.cpp; sourceTree = "<group>"; };
-		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		552ED8BE26053D0400846634 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };

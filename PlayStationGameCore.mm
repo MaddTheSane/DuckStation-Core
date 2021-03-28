@@ -248,7 +248,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 {
 	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
 	if ([[path pathExtension] compare:@"ccd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
-		//DuckStation doens't handle CCD files gracefully. Replace with the likely-present .IMG instead
+		//DuckStation doens't handle CCD files at all. Replace with the likely-present .IMG instead
 		path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"];
 	} else if([path.pathExtension.lowercaseString isEqualToString:@"m3u"]) {
 		// Parse number of discs in m3u
@@ -272,13 +272,24 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		os_log_debug(OE_CORE_LOG, "Loading m3u containing %lu cue sheets", numberOfMatches);
 		
 		_maxDiscs = numberOfMatches;
-	} else if([path.pathExtension.lowercaseString isEqualToString:@"pbp"]) {
+	} else if ([path.pathExtension.lowercaseString isEqualToString:@"pbp"]) {
 		Common::Error pbpError;
 		auto pbpImage = CDImage::OpenPBPImage(path.fileSystemRepresentation, &pbpError);
 		if (pbpImage) {
 			_maxDiscs = pbpImage->GetSubImageCount();
 			os_log_debug(OE_CORE_LOG, "Loading PBP containing %u discs", pbpImage->GetSubImageCount());
 			pbpImage.reset();
+		} else if (pbpError.GetMessage() == "Encrypted PBP images are not supported") {
+			// Error out
+			if (error) {
+				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
+					NSLocalizedDescriptionKey: NSLocalizedStringFromTableInBundle(@"Encrypted PBP images are not supported", nil, [NSBundle bundleForClass:[self class]], @"Encrypted PBP Images Aren't Supported"),
+					NSDebugDescriptionErrorKey: @"Encrypted PBP images are not supported",
+					NSLocalizedFailureReasonErrorKey: NSLocalizedStringFromTableInBundle(@"DuckStation currently doesn't support encrypted PBP files.", nil, [NSBundle bundleForClass:[self class]], @"Encrypted PBP Images Aren't Supported (longer)"),
+					NSLocalizedRecoverySuggestionErrorKey: NSLocalizedStringFromTableInBundle(@"Decrypt the PBP file or find a version of the game that is in another format.", nil, [NSBundle bundleForClass:[self class]], @"Encrypted PBP Images Aren't Supported (suggestion)")
+				}];
+			}
+			return NO;
 		} else {
 			String str;
 			pbpError.GetCodeAndMessage(str);
