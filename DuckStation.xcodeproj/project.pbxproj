@@ -447,6 +447,7 @@
 		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
+		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
 		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
@@ -1152,6 +1153,7 @@
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
 		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
 		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
+		553AD8962610408C00E9F910 /* cd_image_m3u.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_m3u.cpp; sourceTree = "<group>"; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
@@ -1553,6 +1555,7 @@
 				55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */,
 				551DEB912527107400B44953 /* cd_image_hasher.cpp */,
 				551DEBFD2527107500B44953 /* cd_image_hasher.h */,
+				553AD8962610408C00E9F910 /* cd_image_m3u.cpp */,
 				55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */,
 				551DEB882527107400B44953 /* cd_image_memory.cpp */,
 				552ED8662601DC8900846634 /* cd_image_pbp.cpp */,
@@ -3377,6 +3380,7 @@
 				551DEC6E2527107500B44953 /* settings.cpp in Sources */,
 				551DEC612527107500B44953 /* system.cpp in Sources */,
 				551DEC732527107500B44953 /* cd_image_memory.cpp in Sources */,
+				553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */,
 				551DECAF2527107500B44953 /* shiftjis.cpp in Sources */,
 				551DEC5D2527107500B44953 /* shadergen.cpp in Sources */,
 				551DEC7A2527107500B44953 /* image.cpp in Sources */,
