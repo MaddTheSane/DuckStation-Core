@@ -757,8 +757,9 @@ std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi
 #undef TickCount
 
 //To make linking happier for the debug build.
-std::unique_ptr<GL::Context> GL::ContextAGL::Create(const WindowInfo& wi, const Version* versions_to_try,
-									   size_t num_versions_to_try)
+std::unique_ptr<GL::Context> GL::ContextAGL::Create(const WindowInfo& wi,
+													const Version* versions_to_try,
+													size_t num_versions_to_try)
 {
 	return nullptr;
 }
