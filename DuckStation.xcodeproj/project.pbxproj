@@ -445,6 +445,8 @@
 		552ED8672601DC8900846634 /* cd_image_pbp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8662601DC8900846634 /* cd_image_pbp.cpp */; };
 		552ED89D2603FA4100846634 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 552ED89F2603FA4100846634 /* Localizable.strings */; };
 		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
+		553061C626183FE900A6AB04 /* window_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553061C526183FE900A6AB04 /* window_info.cpp */; };
+		553061D8261840F700A6AB04 /* chtdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 553061D7261840F700A6AB04 /* chtdb.txt */; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
@@ -1151,6 +1153,8 @@
 		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		552ED8BE26053D0400846634 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		553061C526183FE900A6AB04 /* window_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window_info.cpp; sourceTree = "<group>"; };
+		553061D7261840F700A6AB04 /* chtdb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chtdb.txt; path = duckstation/data/database/chtdb.txt; sourceTree = "<group>"; };
 		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/database/gamesettings.ini; sourceTree = "<group>"; };
 		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
 		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
@@ -1372,6 +1376,7 @@
 		551DEB0425270CC800B44953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				553061D7261840F700A6AB04 /* chtdb.txt */,
 				551DF7792527D21700B44953 /* DuckStation.icns */,
 				551DEB0525270CC800B44953 /* Info.plist */,
 				5534EB9225C4C40B00A92DAE /* gamesettings.ini */,
@@ -1542,6 +1547,7 @@
 		551DEB862527107400B44953 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				553061C526183FE900A6AB04 /* window_info.cpp */,
 				551DEBD92527107500B44953 /* gl */,
 				551DEBC22527107400B44953 /* vulkan */,
 				551DEB8D2527107400B44953 /* align.h */,
@@ -3268,6 +3274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
+				553061D8261840F700A6AB04 /* chtdb.txt in Resources */,
 				552ED89D2603FA4100846634 /* Localizable.strings in Resources */,
 				5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */,
 				55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */,
@@ -3331,6 +3338,7 @@
 				551DEC512527107500B44953 /* mdec.cpp in Sources */,
 				551DEC562527107500B44953 /* digital_controller.cpp in Sources */,
 				551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */,
+				553061C626183FE900A6AB04 /* window_info.cpp in Sources */,
 				551DEC532527107500B44953 /* cpu_disasm.cpp in Sources */,
 				5574161525969B1A00580158 /* texture_replacements.cpp in Sources */,
 				551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */,

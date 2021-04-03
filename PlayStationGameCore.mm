@@ -865,7 +865,7 @@ void OpenEmuHostInterface::Render()
 std::unique_ptr<ByteStream> OpenEmuHostInterface::OpenPackageFile(const char* path, u32 flags)
 {
 	os_log_error(OE_CORE_LOG, "Ignoring request for package file '%{public}s'", path);
-	return {};
+	return nullptr;
 }
 
 void OpenEmuHostInterface::ReportError(const char* message)
