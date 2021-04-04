@@ -447,6 +447,7 @@
 		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
 		553061C626183FE900A6AB04 /* window_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553061C526183FE900A6AB04 /* window_info.cpp */; };
 		553061D8261840F700A6AB04 /* chtdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 553061D7261840F700A6AB04 /* chtdb.txt */; };
+		55306219261A567C00A6AB04 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBEC2527107500B44953 /* context_agl.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
@@ -2165,19 +2166,19 @@
 		551DF3FF2527BDFB00B44953 /* vixl */ = {
 			isa = PBXGroup;
 			children = (
-				551DF4002527BDFB00B44953 /* platform-vixl.h */,
-				551DF4012527BDFB00B44953 /* pool-manager.h */,
-				551DF4022527BDFB00B44953 /* pool-manager-impl.h */,
-				551DF4032527BDFB00B44953 /* invalset-vixl.h */,
-				551DF4042527BDFB00B44953 /* macro-assembler-interface.h */,
-				551DF4052527BDFB00B44953 /* utils-vixl.h */,
-				551DF4062527BDFB00B44953 /* code-buffer-vixl.h */,
+				551DF4142527BDFB00B44953 /* aarch64 */,
 				551DF4072527BDFB00B44953 /* assembler-base-vixl.h */,
+				551DF4062527BDFB00B44953 /* code-buffer-vixl.h */,
+				551DF4122527BDFB00B44953 /* code-generation-scopes-vixl.h */,
 				551DF4082527BDFB00B44953 /* compiler-intrinsics-vixl.h */,
 				551DF4112527BDFB00B44953 /* cpu-features.h */,
-				551DF4122527BDFB00B44953 /* code-generation-scopes-vixl.h */,
 				551DF4132527BDFB00B44953 /* globals-vixl.h */,
-				551DF4142527BDFB00B44953 /* aarch64 */,
+				551DF4032527BDFB00B44953 /* invalset-vixl.h */,
+				551DF4042527BDFB00B44953 /* macro-assembler-interface.h */,
+				551DF4002527BDFB00B44953 /* platform-vixl.h */,
+				551DF4022527BDFB00B44953 /* pool-manager-impl.h */,
+				551DF4012527BDFB00B44953 /* pool-manager.h */,
+				551DF4052527BDFB00B44953 /* utils-vixl.h */,
 			);
 			path = vixl;
 			sourceTree = "<group>";
@@ -2185,19 +2186,19 @@
 		551DF4142527BDFB00B44953 /* aarch64 */ = {
 			isa = PBXGroup;
 			children = (
-				551DF4152527BDFB00B44953 /* cpu-aarch64.h */,
-				551DF4162527BDFB00B44953 /* constants-aarch64.h */,
-				551DF4172527BDFB00B44953 /* disasm-aarch64.h */,
-				551DF4182527BDFB00B44953 /* decoder-aarch64.h */,
-				551DF4192527BDFB00B44953 /* simulator-constants-aarch64.h */,
-				551DF41A2527BDFB00B44953 /* macro-assembler-aarch64.h */,
-				551DF41B2527BDFB00B44953 /* instructions-aarch64.h */,
-				551DF41C2527BDFB00B44953 /* cpu-features-auditor-aarch64.h */,
-				551DF41D2527BDFB00B44953 /* simulator-aarch64.h */,
-				551DF41E2527BDFB00B44953 /* instrument-aarch64.h */,
-				551DF41F2527BDFB00B44953 /* assembler-aarch64.h */,
-				551DF4202527BDFB00B44953 /* operands-aarch64.h */,
 				551DF4212527BDFB00B44953 /* abi-aarch64.h */,
+				551DF41F2527BDFB00B44953 /* assembler-aarch64.h */,
+				551DF4162527BDFB00B44953 /* constants-aarch64.h */,
+				551DF4152527BDFB00B44953 /* cpu-aarch64.h */,
+				551DF41C2527BDFB00B44953 /* cpu-features-auditor-aarch64.h */,
+				551DF4182527BDFB00B44953 /* decoder-aarch64.h */,
+				551DF4172527BDFB00B44953 /* disasm-aarch64.h */,
+				551DF41B2527BDFB00B44953 /* instructions-aarch64.h */,
+				551DF41E2527BDFB00B44953 /* instrument-aarch64.h */,
+				551DF41A2527BDFB00B44953 /* macro-assembler-aarch64.h */,
+				551DF4202527BDFB00B44953 /* operands-aarch64.h */,
+				551DF41D2527BDFB00B44953 /* simulator-aarch64.h */,
+				551DF4192527BDFB00B44953 /* simulator-constants-aarch64.h */,
 			);
 			path = aarch64;
 			sourceTree = "<group>";
@@ -2217,15 +2218,15 @@
 		551DF4312527BDFB00B44953 /* aarch64 */ = {
 			isa = PBXGroup;
 			children = (
-				551DF4322527BDFB00B44953 /* instrument-aarch64.cc */,
-				551DF4332527BDFB00B44953 /* cpu-features-auditor-aarch64.cc */,
-				551DF4352527BDFB00B44953 /* instructions-aarch64.cc */,
-				551DF4382527BDFB00B44953 /* macro-assembler-aarch64.cc */,
-				551DF4392527BDFB00B44953 /* disasm-aarch64.cc */,
-				551DF43A2527BDFB00B44953 /* operands-aarch64.cc */,
-				551DF43B2527BDFB00B44953 /* decoder-aarch64.cc */,
-				551DF43C2527BDFB00B44953 /* cpu-aarch64.cc */,
 				551DF43D2527BDFB00B44953 /* assembler-aarch64.cc */,
+				551DF43C2527BDFB00B44953 /* cpu-aarch64.cc */,
+				551DF4332527BDFB00B44953 /* cpu-features-auditor-aarch64.cc */,
+				551DF43B2527BDFB00B44953 /* decoder-aarch64.cc */,
+				551DF4392527BDFB00B44953 /* disasm-aarch64.cc */,
+				551DF4352527BDFB00B44953 /* instructions-aarch64.cc */,
+				551DF4322527BDFB00B44953 /* instrument-aarch64.cc */,
+				551DF4382527BDFB00B44953 /* macro-assembler-aarch64.cc */,
+				551DF43A2527BDFB00B44953 /* operands-aarch64.cc */,
 			);
 			path = aarch64;
 			sourceTree = "<group>";
@@ -3337,6 +3338,7 @@
 				5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */,
 				551DEC512527107500B44953 /* mdec.cpp in Sources */,
 				551DEC562527107500B44953 /* digital_controller.cpp in Sources */,
+				55306219261A567C00A6AB04 /* context_agl.mm in Sources */,
 				551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */,
 				553061C626183FE900A6AB04 /* window_info.cpp in Sources */,
 				551DEC532527107500B44953 /* cpu_disasm.cpp in Sources */,
