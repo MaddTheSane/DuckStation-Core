@@ -277,7 +277,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		auto pbpImage = CDImage::OpenPBPImage(path.fileSystemRepresentation, &pbpError);
 		if (pbpImage) {
 			_maxDiscs = pbpImage->GetSubImageCount();
-			os_log_debug(OE_CORE_LOG, "Loading PBP containing %u discs", pbpImage->GetSubImageCount());
+			os_log_debug(OE_CORE_LOG, "Loading PBP containing %ld discs", (long)_maxDiscs);
 			pbpImage.reset();
 		} else if (pbpError.GetMessage() == "Encrypted PBP images are not supported") {
 			// Error out
@@ -291,9 +291,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			}
 			return NO;
 		} else {
-			String str;
-			pbpError.GetCodeAndMessage(str);
-			std::string cppStr = std::string(str);
+			std::string cppStr = std::string(pbpError.GetCodeAndMessage());
 			//TODO: Show the warning to the user!
 			os_log_info(OE_CORE_LOG, "Failed to load PBP: %s. Will continue to attempt to load, but no guaranteee of it loading successfully\nAlso, only one disc will load.", cppStr.c_str());
 		}

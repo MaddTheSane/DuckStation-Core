@@ -780,7 +780,7 @@
 		551DEBF22527107500B44953 /* x11_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x11_window.h; sourceTree = "<group>"; };
 		551DEBF32527107500B44953 /* stream_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stream_buffer.cpp; sourceTree = "<group>"; };
 		551DEBF42527107500B44953 /* progress_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = progress_callback.cpp; sourceTree = "<group>"; };
-		551DEBF52527107500B44953 /* cpu_detect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu_detect.h; sourceTree = "<group>"; };
+		551DEBF52527107500B44953 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		551DEBF62527107500B44953 /* timestamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timestamp.cpp; sourceTree = "<group>"; };
 		551DEBF72527107500B44953 /* cd_image_chd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_chd.cpp; sourceTree = "<group>"; };
 		551DEBF82527107500B44953 /* md5_digest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = md5_digest.cpp; sourceTree = "<group>"; };
@@ -1547,7 +1547,6 @@
 		551DEB862527107400B44953 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				553061C526183FE900A6AB04 /* window_info.cpp */,
 				551DEBD92527107500B44953 /* gl */,
 				551DEBC22527107400B44953 /* vulkan */,
 				551DEB8D2527107400B44953 /* align.h */,
@@ -1575,7 +1574,6 @@
 				551DEB872527107400B44953 /* cd_subchannel_replacement.h */,
 				551DEBBE2527107400B44953 /* cd_xa.cpp */,
 				551DEC092527107500B44953 /* cd_xa.h */,
-				551DEBF52527107500B44953 /* cpu_detect.h */,
 				551DEBBD2527107400B44953 /* dimensional_array.h */,
 				552ED8BE26053D0400846634 /* error.cpp */,
 				552ED8BF26053D0400846634 /* error.h */,
@@ -1606,6 +1604,7 @@
 				5577776C253D127F000D0651 /* page_fault_handler.cpp */,
 				5577776B253D127F000D0651 /* page_fault_handler.h */,
 				552ED8652601DC8900846634 /* pbp_types.h */,
+				551DEBF52527107500B44953 /* platform.h */,
 				551DEBF42527107500B44953 /* progress_callback.cpp */,
 				551DEBB02527107400B44953 /* progress_callback.h */,
 				551DEBFA2527107500B44953 /* rectangle.h */,
@@ -1625,6 +1624,7 @@
 				551DEBA32527107400B44953 /* types.h */,
 				551DEB8C2527107400B44953 /* wav_writer.cpp */,
 				551DEBB12527107400B44953 /* wav_writer.h */,
+				553061C526183FE900A6AB04 /* window_info.cpp */,
 				551DEBC12527107400B44953 /* window_info.h */,
 			);
 			path = common;
