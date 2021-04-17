@@ -680,7 +680,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 - (double)audioSampleRate
 {
-	return 44100;
+	return AudioStream::DefaultOutputSampleRate;
 }
 
 - (OEIntSize)bufferSize
