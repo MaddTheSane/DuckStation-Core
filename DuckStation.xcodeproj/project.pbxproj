@@ -1207,6 +1207,7 @@
 		55C3B2B825A9B03E001EE655 /* OEOverrides.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = OEOverrides.ini; sourceTree = "<group>"; };
 		55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_ecm.cpp; sourceTree = "<group>"; };
 		55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_mds.cpp; sourceTree = "<group>"; };
+		55CD6BE72638C834007325D0 /* gpu_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gpu_types.h; sourceTree = "<group>"; };
 		55E1686025E99826001F4110 /* cheevos.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cheevos.cpp; sourceTree = "<group>"; };
 		55E1686125E99826001F4110 /* cheevos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cheevos.h; sourceTree = "<group>"; };
 		55E1689025EC19A6001F4110 /* multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multitap.h; sourceTree = "<group>"; };
@@ -1485,6 +1486,7 @@
 				5591A837256A0AD0009556D6 /* gpu_sw_backend.h */,
 				551DEB442527107400B44953 /* gpu_sw.cpp */,
 				551DEB512527107400B44953 /* gpu_sw.h */,
+				55CD6BE72638C834007325D0 /* gpu_types.h */,
 				551DEB7C2527107400B44953 /* gpu.cpp */,
 				551DEB5E2527107400B44953 /* gpu.h */,
 				551DEB572527107400B44953 /* gte_types.h */,
