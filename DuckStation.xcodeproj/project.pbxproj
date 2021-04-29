@@ -3886,7 +3886,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LIBRETRO=1",
 					SI_CONVERT_GENERIC,
 					"$(inherited)",
 					WITH_RECOMPILER,
@@ -3918,7 +3917,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.DuckStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/duckstation/src";
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/src\"";
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Debug;
@@ -3931,7 +3930,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LIBRETRO=1",
 					SI_CONVERT_GENERIC,
 					"$(inherited)",
 					WITH_RECOMPILER,
@@ -3963,7 +3961,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.DuckStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/duckstation/src";
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/src\"";
 				WRAPPER_EXTENSION = oecoreplugin;
 			};
 			name = Release;
