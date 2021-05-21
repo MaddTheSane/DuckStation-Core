@@ -104,19 +104,6 @@
 		551DECAF2527107500B44953 /* shiftjis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC072527107500B44953 /* shiftjis.cpp */; };
 		551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC112527107500B44953 /* ini_settings_interface.cpp */; };
 		551DECBC2527107500B44953 /* game_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEC252527107500B44953 /* game_settings.cpp */; };
-		551DED1E252716F100B44953 /* cdtext.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0D252716F100B44953 /* cdtext.h */; };
-		551DED1F252716F100B44953 /* libcue.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0E252716F100B44953 /* libcue.h */; };
-		551DED20252716F100B44953 /* rem.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED0F252716F100B44953 /* rem.h */; };
-		551DED21252716F100B44953 /* cd.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED10252716F100B44953 /* cd.h */; };
-		551DED22252716F100B44953 /* cuetime.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED11252716F100B44953 /* cuetime.h */; };
-		551DED26252716F100B44953 /* cue_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED18252716F100B44953 /* cue_parser.c */; };
-		551DED27252716F100B44953 /* rem.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED19252716F100B44953 /* rem.c */; };
-		551DED28252716F100B44953 /* time.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED1A252716F100B44953 /* time.c */; };
-		551DED29252716F100B44953 /* cdtext.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED1B252716F100B44953 /* cdtext.c */; };
-		551DED2A252716F100B44953 /* cd.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED1C252716F100B44953 /* cd.c */; };
-		551DED2B252716F100B44953 /* cue_parser.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED1D252716F100B44953 /* cue_parser.h */; };
-		551DED342527172900B44953 /* libcue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DECFF252716D800B44953 /* libcue.a */; };
-		551DED392527176900B44953 /* cue_scanner.l in Sources */ = {isa = PBXBuildFile; fileRef = 551DED15252716F100B44953 /* cue_scanner.l */; };
 		551DED61252717EC00B44953 /* flac.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED50252717EC00B44953 /* flac.h */; };
 		551DED62252717EC00B44953 /* bitstream.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED51252717EC00B44953 /* bitstream.h */; };
 		551DED63252717EC00B44953 /* cdrom.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DED52252717EC00B44953 /* cdrom.h */; };
@@ -487,16 +474,10 @@
 		55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */; };
 		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
+		55FF1A7A2658680F006C3885 /* cue_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FF1A792658680F006C3885 /* cue_parser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		551DED322527172400B44953 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 551DECFE252716D800B44953;
-			remoteInfo = cue;
-		};
 		551DED762527185100B44953 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
@@ -809,21 +790,6 @@
 		551DEC2E2527107500B44953 /* vulkan_host_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vulkan_host_display.h; sourceTree = "<group>"; };
 		551DEC3A2527107500B44953 /* vulkan_host_display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vulkan_host_display.cpp; sourceTree = "<group>"; };
 		551DEC3F2527107500B44953 /* game_settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_settings.h; sourceTree = "<group>"; };
-		551DECFF252716D800B44953 /* libcue.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcue.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		551DED0D252716F100B44953 /* cdtext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cdtext.h; sourceTree = "<group>"; };
-		551DED0E252716F100B44953 /* libcue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcue.h; sourceTree = "<group>"; };
-		551DED0F252716F100B44953 /* rem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rem.h; sourceTree = "<group>"; };
-		551DED10252716F100B44953 /* cd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd.h; sourceTree = "<group>"; };
-		551DED11252716F100B44953 /* cuetime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cuetime.h; sourceTree = "<group>"; };
-		551DED15252716F100B44953 /* cue_scanner.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = cue_scanner.l; sourceTree = "<group>"; };
-		551DED16252716F100B44953 /* cue_parser.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = cue_parser.y; sourceTree = "<group>"; };
-		551DED17252716F100B44953 /* generate_parser.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = generate_parser.sh; sourceTree = "<group>"; };
-		551DED18252716F100B44953 /* cue_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cue_parser.c; sourceTree = "<group>"; };
-		551DED19252716F100B44953 /* rem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rem.c; sourceTree = "<group>"; };
-		551DED1A252716F100B44953 /* time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = time.c; sourceTree = "<group>"; };
-		551DED1B252716F100B44953 /* cdtext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cdtext.c; sourceTree = "<group>"; };
-		551DED1C252716F100B44953 /* cd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cd.c; sourceTree = "<group>"; };
-		551DED1D252716F100B44953 /* cue_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cue_parser.h; sourceTree = "<group>"; };
 		551DED44252717DF00B44953 /* libchdr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libchdr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DED50252717EC00B44953 /* flac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = flac.h; sourceTree = "<group>"; };
 		551DED51252717EC00B44953 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
@@ -1214,6 +1180,8 @@
 		55E1689125EC19A6001F4110 /* multitap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multitap.cpp; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
+		55FF1A782658680F006C3885 /* cue_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cue_parser.h; sourceTree = "<group>"; };
+		55FF1A792658680F006C3885 /* cue_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cue_parser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1236,15 +1204,7 @@
 				551DEF8F2527268C00B44953 /* Cocoa.framework in Frameworks */,
 				551DEEB125271B4800B44953 /* libFLAC.a in Frameworks */,
 				551DED782527185800B44953 /* libchdr.a in Frameworks */,
-				551DED342527172900B44953 /* libcue.a in Frameworks */,
 				551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		551DECFD252716D800B44953 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,7 +1317,6 @@
 			isa = PBXGroup;
 			children = (
 				551DEB0225270CC800B44953 /* DuckStation.oecoreplugin */,
-				551DECFF252716D800B44953 /* libcue.a */,
 				551DED44252717DF00B44953 /* libchdr.a */,
 				551DEE2A25271B0700B44953 /* libFLAC.a */,
 				551DF02C2527B39200B44953 /* libglad.a */,
@@ -1577,6 +1536,8 @@
 				551DEB872527107400B44953 /* cd_subchannel_replacement.h */,
 				551DEBBE2527107400B44953 /* cd_xa.cpp */,
 				551DEC092527107500B44953 /* cd_xa.h */,
+				55FF1A792658680F006C3885 /* cue_parser.cpp */,
+				55FF1A782658680F006C3885 /* cue_parser.h */,
 				551DEBBD2527107400B44953 /* dimensional_array.h */,
 				552ED8BE26053D0400846634 /* error.cpp */,
 				552ED8BF26053D0400846634 /* error.h */,
@@ -1713,7 +1674,6 @@
 				551DF0352527B3A700B44953 /* glad */,
 				551DF5BA2527C58D00B44953 /* glslang */,
 				551DED4B252717EC00B44953 /* libchdr */,
-				551DED05252716F100B44953 /* libcue */,
 				551DEE3225271B1B00B44953 /* libFLAC */,
 				557582AC25AE4118002C812D /* libsamplerate */,
 				551DF2342527B87F00B44953 /* lzma */,
@@ -1727,51 +1687,6 @@
 			name = ext;
 			path = duckstation/dep;
 			sourceTree = SOURCE_ROOT;
-		};
-		551DED05252716F100B44953 /* libcue */ = {
-			isa = PBXGroup;
-			children = (
-				551DED0B252716F100B44953 /* include */,
-				551DED13252716F100B44953 /* src */,
-			);
-			path = libcue;
-			sourceTree = "<group>";
-		};
-		551DED0B252716F100B44953 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				551DED0C252716F100B44953 /* libcue */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		551DED0C252716F100B44953 /* libcue */ = {
-			isa = PBXGroup;
-			children = (
-				551DED0D252716F100B44953 /* cdtext.h */,
-				551DED0E252716F100B44953 /* libcue.h */,
-				551DED0F252716F100B44953 /* rem.h */,
-				551DED10252716F100B44953 /* cd.h */,
-				551DED11252716F100B44953 /* cuetime.h */,
-			);
-			path = libcue;
-			sourceTree = "<group>";
-		};
-		551DED13252716F100B44953 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				551DED1C252716F100B44953 /* cd.c */,
-				551DED1B252716F100B44953 /* cdtext.c */,
-				551DED18252716F100B44953 /* cue_parser.c */,
-				551DED1D252716F100B44953 /* cue_parser.h */,
-				551DED16252716F100B44953 /* cue_parser.y */,
-				551DED15252716F100B44953 /* cue_scanner.l */,
-				551DED17252716F100B44953 /* generate_parser.sh */,
-				551DED19252716F100B44953 /* rem.c */,
-				551DED1A252716F100B44953 /* time.c */,
-			);
-			path = src;
-			sourceTree = "<group>";
 		};
 		551DED4B252717EC00B44953 /* libchdr */ = {
 			isa = PBXGroup;
@@ -2604,19 +2519,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		551DECFB252716D800B44953 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DED20252716F100B44953 /* rem.h in Headers */,
-				551DED21252716F100B44953 /* cd.h in Headers */,
-				551DED1F252716F100B44953 /* libcue.h in Headers */,
-				551DED2B252716F100B44953 /* cue_parser.h in Headers */,
-				551DED1E252716F100B44953 /* cdtext.h in Headers */,
-				551DED22252716F100B44953 /* cuetime.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		551DED40252717DF00B44953 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2934,30 +2836,12 @@
 				551DF0542527B3B800B44953 /* PBXTargetDependency */,
 				551DEEB025271B3C00B44953 /* PBXTargetDependency */,
 				551DED772527185100B44953 /* PBXTargetDependency */,
-				551DED332527172400B44953 /* PBXTargetDependency */,
 				5574167525969C2400580158 /* PBXTargetDependency */,
 			);
 			name = DuckStation;
 			productName = DuckStation;
 			productReference = 551DEB0225270CC800B44953 /* DuckStation.oecoreplugin */;
 			productType = "com.apple.product-type.bundle";
-		};
-		551DECFE252716D800B44953 /* cue */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 551DED00252716D800B44953 /* Build configuration list for PBXNativeTarget "cue" */;
-			buildPhases = (
-				551DECFB252716D800B44953 /* Headers */,
-				551DECFC252716D800B44953 /* Sources */,
-				551DECFD252716D800B44953 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = cue;
-			productName = cue;
-			productReference = 551DECFF252716D800B44953 /* libcue.a */;
-			productType = "com.apple.product-type.library.static";
 		};
 		551DED43252717DF00B44953 /* chdr */ = {
 			isa = PBXNativeTarget;
@@ -3191,9 +3075,6 @@
 					551DEB0125270CC800B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
-					551DECFE252716D800B44953 = {
-						CreatedOnToolsVersion = 12.2;
-					};
 					551DED43252717DF00B44953 = {
 						CreatedOnToolsVersion = 12.2;
 					};
@@ -3252,7 +3133,6 @@
 			projectRoot = "";
 			targets = (
 				551DEB0125270CC800B44953 /* DuckStation */,
-				551DECFE252716D800B44953 /* cue */,
 				551DED43252717DF00B44953 /* chdr */,
 				551DEE2925271B0700B44953 /* FLAC */,
 				551DF02B2527B39200B44953 /* glad */,
@@ -3337,6 +3217,7 @@
 				551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */,
 				551DECA02527107500B44953 /* texture.cpp in Sources */,
 				551DEC4E2527107500B44953 /* gte.cpp in Sources */,
+				55FF1A7A2658680F006C3885 /* cue_parser.cpp in Sources */,
 				5591A83A256A0AD0009556D6 /* gpu_backend.cpp in Sources */,
 				551DEC512527107500B44953 /* mdec.cpp in Sources */,
 				551DEC562527107500B44953 /* digital_controller.cpp in Sources */,
@@ -3446,19 +3327,6 @@
 				551DEC622527107500B44953 /* memory_card.cpp in Sources */,
 				551DEC8A2527107500B44953 /* jit_code_buffer.cpp in Sources */,
 				551DECAB2527107500B44953 /* byte_stream.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		551DECFC252716D800B44953 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				551DED29252716F100B44953 /* cdtext.c in Sources */,
-				551DED28252716F100B44953 /* time.c in Sources */,
-				551DED2A252716F100B44953 /* cd.c in Sources */,
-				551DED27252716F100B44953 /* rem.c in Sources */,
-				551DED26252716F100B44953 /* cue_parser.c in Sources */,
-				551DED392527176900B44953 /* cue_scanner.l in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3674,11 +3542,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		551DED332527172400B44953 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 551DECFE252716D800B44953 /* cue */;
-			targetProxy = 551DED322527172400B44953 /* PBXContainerItemProxy */;
-		};
 		551DED772527185100B44953 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 551DED43252717DF00B44953 /* chdr */;
@@ -3963,27 +3826,6 @@
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/src\"";
 				WRAPPER_EXTENSION = oecoreplugin;
-			};
-			name = Release;
-		};
-		551DED01252716D800B44953 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		551DED02252716D800B44953 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				EXECUTABLE_PREFIX = lib;
-				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -4441,15 +4283,6 @@
 			buildConfigurations = (
 				551DEB0925270CC800B44953 /* Debug */,
 				551DEB0A25270CC800B44953 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		551DED00252716D800B44953 /* Build configuration list for PBXNativeTarget "cue" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				551DED01252716D800B44953 /* Debug */,
-				551DED02252716D800B44953 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
