@@ -40,6 +40,7 @@
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
 #include "core/namco_guncon.h"
+#include "core/konami_justifier.h"
 #include "core/playstation_mouse.h"
 #include "OpenGLHostDisplay.hpp"
 #include "frontend-common/game_settings.h"
@@ -425,6 +426,14 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			return;
 			break;
 			
+		case ControllerType::KonamiJustifier:
+		{
+			KonamiJustifier *controller = static_cast<KonamiJustifier*>(System::GetController(0));
+			controller->SetButtonState(KonamiJustifier::Button::Trigger, true);
+		}
+			return;
+			break;
+			
 		case ControllerType::PlayStationMouse:
 		{
 			[self mouseMovedAtPoint:point];
@@ -463,6 +472,14 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			return;
 			break;
 			
+		case ControllerType::KonamiJustifier:
+		{
+			KonamiJustifier *controller = static_cast<KonamiJustifier*>(System::GetController(0));
+			controller->SetButtonState(KonamiJustifier::Button::Trigger, false);
+		}
+			return;
+			break;
+
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
@@ -597,6 +614,30 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 			updateAnalogControllerButton(button, (int)player, true);
 			break;
 			
+		case ControllerType::KonamiJustifier:
+		{
+			if (player != 0) {
+				break;
+			}
+			KonamiJustifier *controller = static_cast<KonamiJustifier*>(System::GetController(0));
+			switch (button) {
+				case OEPSXButtonCircle:
+				case OEPSXButtonSquare:
+					controller->SetButtonState(KonamiJustifier::Button::Back, true);
+					break;
+					
+				case OEPSXButtonCross:
+				case OEPSXButtonTriangle:
+				case OEPSXButtonStart:
+					controller->SetButtonState(KonamiJustifier::Button::Start, true);
+					break;
+
+				default:
+					break;
+			}
+		}
+			break;
+
 		case ControllerType::NamcoGunCon:
 		{
 			if (player != 0) {
@@ -655,6 +696,30 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
 					controller->SetButtonState(NamcoGunCon::Button::B, false);
+					break;
+
+				default:
+					break;
+			}
+		}
+			break;
+
+		case ControllerType::KonamiJustifier:
+		{
+			if (player != 0) {
+				break;
+			}
+			KonamiJustifier *controller = static_cast<KonamiJustifier*>(System::GetController(0));
+			switch (button) {
+				case OEPSXButtonCircle:
+				case OEPSXButtonSquare:
+					controller->SetButtonState(KonamiJustifier::Button::Back, false);
+					break;
+					
+				case OEPSXButtonCross:
+				case OEPSXButtonTriangle:
+				case OEPSXButtonStart:
+					controller->SetButtonState(KonamiJustifier::Button::Start, false);
 					break;
 
 				default:
