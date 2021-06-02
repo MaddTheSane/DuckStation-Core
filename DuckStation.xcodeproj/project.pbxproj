@@ -440,6 +440,7 @@
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
 		553AD8D12611278E00E9F910 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553AD8D02611278E00E9F910 /* libz.tbd */; };
 		554537222664185A0097DD71 /* konami_justifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55453720266418590097DD71 /* konami_justifier.cpp */; };
+		55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55453723266719C30097DD71 /* cd_image_ppf.cpp */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
 		5574165325969BDE00580158 /* xxhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 5574164B25969BDE00580158 /* xxhash.h */; };
@@ -1130,6 +1131,7 @@
 		553AD8D02611278E00E9F910 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55453720266418590097DD71 /* konami_justifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = konami_justifier.cpp; sourceTree = "<group>"; };
 		55453721266418590097DD71 /* konami_justifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = konami_justifier.h; sourceTree = "<group>"; };
+		55453723266719C30097DD71 /* cd_image_ppf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cd_image_ppf.cpp; path = duckstation/src/common/cd_image_ppf.cpp; sourceTree = SOURCE_ROOT; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		5574161325969B1A00580158 /* texture_replacements.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture_replacements.cpp; sourceTree = "<group>"; };
@@ -1395,8 +1397,6 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				55453720266418590097DD71 /* konami_justifier.cpp */,
-				55453721266418590097DD71 /* konami_justifier.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -1405,6 +1405,7 @@
 				551DEB2D2527107400B44953 /* bios.h */,
 				551DEB232527107400B44953 /* bus.cpp */,
 				551DEB292527107400B44953 /* bus.h */,
+				55453723266719C30097DD71 /* cd_image_ppf.cpp */,
 				551DEB2A2527107400B44953 /* cdrom_async_reader.cpp */,
 				551DEB7B2527107400B44953 /* cdrom_async_reader.h */,
 				551DEB2F2527107400B44953 /* cdrom.cpp */,
@@ -1464,6 +1465,8 @@
 				551DEB3F2527107400B44953 /* host_interface.h */,
 				551DEB652527107400B44953 /* interrupt_controller.cpp */,
 				551DEB752527107400B44953 /* interrupt_controller.h */,
+				55453720266418590097DD71 /* konami_justifier.cpp */,
+				55453721266418590097DD71 /* konami_justifier.h */,
 				55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */,
 				55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */,
 				551DEB4A2527107400B44953 /* mdec.cpp */,
@@ -3230,6 +3233,7 @@
 				551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */,
 				553061C626183FE900A6AB04 /* window_info.cpp in Sources */,
 				551DEC532527107500B44953 /* cpu_disasm.cpp in Sources */,
+				55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */,
 				5574161525969B1A00580158 /* texture_replacements.cpp in Sources */,
 				551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */,
 				551DEC5B2527107500B44953 /* negcon.cpp in Sources */,
