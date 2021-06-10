@@ -691,7 +691,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 - (void)executeFrame
 {
     if (!isInitialized){
-        SystemBootParameters params(bootPath.fileSystemRepresentation);
+		auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
         duckInterface->Initialize();
         isInitialized = duckInterface->BootSystem(params);
 		if (saveStatePath) {
