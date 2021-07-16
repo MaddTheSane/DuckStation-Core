@@ -339,7 +339,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 
 - (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError
 {
-	auto mem = std::make_unique<GrowableMemoryByteStream>(NULL, 0);
+	auto mem = std::make_unique<GrowableMemoryByteStream>((void*)NULL, 0);
 	const bool result = System::SaveState(mem.get(), 0);
 	if (!result) {
 		if (outError) {
