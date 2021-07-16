@@ -327,6 +327,30 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	block(result, nil);
 }
 
+- (BOOL)deserializeState:(NSData *)state withError:(NSError **)outError
+{
+	auto mem = std::make_unique<ReadOnlyMemoryByteStream>(state.bytes, (u32)state.length);
+	bool okay = System::LoadState(mem.get());
+	if (!okay && outError) {
+		*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadStateError userInfo:nil];
+	}
+	return okay;
+}
+
+- (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError
+{
+	auto mem = std::make_unique<GrowableMemoryByteStream>(NULL, 0);
+	const bool result = System::SaveState(mem.get(), 0);
+	if (!result) {
+		if (outError) {
+			*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:nil];
+		}
+		return nil;
+	}
+	NSData *toRet = [NSData dataWithBytes:mem->GetMemoryPointer() length:mem->GetMemorySize()];
+	return toRet;
+}
+
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
 {
 	//TODO: implement
