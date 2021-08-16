@@ -67,6 +67,7 @@ struct OpenEmuChangeSettings {
 	std::optional<bool> pxgp = std::nullopt;
 	std::optional<bool> deinterlaced = std::nullopt;
 	std::optional<u32> multisamples = std::nullopt;
+	std::optional<u32> speedPercent = std::nullopt;
 };
 
 class OpenEmuAudioStream final : public AudioStream
@@ -180,6 +181,7 @@ static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureF
 static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
 static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterlaced";
 static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
+static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock";
 
 @implementation PlayStationGameCore {
 	OpenEmuHostInterface *duckInterface;
@@ -745,6 +747,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		{ DuckStationDeinterlacedKey,    [NSNumber class], @YES  },
 		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
 		{ DuckStationAntialiasKey,       [NSNumber class], @4 },
+		{ DuckStationCPUOverclockKey,    [NSNumber class], @100 },
 	};
 	/* validate the defaults to avoid crashes caused by users playing
 	 * around where they shouldn't */
@@ -765,6 +768,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	NSNumber *textureFilter = _displayModes[DuckStationTextureFilterKey];
 	NSNumber *deinterlace = _displayModes[DuckStationDeinterlacedKey];
 	NSNumber *antialias = _displayModes[DuckStationAntialiasKey];
+	NSNumber *overclock = _displayModes[DuckStationCPUOverclockKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
 		settings.pxgp = [pxgpActive boolValue];
@@ -777,6 +781,9 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 	}
 	if (antialias && [antialias isKindOfClass:[NSNumber class]]) {
 		settings.multisamples = [antialias unsignedIntValue];
+	}
+	if (overclock && [overclock isKindOfClass:[NSNumber class]]) {
+		settings.speedPercent = [overclock unsignedIntValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -804,6 +811,13 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
 		OptionToggleable(@"Deinterlace", DuckStationDeinterlacedKey),
 		OEDisplayMode_Submenu(@"MSAA", @[OptionWithValue(@"Off", DuckStationAntialiasKey, 1), OptionWithValue(@"2x", DuckStationAntialiasKey, 2), OptionWithValue(@"4x", DuckStationAntialiasKey, 4), OptionWithValue(@"8x", DuckStationAntialiasKey, 8), OptionWithValue(@"16x", DuckStationAntialiasKey, 16)]),
+		OEDisplayMode_Submenu(@"CPU speed",
+							  @[OptionWithValue(@"100% (default)", DuckStationCPUOverclockKey, 100),
+								OptionWithValue(@"200%", DuckStationCPUOverclockKey, 200),
+								OptionWithValue(@"300%", DuckStationCPUOverclockKey, 300),
+								OptionWithValue(@"400%", DuckStationCPUOverclockKey, 400),
+								OptionWithValue(@"500%", DuckStationCPUOverclockKey, 500),
+								OptionWithValue(@"600%", DuckStationCPUOverclockKey, 600)]),
 	];
 	
 #undef OptionWithValue
@@ -826,6 +840,8 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 		settings.deinterlaced = ![currentVal boolValue];
 	} else if ([key isEqualToString:DuckStationAntialiasKey]) {
 		settings.multisamples = [currentVal unsignedIntValue];
+	} else if ([key isEqualToString:DuckStationCPUOverclockKey]) {
+		settings.speedPercent = [currentVal unsignedIntValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -1077,6 +1093,7 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	current->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
 	current->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
 	current->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
+	current->_displayModes[DuckStationCPUOverclockKey] = @(g_settings.GetCPUOverclockPercent());
 }
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
@@ -1103,6 +1120,11 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	}
 	if (new_settings.multisamples.has_value()) {
 		g_settings.gpu_multisamples = new_settings.multisamples.value();
+	}
+	if (new_settings.speedPercent.has_value()) {
+		auto speed = new_settings.speedPercent.value();
+		g_settings.SetCPUOverclockPercent(speed);
+		g_settings.UpdateOverclockActive();
 	}
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
