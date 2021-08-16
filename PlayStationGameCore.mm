@@ -1124,6 +1124,11 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	if (new_settings.speedPercent.has_value()) {
 		auto speed = new_settings.speedPercent.value();
 		g_settings.SetCPUOverclockPercent(speed);
+		if (speed == 100) {
+			g_settings.cpu_overclock_enable = false;
+		} else {
+			g_settings.cpu_overclock_enable = true;
+		}
 		g_settings.UpdateOverclockActive();
 	}
 	FixIncompatibleSettings(false);
