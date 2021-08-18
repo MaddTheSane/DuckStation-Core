@@ -66,6 +66,7 @@ struct OpenEmuChangeSettings {
 	std::optional<GPUTextureFilter> textureFilter = std::nullopt;
 	std::optional<bool> pxgp = std::nullopt;
 	std::optional<bool> deinterlaced = std::nullopt;
+	std::optional<bool> chroma24Interlace = std::nullopt;
 	std::optional<u32> multisamples = std::nullopt;
 	std::optional<u32> speedPercent = std::nullopt;
 };
@@ -181,6 +182,7 @@ static NSString * const DuckStationTextureFilterKey = @"duckstation/GPU/TextureF
 static NSString * const DuckStationPGXPActiveKey = @"duckstation/PXGP";
 static NSString * const DuckStationDeinterlacedKey = @"duckstation/GPU/Deinterlaced";
 static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
+static NSString * const DuckStation24ChromaSmoothingKey = @"duckstation/GPU/24BitChroma";
 static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock";
 
 @implementation PlayStationGameCore {
@@ -217,6 +219,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.gpu_multisamples = 4;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
+		g_settings.gpu_24bit_chroma_smoothing = true;
 		g_settings.gpu_texture_filter = GPUTextureFilter::Nearest;
 		g_settings.gpu_resolution_scale = 0;
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
@@ -743,16 +746,17 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		Class valueClass;
 		id defaultValue;
 	} defaultValues[] = {
-		{ DuckStationPGXPActiveKey,      [NSNumber class], @YES  },
-		{ DuckStationDeinterlacedKey,    [NSNumber class], @YES  },
-		{ DuckStationTextureFilterKey,   [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
-		{ DuckStationAntialiasKey,       [NSNumber class], @4 },
-		{ DuckStationCPUOverclockKey,    [NSNumber class], @100 },
+		{ DuckStationPGXPActiveKey,        [NSNumber class], @YES  },
+		{ DuckStationDeinterlacedKey,      [NSNumber class], @YES  },
+		{ DuckStationTextureFilterKey,     [NSNumber class], @0 /*GPUTextureFilter::Nearest*/ },
+		{ DuckStationAntialiasKey,         [NSNumber class], @4 },
+		{ DuckStationCPUOverclockKey,      [NSNumber class], @100 },
+		{ DuckStation24ChromaSmoothingKey, [NSNumber class], @YES}
 	};
 	/* validate the defaults to avoid crashes caused by users playing
 	 * around where they shouldn't */
 	_displayModes = [[NSMutableDictionary alloc] init];
-	int n = sizeof(defaultValues)/sizeof(defaultValues[0]);
+	const int n = sizeof(defaultValues)/sizeof(defaultValues[0]);
 	for (int i=0; i<n; i++) {
 		id thisPref = displayModeInfo[defaultValues[i].key];
 		if ([thisPref isKindOfClass:defaultValues[i].valueClass])
@@ -769,6 +773,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	NSNumber *deinterlace = _displayModes[DuckStationDeinterlacedKey];
 	NSNumber *antialias = _displayModes[DuckStationAntialiasKey];
 	NSNumber *overclock = _displayModes[DuckStationCPUOverclockKey];
+	NSNumber *chroma24 = _displayModes[DuckStation24ChromaSmoothingKey];
 	OpenEmuChangeSettings settings;
 	if (pxgpActive && [pxgpActive isKindOfClass:[NSNumber class]]) {
 		settings.pxgp = [pxgpActive boolValue];
@@ -784,6 +789,9 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	}
 	if (overclock && [overclock isKindOfClass:[NSNumber class]]) {
 		settings.speedPercent = [overclock unsignedIntValue];
+	}
+	if (chroma24 && [overclock isKindOfClass:[NSNumber class]]) {
+		settings.chroma24Interlace = [chroma24 boolValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -810,6 +818,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 								OptionWithValue(@"xBR (No Edge Blending)", DuckStationTextureFilterKey, int(GPUTextureFilter::xBRBinAlpha))]),
 		OptionToggleable(@"PGXP", DuckStationPGXPActiveKey),
 		OptionToggleable(@"Deinterlace", DuckStationDeinterlacedKey),
+//		OptionToggleable(@"Chroma 24 Interlace", DuckStation24ChromaSmoothingKey),
 		OEDisplayMode_Submenu(@"MSAA", @[OptionWithValue(@"Off", DuckStationAntialiasKey, 1), OptionWithValue(@"2x", DuckStationAntialiasKey, 2), OptionWithValue(@"4x", DuckStationAntialiasKey, 4), OptionWithValue(@"8x", DuckStationAntialiasKey, 8), OptionWithValue(@"16x", DuckStationAntialiasKey, 16)]),
 		OEDisplayMode_Submenu(@"CPU speed",
 							  @[OptionWithValue(@"100% (default)", DuckStationCPUOverclockKey, 100),
@@ -842,6 +851,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		settings.multisamples = [currentVal unsignedIntValue];
 	} else if ([key isEqualToString:DuckStationCPUOverclockKey]) {
 		settings.speedPercent = [currentVal unsignedIntValue];
+	} else if ([key isEqualToString:DuckStation24ChromaSmoothingKey]) {
+		settings.chroma24Interlace = [currentVal boolValue];
 	}
 	duckInterface->ChangeSettings(settings);
 }
@@ -1094,6 +1105,7 @@ void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
 	current->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
 	current->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
 	current->_displayModes[DuckStationCPUOverclockKey] = @(g_settings.GetCPUOverclockPercent());
+	current->_displayModes[DuckStation24ChromaSmoothingKey] = @(g_settings.gpu_24bit_chroma_smoothing);
 }
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
@@ -1130,6 +1142,9 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 			g_settings.cpu_overclock_enable = true;
 		}
 		g_settings.UpdateOverclockActive();
+	}
+	if (new_settings.chroma24Interlace.has_value()) {
+		g_settings.gpu_24bit_chroma_smoothing = new_settings.chroma24Interlace.value();
 	}
 	FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
