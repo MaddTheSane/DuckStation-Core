@@ -839,6 +839,9 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	id currentVal;
 	OpenEmuChangeSettings settings;
 	OEDisplayModeListGetPrefKeyValueFromModeName(self.displayModes, displayMode, &key, &currentVal);
+	if (key == nil) {
+		return;
+	}
 	_displayModes[key] = currentVal;
 
 	if ([key isEqualToString:DuckStationTextureFilterKey]) {
