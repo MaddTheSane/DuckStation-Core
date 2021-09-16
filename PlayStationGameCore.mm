@@ -344,7 +344,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError
 {
-	auto mem = std::make_unique<GrowableMemoryByteStream>((void*)NULL, 0);
+	auto mem = std::make_unique<GrowableMemoryByteStream>(nullptr, 0);
 	const bool result = System::SaveState(mem.get(), 0);
 	if (!result) {
 		if (outError) {
@@ -655,7 +655,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	}
 }
 
-
 - (oneway void)didReleasePSXButton:(OEPSXButton)button forPlayer:(NSUInteger)player {
     player -= 1;
     
@@ -826,7 +825,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 								OptionWithValue(@"300%", DuckStationCPUOverclockKey, 300),
 								OptionWithValue(@"400%", DuckStationCPUOverclockKey, 400),
 								OptionWithValue(@"500%", DuckStationCPUOverclockKey, 500),
-								OptionWithValue(@"600%", DuckStationCPUOverclockKey, 600)]),
+								OptionWithValue(@"600%", DuckStationCPUOverclockKey, 600),
+								OptionWithValue(@"800%", DuckStationCPUOverclockKey, 800)]),
 	];
 	
 #undef OptionWithValue
