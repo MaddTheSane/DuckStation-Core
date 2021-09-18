@@ -316,7 +316,6 @@ void OpenGLHostDisplay::SetVSync(bool enabled)
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	m_gl_context->SetSwapInterval(enabled ? 1 : 0);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, current_fbo);
-	_current.renderDelegate.enableVSync = enabled;
 }
 
 const char* OpenGLHostDisplay::GetGLSLVersionString() const
