@@ -131,6 +131,38 @@ public:
 	
 	virtual std::unique_ptr<ByteStream> OpenPackageFile(const char* path, u32 flags) override;
 
+	void DisplayLoadingScreen(const char *message, int progress_min = -1, int progress_max = -1, int progress_value = -1) override {
+		// do nothing
+	}
+	
+	void OnSystemPerformanceCountersUpdated() override {
+		// do nothing
+	}
+	
+	void OnDisplayInvalidated() override {
+		// do nothing
+	}
+	
+	void OnSystemCreated() override {
+		// do nothing
+	}
+	
+	void OnSystemPaused(bool paused) override {
+		// do nothing
+	}
+	
+	void OnSystemDestroyed() override {
+		// do nothing
+	}
+	
+	void OnControllerTypeChanged(u32 slot) override {
+		// do nothing
+	}
+	
+	void SetMouseMode(bool relative, bool hide_cursor) override {
+		// do nothing
+	}
+	
 protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
@@ -1058,8 +1090,6 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage* image,
 												const std::string& game_code, const std::string& game_title)
 {
-	HostInterface::OnRunningGameChanged(path, image, game_code, game_title);
-
 	const Settings old_settings = g_settings;
 	ApplyGameSettings(false);
 	do {
