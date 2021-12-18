@@ -163,6 +163,14 @@ public:
 		// do nothing
 	}
 	
+	void AddKeyedOSDMessage(std::string key, std::string message, float duration = 2.0f) override {
+		
+	}
+	
+	void RemoveKeyedOSDMessage(std::string key) override {
+		
+	}
+	
 protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
