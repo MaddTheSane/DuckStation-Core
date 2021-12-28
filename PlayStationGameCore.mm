@@ -120,7 +120,7 @@ public:
 	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
 
 	void ChangeSettings(OpenEmuChangeSettings new_settings);
-	
+		
 	void Render();
 	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
 	{
@@ -160,6 +160,14 @@ public:
 	}
 	
 	void SetMouseMode(bool relative, bool hide_cursor) override {
+		// do nothing
+	}
+	
+	void AddKeyedOSDMessage(std::string key, std::string message, float duration = 2.0f) override {
+		// do nothing
+	}
+	
+	void RemoveKeyedOSDMessage(std::string key) override {
 		// do nothing
 	}
 	
