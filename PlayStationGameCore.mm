@@ -383,15 +383,17 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError
 {
-	auto mem = std::make_unique<GrowableMemoryByteStream>(nullptr, 0);
-	const bool result = System::SaveState(mem.get(), 0);
+	auto mem = new GrowableMemoryByteStream(nullptr, 0);
+	const bool result = System::SaveState(mem, 0);
 	if (!result) {
 		if (outError) {
 			*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:nil];
 		}
 		return nil;
 	}
-	NSData *toRet = [NSData dataWithBytes:mem->GetMemoryPointer() length:mem->GetMemorySize()];
+	NSData *toRet = [[NSData alloc] initWithBytesNoCopy:mem->GetMemoryPointer() length:mem->GetMemorySize() deallocator:^(void * _Nonnull bytes, NSUInteger length) {
+		delete mem;
+	}];
 	return toRet;
 }
 
