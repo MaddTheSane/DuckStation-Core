@@ -3988,10 +3988,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"RANDOM_PREFIX=speex",
+					"RANDOM_PREFIX=OEDuckstation",
 					"EXPORT=",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
+					_USE_SSE,
+					_USE_SSE2,
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
+					_USE_SSE,
+					_USE_SSE2,
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/duckstation/dep/cubeb/src";
@@ -4007,10 +4017,20 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"RANDOM_PREFIX=speex",
+					"RANDOM_PREFIX=OEDuckstation",
 					"EXPORT=",
 					FLOATING_POINT,
 					OUTSIDE_SPEEX,
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64]" = (
+					_USE_SSE,
+					_USE_SSE2,
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=x86_64h]" = (
+					_USE_SSE,
+					_USE_SSE2,
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;

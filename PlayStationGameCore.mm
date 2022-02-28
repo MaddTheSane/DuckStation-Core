@@ -291,7 +291,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
-	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
 	if ([[path pathExtension] compare:@"ccd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
 		//DuckStation doens't handle CCD files at all. Replace with the likely-present .IMG instead
 		path = [[path stringByDeletingPathExtension] stringByAppendingPathExtension:@"img"];
@@ -355,7 +354,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	}
 	const bool result = duckInterface->LoadState(fileName.fileSystemRepresentation);
 	
-	block(result, nil);
+	block(result, result ? nil : [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadStateError userInfo:@{NSFilePathErrorKey: fileName}]);
 }
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
@@ -369,7 +368,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 	const bool result = System::SaveState(stream.get(), 0);
 	
-	block(result, nil);
+	block(result, result ? nil : [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:@{NSFilePathErrorKey: fileName}]);
 }
 
 - (BOOL)deserializeState:(NSData *)state withError:(NSError **)outError
@@ -421,6 +420,20 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (void)resetEmulation
 {
 	duckInterface->ResetSystem();
+}
+
+- (void)startEmulation
+{
+	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
+	[super startEmulation];
+	
+	auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
+	duckInterface->Initialize();
+	isInitialized = duckInterface->BootSystem(params);
+	if (saveStatePath) {
+		duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
+		saveStatePath = nil;
+	}
 }
 
 - (void)stopEmulation
