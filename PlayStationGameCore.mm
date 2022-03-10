@@ -426,7 +426,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)startEmulation
 {
-	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
 	[super startEmulation];
 	
 	auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
@@ -435,6 +434,22 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	if (saveStatePath) {
 		duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
 		saveStatePath = nil;
+	}
+}
+
+- (void)setupEmulation
+{
+	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
+	[super setupEmulation];
+	
+	if (!isInitialized) {
+		auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
+		duckInterface->Initialize();
+		isInitialized = duckInterface->BootSystem(params);
+		if (saveStatePath) {
+			duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
+			saveStatePath = nil;
+		}
 	}
 }
 
