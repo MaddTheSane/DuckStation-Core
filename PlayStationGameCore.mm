@@ -389,6 +389,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		if (outError) {
 			*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:nil];
 		}
+		delete mem;
 		return nil;
 	}
 	NSData *toRet = [[NSData alloc] initWithBytesNoCopy:mem->GetMemoryPointer() length:mem->GetMemorySize() deallocator:^(void * _Nonnull bytes, NSUInteger length) {
