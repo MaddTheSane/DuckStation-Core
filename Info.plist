@@ -23,7 +23,7 @@
 	<key>NSPrincipalClass</key>
 	<string>OEGameCoreController</string>
 	<key>OEGameCoreClass</key>
-	<string>PlayStationGameCore</string>
+	<string>DuckStationGameCore</string>
 	<key>OEGameCoreOptions</key>
 	<dict>
 		<key>openemu.system.psx</key>

@@ -22,7 +22,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "PlayStationGameCore.h"
+#import "DuckStationGameCore.h"
 #import "OEPSXSystemResponderClient.h"
 #import <OpenEmuBase/OpenEmuBase.h>
 #define TickCount DuckTickCount
@@ -57,9 +57,9 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
 // We're keeping this: I think it'll be useful when OpenEmu supports Metal.
-static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core);
+static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core);
 
-static __weak PlayStationGameCore *_current;
+static __weak DuckStationGameCore *_current;
 os_log_t OE_CORE_LOG;
 
 struct OpenEmuChangeSettings {
@@ -185,7 +185,7 @@ private:
 	GameSettings::Database m_game_settings;
 };
 
-@interface PlayStationGameCore () <OEPSXSystemResponderClient>
+@interface DuckStationGameCore () <OEPSXSystemResponderClient>
 
 @end
 
@@ -225,7 +225,7 @@ static NSString * const DuckStationAntialiasKey = @"duckstation/GPU/Antialias";
 static NSString * const DuckStation24ChromaSmoothingKey = @"duckstation/GPU/24BitChroma";
 static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock";
 
-@implementation PlayStationGameCore {
+@implementation DuckStationGameCore {
 	OpenEmuHostInterface *duckInterface;
     NSString *bootPath;
 	NSString *saveStatePath;
@@ -267,7 +267,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
+		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
@@ -276,7 +276,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		} else {
 			os_log_fault(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
 		}
-		gameSettingsURL = [[NSBundle bundleForClass:[PlayStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
+		gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
 		if (gameSettingsURL) {
 			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
 			if (!success) {
@@ -938,7 +938,7 @@ OpenEmuHostInterface::OpenEmuHostInterface()=default;
 OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
 bool OpenEmuHostInterface::Initialize() {
-	m_program_directory = [NSBundle bundleForClass:[PlayStationGameCore class]].resourceURL.fileSystemRepresentation;
+	m_program_directory = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
 	GET_CURRENT_OR_RETURN(false);
 	m_user_directory = [current supportDirectoryPath].fileSystemRepresentation;
 	if (!HostInterface::Initialize())
@@ -1287,7 +1287,7 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 	}
 }
 
-static WindowInfo WindowInfoFromGameCore(PlayStationGameCore *core)
+static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 {
 	WindowInfo wi = WindowInfo();
 	//wi.type = WindowInfo::Type::MacOS;

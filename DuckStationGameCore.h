@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern os_log_t OE_CORE_LOG;
 
 OE_EXPORTED_CLASS
-@interface PlayStationGameCore : OEGameCore
+@interface DuckStationGameCore : OEGameCore
 
 @end
 

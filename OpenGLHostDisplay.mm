@@ -23,7 +23,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
-#import "PlayStationGameCore.h"
+#import "DuckStationGameCore.h"
 
 #define TickCount DuckTickCount
 #include "OpenGLHostDisplay.hpp"
@@ -93,7 +93,7 @@ using namespace OpenEmu;
 
 #pragma mark -
 
-OpenGLHostDisplay::OpenGLHostDisplay(PlayStationGameCore *core) :
+OpenGLHostDisplay::OpenGLHostDisplay(DuckStationGameCore *core) :
 _current(core)
 {
 	
