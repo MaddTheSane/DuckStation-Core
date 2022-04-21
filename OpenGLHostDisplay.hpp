@@ -91,6 +91,10 @@ public:
 	virtual bool RenderScreenshot(u32 width, u32 height, std::vector<u32>* out_pixels, u32* out_stride,
 								  HostDisplayPixelFormat* out_format) override;
 	
+	bool CreateImGuiContext() override;
+	void DestroyImGuiContext() override;
+	bool UpdateImGuiFontTexture() override;
+
 protected:
 	const char* GetGLSLVersionString() const;
 	std::string GetGLSLVersionHeader() const;

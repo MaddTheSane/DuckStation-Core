@@ -680,6 +680,23 @@ bool OpenGLHostDisplay::RenderScreenshot(u32 width, u32 height, std::vector<u32>
 	return false;
 }
 
+#pragma mark ImGUI
+
+bool OpenGLHostDisplay::CreateImGuiContext()
+{
+	return true;
+}
+
+void OpenGLHostDisplay::DestroyImGuiContext()
+{
+	
+}
+
+bool OpenGLHostDisplay::UpdateImGuiFontTexture()
+{
+	return true;
+}
+
 #pragma mark -
 
 ContextGL::ContextGL(const WindowInfo& wi) : Context(wi)

@@ -171,6 +171,13 @@ public:
 		// do nothing
 	}
 	
+	void OnAchievementsRefreshed() override {
+		// do nothing
+	}
+	
+	std::lock_guard<std::recursive_mutex> GetSettingsLock() override;
+	SettingsInterface * GetSettingsInterface() override;
+	
 protected:
 	bool AcquireHostDisplay() override;
 	void ReleaseHostDisplay() override;
@@ -183,6 +190,7 @@ private:
 	
 	bool m_interfaces_initialized = false;
 	GameSettings::Database m_game_settings;
+	std::recursive_mutex m_settings_mutex;
 };
 
 @interface DuckStationGameCore () <OEPSXSystemResponderClient>
@@ -1199,7 +1207,17 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	CheckForSettingsChanges(old_settings);
 }
 
-#pragma mark OpenEmuAudioStream methods -
+std::lock_guard<std::recursive_mutex> OpenEmuHostInterface::GetSettingsLock()
+{
+	return std::lock_guard<std::recursive_mutex>(m_settings_mutex);
+}
+
+SettingsInterface * OpenEmuHostInterface::GetSettingsInterface()
+{
+	return nullptr;
+}
+
+#pragma mark - OpenEmuAudioStream methods
 
 OpenEmuAudioStream::OpenEmuAudioStream()=default;
 OpenEmuAudioStream::~OpenEmuAudioStream()=default;
