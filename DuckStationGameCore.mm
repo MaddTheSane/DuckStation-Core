@@ -43,6 +43,7 @@
 #include "core/playstation_mouse.h"
 #include "OpenGLHostDisplay.hpp"
 #include "common/settings_interface.h"
+#include "frontend-common/game_list.h"
 #include "core/cheats.h"
 #undef TickCount
 #include <limits>
@@ -189,7 +190,7 @@ private:
 	bool CreateDisplay();
 	
 	bool m_interfaces_initialized = false;
-	GameSettings::Database m_game_settings;
+	GameList::Entry m_game_settings;
 	std::recursive_mutex m_settings_mutex;
 };
 
@@ -470,7 +471,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
 {
 	switch (g_settings.controller_types[0]) {
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		case ControllerType::PlayStationMouse:
 		{
 			//TODO: scale input!
@@ -501,11 +502,11 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (oneway void)leftMouseDownAtPoint:(OEIntPoint)point
 {
 	switch (g_settings.controller_types[0]) {
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
 			[self mouseMovedAtPoint:point];
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
-			controller->SetButtonState(NamcoGunCon::Button::Trigger, true);
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			controller->SetButtonState(GunCon::Button::Trigger, true);
 		}
 			return;
 			break;
@@ -540,10 +541,10 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (oneway void)leftMouseUp
 {
 	switch (g_settings.controller_types[0]) {
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
-			controller->SetButtonState(NamcoGunCon::Button::Trigger, false);
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			controller->SetButtonState(GunCon::Button::Trigger, false);
 		}
 			return;
 			break;
@@ -576,11 +577,11 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (oneway void)rightMouseDownAtPoint:(OEIntPoint)point
 {
 	switch (g_settings.controller_types[0]) {
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
 //			[self mouseMovedAtPoint:point];
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
-			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, true);
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			controller->SetButtonState(GunCon::Button::ShootOffscreen, true);
 		}
 			return;
 			break;
@@ -615,10 +616,10 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (oneway void)rightMouseUp
 {
 	switch (g_settings.controller_types[0]) {
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
-			controller->SetButtonState(NamcoGunCon::Button::ShootOffscreen, false);
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			controller->SetButtonState(GunCon::Button::ShootOffscreen, false);
 		}
 			return;
 			break;
@@ -682,22 +683,22 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			updateAnalogControllerButton(button, (int)player, true);
 			break;
 			
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
 			if (player != 0) {
 				break;
 			}
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetButtonState(NamcoGunCon::Button::A, true);
+					controller->SetButtonState(GunCon::Button::A, true);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetButtonState(NamcoGunCon::Button::B, true);
+					controller->SetButtonState(GunCon::Button::B, true);
 					break;
 
 				default:
@@ -723,22 +724,22 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			updateAnalogControllerButton(button, (int)player, false);
 			break;
 			
-		case ControllerType::NamcoGunCon:
+		case ControllerType::GunCon:
 		{
 			if (player != 0) {
 				break;
 			}
-			NamcoGunCon *controller = static_cast<NamcoGunCon*>(System::GetController(0));
+			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetButtonState(NamcoGunCon::Button::A, false);
+					controller->SetButtonState(GunCon::Button::A, false);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetButtonState(NamcoGunCon::Button::B, false);
+					controller->SetButtonState(GunCon::Button::B, false);
 					break;
 
 				default:

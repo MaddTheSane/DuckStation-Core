@@ -23,7 +23,7 @@
 
 /* Begin PBXBuildFile section */
 		551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEB1025270DA600B44953 /* OpenEmuBase.framework */; };
-		551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */; };
+		551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */; settings = {COMPILER_FLAGS = "-ferror-limit=0"; }; };
 		551DEC402527107500B44953 /* bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB232527107400B44953 /* bus.cpp */; };
 		551DEC412527107500B44953 /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB242527107400B44953 /* bios.cpp */; };
 		551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB2A2527107400B44953 /* cdrom_async_reader.cpp */; };
@@ -419,6 +419,10 @@
 		55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */; };
 		55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */; };
 		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
+		55EC6A5828912BA800933E97 /* game_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55EC6A5728912BA800933E97 /* game_list.cpp */; };
+		55EC6A6328912D2100933E97 /* libtinyxml2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC6A5D28912D0200933E97 /* libtinyxml2.a */; };
+		55EC6A6D28912D3A00933E97 /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EC6A6728912D3A00933E97 /* tinyxml2.h */; };
+		55EC6A6E28912D3A00933E97 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55EC6A6C28912D3A00933E97 /* tinyxml2.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		55F9D8042812134F005286B6 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F02812134F005286B6 /* imgui.h */; };
 		55F9D8052812134F005286B6 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F12812134F005286B6 /* imstb_textedit.h */; };
@@ -529,6 +533,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF5992527C50200B44953;
 			remoteInfo = glslang;
+		};
+		55EC6A6128912D1600933E97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55EC6A5C28912D0200933E97;
+			remoteInfo = tinyxml2;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1079,6 +1090,11 @@
 		55E1686125E99826001F4110 /* achievements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = achievements.h; sourceTree = "<group>"; };
 		55E1689025EC19A6001F4110 /* multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multitap.h; sourceTree = "<group>"; };
 		55E1689125EC19A6001F4110 /* multitap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multitap.cpp; sourceTree = "<group>"; };
+		55EC6A5628912BA800933E97 /* game_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_list.h; sourceTree = "<group>"; };
+		55EC6A5728912BA800933E97 /* game_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_list.cpp; sourceTree = "<group>"; };
+		55EC6A5D28912D0200933E97 /* libtinyxml2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtinyxml2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		55EC6A6728912D3A00933E97 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyxml2.h; sourceTree = "<group>"; };
+		55EC6A6C28912D3A00933E97 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tinyxml2.cpp; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		55F9D7E828121339005286B6 /* libimgui-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimgui-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1105,6 +1121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55EC6A6328912D2100933E97 /* libtinyxml2.a in Frameworks */,
 				555BB5402890950900A255E0 /* libfmt-ds.a in Frameworks */,
 				55F9D81228121386005286B6 /* libimgui-duck.a in Frameworks */,
 				553AD8D12611278E00E9F910 /* libz.tbd in Frameworks */,
@@ -1208,6 +1225,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55EC6A5B28912D0200933E97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55F9D7E628121339005286B6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1246,6 +1270,7 @@
 				5575828825AE40F0002C812D /* libsamplerate.a */,
 				55F9D7E828121339005286B6 /* libimgui-duck.a */,
 				555BB4F82890835600A255E0 /* libfmt-ds.a */,
+				55EC6A5D28912D0200933E97 /* libtinyxml2.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1535,6 +1560,8 @@
 				555BB53928908E8100A255E0 /* common_host.h */,
 				551DEBA92527107400B44953 /* cubeb_audio_stream.cpp */,
 				551DEBAC2527107400B44953 /* cubeb_audio_stream.h */,
+				55EC6A5728912BA800933E97 /* game_list.cpp */,
+				55EC6A5628912BA800933E97 /* game_list.h */,
 				551DEC192527107500B44953 /* opengl_host_display.cpp */,
 				551DEC162527107500B44953 /* opengl_host_display.h */,
 				558B28BC25994D9C00A3495F /* postprocessing_chain.cpp */,
@@ -1552,6 +1579,7 @@
 		551DECEA2527160600B44953 /* dep */ = {
 			isa = PBXGroup;
 			children = (
+				55EC6A6428912D3A00933E97 /* tinyxml2 */,
 				555BB4FC289083B900A255E0 /* fmt */,
 				55F9D7EC2812134F005286B6 /* imgui */,
 				551DF0E12527B56C00B44953 /* cubeb */,
@@ -2317,6 +2345,31 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		55EC6A6428912D3A00933E97 /* tinyxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				55EC6A6628912D3A00933E97 /* include */,
+				55EC6A6B28912D3A00933E97 /* src */,
+			);
+			path = tinyxml2;
+			sourceTree = "<group>";
+		};
+		55EC6A6628912D3A00933E97 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				55EC6A6728912D3A00933E97 /* tinyxml2.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		55EC6A6B28912D3A00933E97 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				55EC6A6C28912D3A00933E97 /* tinyxml2.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		55F9D7EC2812134F005286B6 /* imgui */ = {
 			isa = PBXGroup;
 			children = (
@@ -2610,6 +2663,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55EC6A5928912D0200933E97 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55EC6A6D28912D3A00933E97 /* tinyxml2.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55F9D7E428121339005286B6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2640,6 +2701,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55EC6A6228912D1600933E97 /* PBXTargetDependency */,
 				555BB5422890951000A255E0 /* PBXTargetDependency */,
 				55E1683F25E994C1001F4110 /* PBXTargetDependency */,
 				5575831C25AE4193002C812D /* PBXTargetDependency */,
@@ -2862,6 +2924,23 @@
 			productReference = 557776D3253D0FD9000D0651 /* libSimpleINI.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		55EC6A5C28912D0200933E97 /* tinyxml2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55EC6A5E28912D0200933E97 /* Build configuration list for PBXNativeTarget "tinyxml2" */;
+			buildPhases = (
+				55EC6A5928912D0200933E97 /* Headers */,
+				55EC6A5A28912D0200933E97 /* Sources */,
+				55EC6A5B28912D0200933E97 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tinyxml2;
+			productName = tinyxml2;
+			productReference = 55EC6A5D28912D0200933E97 /* libtinyxml2.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		55F9D7E728121339005286B6 /* imgui-duck */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55F9D7E928121339005286B6 /* Build configuration list for PBXNativeTarget "imgui-duck" */;
@@ -2929,6 +3008,9 @@
 					557776D2253D0FD9000D0651 = {
 						CreatedOnToolsVersion = 12.0.1;
 					};
+					55EC6A5C28912D0200933E97 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					55F9D7E728121339005286B6 = {
 						CreatedOnToolsVersion = 13.3.1;
 					};
@@ -2961,6 +3043,7 @@
 				5575828725AE40F0002C812D /* samplerate */,
 				55F9D7E728121339005286B6 /* imgui-duck */,
 				555BB4F72890835600A255E0 /* fmt-ds */,
+				55EC6A5C28912D0200933E97 /* tinyxml2 */,
 				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
@@ -3054,6 +3137,7 @@
 				551DEC6B2527107500B44953 /* memory_card_image.cpp in Sources */,
 				551DEC462527107500B44953 /* dma.cpp in Sources */,
 				551DECA92527107500B44953 /* md5_digest.cpp in Sources */,
+				55EC6A5828912BA800933E97 /* game_list.cpp in Sources */,
 				55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */,
 				55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */,
 				551DEC8B2527107500B44953 /* iso_reader.cpp in Sources */,
@@ -3332,6 +3416,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55EC6A5A28912D0200933E97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55EC6A6E28912D3A00933E97 /* tinyxml2.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55F9D7E528121339005286B6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3412,6 +3504,11 @@
 			isa = PBXTargetDependency;
 			target = 551DF5992527C50200B44953 /* glslangd */;
 			targetProxy = 55E1683E25E994C1001F4110 /* PBXContainerItemProxy */;
+		};
+		55EC6A6228912D1600933E97 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55EC6A5C28912D0200933E97 /* tinyxml2 */;
+			targetProxy = 55EC6A6128912D1600933E97 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -3573,6 +3670,7 @@
 					"\"$(SRCROOT)/duckstation/dep/glslang\"",
 					"\"$(SRCROOT)/duckstation/dep/xxhash/include\"",
 					"\"$(SRCROOT)/duckstation/dep/libsamplerate/include\"",
+					"\"$(SRCROOT)/duckstation/dep/tinyxml2/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3620,6 +3718,7 @@
 					"\"$(SRCROOT)/duckstation/dep/glslang\"",
 					"\"$(SRCROOT)/duckstation/dep/xxhash/include\"",
 					"\"$(SRCROOT)/duckstation/dep/libsamplerate/include\"",
+					"\"$(SRCROOT)/duckstation/dep/tinyxml2/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3999,6 +4098,26 @@
 			};
 			name = Release;
 		};
+		55EC6A5F28912D0200933E97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		55EC6A6028912D0200933E97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		55F9D7EA28121339005286B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4153,6 +4272,15 @@
 			buildConfigurations = (
 				557776D5253D0FD9000D0651 /* Debug */,
 				557776D6253D0FD9000D0651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55EC6A5E28912D0200933E97 /* Build configuration list for PBXNativeTarget "tinyxml2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55EC6A5F28912D0200933E97 /* Debug */,
+				55EC6A6028912D0200933E97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
