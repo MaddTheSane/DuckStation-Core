@@ -43,6 +43,8 @@
 
 @class DuckStationGameCore;
 
+// TODO: Re-create!
+#if 0
 namespace OpenEmu {
 class OpenGLHostDisplay final: public HostDisplay {
 public:
@@ -129,5 +131,7 @@ private:
 	DuckStationGameCore *_current;
 };
 };
+
+#endif
 
 #endif /* OpenEmuOpenGLHostDisplay_hpp */

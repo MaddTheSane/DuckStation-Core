@@ -93,6 +93,9 @@ using namespace OpenEmu;
 
 #pragma mark -
 
+// TODO: Re-create!
+#if 0
+
 OpenGLHostDisplay::OpenGLHostDisplay(DuckStationGameCore *core) :
 _current(core)
 {
@@ -767,3 +770,4 @@ std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi
 	
 	return context;
 }
+#endif

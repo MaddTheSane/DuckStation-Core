@@ -54,6 +54,8 @@
 #include <memory>
 #include <os/log.h>
 
+// TODO: Re-create!
+#if 0
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
@@ -1313,3 +1315,5 @@ static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 	wi.surface_height = 480;
 	return wi;
 }
+
+#endif
