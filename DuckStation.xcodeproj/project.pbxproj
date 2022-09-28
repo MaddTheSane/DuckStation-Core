@@ -69,7 +69,6 @@
 		551DEC722527107500B44953 /* playstation_mouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB852527107400B44953 /* playstation_mouse.cpp */; };
 		551DEC732527107500B44953 /* cd_image_memory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB882527107400B44953 /* cd_image_memory.cpp */; };
 		551DEC742527107500B44953 /* string_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB892527107400B44953 /* string_util.cpp */; };
-		551DEC752527107500B44953 /* null_audio_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB8A2527107400B44953 /* null_audio_stream.cpp */; };
 		551DEC762527107500B44953 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB8B2527107400B44953 /* log.cpp */; };
 		551DEC772527107500B44953 /* wav_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB8C2527107400B44953 /* wav_writer.cpp */; };
 		551DEC782527107500B44953 /* audio_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB8E2527107400B44953 /* audio_stream.cpp */; };
@@ -240,14 +239,12 @@
 		551DF4842527BE2800B44953 /* libvixl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF3EB2527BDED00B44953 /* libvixl.a */; };
 		551DF4D92527C2D200B44953 /* gpu_hw_vulkan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB712527107400B44953 /* gpu_hw_vulkan.cpp */; };
 		551DF57F2527C48A00B44953 /* stream_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBD62527107500B44953 /* stream_buffer.cpp */; };
-		551DF5802527C48A00B44953 /* staging_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCD2527107400B44953 /* staging_buffer.cpp */; };
 		551DF5812527C48A00B44953 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCC2527107400B44953 /* texture.cpp */; };
 		551DF5822527C48A00B44953 /* builders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBC32527107400B44953 /* builders.cpp */; };
 		551DF5832527C48A00B44953 /* shader_compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCF2527107500B44953 /* shader_compiler.cpp */; };
 		551DF5842527C48A00B44953 /* swap_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCE2527107500B44953 /* swap_chain.cpp */; };
 		551DF5852527C48A00B44953 /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBC82527107400B44953 /* context.cpp */; };
 		551DF5862527C48A00B44953 /* shader_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBC92527107400B44953 /* shader_cache.cpp */; };
-		551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBCA2527107400B44953 /* staging_texture.cpp */; };
 		551DF5882527C48A00B44953 /* util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBC52527107400B44953 /* util.cpp */; };
 		551DF6362527C58D00B44953 /* resource_limits_c.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF5BE2527C58D00B44953 /* resource_limits_c.h */; };
 		551DF6372527C58D00B44953 /* ResourceLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF5BF2527C58D00B44953 /* ResourceLimits.h */; };
@@ -647,7 +644,6 @@
 		551DEB872527107400B44953 /* cd_subchannel_replacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cd_subchannel_replacement.h; sourceTree = "<group>"; };
 		551DEB882527107400B44953 /* cd_image_memory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_memory.cpp; sourceTree = "<group>"; };
 		551DEB892527107400B44953 /* string_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_util.cpp; sourceTree = "<group>"; };
-		551DEB8A2527107400B44953 /* null_audio_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = null_audio_stream.cpp; sourceTree = "<group>"; };
 		551DEB8B2527107400B44953 /* log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
 		551DEB8C2527107400B44953 /* wav_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wav_writer.cpp; sourceTree = "<group>"; };
 		551DEB8D2527107400B44953 /* align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = align.h; sourceTree = "<group>"; };
@@ -674,7 +670,6 @@
 		551DEBAF2527107400B44953 /* cd_image_bin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_bin.cpp; sourceTree = "<group>"; };
 		551DEBB02527107400B44953 /* progress_callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = progress_callback.h; sourceTree = "<group>"; };
 		551DEBB12527107400B44953 /* wav_writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav_writer.h; sourceTree = "<group>"; };
-		551DEBB22527107400B44953 /* null_audio_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = null_audio_stream.h; sourceTree = "<group>"; };
 		551DEBB32527107400B44953 /* audio_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_stream.h; sourceTree = "<group>"; };
 		551DEBB42527107400B44953 /* cd_subchannel_replacement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_subchannel_replacement.cpp; sourceTree = "<group>"; };
 		551DEBB52527107400B44953 /* minizip_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minizip_helpers.h; sourceTree = "<group>"; };
@@ -689,16 +684,12 @@
 		551DEBBF2527107400B44953 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
 		551DEBC12527107400B44953 /* window_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window_info.h; sourceTree = "<group>"; };
 		551DEBC32527107400B44953 /* builders.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = builders.cpp; sourceTree = "<group>"; };
-		551DEBC42527107400B44953 /* staging_buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = staging_buffer.h; sourceTree = "<group>"; };
 		551DEBC52527107400B44953 /* util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = util.cpp; sourceTree = "<group>"; };
-		551DEBC62527107400B44953 /* staging_texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = staging_texture.h; sourceTree = "<group>"; };
 		551DEBC72527107400B44953 /* shader_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_cache.h; sourceTree = "<group>"; };
 		551DEBC82527107400B44953 /* context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = context.cpp; sourceTree = "<group>"; };
 		551DEBC92527107400B44953 /* shader_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_cache.cpp; sourceTree = "<group>"; };
-		551DEBCA2527107400B44953 /* staging_texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = staging_texture.cpp; sourceTree = "<group>"; };
 		551DEBCB2527107400B44953 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context.h; sourceTree = "<group>"; };
 		551DEBCC2527107400B44953 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = texture.cpp; sourceTree = "<group>"; };
-		551DEBCD2527107400B44953 /* staging_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = staging_buffer.cpp; sourceTree = "<group>"; };
 		551DEBCE2527107500B44953 /* swap_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = swap_chain.cpp; sourceTree = "<group>"; };
 		551DEBCF2527107500B44953 /* shader_compiler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_compiler.cpp; sourceTree = "<group>"; };
 		551DEBD02527107500B44953 /* shader_compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader_compiler.h; sourceTree = "<group>"; };
@@ -1516,10 +1507,6 @@
 				551DEBC72527107400B44953 /* shader_cache.h */,
 				551DEBCF2527107500B44953 /* shader_compiler.cpp */,
 				551DEBD02527107500B44953 /* shader_compiler.h */,
-				551DEBCD2527107400B44953 /* staging_buffer.cpp */,
-				551DEBC42527107400B44953 /* staging_buffer.h */,
-				551DEBCA2527107400B44953 /* staging_texture.cpp */,
-				551DEBC62527107400B44953 /* staging_texture.h */,
 				551DEBD62527107500B44953 /* stream_buffer.cpp */,
 				551DEBD12527107500B44953 /* stream_buffer.h */,
 				551DEBCE2527107500B44953 /* swap_chain.cpp */,
@@ -2190,8 +2177,6 @@
 				551DEBA62527107400B44953 /* jit_code_buffer.h */,
 				55777758253D126C000D0651 /* memory_arena.cpp */,
 				55777759253D126C000D0651 /* memory_arena.h */,
-				551DEB8A2527107400B44953 /* null_audio_stream.cpp */,
-				551DEBB22527107400B44953 /* null_audio_stream.h */,
 				5577776C253D127F000D0651 /* page_fault_handler.cpp */,
 				5577776B253D127F000D0651 /* page_fault_handler.h */,
 				552ED8652601DC8900846634 /* pbp_types.h */,
@@ -3112,7 +3097,6 @@
 			files = (
 				551DEC632527107500B44953 /* host_display.cpp in Sources */,
 				551DEC4F2527107500B44953 /* spu.cpp in Sources */,
-				551DF5872527C48A00B44953 /* staging_texture.cpp in Sources */,
 				551DECA02527107500B44953 /* texture.cpp in Sources */,
 				551DEC4E2527107500B44953 /* gte.cpp in Sources */,
 				55FF1A7A2658680F006C3885 /* cue_parser.cpp in Sources */,
@@ -3160,7 +3144,6 @@
 				551DECAA2527107500B44953 /* event.cpp in Sources */,
 				551DEC492527107500B44953 /* cpu_recompiler_code_generator_generic.cpp in Sources */,
 				5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */,
-				551DF5802527C48A00B44953 /* staging_buffer.cpp in Sources */,
 				555BB53B28908E8100A255E0 /* common_host.cpp in Sources */,
 				551DEC862527107500B44953 /* cd_image_bin.cpp in Sources */,
 				551DF5832527C48A00B44953 /* shader_compiler.cpp in Sources */,
@@ -3214,7 +3197,6 @@
 				55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */,
 				551DEC772527107500B44953 /* wav_writer.cpp in Sources */,
 				551DEC412527107500B44953 /* bios.cpp in Sources */,
-				551DEC752527107500B44953 /* null_audio_stream.cpp in Sources */,
 				551DEC5E2527107500B44953 /* cpu_recompiler_register_cache.cpp in Sources */,
 				558B28BE25994D9C00A3495F /* postprocessing_chain.cpp in Sources */,
 				551DEC982527107500B44953 /* file_system.cpp in Sources */,

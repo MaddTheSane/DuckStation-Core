@@ -34,7 +34,7 @@
 #include "util/cd_image.h"
 #include "common/error.h"
 #include "core/host_display.h"
-#include "core/host_interface.h"
+//#include "core/host_interface.h"
 #include "core/gpu.h"
 #include "util/audio_stream.h"
 #include "core/digital_controller.h"
@@ -78,14 +78,13 @@ public:
 	OpenEmuAudioStream();
 	~OpenEmuAudioStream();
 
-protected:
-	bool OpenDevice() override {
-		m_output_buffer.resize(m_buffer_size * m_channels);
+	bool OpenDevice()  {
+		m_output_buffer.resize(GetBufferSize() * m_channels);
 		return true;
 	}
-	void PauseDevice(bool paused) override {}
-	void CloseDevice() override {}
-	void FramesAvailable() override;
+	void SetPaused(bool paused) override {}
+	void CloseDevice()  {}
+	void FramesAvailable() ;
 
 private:
 	// TODO: Optimize this buffer away.
@@ -1226,7 +1225,7 @@ OpenEmuAudioStream::~OpenEmuAudioStream()=default;
 void OpenEmuAudioStream::FramesAvailable()
 {
 	const u32 num_frames = GetSamplesAvailable();
-	ReadFrames(m_output_buffer.data(), num_frames, false);
+	ReadFrames(m_output_buffer.data(), num_frames);
 	GET_CURRENT_OR_RETURN();
 	id<OEAudioBuffer> rb = [current audioBufferAtIndex:0];
 	[rb write:m_output_buffer.data() maxLength:num_frames * m_channels * sizeof(SampleType)];
