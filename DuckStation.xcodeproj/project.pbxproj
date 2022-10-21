@@ -401,7 +401,6 @@
 		555BB536289085A800A255E0 /* threading.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 555BB530289085A800A255E0 /* threading.cpp */; settings = {COMPILER_FLAGS = "-DpxAssertRel(...)=\"\""; }; };
 		555BB537289085A800A255E0 /* layered_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 555BB532289085A800A255E0 /* layered_settings_interface.cpp */; };
 		555BB538289085A800A255E0 /* memory_settings_interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 555BB533289085A800A255E0 /* memory_settings_interface.cpp */; };
-		555BB53B28908E8100A255E0 /* common_host.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 555BB53A28908E8100A255E0 /* common_host.cpp */; };
 		555BB53F28908F1800A255E0 /* loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 555BB53E28908F1800A255E0 /* loader.cpp */; };
 		555BB5402890950900A255E0 /* libfmt-ds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 555BB4F82890835600A255E0 /* libfmt-ds.a */; };
 		5574161525969B1A00580158 /* texture_replacements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5574161325969B1A00580158 /* texture_replacements.cpp */; };
@@ -3192,7 +3191,6 @@
 				559D6727252C600E00D1F1FF /* scmversion.cpp in Sources */,
 				551DEC492527107500B44953 /* cpu_recompiler_code_generator_generic.cpp in Sources */,
 				5591A83B256A0AD0009556D6 /* gpu_sw_backend.cpp in Sources */,
-				555BB53B28908E8100A255E0 /* common_host.cpp in Sources */,
 				551DEC862527107500B44953 /* cd_image_bin.cpp in Sources */,
 				551DF5832527C48A00B44953 /* shader_compiler.cpp in Sources */,
 				5577775A253D126C000D0651 /* memory_arena.cpp in Sources */,

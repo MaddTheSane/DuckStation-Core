@@ -77,7 +77,7 @@ struct OpenEmuChangeSettings {
 class OpenEmuAudioStream final : public AudioStream
 {
 public:
-	OpenEmuAudioStream();
+	OpenEmuAudioStream(u32 sample_rate, u32 channels, u32 buffer_ms, AudioStretchMode stretch);
 	~OpenEmuAudioStream();
 
 	bool OpenDevice()  {
@@ -87,115 +87,12 @@ public:
 	void SetPaused(bool paused) override {}
 	void CloseDevice()  {}
 	void FramesAvailable() ;
+	static std::unique_ptr<OpenEmuAudioStream> CreateOpenEmuStream(u32 sample_rate, u32 channels, u32 buffer_ms);
 
 private:
 	// TODO: Optimize this buffer away.
 	std::vector<SampleType> m_output_buffer;
 };
-
-#if 0
-class OpenEmuHostInterface final: public HostInterface
-{
-public:
-	OpenEmuHostInterface();
-	~OpenEmuHostInterface() override;
-	
-	bool Initialize() override;
-	void Shutdown() override;
-	
-	void ReportError(const char* message) override;
-	void ReportMessage(const char* message) override;
-	bool ConfirmMessage(const char* message) override;
-	void AddOSDMessage(std::string message, float duration = 2.0f) override;
-	
-	void GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title) override;
-	std::string GetSharedMemoryCardPath(u32 slot) const override;
-	std::string GetGameMemoryCardPath(const char* game_code, u32 slot) const override;
-	std::string GetShaderCacheBasePath() const override;
-	std::string GetStringSettingValue(const char* section, const char* key, const char* default_value = "") override;
-	std::string GetBIOSDirectory() override;
-	void ApplyGameSettings(bool display_osd_messages);
-	void OnRunningGameChanged(const std::string& path, CDImage* image, const std::string& game_code,
-							  const std::string& game_title) override;
-	std::vector<std::string> GetSettingStringList(const char* section, const char* key) override;
-	
-	bool LoadCompatibilitySettings(NSURL* path);
-	virtual void CheckForSettingsChanges(const Settings& old_settings) override;
-
-	void ChangeSettings(OpenEmuChangeSettings new_settings);
-		
-	void Render();
-	inline void ResizeRenderWindow(s32 new_window_width, s32 new_window_height)
-	{
-		if (m_display) {
-			m_display->ResizeRenderWindow(new_window_width, new_window_height);
-		}
-	}
-	
-	virtual std::unique_ptr<ByteStream> OpenPackageFile(const char* path, u32 flags) override;
-
-	void DisplayLoadingScreen(const char *message, int progress_min = -1, int progress_max = -1, int progress_value = -1) override {
-		// do nothing
-	}
-	
-	void OnSystemPerformanceCountersUpdated() override {
-		// do nothing
-	}
-	
-	void OnDisplayInvalidated() override {
-		// do nothing
-	}
-	
-	void OnSystemCreated() override {
-		// do nothing
-	}
-	
-	void OnSystemPaused(bool paused) override {
-		// do nothing
-	}
-	
-	void OnSystemDestroyed() override {
-		// do nothing
-	}
-	
-	void OnControllerTypeChanged(u32 slot) override {
-		// do nothing
-	}
-	
-	void SetMouseMode(bool relative, bool hide_cursor) override {
-		// do nothing
-	}
-	
-	void AddKeyedOSDMessage(std::string key, std::string message, float duration = 2.0f) override {
-		// do nothing
-	}
-	
-	void RemoveKeyedOSDMessage(std::string key) override {
-		// do nothing
-	}
-	
-	void OnAchievementsRefreshed() override {
-		// do nothing
-	}
-	
-	std::lock_guard<std::recursive_mutex> GetSettingsLock() override;
-	SettingsInterface * GetSettingsInterface() override;
-	
-protected:
-	bool AcquireHostDisplay() override;
-	void ReleaseHostDisplay() override;
-	std::unique_ptr<AudioStream> CreateAudioStream(AudioBackend backend) override;
-	void LoadSettings(SettingsInterface& si) override;
-	void LoadSettings();
-	
-private:
-	bool CreateDisplay();
-	
-	bool m_interfaces_initialized = false;
-	GameList::Entry m_game_settings;
-	std::recursive_mutex m_settings_mutex;
-};
-#endif
 
 @interface DuckStationGameCore () <OEPSXSystemResponderClient>
 
@@ -259,15 +156,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 {
 	if (self = [super init]) {
 		_current = self;
-	}
-	return self;
-}
-
-#if 0
-- (instancetype)init
-{
-	if (self = [super init]) {
-		_current = self;
 //		Log::SetFilterLevel(LOGLEVEL_TRACE);
 		Log::RegisterCallback(OELogFunc, NULL);
 		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
@@ -286,30 +174,31 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
-		duckInterface = new OpenEmuHostInterface();
+//		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
-		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
-		if (gameSettingsURL) {
-			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
-			if (!success) {
-				os_log_fault(OE_CORE_LOG, "Game settings for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
-			}
-		} else {
-			os_log_fault(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
-		}
-		gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
-		if (gameSettingsURL) {
-			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
-			if (!success) {
-				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
-			}
-		} else {
-			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
-		}
+//		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
+//		if (gameSettingsURL) {
+//			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
+//			if (!success) {
+//				os_log_fault(OE_CORE_LOG, "Game settings for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
+//			}
+//		} else {
+//			os_log_fault(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
+//		}
+//		gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
+//		if (gameSettingsURL) {
+//			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
+//			if (!success) {
+//				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
+//			}
+//		} else {
+//			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
+//		}
 	}
 	return self;
 }
 
+#if 0
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
 	if ([[path pathExtension] compare:@"ccd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
@@ -955,6 +844,154 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 #include <utility>
 #include <vector>
 
+#pragma mark - Host Mapping
+
+bool Host::AcquireHostDisplay(RenderAPI api)
+{
+	GET_CURRENT_OR_RETURN(false);
+	return false;
+}
+
+void Host::ReleaseHostDisplay()
+{
+//	GET_CURRENT_OR_RETURN();
+}
+
+void Host::InvalidateDisplay()
+{
+//	GET_CURRENT_OR_RETURN()
+//	g_emu_thread->renderDisplay(false);
+}
+
+void Host::RenderDisplay(bool skip_present)
+{
+	//	GET_CURRENT_OR_RETURN()
+//	g_emu_thread->renderDisplay(skip_present);
+}
+
+std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
+{
+	@autoreleasepool {
+		NSString *nsFile = @(filename);
+		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
+		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
+		NSString *baseExt = nsFile.pathExtension;
+		if (baseExt.length == 0) {
+			baseExt = nil;
+		}
+		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
+			upperName = nil;
+		}
+		NSURL *aURL;
+		if (upperName) {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
+		} else {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
+		}
+		if (!aURL) {
+			return std::nullopt;
+		}
+		NSData *data = [[NSData alloc] initWithContentsOfURL:aURL];
+		if (!data) {
+			return std::nullopt;
+		}
+		auto retVal = std::vector<u8>(data.length);
+		[data getBytes:retVal.data() length:retVal.size()];
+		return retVal;
+	}
+}
+
+std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
+{
+	@autoreleasepool {
+		NSString *nsFile = @(filename);
+		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
+		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
+		NSString *baseExt = nsFile.pathExtension;
+		if (baseExt.length == 0) {
+			baseExt = nil;
+		}
+		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
+			upperName = nil;
+		}
+		NSURL *aURL;
+		if (upperName) {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
+		} else {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
+		}
+		if (!aURL) {
+			return std::nullopt;
+		}
+		NSData *data = [[NSData alloc] initWithContentsOfURL:aURL];
+		if (!data) {
+			return std::nullopt;
+		}
+		std::string ret;
+		ret.resize(data.length);
+		[data getBytes:ret.data() length:ret.size()];
+		return ret;
+	}
+}
+
+TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
+								 int n /*= -1*/)
+{
+//  const QByteArray bytes(qApp->translate(context, str, disambiguation, n).toUtf8());
+  return TinyString(str, (u32)strnlen(str, 64));
+}
+
+std::string Host::TranslateStdString(const char* context, const char* str, const char* disambiguation /*= nullptr*/, int n /*= -1*/)
+{
+	return std::string(str);
+}
+
+void Host::AddOSDMessage(std::string message, float duration)
+{
+	// Do nothing
+}
+
+void Host::AddKeyedOSDMessage(std::string key, std::string message, float duration)
+{
+	// Do nothing
+}
+
+void Host::AddIconOSDMessage(std::string key, const char* icon, std::string message, float duration)
+{
+	// Do nothing
+}
+
+void Host::AddFormattedOSDMessage(float duration, const char* format, ...)
+{
+	// Do nothing
+}
+
+void Host::AddKeyedFormattedOSDMessage(std::string key, float duration, const char* format, ...)
+{
+	// Do nothing
+}
+
+void Host::RemoveKeyedOSDMessage(std::string key)
+{
+	// Do nothing
+}
+
+void Host::ClearOSDMessages()
+{
+	// Do nothing
+}
+
+
+std::unique_ptr<AudioStream> Host::CreateAudioStream(AudioBackend backend, u32 sample_rate, u32 channels, u32 buffer_ms,
+											   u32 latency_ms, AudioStretchMode stretch)
+{
+	return OpenEmuAudioStream::CreateOpenEmuStream(sample_rate, channels, buffer_ms);
+}
+
+void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
+{
+	// Do nothing… for now
+}
 
 #pragma mark OpenEmuHostInterface methods -
 
@@ -1238,7 +1275,7 @@ SettingsInterface * OpenEmuHostInterface::GetSettingsInterface()
 
 #pragma mark - OpenEmuAudioStream methods
 
-//OpenEmuAudioStream::OpenEmuAudioStream()=default;
+OpenEmuAudioStream::OpenEmuAudioStream(u32 sample_rate, u32 channels, u32 buffer_ms, AudioStretchMode stretch) : AudioStream(sample_rate, channels, buffer_ms, stretch) { }
 OpenEmuAudioStream::~OpenEmuAudioStream()=default;
 
 void OpenEmuAudioStream::FramesAvailable()
@@ -1248,6 +1285,13 @@ void OpenEmuAudioStream::FramesAvailable()
 	GET_CURRENT_OR_RETURN();
 	id<OEAudioBuffer> rb = [current audioBufferAtIndex:0];
 	[rb write:m_output_buffer.data() maxLength:num_frames * m_channels * sizeof(SampleType)];
+}
+
+std::unique_ptr<OpenEmuAudioStream> OpenEmuAudioStream::CreateOpenEmuStream(u32 sample_rate, u32 channels, u32 buffer_ms)
+{
+  std::unique_ptr<OpenEmuAudioStream> stream = std::make_unique<OpenEmuAudioStream>(sample_rate, channels, buffer_ms, AudioStretchMode::Off);
+  stream->BaseInitialize();
+  return stream;
 }
 
 #pragma mark - Controller mapping
@@ -1331,25 +1375,4 @@ static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 	wi.surface_width = 640;
 	wi.surface_height = 480;
 	return wi;
-}
-
-TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
-								 int n /*= -1*/)
-{
-//  const QByteArray bytes(qApp->translate(context, str, disambiguation, n).toUtf8());
-  return TinyString(str, (u32)strnlen(str, 64));
-}
-
-void Host::AddIconOSDMessage(std::string key, const char* icon, std::string message, float duration)
-{
-	// Do nothing
-}
-
-#define TickCount DuckTickCount
-#include "frontend-common/input_manager.h"
-#undef TickCount
-
-void InputManager::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
-{
-	// Do nothing… for now
 }
