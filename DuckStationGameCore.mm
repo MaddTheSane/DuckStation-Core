@@ -34,7 +34,8 @@
 #include "util/cd_image.h"
 #include "common/error.h"
 #include "core/host_display.h"
-//#include "core/host_interface.h"
+#include "core/host_interface_progress_callback.h"
+#include "core/host.h"
 #include "core/gpu.h"
 #include "util/audio_stream.h"
 #include "core/digital_controller.h"
@@ -55,7 +56,6 @@
 #include <os/log.h>
 
 // TODO: Re-create!
-#if 0
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
@@ -93,6 +93,7 @@ private:
 	std::vector<SampleType> m_output_buffer;
 };
 
+#if 0
 class OpenEmuHostInterface final: public HostInterface
 {
 public:
@@ -194,6 +195,7 @@ private:
 	GameList::Entry m_game_settings;
 	std::recursive_mutex m_settings_mutex;
 };
+#endif
 
 @interface DuckStationGameCore () <OEPSXSystemResponderClient>
 
@@ -236,7 +238,7 @@ static NSString * const DuckStation24ChromaSmoothingKey = @"duckstation/GPU/24Bi
 static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock";
 
 @implementation DuckStationGameCore {
-	OpenEmuHostInterface *duckInterface;
+//	OpenEmuHostInterface *duckInterface;
     NSString *bootPath;
 	NSString *saveStatePath;
     bool isInitialized;
@@ -253,6 +255,15 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	});
 }
 
+- (instancetype)init
+{
+	if (self = [super init]) {
+		_current = self;
+	}
+	return self;
+}
+
+#if 0
 - (instancetype)init
 {
 	if (self = [super init]) {
@@ -462,6 +473,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	}
 	return YES;
 }
+#endif
 
 - (OEGameCoreRendering)gameCoreRendering
 {
@@ -476,8 +488,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			//TODO: scale input!
-			HostDisplay* display = g_host_interface->GetDisplay();
-			display->SetMousePosition(point.x, point.y);
+//			HostDisplay* display = g_host_interface->GetDisplay();
+//			display->SetMousePosition(point.x, point.y);
 		}
 			return;
 			break;
@@ -490,8 +502,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			//TODO: scale input!
-			HostDisplay* display = g_host_interface->GetDisplay();
-			display->SetMousePosition(point.x, point.y);
+//			HostDisplay* display = g_host_interface->GetDisplay();
+//			display->SetMousePosition(point.x, point.y);
 		}
 			break;
 			
@@ -507,7 +519,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetButtonState(GunCon::Button::Trigger, true);
+			controller->SetBindState(static_cast<u32>(GunCon::Button::Trigger), 1);
 		}
 			return;
 			break;
@@ -516,7 +528,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetButtonState(PlayStationMouse::Button::Left, true);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 1);
 		}
 			return;
 			break;
@@ -530,7 +542,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetButtonState(PlayStationMouse::Button::Left, true);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 1);
 		}
 			break;
 			
@@ -545,7 +557,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::GunCon:
 		{
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetButtonState(GunCon::Button::Trigger, false);
+			controller->SetBindState(static_cast<u32>(GunCon::Button::Trigger), 0);
 		}
 			return;
 			break;
@@ -553,7 +565,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetButtonState(PlayStationMouse::Button::Left, false);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 0);
 		}
 			return;
 			break;
@@ -566,7 +578,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetButtonState(PlayStationMouse::Button::Left, false);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 0);
 		}
 			break;
 
@@ -582,7 +594,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 //			[self mouseMovedAtPoint:point];
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetButtonState(GunCon::Button::ShootOffscreen, true);
+			controller->SetBindState(static_cast<u32>(GunCon::Button::ShootOffscreen), 1);
 		}
 			return;
 			break;
@@ -591,7 +603,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetButtonState(PlayStationMouse::Button::Right, true);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 1);
 		}
 			return;
 			break;
@@ -605,7 +617,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetButtonState(PlayStationMouse::Button::Right, true);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 1);
 		}
 			break;
 			
@@ -620,7 +632,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::GunCon:
 		{
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetButtonState(GunCon::Button::ShootOffscreen, false);
+			controller->SetBindState(static_cast<u32>(GunCon::Button::ShootOffscreen), 0);
 		}
 			return;
 			break;
@@ -628,7 +640,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetButtonState(PlayStationMouse::Button::Right, false);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 0);
 		}
 			return;
 			break;
@@ -641,7 +653,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetButtonState(PlayStationMouse::Button::Right, false);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), false);
 		}
 			break;
 
@@ -693,13 +705,13 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetButtonState(GunCon::Button::A, true);
+					controller->SetBindState(static_cast<u32>(GunCon::Button::A), 1);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetButtonState(GunCon::Button::B, true);
+					controller->SetBindState(static_cast<u32>(GunCon::Button::B), 1);
 					break;
 
 				default:
@@ -734,13 +746,13 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetButtonState(GunCon::Button::A, false);
+					controller->SetBindState(static_cast<u32>(GunCon::Button::A), false);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetButtonState(GunCon::Button::B, false);
+					controller->SetBindState(static_cast<u32>(GunCon::Button::B), false);
 					break;
 
 				default:
@@ -766,7 +778,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (double)audioSampleRate
 {
-	return AudioStream::DefaultOutputSampleRate;
+	return 44100;
 }
 
 - (OEIntSize)bufferSize
@@ -776,6 +788,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)executeFrame
 {
+#if 0
     if (!isInitialized){
 		auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
         duckInterface->Initialize();
@@ -789,6 +802,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	System::RunFrame();
 	
 	duckInterface->Render();
+#endif
 }
 
 - (NSDictionary<NSString *,id> *)displayModeInfo
@@ -850,7 +864,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	if (chroma24 && [overclock isKindOfClass:[NSNumber class]]) {
 		settings.chroma24Interlace = [chroma24 boolValue];
 	}
-	duckInterface->ChangeSettings(settings);
+//	duckInterface->ChangeSettings(settings);
 }
 
 - (NSArray <NSDictionary <NSString *, id> *> *)displayModes
@@ -915,7 +929,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	} else if ([key isEqualToString:DuckStation24ChromaSmoothingKey]) {
 		settings.chroma24Interlace = [currentVal boolValue];
 	}
-	duckInterface->ChangeSettings(settings);
+//	duckInterface->ChangeSettings(settings);
 }
 
 @end
@@ -944,6 +958,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 #pragma mark OpenEmuHostInterface methods -
 
+#if 0
 OpenEmuHostInterface::OpenEmuHostInterface()=default;
 OpenEmuHostInterface::~OpenEmuHostInterface()=default;
 
@@ -1219,14 +1234,16 @@ SettingsInterface * OpenEmuHostInterface::GetSettingsInterface()
 	return nullptr;
 }
 
+#endif
+
 #pragma mark - OpenEmuAudioStream methods
 
-OpenEmuAudioStream::OpenEmuAudioStream()=default;
+//OpenEmuAudioStream::OpenEmuAudioStream()=default;
 OpenEmuAudioStream::~OpenEmuAudioStream()=default;
 
 void OpenEmuAudioStream::FramesAvailable()
 {
-	const u32 num_frames = GetSamplesAvailable();
+	const u32 num_frames = GetBufferedFramesRelaxed();
 	ReadFrames(m_output_buffer.data(), num_frames);
 	GET_CURRENT_OR_RETURN();
 	id<OEAudioBuffer> rb = [current audioBufferAtIndex:0];
@@ -1256,7 +1273,7 @@ static void updateDigitalControllerButton(OEPSXButton button, int player, bool d
     
 	for (const auto& [dsButton, oeButton] : mapping) {
 		if (oeButton == button) {
-			controller->SetButtonState(dsButton, down);
+			controller->SetBindState(static_cast<u32>(dsButton), down);
 			break;
 		}
 	}
@@ -1286,7 +1303,7 @@ static void updateAnalogControllerButton(OEPSXButton button, int player, bool do
     
 	for (const auto& [dsButton, oeButton] : button_mapping) {
 		if (oeButton == button) {
-			controller->SetButtonState(dsButton, down);
+			controller->SetBindState(static_cast<u32>(dsButton), down);
 			break;
 		}
 	}
@@ -1302,7 +1319,7 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
 	for (const auto& [dsAxis, oeAxes] : axis_mapping) {
         if (oeAxes.first == button || oeAxes.second == button) {
-            controller->SetAxisState(dsAxis, static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
+            controller->SetBindState(static_cast<u32>(dsAxis), static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
         }
 	}
 }
@@ -1316,4 +1333,23 @@ static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 	return wi;
 }
 
-#endif
+TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
+								 int n /*= -1*/)
+{
+//  const QByteArray bytes(qApp->translate(context, str, disambiguation, n).toUtf8());
+  return TinyString(str, (u32)strnlen(str, 64));
+}
+
+void Host::AddIconOSDMessage(std::string key, const char* icon, std::string message, float duration)
+{
+	// Do nothing
+}
+
+#define TickCount DuckTickCount
+#include "frontend-common/input_manager.h"
+#undef TickCount
+
+void InputManager::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
+{
+	// Do nothing… for now
+}

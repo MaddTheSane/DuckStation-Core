@@ -93,9 +93,6 @@ using namespace OpenEmu;
 
 #pragma mark -
 
-// TODO: Re-create!
-#if 0
-
 OpenGLHostDisplay::OpenGLHostDisplay(DuckStationGameCore *core) :
 _current(core)
 {
@@ -107,7 +104,7 @@ OpenGLHostDisplay::~OpenGLHostDisplay()
 	AssertMsg(!m_gl_context, "Context should have been destroyed by now");
 }
 
-HostDisplay::RenderAPI OpenGLHostDisplay::GetRenderAPI() const
+RenderAPI OpenGLHostDisplay::GetRenderAPI() const
 {
 	return RenderAPI::OpenGL;
 }
@@ -122,18 +119,34 @@ void* OpenGLHostDisplay::GetRenderContext() const
 	return m_gl_context.get();
 }
 
-static constexpr std::array<std::tuple<GLenum, GLenum, GLenum>, static_cast<u32>(HostDisplayPixelFormat::Count)>
-  s_display_pixel_format_mapping = {{
-	{},                                                  // Unknown
-	{GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE},               // RGBA8
-	{GL_RGBA8, GL_BGRA, GL_UNSIGNED_BYTE},               // BGRA8
-	{GL_RGB565, GL_RGB, GL_UNSIGNED_SHORT_5_6_5},        // RGB565
-	{GL_RGB5_A1, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV} // RGBA5551
-  }};
+static const std::tuple<GLenum, GLenum, GLenum>& GetPixelFormatMapping(bool is_gles, HostDisplayPixelFormat format)
+{
+	static constexpr std::array<std::tuple<GLenum, GLenum, GLenum>, static_cast<u32>(HostDisplayPixelFormat::Count)>
+	mapping = {{
+		{},                                                  // Unknown
+		{GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE},               // RGBA8
+		{GL_RGBA8, GL_BGRA, GL_UNSIGNED_BYTE},               // BGRA8
+		{GL_RGB565, GL_RGB, GL_UNSIGNED_SHORT_5_6_5},        // RGB565
+		{GL_RGB5_A1, GL_BGRA, GL_UNSIGNED_SHORT_1_5_5_5_REV} // RGBA5551
+	}};
+	
+	static constexpr std::array<std::tuple<GLenum, GLenum, GLenum>, static_cast<u32>(HostDisplayPixelFormat::Count)>
+	mapping_gles2 = {{
+		{},                                        // Unknown
+		{GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE},      // RGBA8
+		{},                                        // BGRA8
+		{GL_RGB, GL_RGB, GL_UNSIGNED_SHORT_5_6_5}, // RGB565
+		{}                                         // RGBA5551
+	}};
+	
+	if (is_gles && !GLAD_GL_ES_VERSION_3_0)
+		return mapping_gles2[static_cast<u32>(format)];
+	else
+		return mapping[static_cast<u32>(format)];
+}
 
-std::unique_ptr<HostDisplayTexture> OpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers,
-																	 u32 levels, u32 samples,
-																	 HostDisplayPixelFormat format,
+std::unique_ptr<HostDisplayTexture> OpenGLHostDisplay::CreateTexture(u32 width, u32 height, u32 layers, u32 levels,
+																	 u32 samples, HostDisplayPixelFormat format,
 																	 const void* data, u32 data_stride,
 																	 bool dynamic /* = false */)
 {
@@ -141,50 +154,17 @@ std::unique_ptr<HostDisplayTexture> OpenGLHostDisplay::CreateTexture(u32 width, 
 		return {};
 	}
 	
-	const auto [gl_internal_format, gl_format, gl_type] = s_display_pixel_format_mapping[static_cast<u32>(format)];
+	const auto [gl_internal_format, gl_format, gl_type] = GetPixelFormatMapping(m_gl_context->IsGLES(), format);
 	
 	// TODO: Set pack width
 	Assert(!data || data_stride == (width * sizeof(u32)));
 	
 	GL::Texture tex;
-	if (!tex.Create(width, height, samples, gl_internal_format, gl_format, gl_type, data, data_stride)) {
+	if (!tex.Create(width, height, layers, levels, samples, gl_internal_format, gl_format, gl_type, data, data_stride)) {
 		return {};
 	}
 	
 	return std::make_unique<OpenEmu::OGLHostDisplayTexture>(std::move(tex), format);
-}
-
-void OpenGLHostDisplay::UpdateTexture(HostDisplayTexture* texture, u32 x, u32 y, u32 width, u32 height,
-									  const void* texture_data, u32 texture_data_stride)
-{
-	OpenEmu::OGLHostDisplayTexture* tex = static_cast<OpenEmu::OGLHostDisplayTexture*>(texture);
-	const auto [gl_internal_format, gl_format, gl_type] =
-	s_display_pixel_format_mapping[static_cast<u32>(texture->GetFormat())];
-	GLint alignment;
-	if (texture_data_stride & 1) {
-		alignment = 1;
-	} else if (texture_data_stride & 2) {
-		alignment = 2;
-	} else {
-		alignment = 4;
-	}
-	
-	GLint old_texture_binding = 0, old_alignment = 0, old_row_length = 0;
-	glGetIntegerv(GL_TEXTURE_BINDING_2D, &old_texture_binding);
-	glBindTexture(GL_TEXTURE_2D, tex->GetGLID());
-	
-	glGetIntegerv(GL_UNPACK_ALIGNMENT, &old_alignment);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
-	
-	glGetIntegerv(GL_UNPACK_ROW_LENGTH, &old_row_length);
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, texture_data_stride / GetDisplayPixelFormatSize(texture->GetFormat()));
-	
-	glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, width, height, gl_format, gl_type, texture_data);
-	
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, old_row_length);
-	
-	glPixelStorei(GL_UNPACK_ALIGNMENT, old_alignment);
-	glBindTexture(GL_TEXTURE_2D, old_texture_binding);
 }
 
 bool OpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayPixelFormat texture_format,
@@ -207,8 +187,7 @@ bool OpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayP
 	glPixelStorei(GL_PACK_ROW_LENGTH, out_data_stride / GetDisplayPixelFormatSize(texture_format));
 	
 	const GLuint texture = static_cast<GLuint>(reinterpret_cast<uintptr_t>(texture_handle));
-	const auto [gl_internal_format, gl_format, gl_type] =
-	s_display_pixel_format_mapping[static_cast<u32>(texture_format)];
+	const auto [gl_internal_format, gl_format, gl_type] = GetPixelFormatMapping(m_gl_context->IsGLES(), texture_format);
 	
 	GL::Texture::GetTextureSubImage(texture, 0, x, y, 0, width, height, 1, gl_format, gl_type,
 									height * out_data_stride, out_data);
@@ -220,91 +199,8 @@ bool OpenGLHostDisplay::DownloadTexture(const void* texture_handle, HostDisplayP
 
 bool OpenGLHostDisplay::SupportsDisplayPixelFormat(HostDisplayPixelFormat format) const
 {
-	return (std::get<0>(s_display_pixel_format_mapping[static_cast<u32>(format)]) != static_cast<GLenum>(0));
-}
-
-bool OpenGLHostDisplay::BeginSetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
-											  void** out_buffer, u32* out_pitch)
-{
-	const u32 pixel_size = GetDisplayPixelFormatSize(format);
-	const u32 stride = Common::AlignUpPow2(width * pixel_size, 4);
-	const u32 size_required = stride * height * pixel_size;
-	const u32 buffer_size = Common::AlignUpPow2(size_required * 2, 4 * 1024 * 1024);
-	if (!m_display_pixels_texture_pbo || m_display_pixels_texture_pbo->GetSize() < buffer_size) {
-		m_display_pixels_texture_pbo.reset();
-		m_display_pixels_texture_pbo = GL::StreamBuffer::Create(GL_PIXEL_UNPACK_BUFFER, buffer_size);
-		if (!m_display_pixels_texture_pbo) {
-			return false;
-		}
-	}
-	
-	const auto map = m_display_pixels_texture_pbo->Map(GetDisplayPixelFormatSize(format), size_required);
-	m_display_texture_format = format;
-	m_display_pixels_texture_pbo_map_offset = map.buffer_offset;
-	m_display_pixels_texture_pbo_map_size = size_required;
-	*out_buffer = map.pointer;
-	*out_pitch = stride;
-	
-	if (m_display_pixels_texture_id == 0) {
-		glGenTextures(1, &m_display_pixels_texture_id);
-		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
-	}
-	
-	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width,
-					  height, 0, 0, width, height);
-	return true;
-}
-
-void OpenGLHostDisplay::EndSetDisplayPixels()
-{
-	const u32 width = static_cast<u32>(m_display_texture_view_width);
-	const u32 height = static_cast<u32>(m_display_texture_view_height);
-	
-	const auto [gl_internal_format, gl_format, gl_type] =
-	s_display_pixel_format_mapping[static_cast<u32>(m_display_texture_format)];
-	
-	// glTexImage2D should be quicker on Mali...
-	m_display_pixels_texture_pbo->Unmap(m_display_pixels_texture_pbo_map_size);
-	m_display_pixels_texture_pbo->Bind();
-	glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
-	glTexImage2D(GL_TEXTURE_2D, 0, gl_internal_format, width, height, 0, gl_format, gl_type,
-				 reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_pbo_map_offset)));
-	glBindTexture(GL_TEXTURE_2D, 0);
-	m_display_pixels_texture_pbo->Unbind();
-	
-	m_display_pixels_texture_pbo_map_offset = 0;
-	m_display_pixels_texture_pbo_map_size = 0;
-}
-
-bool OpenGLHostDisplay::SetDisplayPixels(HostDisplayPixelFormat format, u32 width, u32 height,
-										 const void* buffer, u32 pitch)
-{
-	if (m_display_pixels_texture_id == 0) {
-		glGenTextures(1, &m_display_pixels_texture_id);
-		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 1);
-	} else {
-		glBindTexture(GL_TEXTURE_2D, m_display_pixels_texture_id);
-	}
-	
-	const auto [gl_internal_format, gl_format, gl_type] = s_display_pixel_format_mapping[static_cast<u32>(format)];
-	
-	glTexImage2D(GL_TEXTURE_2D, 0, gl_internal_format, width, height, 0, gl_format, gl_type, buffer);
-	
-	glBindTexture(GL_TEXTURE_2D, 0);
-	
-	SetDisplayTexture(reinterpret_cast<void*>(static_cast<uintptr_t>(m_display_pixels_texture_id)), format, width,
-					  height, 0, 0, width, height);
-	return true;
+	const auto [gl_internal_format, gl_format, gl_type] = GetPixelFormatMapping(m_gl_context->IsGLES(), format);
+	return (gl_internal_format != static_cast<GLenum>(0));
 }
 
 void OpenGLHostDisplay::SetVSync(bool enabled)
@@ -394,18 +290,6 @@ bool OpenGLHostDisplay::MakeRenderContextCurrent()
 bool OpenGLHostDisplay::DoneRenderContextCurrent()
 {
 	return m_gl_context->DoneCurrent();
-}
-
-void OpenGLHostDisplay::DestroyRenderDevice()
-{
-	if (!m_gl_context) {
-		return;
-	}
-	
-	DestroyResources();
-	
-	m_gl_context->DoneCurrent();
-	m_gl_context.reset();
 }
 
 bool OpenGLHostDisplay::ChangeRenderWindow(const WindowInfo& new_wi)
@@ -562,24 +446,6 @@ void OpenGLHostDisplay::DestroyResources()
 	m_display_program.Destroy();
 }
 
-bool OpenGLHostDisplay::Render()
-{
-	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
-
-	glDisable(GL_SCISSOR_TEST);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	RenderDisplay();
-
-	RenderSoftwareCursor();
-
-	m_gl_context->SwapBuffers();
-
-	return true;
-}
-
 void OpenGLHostDisplay::RenderDisplay()
 {
 	if (!HasDisplayTexture()) {
@@ -590,7 +456,7 @@ void OpenGLHostDisplay::RenderDisplay()
 	
 	RenderDisplay(left, GetWindowHeight() - top - height, width, height, m_display_texture_handle,
 				  m_display_texture_width, m_display_texture_height, m_display_texture_view_x, m_display_texture_view_y,
-				  m_display_texture_view_width, m_display_texture_view_height, m_display_linear_filtering);
+				  m_display_texture_view_width, m_display_texture_view_height, IsUsingLinearFiltering());
 }
 
 void OpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 height, void* texture_handle,
@@ -607,8 +473,8 @@ void OpenGLHostDisplay::RenderDisplay(s32 left, s32 bottom, s32 width, s32 heigh
 	glBindTexture(GL_TEXTURE_2D, static_cast<GLuint>(reinterpret_cast<uintptr_t>(texture_handle)));
 	m_display_program.Bind();
 	
-	const float position_adjust = m_display_linear_filtering ? 0.5f : 0.0f;
-	const float size_adjust = m_display_linear_filtering ? 1.0f : 0.0f;
+	const float position_adjust = IsUsingLinearFiltering() ? 0.5f : 0.0f;
+	const float size_adjust = IsUsingLinearFiltering() ? 1.0f : 0.0f;
 	const float flip_adjust = (texture_view_height < 0) ? -1.0f : 1.0f;
 	m_display_program.Uniform4f(0, (static_cast<float>(texture_view_x) + position_adjust) / static_cast<float>(texture_width),
 								(static_cast<float>(texture_view_y) + (position_adjust * flip_adjust)) / static_cast<float>(texture_height),
@@ -770,4 +636,3 @@ std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi
 	
 	return context;
 }
-#endif
