@@ -198,7 +198,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	return self;
 }
 
-#if 0
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
 	if ([[path pathExtension] compare:@"ccd" options:NSCaseInsensitiveSearch] == NSOrderedSame) {
@@ -262,50 +261,16 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		block(YES, nil);
 		return;
 	}
-	const bool result = duckInterface->LoadState(fileName.fileSystemRepresentation);
+	const bool result = System::LoadState(fileName.fileSystemRepresentation);
 	
 	block(result, result ? nil : [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadStateError userInfo:@{NSFilePathErrorKey: fileName}]);
 }
 
 - (void)saveStateToFileAtPath:(NSString *)fileName completionHandler:(void (^)(BOOL, NSError *))block
 {
-	std::unique_ptr<ByteStream> stream = FileSystem::OpenFile(fileName.fileSystemRepresentation, BYTESTREAM_OPEN_CREATE | BYTESTREAM_OPEN_WRITE | BYTESTREAM_OPEN_TRUNCATE |
-									   BYTESTREAM_OPEN_ATOMIC_UPDATE | BYTESTREAM_OPEN_STREAMED | BYTESTREAM_OPEN_CREATE_PATH);
-	if (!stream) {
-		block(NO, [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteUnknownError userInfo:@{NSFilePathErrorKey: fileName}]);
-		return;
-	}
-
-	const bool result = System::SaveState(stream.get(), 0);
+	const bool result = System::SaveState(fileName.fileSystemRepresentation, 0);
 	
 	block(result, result ? nil : [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:@{NSFilePathErrorKey: fileName}]);
-}
-
-- (BOOL)deserializeState:(NSData *)state withError:(NSError **)outError
-{
-	auto mem = std::make_unique<ReadOnlyMemoryByteStream>(state.bytes, (u32)state.length);
-	bool okay = System::LoadState(mem.get());
-	if (!okay && outError) {
-		*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadStateError userInfo:nil];
-	}
-	return okay;
-}
-
-- (NSData *)serializeStateWithError:(NSError *__autoreleasing *)outError
-{
-	auto mem = new GrowableMemoryByteStream(nullptr, 0);
-	const bool result = System::SaveState(mem, 0);
-	if (!result) {
-		if (outError) {
-			*outError = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotSaveStateError userInfo:nil];
-		}
-		delete mem;
-		return nil;
-	}
-	NSData *toRet = [[NSData alloc] initWithBytesNoCopy:mem->GetMemoryPointer() length:mem->GetMemorySize() deallocator:^(void * _Nonnull bytes, NSUInteger length) {
-		delete mem;
-	}];
-	return toRet;
 }
 
 - (void)setCheat:(NSString *)code setType:(NSString *)type setEnabled:(BOOL)enabled
@@ -332,7 +297,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)resetEmulation
 {
-	duckInterface->ResetSystem();
+	System::ResetSystem();
 }
 
 - (void)startEmulation
@@ -343,7 +308,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)stopEmulation
 {
-	duckInterface->Shutdown();
+	System::ShutdownSystem(false);
 	
 	[super stopEmulation];
 }
@@ -356,13 +321,12 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (BOOL)tryToResizeVideoTo:(OEIntSize)size
 {
 	if (!System::IsShutdown() && isInitialized) {
-		duckInterface->ResizeRenderWindow(size.width, size.height);
+//		duckInterface->ResizeRenderWindow(size.width, size.height);
 		
 		g_gpu->UpdateResolutionScale();
 	}
 	return YES;
 }
-#endif
 
 - (OEGameCoreRendering)gameCoreRendering
 {
@@ -677,21 +641,19 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)executeFrame
 {
-#if 0
-    if (!isInitialized){
-		auto params = std::make_shared<SystemBootParameters>(bootPath.fileSystemRepresentation);
-        duckInterface->Initialize();
-        isInitialized = duckInterface->BootSystem(params);
+    if (!isInitialized) {
+		auto params = SystemBootParameters(bootPath.fileSystemRepresentation);
 		if (saveStatePath) {
-			duckInterface->LoadState(saveStatePath.fileSystemRepresentation);
+			params.save_state = std::string(saveStatePath.fileSystemRepresentation);
 			saveStatePath = nil;
 		}
+		System::BootSystem(params);
     }
     
 	System::RunFrame();
 	
-	duckInterface->Render();
-#endif
+	
+//	duckInterface->Render();
 }
 
 - (NSDictionary<NSString *,id> *)displayModeInfo
@@ -869,6 +831,36 @@ void Host::RenderDisplay(bool skip_present)
 //	g_emu_thread->renderDisplay(skip_present);
 }
 
+void Host::OnSystemStarting()
+{
+	
+}
+
+void Host::OnSystemStarted()
+{
+	
+}
+
+void Host::OnSystemDestroyed()
+{
+	
+}
+
+void Host::OnSystemPaused()
+{
+	
+}
+
+void Host::OnSystemResumed()
+{
+	
+}
+
+float Host::GetOSDScale()
+{
+	return 1.0f;
+}
+
 std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
 {
 	@autoreleasepool {
@@ -937,8 +929,7 @@ std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
 TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
 								 int n /*= -1*/)
 {
-//  const QByteArray bytes(qApp->translate(context, str, disambiguation, n).toUtf8());
-  return TinyString(str, (u32)strnlen(str, 64));
+	return TinyString(str, (u32)strnlen(str, 64));
 }
 
 std::string Host::TranslateStdString(const char* context, const char* str, const char* disambiguation /*= nullptr*/, int n /*= -1*/)
@@ -991,6 +982,18 @@ std::unique_ptr<AudioStream> Host::CreateAudioStream(AudioBackend backend, u32 s
 void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
 {
 	// Do nothing… for now
+}
+
+void Host::SetMouseMode(bool relative, bool hide_cursor)
+{
+	// TODO: Find a better home for this.
+//	if (InputManager::HasPointerAxisBinds())
+//	{
+//		relative = true;
+//		hide_cursor = true;
+//	}
+	
+	// emit g_emu_thread->mouseModeRequested(relative, hide_cursor);
 }
 
 #pragma mark OpenEmuHostInterface methods -

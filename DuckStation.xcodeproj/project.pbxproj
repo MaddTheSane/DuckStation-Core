@@ -24,7 +24,7 @@
 /* Begin PBXBuildFile section */
 		550A97A52902531600BF54D5 /* host.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 550A97A32902531600BF54D5 /* host.cpp */; };
 		551DEB1125270DA600B44953 /* OpenEmuBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEB1025270DA600B44953 /* OpenEmuBase.framework */; };
-		551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */; settings = {COMPILER_FLAGS = "-ferror-limit=0"; }; };
+		551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */; };
 		551DEC402527107500B44953 /* bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB232527107400B44953 /* bus.cpp */; };
 		551DEC412527107500B44953 /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB242527107400B44953 /* bios.cpp */; };
 		551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB2A2527107400B44953 /* cdrom_async_reader.cpp */; };
@@ -382,6 +382,33 @@
 		553AD8D12611278E00E9F910 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553AD8D02611278E00E9F910 /* libz.tbd */; };
 		55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55453723266719C30097DD71 /* cd_image_ppf.cpp */; };
 		55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC426AE14B400B2741A /* cd_image_device.cpp */; };
+		5549E6BE2903537000FA71FA /* game_database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6BC2903537000FA71FA /* game_database.cpp */; };
+		5549E73C290354E800FA71FA /* libzstd_duck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5549E736290354CB00FA71FA /* libzstd_duck.a */; };
+		5549E73D290354EE00FA71FA /* zstd_ddict.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7102903548400FA71FA /* zstd_ddict.c */; };
+		5549E73E290354F300FA71FA /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7112903548400FA71FA /* huf_decompress.c */; };
+		5549E73F290354F300FA71FA /* zstd_decompress_block.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7172903548400FA71FA /* zstd_decompress_block.c */; };
+		5549E740290354F300FA71FA /* zstd_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7142903548400FA71FA /* zstd_decompress.c */; };
+		5549E7412903553700FA71FA /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7242903548400FA71FA /* xxhash.c */; };
+		5549E7422903553700FA71FA /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7222903548400FA71FA /* fse_decompress.c */; };
+		5549E7432903553700FA71FA /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E71F2903548400FA71FA /* entropy_common.c */; };
+		5549E7442903553700FA71FA /* zstd_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E72C2903548400FA71FA /* zstd_common.c */; };
+		5549E7452903553700FA71FA /* pool.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7272903548400FA71FA /* pool.c */; };
+		5549E7462903553700FA71FA /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E72B2903548400FA71FA /* threading.c */; };
+		5549E7472903553700FA71FA /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7232903548400FA71FA /* debug.c */; };
+		5549E7482903553700FA71FA /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E72F2903548400FA71FA /* error_private.c */; };
+		5549E7492903558A00FA71FA /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E70A2903548400FA71FA /* zstd_opt.c */; };
+		5549E74A2903558A00FA71FA /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7052903548400FA71FA /* zstd_lazy.c */; };
+		5549E74B2903558A00FA71FA /* zstd_compress_sequences.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6FE2903548400FA71FA /* zstd_compress_sequences.c */; };
+		5549E74C2903558A00FA71FA /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6FA2903548400FA71FA /* zstd_double_fast.c */; };
+		5549E74D2903558A00FA71FA /* zstd_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6FB2903548400FA71FA /* zstd_fast.c */; };
+		5549E74E2903558A00FA71FA /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E70C2903548400FA71FA /* fse_compress.c */; };
+		5549E74F2903558A00FA71FA /* zstd_compress_literals.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7082903548400FA71FA /* zstd_compress_literals.c */; };
+		5549E7502903558A00FA71FA /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6F92903548400FA71FA /* zstdmt_compress.c */; };
+		5549E7512903558A00FA71FA /* zstd_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7032903548400FA71FA /* zstd_compress.c */; };
+		5549E7522903558A00FA71FA /* zstd_compress_superblock.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6F72903548400FA71FA /* zstd_compress_superblock.c */; };
+		5549E7532903558A00FA71FA /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7092903548400FA71FA /* huf_compress.c */; };
+		5549E7542903558A00FA71FA /* zstd_ldm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7012903548400FA71FA /* zstd_ldm.c */; };
+		5549E7552903565A00FA71FA /* hist.c in Sources */ = {isa = PBXBuildFile; fileRef = 5549E7022903548400FA71FA /* hist.c */; };
 		55501C8F258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */; };
 		555BB51F289083B900A255E0 /* ostream.h in Headers */ = {isa = PBXBuildFile; fileRef = 555BB501289083B900A255E0 /* ostream.h */; };
 		555BB520289083B900A255E0 /* format-inl.h in Headers */ = {isa = PBXBuildFile; fileRef = 555BB502289083B900A255E0 /* format-inl.h */; };
@@ -504,6 +531,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 552B5B2D28E41F890019253A;
 			remoteInfo = soundtouch;
+		};
+		5549E73A290354DE00FA71FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5549E735290354CB00FA71FA;
+			remoteInfo = zstd_duck;
 		};
 		555BB5412890951000A255E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1038,6 +1072,107 @@
 		553AD8D02611278E00E9F910 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55453723266719C30097DD71 /* cd_image_ppf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_ppf.cpp; sourceTree = "<group>"; };
 		55458AC426AE14B400B2741A /* cd_image_device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_device.cpp; sourceTree = "<group>"; };
+		5549E6BC2903537000FA71FA /* game_database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_database.cpp; sourceTree = "<group>"; };
+		5549E6BD2903537000FA71FA /* game_database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_database.h; sourceTree = "<group>"; };
+		5549E6C3290353B500FA71FA /* fwd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fwd.h; sourceTree = "<group>"; };
+		5549E6C4290353B500FA71FA /* memorystream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memorystream.h; sourceTree = "<group>"; };
+		5549E6C5290353B500FA71FA /* reader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		5549E6C6290353B500FA71FA /* prettywriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prettywriter.h; sourceTree = "<group>"; };
+		5549E6C7290353B500FA71FA /* ostreamwrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ostreamwrapper.h; sourceTree = "<group>"; };
+		5549E6C8290353B500FA71FA /* encodedstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encodedstream.h; sourceTree = "<group>"; };
+		5549E6C9290353B500FA71FA /* filereadstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filereadstream.h; sourceTree = "<group>"; };
+		5549E6CA290353B500FA71FA /* cursorstreamwrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cursorstreamwrapper.h; sourceTree = "<group>"; };
+		5549E6CB290353B500FA71FA /* istreamwrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = istreamwrapper.h; sourceTree = "<group>"; };
+		5549E6CC290353B500FA71FA /* stringbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		5549E6CE290353B500FA71FA /* ieee754.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ieee754.h; sourceTree = "<group>"; };
+		5549E6CF290353B500FA71FA /* strtod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = strtod.h; sourceTree = "<group>"; };
+		5549E6D0290353B500FA71FA /* swap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = swap.h; sourceTree = "<group>"; };
+		5549E6D1290353B500FA71FA /* regex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = regex.h; sourceTree = "<group>"; };
+		5549E6D2290353B500FA71FA /* diyfp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = diyfp.h; sourceTree = "<group>"; };
+		5549E6D3290353B500FA71FA /* biginteger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = biginteger.h; sourceTree = "<group>"; };
+		5549E6D4290353B500FA71FA /* strfunc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = strfunc.h; sourceTree = "<group>"; };
+		5549E6D5290353B500FA71FA /* itoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = itoa.h; sourceTree = "<group>"; };
+		5549E6D6290353B500FA71FA /* stack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		5549E6D7290353B500FA71FA /* dtoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dtoa.h; sourceTree = "<group>"; };
+		5549E6D8290353B500FA71FA /* clzll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = clzll.h; sourceTree = "<group>"; };
+		5549E6D9290353B500FA71FA /* meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = meta.h; sourceTree = "<group>"; };
+		5549E6DA290353B500FA71FA /* pow10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pow10.h; sourceTree = "<group>"; };
+		5549E6DB290353B500FA71FA /* encodings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = encodings.h; sourceTree = "<group>"; };
+		5549E6DC290353B500FA71FA /* schema.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = schema.h; sourceTree = "<group>"; };
+		5549E6DD290353B500FA71FA /* stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stream.h; sourceTree = "<group>"; };
+		5549E6DE290353B500FA71FA /* filewritestream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filewritestream.h; sourceTree = "<group>"; };
+		5549E6DF290353B500FA71FA /* rapidjson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rapidjson.h; sourceTree = "<group>"; };
+		5549E6E0290353B500FA71FA /* document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		5549E6E1290353B500FA71FA /* allocators.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = allocators.h; sourceTree = "<group>"; };
+		5549E6E2290353B500FA71FA /* writer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		5549E6E4290353B500FA71FA /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		5549E6E5290353B500FA71FA /* en.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = en.h; sourceTree = "<group>"; };
+		5549E6E6290353B500FA71FA /* memorybuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = memorybuffer.h; sourceTree = "<group>"; };
+		5549E6E7290353B500FA71FA /* pointer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pointer.h; sourceTree = "<group>"; };
+		5549E6E9290353B500FA71FA /* inttypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inttypes.h; sourceTree = "<group>"; };
+		5549E6EA290353B500FA71FA /* stdint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
+		5549E6F32903548400FA71FA /* zstd_compress_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_compress_internal.h; sourceTree = "<group>"; };
+		5549E6F42903548400FA71FA /* hist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hist.h; sourceTree = "<group>"; };
+		5549E6F52903548400FA71FA /* zstd_ldm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_ldm.h; sourceTree = "<group>"; };
+		5549E6F62903548400FA71FA /* zstd_ldm_geartab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_ldm_geartab.h; sourceTree = "<group>"; };
+		5549E6F72903548400FA71FA /* zstd_compress_superblock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_compress_superblock.c; sourceTree = "<group>"; };
+		5549E6F82903548400FA71FA /* zstd_lazy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_lazy.h; sourceTree = "<group>"; };
+		5549E6F92903548400FA71FA /* zstdmt_compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstdmt_compress.c; sourceTree = "<group>"; };
+		5549E6FA2903548400FA71FA /* zstd_double_fast.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_double_fast.c; sourceTree = "<group>"; };
+		5549E6FB2903548400FA71FA /* zstd_fast.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_fast.c; sourceTree = "<group>"; };
+		5549E6FC2903548400FA71FA /* zstd_opt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_opt.h; sourceTree = "<group>"; };
+		5549E6FD2903548400FA71FA /* zstd_cwksp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_cwksp.h; sourceTree = "<group>"; };
+		5549E6FE2903548400FA71FA /* zstd_compress_sequences.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_compress_sequences.c; sourceTree = "<group>"; };
+		5549E6FF2903548400FA71FA /* clevels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = clevels.h; sourceTree = "<group>"; };
+		5549E7002903548400FA71FA /* zstd_compress_literals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_compress_literals.h; sourceTree = "<group>"; };
+		5549E7012903548400FA71FA /* zstd_ldm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_ldm.c; sourceTree = "<group>"; };
+		5549E7022903548400FA71FA /* hist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hist.c; sourceTree = "<group>"; };
+		5549E7032903548400FA71FA /* zstd_compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_compress.c; sourceTree = "<group>"; };
+		5549E7042903548400FA71FA /* zstd_double_fast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_double_fast.h; sourceTree = "<group>"; };
+		5549E7052903548400FA71FA /* zstd_lazy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_lazy.c; sourceTree = "<group>"; };
+		5549E7062903548400FA71FA /* zstdmt_compress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstdmt_compress.h; sourceTree = "<group>"; };
+		5549E7072903548400FA71FA /* zstd_compress_superblock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_compress_superblock.h; sourceTree = "<group>"; };
+		5549E7082903548400FA71FA /* zstd_compress_literals.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_compress_literals.c; sourceTree = "<group>"; };
+		5549E7092903548400FA71FA /* huf_compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = huf_compress.c; sourceTree = "<group>"; };
+		5549E70A2903548400FA71FA /* zstd_opt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_opt.c; sourceTree = "<group>"; };
+		5549E70B2903548400FA71FA /* zstd_compress_sequences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_compress_sequences.h; sourceTree = "<group>"; };
+		5549E70C2903548400FA71FA /* fse_compress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
+		5549E70D2903548400FA71FA /* zstd_fast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_fast.h; sourceTree = "<group>"; };
+		5549E70E2903548400FA71FA /* zdict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zdict.h; sourceTree = "<group>"; };
+		5549E7102903548400FA71FA /* zstd_ddict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_ddict.c; sourceTree = "<group>"; };
+		5549E7112903548400FA71FA /* huf_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
+		5549E7122903548400FA71FA /* zstd_decompress_block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_block.h; sourceTree = "<group>"; };
+		5549E7132903548400FA71FA /* zstd_decompress_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_internal.h; sourceTree = "<group>"; };
+		5549E7142903548400FA71FA /* zstd_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_decompress.c; sourceTree = "<group>"; };
+		5549E7152903548400FA71FA /* zstd_ddict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_ddict.h; sourceTree = "<group>"; };
+		5549E7162903548400FA71FA /* huf_decompress_amd64.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = huf_decompress_amd64.S; sourceTree = "<group>"; };
+		5549E7172903548400FA71FA /* zstd_decompress_block.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_decompress_block.c; sourceTree = "<group>"; };
+		5549E7192903548400FA71FA /* zstd_trace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_trace.h; sourceTree = "<group>"; };
+		5549E71A2903548400FA71FA /* xxhash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		5549E71B2903548400FA71FA /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		5549E71C2903548400FA71FA /* pool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
+		5549E71D2903548400FA71FA /* compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		5549E71E2903548400FA71FA /* portability_macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = portability_macros.h; sourceTree = "<group>"; };
+		5549E71F2903548400FA71FA /* entropy_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
+		5549E7202903548400FA71FA /* threading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		5549E7212903548400FA71FA /* error_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
+		5549E7222903548400FA71FA /* fse_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
+		5549E7232903548400FA71FA /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		5549E7242903548400FA71FA /* xxhash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
+		5549E7252903548400FA71FA /* bitstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		5549E7262903548400FA71FA /* cpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
+		5549E7272903548400FA71FA /* pool.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pool.c; sourceTree = "<group>"; };
+		5549E7282903548400FA71FA /* huf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
+		5549E7292903548400FA71FA /* zstd_deps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_deps.h; sourceTree = "<group>"; };
+		5549E72A2903548400FA71FA /* mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
+		5549E72B2903548400FA71FA /* threading.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		5549E72C2903548400FA71FA /* zstd_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_common.c; sourceTree = "<group>"; };
+		5549E72D2903548400FA71FA /* fse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
+		5549E72E2903548400FA71FA /* zstd_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
+		5549E72F2903548400FA71FA /* error_private.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
+		5549E7302903548400FA71FA /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
+		5549E7312903548400FA71FA /* zstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
+		5549E736290354CB00FA71FA /* libzstd_duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libzstd_duck.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		55501C8D258BEEDB00CF6BE9 /* libcrypt_game_codes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libcrypt_game_codes.h; sourceTree = "<group>"; };
 		55501C8E258BEEDB00CF6BE9 /* libcrypt_game_codes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = libcrypt_game_codes.cpp; sourceTree = "<group>"; };
 		555BB4F82890835600A255E0 /* libfmt-ds.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libfmt-ds.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1139,6 +1274,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5549E73C290354E800FA71FA /* libzstd_duck.a in Frameworks */,
 				552B5B3428E41FAB0019253A /* libsoundtouch-ds.a in Frameworks */,
 				55EC6A6328912D2100933E97 /* libtinyxml2.a in Frameworks */,
 				555BB5402890950900A255E0 /* libfmt-ds.a in Frameworks */,
@@ -1222,6 +1358,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5549E734290354CB00FA71FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		555BB4F62890835600A255E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1289,6 +1432,7 @@
 				555BB4F82890835600A255E0 /* libfmt-ds.a */,
 				55EC6A5D28912D0200933E97 /* libtinyxml2.a */,
 				552B5B2E28E41F890019253A /* libsoundtouch-ds.a */,
+				5549E736290354CB00FA71FA /* libzstd_duck.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1352,6 +1496,8 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				5549E6BC2903537000FA71FA /* game_database.cpp */,
+				5549E6BD2903537000FA71FA /* game_database.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -1595,6 +1741,7 @@
 		551DECEA2527160600B44953 /* dep */ = {
 			isa = PBXGroup;
 			children = (
+				5549E6EC2903548400FA71FA /* zstd */,
 				551DF0E12527B56C00B44953 /* cubeb */,
 				555BB4FC289083B900A255E0 /* fmt */,
 				551DF0352527B3A700B44953 /* glad */,
@@ -1603,6 +1750,7 @@
 				551DED4B252717EC00B44953 /* libchdr */,
 				551DF2342527B87F00B44953 /* lzma */,
 				551DF2912527B91300B44953 /* minizip */,
+				5549E6BF290353B500FA71FA /* rapidjson */,
 				557776B6253D0F73000D0651 /* simpleini */,
 				552B5B3528E41FD10019253A /* soundtouch */,
 				551DF2042527B82400B44953 /* stb */,
@@ -2221,6 +2369,190 @@
 			path = SoundTouch;
 			sourceTree = "<group>";
 		};
+		5549E6BF290353B500FA71FA /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6C1290353B500FA71FA /* include */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		5549E6C1290353B500FA71FA /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6C2290353B500FA71FA /* rapidjson */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5549E6C2290353B500FA71FA /* rapidjson */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6E1290353B500FA71FA /* allocators.h */,
+				5549E6CA290353B500FA71FA /* cursorstreamwrapper.h */,
+				5549E6E0290353B500FA71FA /* document.h */,
+				5549E6C8290353B500FA71FA /* encodedstream.h */,
+				5549E6DB290353B500FA71FA /* encodings.h */,
+				5549E6E3290353B500FA71FA /* error */,
+				5549E6C9290353B500FA71FA /* filereadstream.h */,
+				5549E6DE290353B500FA71FA /* filewritestream.h */,
+				5549E6C3290353B500FA71FA /* fwd.h */,
+				5549E6CD290353B500FA71FA /* internal */,
+				5549E6CB290353B500FA71FA /* istreamwrapper.h */,
+				5549E6E6290353B500FA71FA /* memorybuffer.h */,
+				5549E6C4290353B500FA71FA /* memorystream.h */,
+				5549E6E8290353B500FA71FA /* msinttypes */,
+				5549E6C7290353B500FA71FA /* ostreamwrapper.h */,
+				5549E6E7290353B500FA71FA /* pointer.h */,
+				5549E6C6290353B500FA71FA /* prettywriter.h */,
+				5549E6DF290353B500FA71FA /* rapidjson.h */,
+				5549E6C5290353B500FA71FA /* reader.h */,
+				5549E6DC290353B500FA71FA /* schema.h */,
+				5549E6DD290353B500FA71FA /* stream.h */,
+				5549E6CC290353B500FA71FA /* stringbuffer.h */,
+				5549E6E2290353B500FA71FA /* writer.h */,
+			);
+			path = rapidjson;
+			sourceTree = "<group>";
+		};
+		5549E6CD290353B500FA71FA /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6CE290353B500FA71FA /* ieee754.h */,
+				5549E6CF290353B500FA71FA /* strtod.h */,
+				5549E6D0290353B500FA71FA /* swap.h */,
+				5549E6D1290353B500FA71FA /* regex.h */,
+				5549E6D2290353B500FA71FA /* diyfp.h */,
+				5549E6D3290353B500FA71FA /* biginteger.h */,
+				5549E6D4290353B500FA71FA /* strfunc.h */,
+				5549E6D5290353B500FA71FA /* itoa.h */,
+				5549E6D6290353B500FA71FA /* stack.h */,
+				5549E6D7290353B500FA71FA /* dtoa.h */,
+				5549E6D8290353B500FA71FA /* clzll.h */,
+				5549E6D9290353B500FA71FA /* meta.h */,
+				5549E6DA290353B500FA71FA /* pow10.h */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
+		5549E6E3290353B500FA71FA /* error */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6E4290353B500FA71FA /* error.h */,
+				5549E6E5290353B500FA71FA /* en.h */,
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
+		5549E6E8290353B500FA71FA /* msinttypes */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6E9290353B500FA71FA /* inttypes.h */,
+				5549E6EA290353B500FA71FA /* stdint.h */,
+			);
+			path = msinttypes;
+			sourceTree = "<group>";
+		};
+		5549E6EC2903548400FA71FA /* zstd */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6F12903548400FA71FA /* lib */,
+			);
+			path = zstd;
+			sourceTree = "<group>";
+		};
+		5549E6F12903548400FA71FA /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				5549E7182903548400FA71FA /* common */,
+				5549E6F22903548400FA71FA /* compress */,
+				5549E70F2903548400FA71FA /* decompress */,
+				5549E70E2903548400FA71FA /* zdict.h */,
+				5549E7302903548400FA71FA /* zstd_errors.h */,
+				5549E7312903548400FA71FA /* zstd.h */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		5549E6F22903548400FA71FA /* compress */ = {
+			isa = PBXGroup;
+			children = (
+				5549E6FF2903548400FA71FA /* clevels.h */,
+				5549E70C2903548400FA71FA /* fse_compress.c */,
+				5549E7022903548400FA71FA /* hist.c */,
+				5549E6F42903548400FA71FA /* hist.h */,
+				5549E7092903548400FA71FA /* huf_compress.c */,
+				5549E6F32903548400FA71FA /* zstd_compress_internal.h */,
+				5549E7082903548400FA71FA /* zstd_compress_literals.c */,
+				5549E7002903548400FA71FA /* zstd_compress_literals.h */,
+				5549E6FE2903548400FA71FA /* zstd_compress_sequences.c */,
+				5549E70B2903548400FA71FA /* zstd_compress_sequences.h */,
+				5549E6F72903548400FA71FA /* zstd_compress_superblock.c */,
+				5549E7072903548400FA71FA /* zstd_compress_superblock.h */,
+				5549E7032903548400FA71FA /* zstd_compress.c */,
+				5549E6FD2903548400FA71FA /* zstd_cwksp.h */,
+				5549E6FA2903548400FA71FA /* zstd_double_fast.c */,
+				5549E7042903548400FA71FA /* zstd_double_fast.h */,
+				5549E6FB2903548400FA71FA /* zstd_fast.c */,
+				5549E70D2903548400FA71FA /* zstd_fast.h */,
+				5549E7052903548400FA71FA /* zstd_lazy.c */,
+				5549E6F82903548400FA71FA /* zstd_lazy.h */,
+				5549E6F62903548400FA71FA /* zstd_ldm_geartab.h */,
+				5549E7012903548400FA71FA /* zstd_ldm.c */,
+				5549E6F52903548400FA71FA /* zstd_ldm.h */,
+				5549E70A2903548400FA71FA /* zstd_opt.c */,
+				5549E6FC2903548400FA71FA /* zstd_opt.h */,
+				5549E6F92903548400FA71FA /* zstdmt_compress.c */,
+				5549E7062903548400FA71FA /* zstdmt_compress.h */,
+			);
+			path = compress;
+			sourceTree = "<group>";
+		};
+		5549E70F2903548400FA71FA /* decompress */ = {
+			isa = PBXGroup;
+			children = (
+				5549E7102903548400FA71FA /* zstd_ddict.c */,
+				5549E7112903548400FA71FA /* huf_decompress.c */,
+				5549E7122903548400FA71FA /* zstd_decompress_block.h */,
+				5549E7132903548400FA71FA /* zstd_decompress_internal.h */,
+				5549E7142903548400FA71FA /* zstd_decompress.c */,
+				5549E7152903548400FA71FA /* zstd_ddict.h */,
+				5549E7162903548400FA71FA /* huf_decompress_amd64.S */,
+				5549E7172903548400FA71FA /* zstd_decompress_block.c */,
+			);
+			path = decompress;
+			sourceTree = "<group>";
+		};
+		5549E7182903548400FA71FA /* common */ = {
+			isa = PBXGroup;
+			children = (
+				5549E7252903548400FA71FA /* bitstream.h */,
+				5549E71D2903548400FA71FA /* compiler.h */,
+				5549E7262903548400FA71FA /* cpu.h */,
+				5549E7232903548400FA71FA /* debug.c */,
+				5549E71B2903548400FA71FA /* debug.h */,
+				5549E71F2903548400FA71FA /* entropy_common.c */,
+				5549E72F2903548400FA71FA /* error_private.c */,
+				5549E7212903548400FA71FA /* error_private.h */,
+				5549E7222903548400FA71FA /* fse_decompress.c */,
+				5549E72D2903548400FA71FA /* fse.h */,
+				5549E7282903548400FA71FA /* huf.h */,
+				5549E72A2903548400FA71FA /* mem.h */,
+				5549E7272903548400FA71FA /* pool.c */,
+				5549E71C2903548400FA71FA /* pool.h */,
+				5549E71E2903548400FA71FA /* portability_macros.h */,
+				5549E72B2903548400FA71FA /* threading.c */,
+				5549E7202903548400FA71FA /* threading.h */,
+				5549E7242903548400FA71FA /* xxhash.c */,
+				5549E71A2903548400FA71FA /* xxhash.h */,
+				5549E72C2903548400FA71FA /* zstd_common.c */,
+				5549E7292903548400FA71FA /* zstd_deps.h */,
+				5549E72E2903548400FA71FA /* zstd_internal.h */,
+				5549E7192903548400FA71FA /* zstd_trace.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
 		555BB4F328907FCC00A255E0 /* util */ = {
 			isa = PBXGroup;
 			children = (
@@ -2659,6 +2991,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5549E732290354CB00FA71FA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		555BB4F42890835600A255E0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2733,6 +3072,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				5549E73B290354DE00FA71FA /* PBXTargetDependency */,
 				552B5B3328E41F9E0019253A /* PBXTargetDependency */,
 				55EC6A6228912D1600933E97 /* PBXTargetDependency */,
 				555BB5422890951000A255E0 /* PBXTargetDependency */,
@@ -2905,6 +3245,23 @@
 			productReference = 552B5B2E28E41F890019253A /* libsoundtouch-ds.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		5549E735290354CB00FA71FA /* zstd_duck */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5549E737290354CB00FA71FA /* Build configuration list for PBXNativeTarget "zstd_duck" */;
+			buildPhases = (
+				5549E732290354CB00FA71FA /* Headers */,
+				5549E733290354CB00FA71FA /* Sources */,
+				5549E734290354CB00FA71FA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zstd_duck;
+			productName = zstd_duck;
+			productReference = 5549E736290354CB00FA71FA /* libzstd_duck.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		555BB4F72890835600A255E0 /* fmt-ds */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 555BB4F92890835600A255E0 /* Build configuration list for PBXNativeTarget "fmt-ds" */;
@@ -3028,6 +3385,9 @@
 					552B5B2D28E41F890019253A = {
 						CreatedOnToolsVersion = 14.0.1;
 					};
+					5549E735290354CB00FA71FA = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
 					555BB4F72890835600A255E0 = {
 						CreatedOnToolsVersion = 13.4.1;
 					};
@@ -3076,6 +3436,7 @@
 				555BB4F72890835600A255E0 /* fmt-ds */,
 				55EC6A5C28912D0200933E97 /* tinyxml2 */,
 				552B5B2D28E41F890019253A /* soundtouch-ds */,
+				5549E735290354CB00FA71FA /* zstd_duck */,
 				55759F1C253586FA00153823 /* Build & Install DuckStation */,
 			);
 		};
@@ -3227,6 +3588,7 @@
 				555BB537289085A800A255E0 /* layered_settings_interface.cpp in Sources */,
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
 				551DEC6C2527107500B44953 /* gpu.cpp in Sources */,
+				5549E6BE2903537000FA71FA /* game_database.cpp in Sources */,
 				551DEC9E2527107500B44953 /* shader_cache.cpp in Sources */,
 				551DEC852527107500B44953 /* string.cpp in Sources */,
 				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
@@ -3426,6 +3788,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5549E733290354CB00FA71FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5549E7462903553700FA71FA /* threading.c in Sources */,
+				5549E73E290354F300FA71FA /* huf_decompress.c in Sources */,
+				5549E74B2903558A00FA71FA /* zstd_compress_sequences.c in Sources */,
+				5549E73D290354EE00FA71FA /* zstd_ddict.c in Sources */,
+				5549E7542903558A00FA71FA /* zstd_ldm.c in Sources */,
+				5549E7522903558A00FA71FA /* zstd_compress_superblock.c in Sources */,
+				5549E7412903553700FA71FA /* xxhash.c in Sources */,
+				5549E74D2903558A00FA71FA /* zstd_fast.c in Sources */,
+				5549E74A2903558A00FA71FA /* zstd_lazy.c in Sources */,
+				5549E7482903553700FA71FA /* error_private.c in Sources */,
+				5549E74E2903558A00FA71FA /* fse_compress.c in Sources */,
+				5549E7532903558A00FA71FA /* huf_compress.c in Sources */,
+				5549E7442903553700FA71FA /* zstd_common.c in Sources */,
+				5549E7422903553700FA71FA /* fse_decompress.c in Sources */,
+				5549E7502903558A00FA71FA /* zstdmt_compress.c in Sources */,
+				5549E7472903553700FA71FA /* debug.c in Sources */,
+				5549E73F290354F300FA71FA /* zstd_decompress_block.c in Sources */,
+				5549E740290354F300FA71FA /* zstd_decompress.c in Sources */,
+				5549E7432903553700FA71FA /* entropy_common.c in Sources */,
+				5549E7512903558A00FA71FA /* zstd_compress.c in Sources */,
+				5549E7552903565A00FA71FA /* hist.c in Sources */,
+				5549E7492903558A00FA71FA /* zstd_opt.c in Sources */,
+				5549E74F2903558A00FA71FA /* zstd_compress_literals.c in Sources */,
+				5549E7452903553700FA71FA /* pool.c in Sources */,
+				5549E74C2903558A00FA71FA /* zstd_double_fast.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		555BB4F52890835600A255E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3515,6 +3909,11 @@
 			isa = PBXTargetDependency;
 			target = 552B5B2D28E41F890019253A /* soundtouch-ds */;
 			targetProxy = 552B5B3228E41F9E0019253A /* PBXContainerItemProxy */;
+		};
+		5549E73B290354DE00FA71FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5549E735290354CB00FA71FA /* zstd_duck */;
+			targetProxy = 5549E73A290354DE00FA71FA /* PBXContainerItemProxy */;
 		};
 		555BB5422890951000A255E0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3711,6 +4110,7 @@
 					"\"$(SRCROOT)/duckstation/dep/libsamplerate/include\"",
 					"\"$(SRCROOT)/duckstation/dep/tinyxml2/include\"",
 					"\"$(SRCROOT)/duckstation/dep/soundtouch/include\"",
+					"\"$(SRCROOT)/duckstation/dep/rapidjson/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -3764,6 +4164,7 @@
 					"\"$(SRCROOT)/duckstation/dep/libsamplerate/include\"",
 					"\"$(SRCROOT)/duckstation/dep/tinyxml2/include\"",
 					"\"$(SRCROOT)/duckstation/dep/soundtouch/include\"",
+					"\"$(SRCROOT)/duckstation/dep/rapidjson/include\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -4043,6 +4444,36 @@
 			};
 			name = Release;
 		};
+		5549E738290354CB00FA71FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ZSTD_DISABLE_ASM=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5549E739290354CB00FA71FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"ZSTD_DISABLE_ASM=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		555BB4FA2890835600A255E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4272,6 +4703,15 @@
 			buildConfigurations = (
 				552B5B3028E41F890019253A /* Debug */,
 				552B5B3128E41F890019253A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5549E737290354CB00FA71FA /* Build configuration list for PBXNativeTarget "zstd_duck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5549E738290354CB00FA71FA /* Debug */,
+				5549E739290354CB00FA71FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
