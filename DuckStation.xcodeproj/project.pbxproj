@@ -1744,7 +1744,6 @@
 		551DECEA2527160600B44953 /* dep */ = {
 			isa = PBXGroup;
 			children = (
-				5549E6EC2903548400FA71FA /* zstd */,
 				551DF0E12527B56C00B44953 /* cubeb */,
 				555BB4FC289083B900A255E0 /* fmt */,
 				551DF0352527B3A700B44953 /* glad */,
@@ -1760,6 +1759,7 @@
 				55EC6A6428912D3A00933E97 /* tinyxml2 */,
 				551DF3FB2527BDFB00B44953 /* vixl */,
 				5574164625969BDE00580158 /* xxhash */,
+				5549E6EC2903548400FA71FA /* zstd */,
 			);
 			name = dep;
 			path = duckstation/dep;
@@ -2514,14 +2514,14 @@
 		5549E70F2903548400FA71FA /* decompress */ = {
 			isa = PBXGroup;
 			children = (
-				5549E7102903548400FA71FA /* zstd_ddict.c */,
+				5549E7162903548400FA71FA /* huf_decompress_amd64.S */,
 				5549E7112903548400FA71FA /* huf_decompress.c */,
+				5549E7102903548400FA71FA /* zstd_ddict.c */,
+				5549E7152903548400FA71FA /* zstd_ddict.h */,
+				5549E7172903548400FA71FA /* zstd_decompress_block.c */,
 				5549E7122903548400FA71FA /* zstd_decompress_block.h */,
 				5549E7132903548400FA71FA /* zstd_decompress_internal.h */,
 				5549E7142903548400FA71FA /* zstd_decompress.c */,
-				5549E7152903548400FA71FA /* zstd_ddict.h */,
-				5549E7162903548400FA71FA /* huf_decompress_amd64.S */,
-				5549E7172903548400FA71FA /* zstd_decompress_block.c */,
 			);
 			path = decompress;
 			sourceTree = "<group>";

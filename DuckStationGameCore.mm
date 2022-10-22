@@ -682,10 +682,11 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	const int n = sizeof(defaultValues)/sizeof(defaultValues[0]);
 	for (int i=0; i<n; i++) {
 		id thisPref = displayModeInfo[defaultValues[i].key];
-		if ([thisPref isKindOfClass:defaultValues[i].valueClass])
+		if ([thisPref isKindOfClass:defaultValues[i].valueClass]) {
 			_displayModes[defaultValues[i].key] = thisPref;
-		else
+		} else {
 			_displayModes[defaultValues[i].key] = defaultValues[i].defaultValue;
+		}
 	}
 }
 
@@ -974,7 +975,7 @@ std::string Host::TranslateStdString(const char* context, const char* str, const
 
 void Host::AddOSDMessage(std::string message, float duration)
 {
-	// Do nothing
+	os_log_info(OE_CORE_LOG, "DuckStation OSD: %{public}s", message.c_str());
 }
 
 void Host::AddKeyedOSDMessage(std::string key, std::string message, float duration)
@@ -1009,12 +1010,43 @@ void Host::ClearOSDMessages()
 
 void Host::LoadSettings(SettingsInterface& si, std::unique_lock<std::mutex>& lock)
 {
-	
+	GET_CURRENT_OR_RETURN();
+	[current loadConfiguration];
 }
 
 void Host::OnGameChanged(const std::string& disc_path, const std::string& game_serial, const std::string& game_name)
 {
-	
+	const Settings old_settings = g_settings;
+//	ApplyGameSettings(false);
+	do {
+		const std::string &type = System::GetRunningCode();
+		NSString *nsType = [@(type.c_str()) uppercaseString];
+		
+		OEPSXHacks hacks = OEGetPSXHacksNeededForGame(nsType);
+		if (hacks == OEPSXHacksNone) {
+			break;
+		}
+		
+		// PlayStation GunCon supported games
+		switch (hacks & OEPSXHacksCustomControllers) {
+			case OEPSXHacksGunCon:
+				g_settings.controller_types[0] = ControllerType::GunCon;
+				break;
+				
+			case OEPSXHacksMouse:
+				g_settings.controller_types[0] = ControllerType::PlayStationMouse;
+				break;
+				
+			case OEPSXHacksJustifier:
+				//TODO: implement?
+				break;
+				
+			default:
+				break;
+		}
+	} while (0);
+//	FixIncompatibleSettings(false);
+	CheckForSettingsChanges(old_settings);
 }
 
 bool Host::ConfirmMessage(const std::string_view& title, const std::string_view& message)
@@ -1050,7 +1082,14 @@ void Host::DisplayLoadingScreen(const char* message, int progress_min, int progr
 
 void Host::CheckForSettingsChanges(const Settings& old_settings)
 {
+	GET_CURRENT_OR_RETURN();
 	
+	current->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
+	current->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
+	current->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
+	current->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
+	current->_displayModes[DuckStationCPUOverclockKey] = @(g_settings.GetCPUOverclockPercent());
+	current->_displayModes[DuckStation24ChromaSmoothingKey] = @(g_settings.gpu_24bit_chroma_smoothing);
 }
 
 void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
@@ -1105,27 +1144,6 @@ std::unique_ptr<ByteStream> OpenEmuHostInterface::OpenPackageFile(const char* pa
 {
 	os_log_error(OE_CORE_LOG, "Ignoring request for package file '%{public}s'", path);
 	return nullptr;
-}
-
-void OpenEmuHostInterface::ReportError(const char* message)
-{
-	os_log_error(OE_CORE_LOG, "Internal DuckStation error: %{public}s", message);
-}
-
-void OpenEmuHostInterface::ReportMessage(const char* message)
-{
-	os_log_info(OE_CORE_LOG, "DuckStation info: %{public}s", message);
-}
-
-bool OpenEmuHostInterface::ConfirmMessage(const char* message)
-{
-	os_log(OE_CORE_LOG, "DuckStation asking for confirmation about '%{public}s', assuming true", message);
-	return true;
-}
-
-void OpenEmuHostInterface::AddOSDMessage(std::string message, float duration)
-{
-	os_log_info(OE_CORE_LOG, "DuckStation OSD: %{public}s", message.c_str());
 }
 
 void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
@@ -1242,58 +1260,9 @@ void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
 	}
 }
 
-void OpenEmuHostInterface::OnRunningGameChanged(const std::string& path, CDImage* image,
-												const std::string& game_code, const std::string& game_title)
-{
-	const Settings old_settings = g_settings;
-	ApplyGameSettings(false);
-	do {
-		const std::string &type = System::GetRunningCode();
-		NSString *nsType = [@(type.c_str()) uppercaseString];
-		
-		OEPSXHacks hacks = OEGetPSXHacksNeededForGame(nsType);
-		if (hacks == OEPSXHacksNone) {
-			break;
-		}
-		
-		// PlayStation GunCon supported games
-		switch (hacks & OEPSXHacksCustomControllers) {
-			case OEPSXHacksGunCon:
-				g_settings.controller_types[0] = ControllerType::NamcoGunCon;
-				break;
-				
-			case OEPSXHacksMouse:
-				g_settings.controller_types[0] = ControllerType::PlayStationMouse;
-				break;
-				
-			case OEPSXHacksJustifier:
-				//TODO: implement?
-				break;
-				
-			default:
-				break;
-		}
-	} while (0);
-	FixIncompatibleSettings(false);
-	CheckForSettingsChanges(old_settings);
-}
-
 std::vector<std::string> OpenEmuHostInterface::GetSettingStringList(const char* section, const char* key)
 {
 	return {};
-}
-
-void OpenEmuHostInterface::CheckForSettingsChanges(const Settings& old_settings)
-{
-	HostInterface::CheckForSettingsChanges(old_settings);
-	GET_CURRENT_OR_RETURN();
-	
-	current->_displayModes[DuckStationTextureFilterKey] = @(int(g_settings.gpu_texture_filter));
-	current->_displayModes[DuckStationPGXPActiveKey] = @(g_settings.gpu_pgxp_enable);
-	current->_displayModes[DuckStationDeinterlacedKey] = @(g_settings.gpu_disable_interlacing);
-	current->_displayModes[DuckStationAntialiasKey] = @(g_settings.gpu_multisamples);
-	current->_displayModes[DuckStationCPUOverclockKey] = @(g_settings.GetCPUOverclockPercent());
-	current->_displayModes[DuckStation24ChromaSmoothingKey] = @(g_settings.gpu_24bit_chroma_smoothing);
 }
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
@@ -1440,7 +1409,7 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
 	for (const auto& [dsAxis, oeAxes] : axis_mapping) {
         if (oeAxes.first == button || oeAxes.second == button) {
-            controller->SetBindState(static_cast<u32>(dsAxis), static_cast<u8>(std::clamp(((static_cast<float>(amount) + 1.0f) / 2.0f) * 255.0f, 0.0f, 255.0f)));
+            controller->SetBindState(static_cast<u32>(dsAxis), ((static_cast<float>(amount) + 1.0f) / 2.0f));
         }
 	}
 }
