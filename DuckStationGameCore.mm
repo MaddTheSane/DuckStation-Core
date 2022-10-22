@@ -55,7 +55,8 @@
 #include <memory>
 #include <os/log.h>
 
-// TODO: Re-create!
+Log_SetChannel(OpenEmu);
+
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
@@ -926,6 +927,40 @@ std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
 	}
 }
 
+std::optional<std::time_t> Host::GetResourceFileTimestamp(const char* filename)
+{
+	@autoreleasepool {
+		NSString *nsFile = @(filename);
+		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
+		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
+		NSString *baseExt = nsFile.pathExtension;
+		if (baseExt.length == 0) {
+			baseExt = nil;
+		}
+		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
+			upperName = nil;
+		}
+		NSURL *aURL;
+		if (upperName) {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
+		} else {
+			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
+		}
+		if (!aURL) {
+			return std::nullopt;
+		}
+		
+		FILESYSTEM_STAT_DATA sd;
+		if (!FileSystem::StatFile(aURL.fileSystemRepresentation, &sd))
+		{
+			Log_ErrorPrintf("Failed to stat resource file '%s'", filename);
+			return std::nullopt;
+		}
+		
+		return sd.ModificationTime;
+	}
+}
+
 TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
 								 int n /*= -1*/)
 {
@@ -972,11 +1007,45 @@ void Host::ClearOSDMessages()
 	// Do nothing
 }
 
+void Host::LoadSettings(SettingsInterface& si, std::unique_lock<std::mutex>& lock)
+{
+	
+}
+
+void Host::OnGameChanged(const std::string& disc_path, const std::string& game_serial, const std::string& game_name)
+{
+	
+}
+
+bool Host::ConfirmMessage(const std::string_view& title, const std::string_view& message)
+{
+	return true;
+}
+
+void Host::ReportErrorAsync(const std::string_view& title, const std::string_view& message)
+{
+	
+}
+
+void Host::ReportDebuggerMessage(const std::string_view& message)
+{
+	
+}
 
 std::unique_ptr<AudioStream> Host::CreateAudioStream(AudioBackend backend, u32 sample_rate, u32 channels, u32 buffer_ms,
 											   u32 latency_ms, AudioStretchMode stretch)
 {
 	return OpenEmuAudioStream::CreateOpenEmuStream(sample_rate, channels, buffer_ms);
+}
+
+void Host::DisplayLoadingScreen(const char* message, int progress_min, int progress_max, int progress_value)
+{
+	// Do nothing
+}
+
+void Host::CheckForSettingsChanges(const Settings& old_settings)
+{
+	
 }
 
 void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)

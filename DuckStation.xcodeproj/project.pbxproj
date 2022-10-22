@@ -440,6 +440,7 @@
 		5577775A253D126C000D0651 /* memory_arena.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55777758253D126C000D0651 /* memory_arena.cpp */; };
 		5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5577776C253D127F000D0651 /* page_fault_handler.cpp */; };
 		557777B0253D1770000D0651 /* libSimpleINI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 557776D3253D0FD9000D0651 /* libSimpleINI.a */; };
+		558300022903AD49009161C0 /* host_settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558300012903AD49009161C0 /* host_settings.cpp */; };
 		558B28BE25994D9C00A3495F /* postprocessing_chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28BC25994D9C00A3495F /* postprocessing_chain.cpp */; };
 		558B28CF25994DCE00A3495F /* postprocessing_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28CD25994DCE00A3495F /* postprocessing_shader.cpp */; };
 		558B28E025994E0900A3495F /* postprocessing_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 558B28DF25994E0900A3495F /* postprocessing_shadergen.cpp */; };
@@ -1222,6 +1223,7 @@
 		55777759253D126C000D0651 /* memory_arena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memory_arena.h; sourceTree = "<group>"; };
 		5577776B253D127F000D0651 /* page_fault_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = page_fault_handler.h; sourceTree = "<group>"; };
 		5577776C253D127F000D0651 /* page_fault_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = page_fault_handler.cpp; sourceTree = "<group>"; };
+		558300012903AD49009161C0 /* host_settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = host_settings.cpp; sourceTree = "<group>"; };
 		558B28BC25994D9C00A3495F /* postprocessing_chain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_chain.cpp; sourceTree = "<group>"; };
 		558B28BD25994D9C00A3495F /* postprocessing_chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_chain.h; sourceTree = "<group>"; };
 		558B28CD25994DCE00A3495F /* postprocessing_shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocessing_shader.cpp; sourceTree = "<group>"; };
@@ -1722,6 +1724,7 @@
 				551DEBAC2527107400B44953 /* cubeb_audio_stream.h */,
 				55EC6A5728912BA800933E97 /* game_list.cpp */,
 				55EC6A5628912BA800933E97 /* game_list.h */,
+				558300012903AD49009161C0 /* host_settings.cpp */,
 				550A97A7290255CE00BF54D5 /* input_manager.cpp */,
 				550A97A6290255CE00BF54D5 /* input_manager.h */,
 				551DEC192527107500B44953 /* opengl_host_display.cpp */,
@@ -3494,7 +3497,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}\"\ncd duckstation/src/scmversion\n./gen_scmversion.sh\n";
+			shellScript = "export PATH=/opt/local/bin:${PATH}\n\ncd \"${SRCROOT}\"\ncd duckstation/src/scmversion\n./gen_scmversion.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3517,6 +3520,7 @@
 				551DEC532527107500B44953 /* cpu_disasm.cpp in Sources */,
 				55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */,
 				5574161525969B1A00580158 /* texture_replacements.cpp in Sources */,
+				558300022903AD49009161C0 /* host_settings.cpp in Sources */,
 				551DECAC2527107500B44953 /* minizip_helpers.cpp in Sources */,
 				551DEC5B2527107500B44953 /* negcon.cpp in Sources */,
 				551DF5862527C48A00B44953 /* shader_cache.cpp in Sources */,
