@@ -1019,17 +1019,22 @@ void Host::OnGameChanged(const std::string& disc_path, const std::string& game_s
 
 bool Host::ConfirmMessage(const std::string_view& title, const std::string_view& message)
 {
+	auto fullStr = std::string(message);
+	os_log(OE_CORE_LOG, "DuckStation asking for confirmation about '%{public}s', assuming true", fullStr.c_str());
 	return true;
 }
 
 void Host::ReportErrorAsync(const std::string_view& title, const std::string_view& message)
 {
-	
+	auto fullStr = std::string(message);
+	auto strTitle = std::string(title);
+	os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", strTitle.c_str(), fullStr.c_str());
 }
 
 void Host::ReportDebuggerMessage(const std::string_view& message)
 {
-	
+	auto fullStr = std::string(message);
+	os_log_debug(OE_CORE_LOG, "%{public}s", fullStr.c_str());
 }
 
 std::unique_ptr<AudioStream> Host::CreateAudioStream(AudioBackend backend, u32 sample_rate, u32 channels, u32 buffer_ms,
