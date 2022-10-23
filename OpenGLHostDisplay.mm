@@ -554,9 +554,10 @@ bool OpenGLHostDisplay::Render(bool skip_present)
 	if (skip_present || m_window_info.type == WindowInfo::Type::Surfaceless) {
 		return false;
 	}
+	GLuint framebuffer = [[[_current renderDelegate] presentationFramebuffer] unsignedIntValue];
 	
 	glDisable(GL_SCISSOR_TEST);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
