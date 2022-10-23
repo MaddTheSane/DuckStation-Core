@@ -61,6 +61,7 @@ Log_SetChannel(OpenEmu);
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
+static bool LoadCompatibilitySettings(NSURL* path);
 // We're keeping this: I think it'll be useful when OpenEmu supports Metal.
 static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core);
 
@@ -178,10 +179,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		_displayModes = [[NSMutableDictionary alloc] init];
-		EmuFolders::AppRoot = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
-		EmuFolders::Bios = self.biosDirectoryPath.fileSystemRepresentation;
-		EmuFolders::Cache = [self.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation;
-		EmuFolders::MemoryCards = self.batterySavesDirectoryPath.fileSystemRepresentation;
 //		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
 //		if (gameSettingsURL) {
 //			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
@@ -327,7 +324,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (BOOL)tryToResizeVideoTo:(OEIntSize)size
 {
 	if (!System::IsShutdown() && isInitialized) {
-//		duckInterface->ResizeRenderWindow(size.width, size.height);
+		g_host_display->ResizeRenderWindow(size.width, size.height);
 		
 		g_gpu->UpdateResolutionScale();
 	}
@@ -346,9 +343,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::GunCon:
 		case ControllerType::PlayStationMouse:
 		{
-			//TODO: scale input!
-//			HostDisplay* display = g_host_interface->GetDisplay();
-//			display->SetMousePosition(point.x, point.y);
+			//TODO: scale input?
+			g_host_display->SetMousePosition(point.x, point.y);
 		}
 			return;
 			break;
@@ -360,9 +356,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	switch (g_settings.controller_types[1]) {
 		case ControllerType::PlayStationMouse:
 		{
-			//TODO: scale input!
-//			HostDisplay* display = g_host_interface->GetDisplay();
-//			display->SetMousePosition(point.x, point.y);
+			//TODO: scale input?
+			g_host_display->SetMousePosition(point.x, point.y);
 		}
 			break;
 			
@@ -560,7 +555,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			if (player != 0) {
 				break;
 			}
-			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			GunCon *controller = static_cast<GunCon*>(System::GetController((int)player));
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
@@ -601,7 +596,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			if (player != 0) {
 				break;
 			}
-			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
+			GunCon *controller = static_cast<GunCon*>(System::GetController((int)player));
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
@@ -648,12 +643,16 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (void)executeFrame
 {
     if (!isInitialized) {
+		EmuFolders::AppRoot = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
+		EmuFolders::Bios = self.biosDirectoryPath.fileSystemRepresentation;
+		EmuFolders::Cache = [self.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation;
+		EmuFolders::MemoryCards = self.batterySavesDirectoryPath.fileSystemRepresentation;
 		auto params = SystemBootParameters(bootPath.fileSystemRepresentation);
 		if (saveStatePath) {
 			params.save_state = std::string(saveStatePath.fileSystemRepresentation);
 			saveStatePath = nil;
 		}
-		System::BootSystem(params);
+		isInitialized = System::BootSystem(params);
     }
     
 	System::RunFrame();
@@ -1059,7 +1058,7 @@ void Host::OnGameChanged(const std::string& disc_path, const std::string& game_s
 				break;
 		}
 	} while (0);
-//	FixIncompatibleSettings(false);
+	g_settings.FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
 }
 
@@ -1137,19 +1136,15 @@ void ApplyGameSettings(bool display_osd_messages)
 	}
 }
 
-#if 0
-
-bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
+bool LoadCompatibilitySettings(NSURL* path)
 {
 	NSData *theDat = [NSData dataWithContentsOfURL:path];
 	if (!theDat) {
 		return false;
 	}
 	const std::string theStr((const char*)theDat.bytes, theDat.length);
-	return m_game_settings.Load(theStr);
+	return false;
 }
-
-#endif
 
 void ChangeSettings(OpenEmuChangeSettings new_settings)
 {

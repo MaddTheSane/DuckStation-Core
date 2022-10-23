@@ -101,7 +101,14 @@ _current(core)
 
 OpenGLHostDisplay::~OpenGLHostDisplay()
 {
-	AssertMsg(!m_gl_context, "Context should have been destroyed by now");
+	if (!m_gl_context) {
+		return;
+	}
+	
+	DestroyResources();
+	
+	m_gl_context->DoneCurrent();
+	m_gl_context.reset();
 }
 
 RenderAPI OpenGLHostDisplay::GetRenderAPI() const
