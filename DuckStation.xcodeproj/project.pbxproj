@@ -376,10 +376,10 @@
 		553061C626183FE900A6AB04 /* window_info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553061C526183FE900A6AB04 /* window_info.cpp */; };
 		553061D8261840F700A6AB04 /* chtdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 553061D7261840F700A6AB04 /* chtdb.txt */; };
 		55306219261A567C00A6AB04 /* context_agl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 551DEBEC2527107500B44953 /* context_agl.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */ = {isa = PBXBuildFile; fileRef = 5534EB9225C4C40B00A92DAE /* gamesettings.ini */; };
 		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
 		553AD8D12611278E00E9F910 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553AD8D02611278E00E9F910 /* libz.tbd */; };
+		5542B0C22904B4D90024EF56 /* database in Resources */ = {isa = PBXBuildFile; fileRef = 5542B0C12904B4D80024EF56 /* database */; };
 		55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55453723266719C30097DD71 /* cd_image_ppf.cpp */; };
 		55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55458AC426AE14B400B2741A /* cd_image_device.cpp */; };
 		5549E6BE2903537000FA71FA /* game_database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5549E6BC2903537000FA71FA /* game_database.cpp */; };
@@ -1066,11 +1066,11 @@
 		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		553061C526183FE900A6AB04 /* window_info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window_info.cpp; sourceTree = "<group>"; };
 		553061D7261840F700A6AB04 /* chtdb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chtdb.txt; path = duckstation/data/resources/chtdb.txt; sourceTree = "<group>"; };
-		5534EB9225C4C40B00A92DAE /* gamesettings.ini */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gamesettings.ini; path = duckstation/data/resources/database/gamesettings.ini; sourceTree = "<group>"; };
 		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
 		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
 		553AD8962610408C00E9F910 /* cd_image_m3u.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_m3u.cpp; sourceTree = "<group>"; };
 		553AD8D02611278E00E9F910 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5542B0C12904B4D80024EF56 /* database */ = {isa = PBXFileReference; lastKnownFileType = folder; name = database; path = duckstation/data/resources/database; sourceTree = "<group>"; };
 		55453723266719C30097DD71 /* cd_image_ppf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_ppf.cpp; sourceTree = "<group>"; };
 		55458AC426AE14B400B2741A /* cd_image_device.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_device.cpp; sourceTree = "<group>"; };
 		5549E6BC2903537000FA71FA /* game_database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_database.cpp; sourceTree = "<group>"; };
@@ -1442,10 +1442,10 @@
 		551DEB0425270CC800B44953 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5542B0C12904B4D80024EF56 /* database */,
 				553061D7261840F700A6AB04 /* chtdb.txt */,
 				551DF7792527D21700B44953 /* DuckStation.icns */,
 				551DEB0525270CC800B44953 /* Info.plist */,
-				5534EB9225C4C40B00A92DAE /* gamesettings.ini */,
 				55C3B2B825A9B03E001EE655 /* OEOverrides.ini */,
 				552ED89F2603FA4100846634 /* Localizable.strings */,
 			);
@@ -3451,9 +3451,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
+				5542B0C22904B4D90024EF56 /* database in Resources */,
 				553061D8261840F700A6AB04 /* chtdb.txt in Resources */,
 				552ED89D2603FA4100846634 /* Localizable.strings in Resources */,
-				5534EB9325C4C40B00A92DAE /* gamesettings.ini in Resources */,
 				55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -46,6 +46,7 @@
 #include "common/settings_interface.h"
 #include "frontend-common/game_list.h"
 #include "core/cheats.h"
+#include "frontend-common/game_list.h"
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -74,6 +75,8 @@ struct OpenEmuChangeSettings {
 	std::optional<u32> multisamples = std::nullopt;
 	std::optional<u32> speedPercent = std::nullopt;
 };
+
+static void ChangeSettings(OpenEmuChangeSettings new_settings);
 
 class OpenEmuAudioStream final : public AudioStream
 {
@@ -136,7 +139,6 @@ static NSString * const DuckStation24ChromaSmoothingKey = @"duckstation/GPU/24Bi
 static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock";
 
 @implementation DuckStationGameCore {
-//	OpenEmuHostInterface *duckInterface;
     NSString *bootPath;
 	NSString *saveStatePath;
     bool isInitialized;
@@ -175,8 +177,11 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
-//		duckInterface = new OpenEmuHostInterface();
 		_displayModes = [[NSMutableDictionary alloc] init];
+		EmuFolders::AppRoot = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
+		EmuFolders::Bios = self.biosDirectoryPath.fileSystemRepresentation;
+		EmuFolders::Cache = [self.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation;
+		EmuFolders::MemoryCards = self.batterySavesDirectoryPath.fileSystemRepresentation;
 //		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
 //		if (gameSettingsURL) {
 //			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
@@ -653,8 +658,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
     
 	System::RunFrame();
 	
-	
-//	duckInterface->Render();
+	Host::RenderDisplay(false);
 }
 
 - (NSDictionary<NSString *,id> *)displayModeInfo
@@ -717,7 +721,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	if (chroma24 && [overclock isKindOfClass:[NSNumber class]]) {
 		settings.chroma24Interlace = [chroma24 boolValue];
 	}
-//	duckInterface->ChangeSettings(settings);
+	ChangeSettings(settings);
 }
 
 - (NSArray <NSDictionary <NSString *, id> *> *)displayModes
@@ -782,7 +786,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	} else if ([key isEqualToString:DuckStation24ChromaSmoothingKey]) {
 		settings.chroma24Interlace = [currentVal boolValue];
 	}
-//	duckInterface->ChangeSettings(settings);
+	ChangeSettings(settings);
 }
 
 @end
@@ -813,24 +817,34 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 bool Host::AcquireHostDisplay(RenderAPI api)
 {
 	GET_CURRENT_OR_RETURN(false);
-	return false;
+	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmu::OpenGLHostDisplay>(current);
+	WindowInfo wi = WindowInfoFromGameCore(current);
+	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
+		!display->InitializeRenderDevice(EmuFolders::Cache, g_settings.gpu_use_debug_device, false)) {
+		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
+		return false;
+	}
+	
+	g_host_display = std::move(display);
+
+	return true;
 }
 
 void Host::ReleaseHostDisplay()
 {
-//	GET_CURRENT_OR_RETURN();
+	g_host_display->DestroyRenderSurface();
+	g_host_display.reset();
+	g_host_display = NULL;
 }
 
 void Host::InvalidateDisplay()
 {
-//	GET_CURRENT_OR_RETURN()
-//	g_emu_thread->renderDisplay(false);
+	Host::RenderDisplay(false);
 }
 
 void Host::RenderDisplay(bool skip_present)
 {
-	//	GET_CURRENT_OR_RETURN()
-//	g_emu_thread->renderDisplay(skip_present);
+	g_host_display->Render(skip_present);
 }
 
 void Host::OnSystemStarting()
@@ -980,12 +994,12 @@ void Host::AddOSDMessage(std::string message, float duration)
 
 void Host::AddKeyedOSDMessage(std::string key, std::string message, float duration)
 {
-	// Do nothing
+	os_log_info(OE_CORE_LOG, "DuckStation OSD: %{public}s", message.c_str());
 }
 
 void Host::AddIconOSDMessage(std::string key, const char* icon, std::string message, float duration)
 {
-	// Do nothing
+	os_log_info(OE_CORE_LOG, "DuckStation OSD: %{public}s", message.c_str());
 }
 
 void Host::AddFormattedOSDMessage(float duration, const char* format, ...)
@@ -1109,161 +1123,21 @@ void Host::SetMouseMode(bool relative, bool hide_cursor)
 	// emit g_emu_thread->mouseModeRequested(relative, hide_cursor);
 }
 
-#pragma mark OpenEmuHostInterface methods -
-
-#if 0
-OpenEmuHostInterface::OpenEmuHostInterface()=default;
-OpenEmuHostInterface::~OpenEmuHostInterface()=default;
-
-bool OpenEmuHostInterface::Initialize() {
-	m_program_directory = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
-	GET_CURRENT_OR_RETURN(false);
-	m_user_directory = [current supportDirectoryPath].fileSystemRepresentation;
-	if (!HostInterface::Initialize())
-	  return false;
-
-	if (!CreateDisplay()) {
-		return false;
-	}
-	LoadSettings();
-	
-	return true;
-}
-
-void OpenEmuHostInterface::Shutdown()
-{
-	HostInterface::Shutdown();
-}
-
-void OpenEmuHostInterface::Render()
-{
-	m_display->Render();
-}
-
-std::unique_ptr<ByteStream> OpenEmuHostInterface::OpenPackageFile(const char* path, u32 flags)
-{
-	os_log_error(OE_CORE_LOG, "Ignoring request for package file '%{public}s'", path);
-	return nullptr;
-}
-
-void OpenEmuHostInterface::GetGameInfo(const char* path, CDImage* image, std::string* code, std::string* title)
-{
-	if (image) {
-		*code = System::GetGameCodeForImage(image, true);
-		*title = System::GetGameCodeForImage(image, true);
-	} else {
-		os_log(OE_CORE_LOG, "unable to identify game at %{private}s: missing CDImage parameter.", path);
-	}
-}
-
-std::string OpenEmuHostInterface::GetSharedMemoryCardPath(u32 slot) const
-{
-	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Shared Memory Card-%d.mcd", slot]].fileSystemRepresentation);
-	NSString *path = current.batterySavesDirectoryPath;
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
-	}
-	return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"Shared Memory Card-%d.mcd", slot]].fileSystemRepresentation;
-}
-
-std::string OpenEmuHostInterface::GetGameMemoryCardPath(const char* game_code, u32 slot) const
-{
-	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation);
-	NSString *path = current.batterySavesDirectoryPath;
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
-	}
-	return [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%s-%d.mcd", game_code, slot]].fileSystemRepresentation;
-}
-
-std::string OpenEmuHostInterface::GetShaderCacheBasePath() const
-{
-	GET_CURRENT_OR_RETURN([NSHomeDirectory() stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation);
-	NSString *path = [current.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:NULL]) {
-		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:NULL];
-	}
-	return path.fileSystemRepresentation;
-}
-
-std::string OpenEmuHostInterface::GetStringSettingValue(const char* section, const char* key, const char* default_value)
-{
-	if (strcmp("AutoEnableAnalog", key) == 0) {
-		return "true";
-	}
-	return default_value;
-}
-
-std::string OpenEmuHostInterface::GetBIOSDirectory()
-{
-	GET_CURRENT_OR_RETURN(NSHomeDirectory().fileSystemRepresentation);
-	return current.biosDirectoryPath.fileSystemRepresentation;
-}
-
-bool OpenEmuHostInterface::AcquireHostDisplay()
-{
-	if (!m_display) {
-		return CreateDisplay();
-	}
-	return true;
-}
-
-void OpenEmuHostInterface::ReleaseHostDisplay()
-{
-	m_display->DestroyRenderDevice();
-	m_display.reset();
-	m_display = NULL;
-}
-
-std::unique_ptr<AudioStream> OpenEmuHostInterface::CreateAudioStream(AudioBackend backend)
-{
-	return std::make_unique<OpenEmuAudioStream>();
-}
-
-void OpenEmuHostInterface::LoadSettings(SettingsInterface& si)
-{
-	HostInterface::LoadSettings(si);
-}
-
-void OpenEmuHostInterface::LoadSettings()
-{
-	GET_CURRENT_OR_RETURN();
-	[current loadConfiguration];
-}
-
-bool OpenEmuHostInterface::CreateDisplay()
-{
-	GET_CURRENT_OR_RETURN(false);
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmu::OpenGLHostDisplay>(current);
-	WindowInfo wi = WindowInfoFromGameCore(current);
-	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
-		!display->InitializeRenderDevice(GetShaderCacheBasePath(), g_settings.gpu_use_debug_device, false)) {
-		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
-		return false;
-	}
-	
-	m_display = std::move(display);
-	return true;
-}
-
-void OpenEmuHostInterface::ApplyGameSettings(bool display_osd_messages)
+void ApplyGameSettings(bool display_osd_messages)
 {
 	// this gets called while booting, so can't use valid
 	if (System::IsShutdown() || System::GetRunningCode().empty() || !g_settings.apply_game_settings)
 		return;
 	
-	const GameSettings::Entry* gs = m_game_settings.GetEntry(System::GetRunningCode());
+	const GameDatabase::Entry* gs = GameDatabase::GetEntryForCode(System::GetRunningCode());
 	if (gs) {
-		gs->ApplySettings(display_osd_messages);
+		gs->ApplySettings(g_settings, display_osd_messages);
 	} else {
 		os_log_info(OE_CORE_LOG, "Unable to find game-specific settings for %{public}s.", System::GetRunningCode().c_str());
 	}
 }
 
-std::vector<std::string> OpenEmuHostInterface::GetSettingStringList(const char* section, const char* key)
-{
-	return {};
-}
+#if 0
 
 bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 {
@@ -1275,7 +1149,9 @@ bool OpenEmuHostInterface::LoadCompatibilitySettings(NSURL* path)
 	return m_game_settings.Load(theStr);
 }
 
-void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
+#endif
+
+void ChangeSettings(OpenEmuChangeSettings new_settings)
 {
 	const Settings old_settings = g_settings;
 	if (new_settings.pxgp.has_value()) {
@@ -1303,21 +1179,9 @@ void OpenEmuHostInterface::ChangeSettings(OpenEmuChangeSettings new_settings)
 	if (new_settings.chroma24Interlace.has_value()) {
 		g_settings.gpu_24bit_chroma_smoothing = new_settings.chroma24Interlace.value();
 	}
-	FixIncompatibleSettings(false);
-	CheckForSettingsChanges(old_settings);
+	g_settings.FixIncompatibleSettings(false);
+	System::CheckForSettingsChanges(old_settings);
 }
-
-std::lock_guard<std::recursive_mutex> OpenEmuHostInterface::GetSettingsLock()
-{
-	return std::lock_guard<std::recursive_mutex>(m_settings_mutex);
-}
-
-SettingsInterface * OpenEmuHostInterface::GetSettingsInterface()
-{
-	return nullptr;
-}
-
-#endif
 
 #pragma mark - OpenEmuAudioStream methods
 
@@ -1409,7 +1273,8 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 			{AnalogController::Axis::RightY, {OEPSXRightAnalogUp, OEPSXRightAnalogDown}}}};
 	for (const auto& [dsAxis, oeAxes] : axis_mapping) {
         if (oeAxes.first == button || oeAxes.second == button) {
-            controller->SetBindState(static_cast<u32>(dsAxis), ((static_cast<float>(amount) + 1.0f) / 2.0f));
+			// TODO: test this!
+            controller->SetBindState(static_cast<u32>(dsAxis) + static_cast<u32>(AnalogController::Button::Count), ((static_cast<float>(amount) + 1.0f) / 2.0f));
         }
 	}
 }

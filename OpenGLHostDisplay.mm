@@ -549,6 +549,36 @@ bool OpenGLHostDisplay::RenderScreenshot(u32 width, u32 height, std::vector<u32>
 	return false;
 }
 
+bool OpenGLHostDisplay::Render(bool skip_present)
+{
+	if (skip_present || m_window_info.type == WindowInfo::Type::Surfaceless) {
+		return false;
+	}
+	
+	glDisable(GL_SCISSOR_TEST);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	
+	RenderDisplay();
+	
+	RenderSoftwareCursor();
+	
+	m_gl_context->SwapBuffers();
+	
+	return true;
+}
+
+bool OpenGLHostDisplay::SetGPUTimingEnabled(bool enabled)
+{
+	return false;
+}
+
+float OpenGLHostDisplay::GetAndResetAccumulatedGPUTime()
+{
+	return 0.0f;
+}
+
 #pragma mark ImGUI
 
 bool OpenGLHostDisplay::CreateImGuiContext()
