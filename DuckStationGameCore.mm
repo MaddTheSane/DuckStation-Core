@@ -169,6 +169,8 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.gpu_disable_interlacing = true;
 		// match PS2's speed-up
 		g_settings.cdrom_read_speedup = 4;
+		g_settings.cdrom_seek_speedup = 4;
+		
 		g_settings.gpu_multisamples = 4;
 		g_settings.gpu_pgxp_enable = true;
 		g_settings.gpu_pgxp_vertex_cache = true;
@@ -179,24 +181,15 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		_displayModes = [[NSMutableDictionary alloc] init];
-//		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"gamesettings" withExtension:@"ini"];
-//		if (gameSettingsURL) {
-//			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
-//			if (!success) {
-//				os_log_fault(OE_CORE_LOG, "Game settings for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
-//			}
-//		} else {
-//			os_log_fault(OE_CORE_LOG, "Game settings for particular discs wasn't found.");
-//		}
-//		gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
-//		if (gameSettingsURL) {
-//			bool success = duckInterface->LoadCompatibilitySettings(gameSettingsURL);
-//			if (!success) {
-//				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
-//			}
-//		} else {
-//			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
-//		}
+		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
+		if (gameSettingsURL) {
+			bool success = LoadCompatibilitySettings(gameSettingsURL);
+			if (!success) {
+				os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs didn't load, name %{public}@ at path %{private}@", gameSettingsURL.lastPathComponent, gameSettingsURL.path);
+			}
+		} else {
+			os_log_fault(OE_CORE_LOG, "OpenEmu-specific overrides for particular discs wasn't found.");
+		}
 	}
 	return self;
 }
@@ -1056,6 +1049,22 @@ void Host::OnGameChanged(const std::string& disc_path, const std::string& game_s
 				
 			default:
 				break;
+		}
+		if (hacks & OEPSXHacksOnlyOneMemcard) {
+			g_settings.memory_card_types[1] = MemoryCardType::None;
+		}
+//		if (hacks & OEPSXHacksMultiTap5PlayerPort2) {
+//			g_settings.multitap_mode = MultitapMode::Port2Only;
+//			g_settings.controller_types;
+//		}
+		if (hacks & OEPSXHacksMultiTap) {
+			g_settings.multitap_mode = MultitapMode::BothPorts;
+			g_settings.controller_types[2] = ControllerType::AnalogController;
+			g_settings.controller_types[3] = ControllerType::AnalogController;
+			g_settings.controller_types[4] = ControllerType::AnalogController;
+			g_settings.controller_types[5] = ControllerType::AnalogController;
+			g_settings.controller_types[6] = ControllerType::AnalogController;
+			g_settings.controller_types[7] = ControllerType::AnalogController;
 		}
 	} while (0);
 	g_settings.FixIncompatibleSettings(false);

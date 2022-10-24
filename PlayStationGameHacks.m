@@ -778,7 +778,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		  @"SLPS-02934", // Zen Nihon Pro Wres - Ouja no Tamashii (Japan) (Reprint)
 		  ];
 
-#if 0
 		// PlayStation GunCon supported games
 		NSArray<NSString *> *psxGunConGames =
 		@[
@@ -842,7 +841,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			@"SLES-00616", // Lifeforce Tenka (Italy)
 			@"SLES-00617", // Lifeforce Tenka (Spain)
 		];
-#endif
 
 		// PlayStation Konami Justifier exclusive games
 		NSArray<NSString *> *psxJustifierExclusiveGames =
@@ -1021,7 +1019,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			}
 		}
 
-#if 0
 		for (NSString *gameCode in psxGunConGames) {
 			if (prepsxCompatHacks[gameCode]) {
 				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
@@ -1030,7 +1027,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksGunCon);
 			}
 		}
-#endif
 		
 		for (NSString *gameCode in psxMouseGames) {
 			if (prepsxCompatHacks[gameCode] != nil) {
@@ -1041,7 +1037,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 			}
 		}
 		
-#if 0
 		for (NSString *gameCode in psxSingleMemoryCardGames) {
 			if (prepsxCompatHacks[gameCode]) {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard | prepsxCompatHacks[gameCode].unsignedIntValue);
@@ -1049,7 +1044,6 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard);
 			}
 		}
-#endif
 
 		psxCompatHacks = [prepsxCompatHacks copy];
 	});
