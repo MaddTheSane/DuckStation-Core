@@ -259,6 +259,7 @@ bool OpenGLHostDisplay::CreateRenderDevice(const WindowInfo& wi, std::string_vie
 	m_gl_context = ContextGL::Create(wi, versArray.data(), versArray.size());
 	if (!m_gl_context) {
 		os_log_fault(OE_CORE_LOG, "Failed to create any GL context");
+		m_gl_context.reset();
 		return false;
 	}
 	
@@ -526,14 +527,7 @@ void OpenGLHostDisplay::RenderSoftwareCursor(s32 left, s32 bottom, s32 width, s3
 
 bool OpenGLHostDisplay::SetPostProcessingChain(const std::string_view& config)
 {
-	return false;
-}
-
-static std::string GetFullscreenModeString(u32 width, u32 height, float refresh_rate)
-{
-	char val[64];
-	snprintf(val, sizeof(val), "%u x %u @ %f hz", width, height, refresh_rate);
-	return val;
+	return true;
 }
 
 HostDisplay::AdapterAndModeList OpenGLHostDisplay::GetAdapterAndModeList()
