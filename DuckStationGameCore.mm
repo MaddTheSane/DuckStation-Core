@@ -56,8 +56,6 @@
 #include <memory>
 #include <os/log.h>
 
-Log_SetChannel(OpenEmu);
-
 static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
@@ -176,9 +174,9 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		g_settings.gpu_pgxp_vertex_cache = true;
 		g_settings.gpu_24bit_chroma_smoothing = true;
 		g_settings.gpu_texture_filter = GPUTextureFilter::Nearest;
-		g_settings.gpu_resolution_scale = 0;
-		g_settings.memory_card_types[0] = MemoryCardType::PerGameTitle;
-		g_settings.memory_card_types[1] = MemoryCardType::PerGameTitle;
+		g_settings.gpu_resolution_scale = 1;
+		g_settings.memory_card_types[0] = MemoryCardType::PerGame;
+		g_settings.memory_card_types[1] = MemoryCardType::PerGame;
 		g_settings.cpu_execution_mode = CPUExecutionMode::Recompiler;
 		_displayModes = [[NSMutableDictionary alloc] init];
 		NSURL *gameSettingsURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:@"OEOverrides" withExtension:@"ini"];
@@ -242,7 +240,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		} else {
 			std::string cppStr = std::string(pbpError.GetCodeAndMessage());
 			//TODO: Show the warning to the user!
-			os_log_info(OE_CORE_LOG, "Failed to load PBP: %s. Will continue to attempt to load, but no guaranteee of it loading successfully\nAlso, only one disc will load.", cppStr.c_str());
+			os_log_info(OE_CORE_LOG, "Failed to load PBP: %{public}s. Will continue to attempt to load, but no guaranteee of it loading successfully\nAlso, only one disc will load.", cppStr.c_str());
 		}
 	}
     bootPath = [path copy];
@@ -299,6 +297,17 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (void)startEmulation
 {
 	Log::SetFileOutputParams(true, [self.supportDirectoryPath stringByAppendingPathComponent:@"emu.log"].fileSystemRepresentation);
+	EmuFolders::AppRoot = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
+	EmuFolders::Bios = self.biosDirectoryPath.fileSystemRepresentation;
+	EmuFolders::Cache = [self.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation;
+	EmuFolders::MemoryCards = self.batterySavesDirectoryPath.fileSystemRepresentation;
+	auto params = SystemBootParameters(bootPath.fileSystemRepresentation);
+	if (saveStatePath) {
+		params.save_state = std::string(saveStatePath.fileSystemRepresentation);
+		saveStatePath = nil;
+	}
+	isInitialized = System::BootSystem(params);
+	
 	[super startEmulation];
 }
 
@@ -635,19 +644,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)executeFrame
 {
-    if (!isInitialized) {
-		EmuFolders::AppRoot = [NSBundle bundleForClass:[DuckStationGameCore class]].resourceURL.fileSystemRepresentation;
-		EmuFolders::Bios = self.biosDirectoryPath.fileSystemRepresentation;
-		EmuFolders::Cache = [self.supportDirectoryPath stringByAppendingPathComponent:@"ShaderCache.nobackup"].fileSystemRepresentation;
-		EmuFolders::MemoryCards = self.batterySavesDirectoryPath.fileSystemRepresentation;
-		auto params = SystemBootParameters(bootPath.fileSystemRepresentation);
-		if (saveStatePath) {
-			params.save_state = std::string(saveStatePath.fileSystemRepresentation);
-			saveStatePath = nil;
-		}
-		isInitialized = System::BootSystem(params);
-    }
-    
 	System::RunFrame();
 	
 	Host::RenderDisplay(false);
@@ -869,25 +865,31 @@ float Host::GetOSDScale()
 	return 1.0f;
 }
 
+static NSURL *GetResourceFile(const char *filename)
+{
+	NSString *nsFile = @(filename);
+	NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
+	NSString *upperName = nsFile.stringByDeletingLastPathComponent;
+	NSString *baseExt = nsFile.pathExtension;
+	if (baseExt.length == 0) {
+		baseExt = nil;
+	}
+	if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
+		upperName = nil;
+	}
+	NSURL *aURL;
+	if (upperName) {
+		aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
+	} else {
+		aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
+	}
+	return aURL;
+}
+
 std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
 {
 	@autoreleasepool {
-		NSString *nsFile = @(filename);
-		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
-		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
-		NSString *baseExt = nsFile.pathExtension;
-		if (baseExt.length == 0) {
-			baseExt = nil;
-		}
-		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
-			upperName = nil;
-		}
-		NSURL *aURL;
-		if (upperName) {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
-		} else {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
-		}
+		NSURL *aURL = GetResourceFile(filename);
 		if (!aURL) {
 			return std::nullopt;
 		}
@@ -904,22 +906,7 @@ std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
 std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
 {
 	@autoreleasepool {
-		NSString *nsFile = @(filename);
-		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
-		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
-		NSString *baseExt = nsFile.pathExtension;
-		if (baseExt.length == 0) {
-			baseExt = nil;
-		}
-		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
-			upperName = nil;
-		}
-		NSURL *aURL;
-		if (upperName) {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
-		} else {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
-		}
+		NSURL *aURL = GetResourceFile(filename);
 		if (!aURL) {
 			return std::nullopt;
 		}
@@ -937,30 +924,14 @@ std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
 std::optional<std::time_t> Host::GetResourceFileTimestamp(const char* filename)
 {
 	@autoreleasepool {
-		NSString *nsFile = @(filename);
-		NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
-		NSString *upperName = nsFile.stringByDeletingLastPathComponent;
-		NSString *baseExt = nsFile.pathExtension;
-		if (baseExt.length == 0) {
-			baseExt = nil;
-		}
-		if (upperName.length == 0 || [upperName isEqualToString:@"/"]) {
-			upperName = nil;
-		}
-		NSURL *aURL;
-		if (upperName) {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt subdirectory:upperName];
-		} else {
-			aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
-		}
+		NSURL *aURL = GetResourceFile(filename);
 		if (!aURL) {
 			return std::nullopt;
 		}
 		
 		FILESYSTEM_STAT_DATA sd;
-		if (!FileSystem::StatFile(aURL.fileSystemRepresentation, &sd))
-		{
-			Log_ErrorPrintf("Failed to stat resource file '%s'", filename);
+		if (!FileSystem::StatFile(aURL.fileSystemRepresentation, &sd)) {
+			os_log_info(OE_CORE_LOG, "Failed to stat resource file '%{public}s'", filename);
 			return std::nullopt;
 		}
 		
