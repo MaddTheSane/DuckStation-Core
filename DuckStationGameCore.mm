@@ -33,7 +33,7 @@
 #include "common/byte_stream.h"
 #include "util/cd_image.h"
 #include "common/error.h"
-#include "core/host_display.h"
+//#include "core/host_display.h"
 #include "core/host_interface_progress_callback.h"
 #include "core/host.h"
 #include "core/gpu.h"
@@ -42,11 +42,10 @@
 #include "core/analog_controller.h"
 #include "core/guncon.h"
 #include "core/playstation_mouse.h"
-#include "OpenGLHostDisplay.hpp"
+//#include "OpenGLHostDisplay.hpp"
 #include "common/settings_interface.h"
-#include "frontend-common/game_list.h"
+//#include "frontend-common/game_list.h"
 #include "core/cheats.h"
-#include "frontend-common/game_list.h"
 #undef TickCount
 #include <limits>
 #include <optional>
@@ -102,27 +101,28 @@ private:
 @end
 
 static void OELogFunc(void* pUserParam, const char* channelName, const char* functionName,
-					  LOGLEVEL level, const char* message)
+					  LOGLEVEL level, std::basic_string_view<char> message)
 {
+//	TODO: update!
 	switch (level) {
 		case LOGLEVEL_ERROR:
-			os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+//			os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_WARNING:
 		case LOGLEVEL_PERF:
-			os_log(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+//			os_log(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_INFO:
 		case LOGLEVEL_VERBOSE:
-			os_log_info(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+//			os_log_info(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		case LOGLEVEL_DEV:
 		case LOGLEVEL_DEBUG:
 		case LOGLEVEL_PROFILE:
-			os_log_debug(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+//			os_log_debug(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
 			break;
 			
 		default:
@@ -160,7 +160,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		_current = self;
 //		Log::SetFilterLevel(LOGLEVEL_TRACE);
 		Log::RegisterCallback(OELogFunc, NULL);
-		g_settings.gpu_renderer = GPURenderer::HardwareOpenGL;
+		g_settings.gpu_renderer = GPURenderer::HardwareMetal;
 		g_settings.controller_types[0] = ControllerType::AnalogController;
 		g_settings.controller_types[1] = ControllerType::AnalogController;
 		g_settings.display_crop_mode = DisplayCropMode::Overscan;
@@ -220,13 +220,13 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		
 		_maxDiscs = numberOfMatches;
 	} else if ([path.pathExtension.lowercaseString isEqualToString:@"pbp"]) {
-		Common::Error pbpError;
+		Error pbpError;
 		auto pbpImage = CDImage::OpenPBPImage(path.fileSystemRepresentation, &pbpError);
 		if (pbpImage) {
 			_maxDiscs = pbpImage->GetSubImageCount();
 			os_log_debug(OE_CORE_LOG, "Loading PBP containing %ld discs", (long)_maxDiscs);
 			pbpImage.reset();
-		} else if (pbpError.GetMessage() == "Encrypted PBP images are not supported") {
+		} else if (pbpError.GetDescription() == "Encrypted PBP images are not supported") {
 			// Error out
 			if (error) {
 				*error = [NSError errorWithDomain:OEGameCoreErrorDomain code:OEGameCoreCouldNotLoadROMError userInfo:@{
@@ -238,7 +238,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			}
 			return NO;
 		} else {
-			std::string cppStr = std::string(pbpError.GetCodeAndMessage());
+			const std::string cppStr = pbpError.GetDescription();
 			//TODO: Show the warning to the user!
 			os_log_info(OE_CORE_LOG, "Failed to load PBP: %{public}s. Will continue to attempt to load, but no guaranteee of it loading successfully\nAlso, only one disc will load.", cppStr.c_str());
 		}
@@ -335,8 +335,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (OEGameCoreRendering)gameCoreRendering
 {
-	//TODO: return OEGameCoreRenderingMetal1Video;
-	return OEGameCoreRenderingOpenGL3Video;
+	return OEGameCoreRenderingMetal2;
 }
 
 - (oneway void)mouseMovedAtPoint:(OEIntPoint)point
