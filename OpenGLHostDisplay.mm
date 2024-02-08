@@ -34,6 +34,8 @@
 #include <tuple>
 #undef TickCount
 
+#if 0
+
 #include <dlfcn.h>
 #include <os/log.h>
 
@@ -668,3 +670,4 @@ std::unique_ptr<GL::Context> ContextGL::CreateSharedContext(const WindowInfo& wi
 	
 	return context;
 }
+#endif

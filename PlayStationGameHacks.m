@@ -30,7 +30,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		// PlayStation Multitap supported games (incomplete list)
-		// TODO: migrate to OEOverrides.ini when DuckStation adds support for multi-tap
+		// TODO: migrate to OEOverrides.ini since DuckStation added support for multi-tap
 		NSDictionary<NSString *, NSNumber *> *psxMultiTapGames =
 		@{
 		  @"SLES-02339" : @3, // Arcade Party Pak (Europe, Australia)

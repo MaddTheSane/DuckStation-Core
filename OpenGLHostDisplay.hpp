@@ -33,14 +33,15 @@
 #define __glext_h_
 #endif
 
-#include "common/gl/context.h"
-#include "common/gl/program.h"
-#include "common/gl/stream_buffer.h"
-#include "common/gl/texture.h"
-#include "common/window_info.h"
-#include "core/host_display.h"
+//#include "common/gl/context.h"
+//#include "common/gl/program.h"
+//#include "common/gl/stream_buffer.h"
+//#include "common/gl/texture.h"
+#include "util/window_info.h"
+//#include "core/host_display.h"
 #include <memory>
 
+#if 0
 @class DuckStationGameCore;
 
 namespace OpenEmu {
@@ -127,5 +128,5 @@ private:
 	DuckStationGameCore *_current;
 };
 };
-
+#endif
 #endif /* OpenEmuOpenGLHostDisplay_hpp */

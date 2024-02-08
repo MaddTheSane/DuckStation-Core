@@ -567,6 +567,17 @@
 		55F9D8102812134F005286B6 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F9D8022812134F005286B6 /* imgui_demo.cpp */; };
 		55F9D8112812134F005286B6 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F9D8032812134F005286B6 /* imgui_draw.cpp */; };
 		55F9D81228121386005286B6 /* libimgui-duck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F9D7E828121339005286B6 /* libimgui-duck.a */; };
+		55FB020C2B757E00006E4779 /* zstd_byte_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB020B2B757E00006E4779 /* zstd_byte_stream.cpp */; };
+		55FB020F2B757E7E006E4779 /* small_string.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB020D2B757E7E006E4779 /* small_string.cpp */; };
+		55FB02112B757EC5006E4779 /* fastjmp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02102B757EC5006E4779 /* fastjmp.cpp */; };
+		55FB02152B757F3F006E4779 /* librapidyaml-duck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C2190B2B73011B00FE6D3C /* librapidyaml-duck.a */; };
+		55FB02182B75800D006E4779 /* game_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02162B75800D006E4779 /* game_list.cpp */; };
+		55FB021B2B758036006E4779 /* memmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02192B758036006E4779 /* memmap.cpp */; };
+		55FB021E2B758070006E4779 /* pcdrv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB021C2B758070006E4779 /* pcdrv.cpp */; };
+		55FB02212B758279006E4779 /* cpu_pgxp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB021F2B758279006E4779 /* cpu_pgxp.cpp */; };
+		55FB02242B75834E006E4779 /* gpu_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02222B75834E006E4779 /* gpu_shadergen.cpp */; };
+		55FB02262B758387006E4779 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FB02252B758387006E4779 /* libcurl.tbd */; };
+		55FB022E2B75846D006E4779 /* SmallVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB022A2B75846D006E4779 /* SmallVector.cpp */; };
 		55FF1A7A2658680F006C3885 /* cue_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FF1A792658680F006C3885 /* cue_parser.cpp */; };
 /* End PBXBuildFile section */
 
@@ -668,6 +679,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 551DF5992527C50200B44953;
 			remoteInfo = glslang;
+		};
+		55FB02132B757F35006E4779 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 551DEAFA25270CC800B44953 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55C2190A2B73011B00FE6D3C;
+			remoteInfo = "rapidyaml-duck";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1443,6 +1461,25 @@
 		55F9D8012812134F005286B6 /* imgui_tables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_tables.cpp; sourceTree = "<group>"; };
 		55F9D8022812134F005286B6 /* imgui_demo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_demo.cpp; sourceTree = "<group>"; };
 		55F9D8032812134F005286B6 /* imgui_draw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_draw.cpp; sourceTree = "<group>"; };
+		55FB020A2B7572FA006E4779 /* imgui_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imgui_manager.h; sourceTree = "<group>"; };
+		55FB020B2B757E00006E4779 /* zstd_byte_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zstd_byte_stream.cpp; sourceTree = "<group>"; };
+		55FB020D2B757E7E006E4779 /* small_string.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = small_string.cpp; sourceTree = "<group>"; };
+		55FB020E2B757E7E006E4779 /* small_string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = small_string.h; sourceTree = "<group>"; };
+		55FB02102B757EC5006E4779 /* fastjmp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fastjmp.cpp; sourceTree = "<group>"; };
+		55FB02122B757ED8006E4779 /* fastjmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fastjmp.h; sourceTree = "<group>"; };
+		55FB02162B75800D006E4779 /* game_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game_list.cpp; sourceTree = "<group>"; };
+		55FB02172B75800D006E4779 /* game_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game_list.h; sourceTree = "<group>"; };
+		55FB02192B758036006E4779 /* memmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memmap.cpp; sourceTree = "<group>"; };
+		55FB021A2B758036006E4779 /* memmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memmap.h; sourceTree = "<group>"; };
+		55FB021C2B758070006E4779 /* pcdrv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pcdrv.cpp; sourceTree = "<group>"; };
+		55FB021D2B758070006E4779 /* pcdrv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pcdrv.h; sourceTree = "<group>"; };
+		55FB021F2B758279006E4779 /* cpu_pgxp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_pgxp.cpp; sourceTree = "<group>"; };
+		55FB02202B758279006E4779 /* cpu_pgxp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cpu_pgxp.h; sourceTree = "<group>"; };
+		55FB02222B75834E006E4779 /* gpu_shadergen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gpu_shadergen.cpp; sourceTree = "<group>"; };
+		55FB02232B75834E006E4779 /* gpu_shadergen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gpu_shadergen.h; sourceTree = "<group>"; };
+		55FB02252B758387006E4779 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
+		55FB022A2B75846D006E4779 /* SmallVector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmallVector.cpp; sourceTree = "<group>"; };
+		55FB022B2B75846D006E4779 /* SmallVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallVector.h; sourceTree = "<group>"; };
 		55FF1A782658680F006C3885 /* cue_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cue_parser.h; sourceTree = "<group>"; };
 		55FF1A792658680F006C3885 /* cue_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cue_parser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1452,6 +1489,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55FB02262B758387006E4779 /* libcurl.tbd in Frameworks */,
+				55FB02152B757F3F006E4779 /* librapidyaml-duck.a in Frameworks */,
 				55C218AF2B72FC7500FE6D3C /* libreshadefx-duck.a in Frameworks */,
 				55C218B02B72FC7500FE6D3C /* libspirv-cross-duck.a in Frameworks */,
 				5549E73C290354E800FA71FA /* libzstd_duck.a in Frameworks */,
@@ -1667,6 +1706,7 @@
 		551DEB0F25270DA600B44953 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55FB02252B758387006E4779 /* libcurl.tbd */,
 				553AD8D02611278E00E9F910 /* libz.tbd */,
 				551DEF8E2527268C00B44953 /* Cocoa.framework */,
 				551DEB1025270DA600B44953 /* OpenEmuBase.framework */,
@@ -1692,7 +1732,6 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				55C218F02B72FF7600FE6D3C /* cpu_code_cache_private.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -1709,6 +1748,7 @@
 				551DEB582527107400B44953 /* cheats.h */,
 				551DEB732527107400B44953 /* controller.cpp */,
 				551DEB562527107400B44953 /* controller.h */,
+				55C218F02B72FF7600FE6D3C /* cpu_code_cache_private.h */,
 				551DEB812527107400B44953 /* cpu_code_cache.cpp */,
 				551DEB3C2527107400B44953 /* cpu_code_cache.h */,
 				551DEB332527107400B44953 /* cpu_core_private.h */,
@@ -1716,6 +1756,8 @@
 				551DEB252527107400B44953 /* cpu_core.h */,
 				551DEB4C2527107400B44953 /* cpu_disasm.cpp */,
 				551DEB302527107400B44953 /* cpu_disasm.h */,
+				55FB021F2B758279006E4779 /* cpu_pgxp.cpp */,
+				55FB02202B758279006E4779 /* cpu_pgxp.h */,
 				551DEB3A2527107400B44953 /* cpu_recompiler_code_generator_aarch64.cpp */,
 				551DEB3E2527107400B44953 /* cpu_recompiler_code_generator_generic.cpp */,
 				551DEB4E2527107400B44953 /* cpu_recompiler_code_generator_x64.cpp */,
@@ -1733,6 +1775,8 @@
 				551DEB282527107400B44953 /* dma.h */,
 				5549E6BC2903537000FA71FA /* game_database.cpp */,
 				5549E6BD2903537000FA71FA /* game_database.h */,
+				55FB02162B75800D006E4779 /* game_list.cpp */,
+				55FB02172B75800D006E4779 /* game_list.h */,
 				5591A838256A0AD0009556D6 /* gpu_backend.cpp */,
 				5591A836256A0AD0009556D6 /* gpu_backend.h */,
 				551DEB5C2527107400B44953 /* gpu_commands.cpp */,
@@ -1740,6 +1784,8 @@
 				551DEB382527107400B44953 /* gpu_hw_shadergen.h */,
 				551DEB5A2527107400B44953 /* gpu_hw.cpp */,
 				551DEB5F2527107400B44953 /* gpu_hw.h */,
+				55FB02222B75834E006E4779 /* gpu_shadergen.cpp */,
+				55FB02232B75834E006E4779 /* gpu_shadergen.h */,
 				5591A839256A0AD0009556D6 /* gpu_sw_backend.cpp */,
 				5591A837256A0AD0009556D6 /* gpu_sw_backend.h */,
 				551DEB442527107400B44953 /* gpu_sw.cpp */,
@@ -1770,6 +1816,8 @@
 				551DEB532527107400B44953 /* negcon.h */,
 				551DEB662527107400B44953 /* pad.cpp */,
 				551DEB462527107400B44953 /* pad.h */,
+				55FB021C2B758070006E4779 /* pcdrv.cpp */,
+				55FB021D2B758070006E4779 /* pcdrv.h */,
 				551DEB852527107400B44953 /* playstation_mouse.cpp */,
 				551DEB802527107400B44953 /* playstation_mouse.h */,
 				551DEB432527107400B44953 /* psf_loader.cpp */,
@@ -1802,13 +1850,6 @@
 			children = (
 				551DEB8D2527107400B44953 /* align.h */,
 				551DEBA82527107400B44953 /* assert.cpp */,
-				555BB532289085A800A255E0 /* layered_settings_interface.cpp */,
-				555BB535289085A800A255E0 /* layered_settings_interface.h */,
-				555BB533289085A800A255E0 /* memory_settings_interface.cpp */,
-				555BB531289085A800A255E0 /* memory_settings_interface.h */,
-				555BB52F289085A800A255E0 /* settings_interface.h */,
-				555BB530289085A800A255E0 /* threading.cpp */,
-				555BB534289085A800A255E0 /* threading.h */,
 				551DEC002527107500B44953 /* assert.h */,
 				551DEC062527107500B44953 /* bitfield.h */,
 				551DEBD82527107500B44953 /* bitutils.h */,
@@ -1817,6 +1858,8 @@
 				551DEBBD2527107400B44953 /* dimensional_array.h */,
 				552ED8BE26053D0400846634 /* error.cpp */,
 				552ED8BF26053D0400846634 /* error.h */,
+				55FB02102B757EC5006E4779 /* fastjmp.cpp */,
+				55FB02122B757ED8006E4779 /* fastjmp.h */,
 				551DEBBA2527107400B44953 /* fifo_queue.h */,
 				551DEBD72527107500B44953 /* file_system.cpp */,
 				551DEC052527107500B44953 /* file_system.h */,
@@ -1824,18 +1867,30 @@
 				551DEBAA2527107400B44953 /* heap_array.h */,
 				551DEB902527107400B44953 /* image.cpp */,
 				551DEC082527107500B44953 /* image.h */,
+				555BB532289085A800A255E0 /* layered_settings_interface.cpp */,
+				555BB535289085A800A255E0 /* layered_settings_interface.h */,
 				551DEB8B2527107400B44953 /* log.cpp */,
 				551DEBBF2527107400B44953 /* log.h */,
 				551DEBF82527107500B44953 /* md5_digest.cpp */,
 				551DEBAD2527107400B44953 /* md5_digest.h */,
+				55FB02192B758036006E4779 /* memmap.cpp */,
+				55FB021A2B758036006E4779 /* memmap.h */,
+				555BB533289085A800A255E0 /* memory_settings_interface.cpp */,
+				555BB531289085A800A255E0 /* memory_settings_interface.h */,
 				551DEBFF2527107500B44953 /* minizip_helpers.cpp */,
 				551DEBB52527107400B44953 /* minizip_helpers.h */,
 				551DEBF42527107500B44953 /* progress_callback.cpp */,
 				551DEBB02527107400B44953 /* progress_callback.h */,
 				551DEBFA2527107500B44953 /* rectangle.h */,
 				551DEB952527107400B44953 /* scoped_guard.h */,
+				555BB52F289085A800A255E0 /* settings_interface.h */,
+				55FB020D2B757E7E006E4779 /* small_string.cpp */,
+				55FB020E2B757E7E006E4779 /* small_string.h */,
 				551DEB892527107400B44953 /* string_util.cpp */,
 				551DEBA12527107400B44953 /* string_util.h */,
+				55FB02272B75846D006E4779 /* thirdparty */,
+				555BB530289085A800A255E0 /* threading.cpp */,
+				555BB534289085A800A255E0 /* threading.h */,
 				551DEBA72527107400B44953 /* timer.cpp */,
 				551DEBB82527107400B44953 /* timer.h */,
 				551DEBA32527107400B44953 /* types.h */,
@@ -2699,6 +2754,7 @@
 				55C218D02B72FDC000FE6D3C /* http_downloader_curl.h */,
 				55C218CF2B72FDC000FE6D3C /* http_downloader.cpp */,
 				55C218E32B72FDC100FE6D3C /* http_downloader.h */,
+				55FB020A2B7572FA006E4779 /* imgui_manager.h */,
 				551DEC112527107500B44953 /* ini_settings_interface.cpp */,
 				551DEC132527107500B44953 /* ini_settings_interface.h */,
 				55C218D62B72FDC100FE6D3C /* input_manager.cpp */,
@@ -2742,6 +2798,7 @@
 				551DEBB12527107400B44953 /* wav_writer.h */,
 				55C218CE2B72FDC000FE6D3C /* window_info.cpp */,
 				55C218DE2B72FDC100FE6D3C /* window_info.h */,
+				55FB020B2B757E00006E4779 /* zstd_byte_stream.cpp */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -3164,6 +3221,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		55FB02272B75846D006E4779 /* thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				55FB022A2B75846D006E4779 /* SmallVector.cpp */,
+				55FB022B2B75846D006E4779 /* SmallVector.h */,
+			);
+			path = thirdparty;
+			sourceTree = "<group>";
+		};
 		EE14C0B125389F9400464C74 /* Compatibility */ = {
 			isa = PBXGroup;
 			children = (
@@ -3554,6 +3620,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				55FB02142B757F35006E4779 /* PBXTargetDependency */,
 				5549E73B290354DE00FA71FA /* PBXTargetDependency */,
 				552B5B3328E41F9E0019253A /* PBXTargetDependency */,
 				555BB5422890951000A255E0 /* PBXTargetDependency */,
@@ -4053,6 +4120,7 @@
 				55C218EF2B72FDC100FE6D3C /* metal_stream_buffer.mm in Sources */,
 				551DEC6B2527107500B44953 /* memory_card_image.cpp in Sources */,
 				551DEC462527107500B44953 /* dma.cpp in Sources */,
+				55FB020F2B757E7E006E4779 /* small_string.cpp in Sources */,
 				551DECA92527107500B44953 /* md5_digest.cpp in Sources */,
 				55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */,
 				551DEC8B2527107500B44953 /* iso_reader.cpp in Sources */,
@@ -4081,6 +4149,7 @@
 				551DEC822527107500B44953 /* timer.cpp in Sources */,
 				5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */,
 				551DEC6F2527107500B44953 /* cpu_code_cache.cpp in Sources */,
+				55FB02212B758279006E4779 /* cpu_pgxp.cpp in Sources */,
 				55C218C62B72FCF400FE6D3C /* postprocessing.cpp in Sources */,
 				55C218E82B72FDC100FE6D3C /* input_source.cpp in Sources */,
 				551DEC5A2527107500B44953 /* cpu_core.cpp in Sources */,
@@ -4089,9 +4158,12 @@
 				551DEC612527107500B44953 /* system.cpp in Sources */,
 				551DEC732527107500B44953 /* cd_image_memory.cpp in Sources */,
 				553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */,
+				55FB020C2B757E00006E4779 /* zstd_byte_stream.cpp in Sources */,
+				55FB022E2B75846D006E4779 /* SmallVector.cpp in Sources */,
 				551DECAF2527107500B44953 /* shiftjis.cpp in Sources */,
 				551DEC7A2527107500B44953 /* image.cpp in Sources */,
 				551DEC672527107500B44953 /* gpu_hw_shadergen.cpp in Sources */,
+				55FB02182B75800D006E4779 /* game_list.cpp in Sources */,
 				551DEC402527107500B44953 /* bus.cpp in Sources */,
 				551DEC5C2527107500B44953 /* host_interface_progress_callback.cpp in Sources */,
 				551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */,
@@ -4101,17 +4173,20 @@
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				55E1689225EC19A6001F4110 /* multitap.cpp in Sources */,
 				551DEC742527107500B44953 /* string_util.cpp in Sources */,
+				55FB02242B75834E006E4779 /* gpu_shadergen.cpp in Sources */,
 				555BB537289085A800A255E0 /* layered_settings_interface.cpp in Sources */,
 				551DECA62527107500B44953 /* progress_callback.cpp in Sources */,
 				551DEC6C2527107500B44953 /* gpu.cpp in Sources */,
 				5549E6BE2903537000FA71FA /* game_database.cpp in Sources */,
 				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
+				55FB02112B757EC5006E4779 /* fastjmp.cpp in Sources */,
 				551DEC5F2527107500B44953 /* interrupt_controller.cpp in Sources */,
 				555BB536289085A800A255E0 /* threading.cpp in Sources */,
 				551DEC8C2527107500B44953 /* cd_xa.cpp in Sources */,
 				55C218EA2B72FDC100FE6D3C /* host.cpp in Sources */,
 				551DEC682527107500B44953 /* controller.cpp in Sources */,
 				551DEC442527107500B44953 /* cdrom.cpp in Sources */,
+				55FB021E2B758070006E4779 /* pcdrv.cpp in Sources */,
 				551DEC812527107500B44953 /* cd_image_cue.cpp in Sources */,
 				55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */,
 				551DEC582527107500B44953 /* guncon.cpp in Sources */,
@@ -4133,6 +4208,7 @@
 				551DEF372527232900B44953 /* cpu_recompiler_multiarch.cpp in Sources */,
 				551DECA82527107500B44953 /* cd_image_chd.cpp in Sources */,
 				551DEC622527107500B44953 /* memory_card.cpp in Sources */,
+				55FB021B2B758036006E4779 /* memmap.cpp in Sources */,
 				551DEC8A2527107500B44953 /* jit_code_buffer.cpp in Sources */,
 				551DECAB2527107500B44953 /* byte_stream.cpp in Sources */,
 			);
@@ -4498,6 +4574,11 @@
 			target = 551DF5992527C50200B44953 /* glslangd */;
 			targetProxy = 55E1683E25E994C1001F4110 /* PBXContainerItemProxy */;
 		};
+		55FB02142B757F35006E4779 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55C2190A2B73011B00FE6D3C /* rapidyaml-duck */;
+			targetProxy = 55FB02132B757F35006E4779 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -4667,6 +4748,7 @@
 					"\"$(SRCROOT)/duckstation/dep/soundtouch/include\"",
 					"\"$(SRCROOT)/duckstation/dep/rapidjson/include\"",
 					"\"${SRCROOT}/duckstation/dep/rapidyaml/include\"",
+					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -4676,7 +4758,6 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/duckstation/src\"",
 					"\"${SRCROOT}/duckstation/dep/fmt/include\"",
-					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 					"\"${SRCROOT}/duckstation/dep/fast_float/include\"",
 					"\"${SRCROOT}/duckstation/dep/spirv-cross/include\"",
 				);
@@ -4724,6 +4805,7 @@
 					"\"$(SRCROOT)/duckstation/dep/soundtouch/include\"",
 					"\"$(SRCROOT)/duckstation/dep/rapidjson/include\"",
 					"\"${SRCROOT}/duckstation/dep/rapidyaml/include\"",
+					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
@@ -4733,7 +4815,6 @@
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/duckstation/src\"",
 					"\"${SRCROOT}/duckstation/dep/fmt/include\"",
-					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 					"\"${SRCROOT}/duckstation/dep/fast_float/include\"",
 					"\"${SRCROOT}/duckstation/dep/spirv-cross/include\"",
 				);
@@ -5190,9 +5271,15 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"C4_NO_DEBUG_BREAK=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/dep/rapidyaml/include\"";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/dep/fast_float/include\"";
 			};
 			name = Debug;
 		};
@@ -5202,9 +5289,15 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"C4_NO_DEBUG_BREAK=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/dep/rapidyaml/include\"";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}/duckstation/dep/fast_float/include\"";
 			};
 			name = Release;
 		};

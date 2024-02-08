@@ -38,6 +38,7 @@
 #include "core/host.h"
 #include "core/gpu.h"
 #include "util/audio_stream.h"
+#include "util/input_manager.h"
 #include "core/digital_controller.h"
 #include "core/analog_controller.h"
 #include "core/guncon.h"
@@ -59,6 +60,7 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount);
 static void updateAnalogControllerButton(OEPSXButton button, int player, bool down);
 static void updateDigitalControllerButton(OEPSXButton button, int player, bool down);
 static bool LoadCompatibilitySettings(NSURL* path);
+static void ApplyGameSettings(bool display_osd_messages);
 // We're keeping this: I think it'll be useful when OpenEmu supports Metal.
 static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core);
 
@@ -144,6 +146,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 	NSInteger _maxDiscs;
 @package
 	NSMutableDictionary <NSString *, id> *_displayModes;
+	std::string currentGameSerial;
 }
 
 + (void)initialize
@@ -158,6 +161,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 {
 	if (self = [super init]) {
 		_current = self;
+		currentGameSerial = "";
 //		Log::SetFilterLevel(LOGLEVEL_TRACE);
 		Log::RegisterCallback(OELogFunc, NULL);
 		g_settings.gpu_renderer = GPURenderer::HardwareMetal;
@@ -326,7 +330,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 - (BOOL)tryToResizeVideoTo:(OEIntSize)size
 {
 	if (!System::IsShutdown() && isInitialized) {
-		g_host_display->ResizeRenderWindow(size.width, size.height);
+//		g_host_display->ResizeRenderWindow(size.width, size.height);
 		
 		g_gpu->UpdateResolutionScale();
 	}
@@ -345,7 +349,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			//TODO: scale input?
-			g_host_display->SetMousePosition(point.x, point.y);
+			InputManager::UpdatePointerAbsolutePosition(0, point.x, point.y);
 		}
 			return;
 			break;
@@ -358,7 +362,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			//TODO: scale input?
-			g_host_display->SetMousePosition(point.x, point.y);
+			InputManager::UpdatePointerAbsolutePosition(1, point.x, point.y);
 		}
 			break;
 			
@@ -374,7 +378,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(GunCon::Button::Trigger), 1);
+			controller->SetBindState(static_cast<u32>(GunCon::Binding::Trigger), 1);
 		}
 			return;
 			break;
@@ -383,7 +387,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 1);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Left), 1);
 		}
 			return;
 			break;
@@ -397,7 +401,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 1);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Left), 1);
 		}
 			break;
 			
@@ -412,7 +416,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::GunCon:
 		{
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(GunCon::Button::Trigger), 0);
+			controller->SetBindState(static_cast<u32>(GunCon::Binding::Trigger), 0);
 		}
 			return;
 			break;
@@ -420,7 +424,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 0);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Left), 0);
 		}
 			return;
 			break;
@@ -433,7 +437,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Left), 0);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Left), 0);
 		}
 			break;
 
@@ -449,7 +453,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 //			[self mouseMovedAtPoint:point];
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(GunCon::Button::ShootOffscreen), 1);
+			controller->SetBindState(static_cast<u32>(GunCon::Binding::ShootOffscreen), 1);
 		}
 			return;
 			break;
@@ -458,7 +462,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 1);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Right), 1);
 		}
 			return;
 			break;
@@ -472,7 +476,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		{
 			[self mouseMovedAtPoint:point];
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 1);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Right), 1);
 		}
 			break;
 			
@@ -487,7 +491,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::GunCon:
 		{
 			GunCon *controller = static_cast<GunCon*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(GunCon::Button::ShootOffscreen), 0);
+			controller->SetBindState(static_cast<u32>(GunCon::Binding::ShootOffscreen), 0);
 		}
 			return;
 			break;
@@ -495,7 +499,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(0));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), 0);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Right), 0);
 		}
 			return;
 			break;
@@ -508,7 +512,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 		case ControllerType::PlayStationMouse:
 		{
 			PlayStationMouse *controller = static_cast<PlayStationMouse*>(System::GetController(1));
-			controller->SetBindState(static_cast<u32>(PlayStationMouse::Button::Right), false);
+			controller->SetBindState(static_cast<u32>(PlayStationMouse::Binding::Right), false);
 		}
 			break;
 
@@ -560,13 +564,13 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetBindState(static_cast<u32>(GunCon::Button::A), 1);
+					controller->SetBindState(static_cast<u32>(GunCon::Binding::A), 1);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetBindState(static_cast<u32>(GunCon::Button::B), 1);
+					controller->SetBindState(static_cast<u32>(GunCon::Binding::B), 1);
 					break;
 
 				default:
@@ -601,13 +605,13 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 			switch (button) {
 				case OEPSXButtonCircle:
 				case OEPSXButtonSquare:
-					controller->SetBindState(static_cast<u32>(GunCon::Button::A), false);
+					controller->SetBindState(static_cast<u32>(GunCon::Binding::A), false);
 					break;
 					
 				case OEPSXButtonCross:
 				case OEPSXButtonTriangle:
 				case OEPSXButtonStart:
-					controller->SetBindState(static_cast<u32>(GunCon::Button::B), false);
+					controller->SetBindState(static_cast<u32>(GunCon::Binding::B), false);
 					break;
 
 				default:
@@ -643,9 +647,9 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 - (void)executeFrame
 {
-	System::RunFrame();
-	
-	Host::RenderDisplay(false);
+//	System::RunFrame();
+//	
+//	Host::RenderDisplay(false);
 }
 
 - (NSDictionary<NSString *,id> *)displayModeInfo
@@ -792,6 +796,9 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 #include "core/digital_controller.h"
 #include "core/gpu.h"
 #include "core/system.h"
+#include "util/imgui_manager.h"
+#include "util/host.h"
+#include "core/game_database.h"
 #undef TickCount
 #include <array>
 #include <cstring>
@@ -801,6 +808,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 #pragma mark - Host Mapping
 
+#if 0
 bool Host::AcquireHostDisplay(RenderAPI api)
 {
 	GET_CURRENT_OR_RETURN(false);
@@ -863,10 +871,16 @@ float Host::GetOSDScale()
 {
 	return 1.0f;
 }
+#endif
 
-static NSURL *GetResourceFile(const char *filename)
+void Host::RequestResizeHostDisplay(s32 width, s32 height)
 {
-	NSString *nsFile = @(filename);
+	
+}
+
+static NSURL *GetResourceFile(std::string_view filename)
+{
+	NSString *nsFile = [[NSString alloc] initWithBytes:filename.data() length:filename.length() encoding:NSUTF8StringEncoding];
 	NSString *baseName = nsFile.lastPathComponent.stringByDeletingPathExtension;
 	NSString *upperName = nsFile.stringByDeletingLastPathComponent;
 	NSString *baseExt = nsFile.pathExtension;
@@ -885,7 +899,7 @@ static NSURL *GetResourceFile(const char *filename)
 	return aURL;
 }
 
-std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
+std::optional<std::vector<u8>> Host::ReadResourceFile(std::string_view filename, bool allow_override)
 {
 	@autoreleasepool {
 		NSURL *aURL = GetResourceFile(filename);
@@ -902,7 +916,7 @@ std::optional<std::vector<u8>> Host::ReadResourceFile(const char* filename)
 	}
 }
 
-std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
+std::optional<std::string> Host::ReadResourceFileToString(std::string_view filename, bool allow_override)
 {
 	@autoreleasepool {
 		NSURL *aURL = GetResourceFile(filename);
@@ -920,7 +934,7 @@ std::optional<std::string> Host::ReadResourceFileToString(const char* filename)
 	}
 }
 
-std::optional<std::time_t> Host::GetResourceFileTimestamp(const char* filename)
+std::optional<std::time_t> Host::GetResourceFileTimestamp(std::string_view filename, bool allow_override)
 {
 	@autoreleasepool {
 		NSURL *aURL = GetResourceFile(filename);
@@ -930,7 +944,7 @@ std::optional<std::time_t> Host::GetResourceFileTimestamp(const char* filename)
 		
 		FILESYSTEM_STAT_DATA sd;
 		if (!FileSystem::StatFile(aURL.fileSystemRepresentation, &sd)) {
-			os_log_info(OE_CORE_LOG, "Failed to stat resource file '%{public}s'", filename);
+			os_log_info(OE_CORE_LOG, "Failed to stat resource file '%{public}s'", std::string(filename).c_str());
 			return std::nullopt;
 		}
 		
@@ -938,15 +952,17 @@ std::optional<std::time_t> Host::GetResourceFileTimestamp(const char* filename)
 	}
 }
 
-TinyString Host::TranslateString(const char* context, const char* str, const char* disambiguation /*= nullptr*/,
-								 int n /*= -1*/)
+s32 Host::Internal::GetTranslatedStringImpl(const std::string_view& context, const std::string_view& msg, char* tbuf,
+										   size_t tbuf_space)
 {
-	return TinyString(str, (u32)strnlen(str, 64));
-}
+	if (msg.size() > tbuf_space) {
+		return -1;
+	} else if (msg.empty()) {
+		return 0;
+	}
 
-std::string Host::TranslateStdString(const char* context, const char* str, const char* disambiguation /*= nullptr*/, int n /*= -1*/)
-{
-	return std::string(str);
+	std::memcpy(tbuf, msg.data(), msg.size());
+	return static_cast<s32>(msg.size());
 }
 
 void Host::AddOSDMessage(std::string message, float duration)
@@ -993,10 +1009,9 @@ void Host::LoadSettings(SettingsInterface& si, std::unique_lock<std::mutex>& loc
 void Host::OnGameChanged(const std::string& disc_path, const std::string& game_serial, const std::string& game_name)
 {
 	const Settings old_settings = g_settings;
-//	ApplyGameSettings(false);
+	ApplyGameSettings(false);
 	do {
-		const std::string &type = System::GetRunningCode();
-		NSString *nsType = [@(type.c_str()) uppercaseString];
+		NSString *nsType = [@(game_serial.c_str()) uppercaseString];
 		
 		OEPSXHacks hacks = OEGetPSXHacksNeededForGame(nsType);
 		if (hacks == OEPSXHacksNone) {
@@ -1039,6 +1054,8 @@ void Host::OnGameChanged(const std::string& disc_path, const std::string& game_s
 	} while (0);
 	g_settings.FixIncompatibleSettings(false);
 	CheckForSettingsChanges(old_settings);
+	GET_CURRENT_OR_RETURN();
+	current->currentGameSerial = game_serial;
 }
 
 bool Host::ConfirmMessage(const std::string_view& title, const std::string_view& message)
@@ -1084,10 +1101,12 @@ void Host::CheckForSettingsChanges(const Settings& old_settings)
 	current->_displayModes[DuckStation24ChromaSmoothingKey] = @(g_settings.gpu_24bit_chroma_smoothing);
 }
 
+#if 0
 void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
 {
 	// Do nothing… for now
 }
+#endif
 
 void Host::SetMouseMode(bool relative, bool hide_cursor)
 {
@@ -1103,15 +1122,16 @@ void Host::SetMouseMode(bool relative, bool hide_cursor)
 
 void ApplyGameSettings(bool display_osd_messages)
 {
+	GET_CURRENT_OR_RETURN();
 	// this gets called while booting, so can't use valid
-	if (System::IsShutdown() || System::GetRunningCode().empty() || !g_settings.apply_game_settings)
+	if (System::IsShutdown() || current->currentGameSerial.empty() || !g_settings.apply_game_settings)
 		return;
 	
-	const GameDatabase::Entry* gs = GameDatabase::GetEntryForCode(System::GetRunningCode());
+	const GameDatabase::Entry* gs = GameDatabase::GetEntryForSerial(current->currentGameSerial);
 	if (gs) {
 		gs->ApplySettings(g_settings, display_osd_messages);
 	} else {
-		os_log_info(OE_CORE_LOG, "Unable to find game-specific settings for %{public}s.", System::GetRunningCode().c_str());
+		os_log_info(OE_CORE_LOG, "Unable to find game-specific settings for %{public}s.", current->currentGameSerial.c_str());
 	}
 }
 
@@ -1261,3 +1281,8 @@ static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 	wi.surface_height = 480;
 	return wi;
 }
+
+BEGIN_HOTKEY_LIST(g_common_hotkeys)
+END_HOTKEY_LIST()
+BEGIN_HOTKEY_LIST(g_host_hotkeys)
+END_HOTKEY_LIST()
