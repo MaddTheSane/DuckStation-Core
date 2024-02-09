@@ -551,6 +551,8 @@
 		55CD5E9125F9926300FBA0A0 /* cd_image_ecm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E8F25F9926300FBA0A0 /* cd_image_ecm.cpp */; };
 		55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55CD5E9025F9926300FBA0A0 /* cd_image_mds.cpp */; };
 		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
+		55F077F42B760580001FBF2C /* fullscreen_ui_stub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */; };
+		55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F62B760713001FBF2C /* imgui_stubs.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		55F9D8042812134F005286B6 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F02812134F005286B6 /* imgui.h */; };
 		55F9D8052812134F005286B6 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F12812134F005286B6 /* imstb_textedit.h */; };
@@ -1445,6 +1447,10 @@
 		55CD6BE72638C834007325D0 /* gpu_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gpu_types.h; sourceTree = "<group>"; };
 		55E1689025EC19A6001F4110 /* multitap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multitap.h; sourceTree = "<group>"; };
 		55E1689125EC19A6001F4110 /* multitap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multitap.cpp; sourceTree = "<group>"; };
+		55F077F22B760511001FBF2C /* fullscreen_ui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fullscreen_ui.h; sourceTree = "<group>"; };
+		55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fullscreen_ui_stub.cpp; sourceTree = "<group>"; };
+		55F077F52B760695001FBF2C /* imgui_overlays.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imgui_overlays.h; sourceTree = "<group>"; };
+		55F077F62B760713001FBF2C /* imgui_stubs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_stubs.cpp; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		55F9D7E828121339005286B6 /* libimgui-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimgui-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1702,6 +1708,8 @@
 				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
 				5574168425969C8200580158 /* xxh_dispatch.c */,
 				55C217D42B72E44C00FE6D3C /* prefix.h */,
+				55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */,
+				55F077F62B760713001FBF2C /* imgui_stubs.cpp */,
 				551DEB1925270FA100B44953 /* core */,
 			);
 			name = Classes;
@@ -1779,6 +1787,7 @@
 				551DEB632527107400B44953 /* digital_controller.h */,
 				551DEB372527107400B44953 /* dma.cpp */,
 				551DEB282527107400B44953 /* dma.h */,
+				55F077F22B760511001FBF2C /* fullscreen_ui.h */,
 				5549E6BC2903537000FA71FA /* game_database.cpp */,
 				5549E6BD2903537000FA71FA /* game_database.h */,
 				55FB02162B75800D006E4779 /* game_list.cpp */,
@@ -1808,6 +1817,7 @@
 				551DEB832527107400B44953 /* host_interface_progress_callback.h */,
 				550A97A32902531600BF54D5 /* host.cpp */,
 				550A97A42902531600BF54D5 /* host.h */,
+				55F077F52B760695001FBF2C /* imgui_overlays.h */,
 				551DEB652527107400B44953 /* interrupt_controller.cpp */,
 				551DEB752527107400B44953 /* interrupt_controller.h */,
 				551DEB4A2527107400B44953 /* mdec.cpp */,
@@ -1928,8 +1938,8 @@
 				5549E6EC2903548400FA71FA /* zstd */,
 			);
 			name = dep;
-			path = duckstation/dep;
-			sourceTree = SOURCE_ROOT;
+			path = ../dep;
+			sourceTree = "<group>";
 		};
 		551DED4B252717EC00B44953 /* libchdr */ = {
 			isa = PBXGroup;
@@ -4119,6 +4129,7 @@
 				551DEC5B2527107500B44953 /* negcon.cpp in Sources */,
 				551DEC652527107500B44953 /* sio.cpp in Sources */,
 				551DEC572527107500B44953 /* gpu_hw.cpp in Sources */,
+				55F077F42B760580001FBF2C /* fullscreen_ui_stub.cpp in Sources */,
 				551DEC7B2527107500B44953 /* cd_image_hasher.cpp in Sources */,
 				55CD5E9225F9926300FBA0A0 /* cd_image_mds.cpp in Sources */,
 				551DEC432527107500B44953 /* cheats.cpp in Sources */,
@@ -4197,6 +4208,7 @@
 				55FB021E2B758070006E4779 /* pcdrv.cpp in Sources */,
 				551DEC812527107500B44953 /* cd_image_cue.cpp in Sources */,
 				55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */,
+				55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */,
 				551DEC582527107500B44953 /* guncon.cpp in Sources */,
 				5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */,
 				55C218C52B72FCF400FE6D3C /* postprocessing_shader_fx.cpp in Sources */,
@@ -4707,7 +4719,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LLVM_LTO = YES;
+				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -4733,6 +4745,7 @@
 					WITH_VULKAN,
 					WITH_CUBEB,
 					C4_NO_DEBUG_BREAK,
+					__OPENEMU__,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
@@ -4790,6 +4803,7 @@
 					WITH_VULKAN,
 					WITH_CUBEB,
 					C4_NO_DEBUG_BREAK,
+					__OPENEMU__,
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",

@@ -1174,6 +1174,21 @@ void Host::OnInputDeviceDisconnected(const std::string_view& identifier)
 	
 }
 
+std::optional<u32> InputManager::ConvertHostKeyboardStringToCode(const std::string_view& str)
+{
+	return std::nullopt;
+}
+
+std::optional<std::string> InputManager::ConvertHostKeyboardCodeToString(u32 code)
+{
+	return std::nullopt;
+}
+
+const char* InputManager::ConvertHostKeyboardCodeToIcon(u32 code)
+{
+	return nullptr;
+}
+
 void ApplyGameSettings(bool display_osd_messages)
 {
 	GET_CURRENT_OR_RETURN();
