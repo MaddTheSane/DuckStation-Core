@@ -354,7 +354,6 @@
 		552ED89D2603FA4100846634 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 552ED89F2603FA4100846634 /* Localizable.strings */; };
 		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
 		553061D8261840F700A6AB04 /* chtdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 553061D7261840F700A6AB04 /* chtdb.txt */; };
-		5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */; };
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
 		553AD8D12611278E00E9F910 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 553AD8D02611278E00E9F910 /* libz.tbd */; };
 		55453724266719C40097DD71 /* cd_image_ppf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55453723266719C30097DD71 /* cd_image_ppf.cpp */; };
@@ -469,7 +468,6 @@
 		55C218C62B72FCF400FE6D3C /* postprocessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218B92B72FCF300FE6D3C /* postprocessing.cpp */; };
 		55C218C72B72FCF400FE6D3C /* postprocessing_shader_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218BB2B72FCF300FE6D3C /* postprocessing_shader_glsl.cpp */; };
 		55C218C82B72FCF400FE6D3C /* spirv_compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218BE2B72FCF400FE6D3C /* spirv_compiler.cpp */; };
-		55C218C92B72FCF400FE6D3C /* pch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218BF2B72FCF400FE6D3C /* pch.cpp */; };
 		55C218CA2B72FCF400FE6D3C /* shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218C02B72FCF400FE6D3C /* shadergen.cpp */; };
 		55C218E42B72FDC100FE6D3C /* metal_device.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55C218CB2B72FDC000FE6D3C /* metal_device.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		55C218E52B72FDC100FE6D3C /* metal_shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 55C218CD2B72FDC000FE6D3C /* metal_shaders.metal */; };
@@ -1121,8 +1119,6 @@
 		552ED8BE26053D0400846634 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		553061D7261840F700A6AB04 /* chtdb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chtdb.txt; path = duckstation/data/resources/chtdb.txt; sourceTree = "<group>"; };
-		5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLHostDisplay.mm; sourceTree = "<group>"; };
-		5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpenGLHostDisplay.hpp; sourceTree = "<group>"; };
 		553AD8962610408C00E9F910 /* cd_image_m3u.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_m3u.cpp; sourceTree = "<group>"; };
 		553AD8D02611278E00E9F910 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		55453723266719C30097DD71 /* cd_image_ppf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_ppf.cpp; sourceTree = "<group>"; };
@@ -1701,8 +1697,6 @@
 			children = (
 				EE14C0B125389F9400464C74 /* Compatibility */,
 				551DEB1225270E0300B44953 /* OEPSXSystemResponderClient.h */,
-				5534ECE025C74E0C00A92DAE /* OpenGLHostDisplay.hpp */,
-				5534ECDF25C74E0C00A92DAE /* OpenGLHostDisplay.mm */,
 				558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */,
 				551DEB1425270E6B00B44953 /* DuckStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */,
@@ -4182,7 +4176,6 @@
 				55C218E82B72FDC100FE6D3C /* input_source.cpp in Sources */,
 				551DEC5A2527107500B44953 /* cpu_core.cpp in Sources */,
 				551DEC6E2527107500B44953 /* settings.cpp in Sources */,
-				55C218C92B72FCF400FE6D3C /* pch.cpp in Sources */,
 				551DEC612527107500B44953 /* system.cpp in Sources */,
 				551DEC732527107500B44953 /* cd_image_memory.cpp in Sources */,
 				553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */,
@@ -4221,7 +4214,6 @@
 				55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */,
 				55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */,
 				551DEC582527107500B44953 /* guncon.cpp in Sources */,
-				5534ECE125C74E0C00A92DAE /* OpenGLHostDisplay.mm in Sources */,
 				55C218C52B72FCF400FE6D3C /* postprocessing_shader_fx.cpp in Sources */,
 				55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */,
 				551DEC772527107500B44953 /* wav_writer.cpp in Sources */,

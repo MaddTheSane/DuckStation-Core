@@ -43,7 +43,6 @@
 #include "core/analog_controller.h"
 #include "core/guncon.h"
 #include "core/playstation_mouse.h"
-//#include "OpenGLHostDisplay.hpp"
 #include "common/settings_interface.h"
 //#include "frontend-common/game_list.h"
 #include "core/cheats.h"
