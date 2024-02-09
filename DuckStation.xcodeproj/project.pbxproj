@@ -349,7 +349,6 @@
 		552B5B7528E41FD10019253A /* AAFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552B5B5628E41FD10019253A /* AAFilter.cpp */; };
 		552B5B7628E41FD10019253A /* SoundTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552B5B5728E41FD10019253A /* SoundTouch.cpp */; };
 		552ED8672601DC8900846634 /* cd_image_pbp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8662601DC8900846634 /* cd_image_pbp.cpp */; };
-		552ED89D2603FA4100846634 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 552ED89F2603FA4100846634 /* Localizable.strings */; };
 		552ED8C026053D0400846634 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 552ED8BE26053D0400846634 /* error.cpp */; };
 		553061D8261840F700A6AB04 /* chtdb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 553061D7261840F700A6AB04 /* chtdb.txt */; };
 		553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 553AD8962610408C00E9F910 /* cd_image_m3u.cpp */; };
@@ -554,6 +553,7 @@
 		55F078052B76E68E001FBF2C /* cpu_newrec_compiler_aarch64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F078022B76E587001FBF2C /* cpu_newrec_compiler_aarch64.cpp */; };
 		55F078062B76EAE8001FBF2C /* cpu_recompiler_code_generator_aarch64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB3A2527107400B44953 /* cpu_recompiler_code_generator_aarch64.cpp */; };
 		55F078072B76EAED001FBF2C /* cpu_recompiler_code_generator_x64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB4E2527107400B44953 /* cpu_recompiler_code_generator_x64.cpp */; };
+		55F078132B76EED7001FBF2C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 55F078122B76EED7001FBF2C /* Localizable.xcstrings */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		55F9D8042812134F005286B6 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F02812134F005286B6 /* imgui.h */; };
 		55F9D8052812134F005286B6 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F12812134F005286B6 /* imstb_textedit.h */; };
@@ -1115,7 +1115,6 @@
 		552B5B5828E41FD10019253A /* soundtouch.vcxproj.filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = soundtouch.vcxproj.filters; sourceTree = "<group>"; };
 		552B5B5928E41FD10019253A /* soundtouch.vcxproj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = soundtouch.vcxproj; sourceTree = "<group>"; };
 		552ED8662601DC8900846634 /* cd_image_pbp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cd_image_pbp.cpp; sourceTree = "<group>"; };
-		552ED89E2603FA4100846634 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		552ED8BE26053D0400846634 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
 		552ED8BF26053D0400846634 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		553061D7261840F700A6AB04 /* chtdb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chtdb.txt; path = duckstation/data/resources/chtdb.txt; sourceTree = "<group>"; };
@@ -1458,6 +1457,7 @@
 		55F0780D2B76EB3A001FBF2C /* xbyak_bin2hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak_bin2hex.h; sourceTree = "<group>"; };
 		55F0780E2B76EB3A001FBF2C /* xbyak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak.h; sourceTree = "<group>"; };
 		55F0780F2B76EB3A001FBF2C /* xbyak_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak_util.h; sourceTree = "<group>"; };
+		55F078122B76EED7001FBF2C /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		55F9D7E828121339005286B6 /* libimgui-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimgui-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1696,7 +1696,7 @@
 				551DF7792527D21700B44953 /* DuckStation.icns */,
 				55C219042B73007400FE6D3C /* gamedb.yaml */,
 				551DEB0525270CC800B44953 /* Info.plist */,
-				552ED89F2603FA4100846634 /* Localizable.strings */,
+				55F078122B76EED7001FBF2C /* Localizable.xcstrings */,
 				55C3B2B825A9B03E001EE655 /* OEOverrides.ini */,
 			);
 			name = Resources;
@@ -4092,9 +4092,9 @@
 			files = (
 				551DF77A2527D21700B44953 /* DuckStation.icns in Resources */,
 				553061D8261840F700A6AB04 /* chtdb.txt in Resources */,
-				552ED89D2603FA4100846634 /* Localizable.strings in Resources */,
 				55C219052B73007400FE6D3C /* discdb.yaml in Resources */,
 				55C219062B73007400FE6D3C /* gamedb.yaml in Resources */,
+				55F078132B76EED7001FBF2C /* Localizable.xcstrings in Resources */,
 				55C3B2B925A9B03E001EE655 /* OEOverrides.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4639,17 +4639,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		552ED89F2603FA4100846634 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				552ED89E2603FA4100846634 /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		551DEB0625270CC800B44953 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4702,6 +4691,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4757,6 +4747,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LLVM_LTO = NO;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -4769,6 +4760,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				EXPORTED_SYMBOLS_FILE = "${SRCROOT}/DuckStation.exp";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4783,6 +4775,7 @@
 					C4_NO_DEBUG_BREAK,
 					__OPENEMU__,
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
@@ -4808,10 +4801,13 @@
 					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 				);
 				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_NSPrincipalClass = OEGameCoreController;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.DuckStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/duckstation/src\"",
 					"\"${SRCROOT}/duckstation/dep/fmt/include\"",
@@ -4827,6 +4823,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				EXPORTED_SYMBOLS_FILE = "${SRCROOT}/DuckStation.exp";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4841,6 +4838,7 @@
 					C4_NO_DEBUG_BREAK,
 					__OPENEMU__,
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)\"/duckstation/src/core",
 					"\"$(SRCROOT)\"/duckstation/dep/libchdr/include",
@@ -4866,10 +4864,13 @@
 					"\"${SRCROOT}/duckstation/dep/zstd/lib\"",
 				);
 				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_NSPrincipalClass = OEGameCoreController;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.openemu.DuckStation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				USER_HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/duckstation/src\"",
 					"\"${SRCROOT}/duckstation/dep/fmt/include\"",

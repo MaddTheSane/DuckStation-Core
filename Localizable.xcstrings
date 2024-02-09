@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Clone CD Files Aren't Supported" : {
+      "comment" : "Clone CD Files Aren't Supported",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clone CD Files Aren’t Supported"
+          }
+        }
+      }
+    },
+    "Convert the .ccd files to .cue files, then update the playlist to point to the new .cue files." : {
+      "comment" : "Clone CD Files Aren't Supported (suggestion)"
+    },
+    "Decrypt the PBP file or find a version of the game that is in another format." : {
+      "comment" : "Encrypted PBP Images Aren't Supported (suggestion)"
+    },
+    "DuckStation currently doesn't support Clone CD (.ccd) files in .m3u playlists." : {
+      "comment" : "Clone CD Files Aren't Supported (longer)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DuckStation currently doesn’t support Clone CD (.ccd) files in .m3u playlists."
+          }
+        }
+      }
+    },
+    "DuckStation currently doesn't support encrypted PBP files." : {
+      "comment" : "Encrypted PBP Images Aren't Supported (longer)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "DuckStation currently doesn’t support encrypted PBP files."
+          }
+        }
+      }
+    },
+    "Encrypted PBP images are not supported" : {
+      "comment" : "Encrypted PBP Images Aren't Supported",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encrypted PBP Files Aren’t Supported"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
