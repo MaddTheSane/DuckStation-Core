@@ -89,8 +89,8 @@ public:
 		return true;
 	}
 	void SetPaused(bool paused) override {}
-	void CloseDevice()  {}
-	void FramesAvailable() ;
+	void CloseDevice() {}
+	void FramesAvailable();
 	static std::unique_ptr<OpenEmuAudioStream> CreateOpenEmuStream(u32 sample_rate, u32 channels, u32 buffer_ms);
 
 private:
@@ -798,6 +798,7 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 #include "core/system.h"
 #include "util/imgui_manager.h"
 #include "util/host.h"
+#include "util/gpu_device.h"
 #include "core/game_database.h"
 #undef TickCount
 #include <array>
@@ -841,6 +842,30 @@ void Host::RenderDisplay(bool skip_present)
 {
 	g_host_display->Render(skip_present);
 }
+#endif
+
+std::optional<WindowInfo> Host::AcquireRenderWindow(bool recreate_window)
+{
+	GET_CURRENT_OR_RETURN(std::nullopt);
+
+	WindowInfo wi = WindowInfoFromGameCore(current);
+	return wi;
+}
+
+void Host::BeginPresentFrame()
+{
+	
+}
+
+void Host::ReleaseRenderWindow()
+{
+	
+}
+
+void Host::OnPerformanceCountersUpdated()
+{
+	
+}
 
 void Host::OnSystemStarting()
 {
@@ -867,11 +892,20 @@ void Host::OnSystemResumed()
 	
 }
 
+void Host::OnIdleStateChanged()
+{
+	
+}
+
+void Host::PumpMessagesOnCPUThread()
+{
+	
+}
+
 float Host::GetOSDScale()
 {
 	return 1.0f;
 }
-#endif
 
 void Host::RequestResizeHostDisplay(s32 width, s32 height)
 {
@@ -897,6 +931,18 @@ static NSURL *GetResourceFile(std::string_view filename)
 		aURL = [[NSBundle bundleForClass:[DuckStationGameCore class]] URLForResource:baseName withExtension:baseExt];
 	}
 	return aURL;
+}
+
+bool Host::ResourceFileExists(std::string_view filename, bool allow_override)
+{
+	@autoreleasepool {
+		NSURL *aURL = GetResourceFile(filename);
+		if (!aURL) {
+			return false;
+		}
+		
+		return [aURL checkResourceIsReachableAndReturnError:NULL];
+	}
 }
 
 std::optional<std::vector<u8>> Host::ReadResourceFile(std::string_view filename, bool allow_override)
@@ -1101,13 +1147,6 @@ void Host::CheckForSettingsChanges(const Settings& old_settings)
 	current->_displayModes[DuckStation24ChromaSmoothingKey] = @(g_settings.gpu_24bit_chroma_smoothing);
 }
 
-#if 0
-void Host::SetPadVibrationIntensity(u32 pad_index, float large_or_single_motor_intensity, float small_motor_intensity)
-{
-	// Do nothing… for now
-}
-#endif
-
 void Host::SetMouseMode(bool relative, bool hide_cursor)
 {
 	// TODO: Find a better home for this.
@@ -1118,6 +1157,21 @@ void Host::SetMouseMode(bool relative, bool hide_cursor)
 //	}
 	
 	// emit g_emu_thread->mouseModeRequested(relative, hide_cursor);
+}
+
+void Host::AddFixedInputBindings(SettingsInterface& si)
+{
+	
+}
+
+void Host::OnInputDeviceConnected(const std::string_view& identifier, const std::string_view& device_name)
+{
+	
+}
+
+void Host::OnInputDeviceDisconnected(const std::string_view& identifier)
+{
+	
 }
 
 void ApplyGameSettings(bool display_osd_messages)
@@ -1281,6 +1335,8 @@ static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 	wi.surface_height = 480;
 	return wi;
 }
+
+#pragma mark -
 
 BEGIN_HOTKEY_LIST(g_common_hotkeys)
 END_HOTKEY_LIST()

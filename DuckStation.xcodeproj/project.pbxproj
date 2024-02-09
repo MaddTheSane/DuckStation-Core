@@ -578,6 +578,7 @@
 		55FB02242B75834E006E4779 /* gpu_shadergen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02222B75834E006E4779 /* gpu_shadergen.cpp */; };
 		55FB02262B758387006E4779 /* libcurl.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FB02252B758387006E4779 /* libcurl.tbd */; };
 		55FB022E2B75846D006E4779 /* SmallVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FB022A2B75846D006E4779 /* SmallVector.cpp */; };
+		55FB02352B758897006E4779 /* achievements-oe.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55FB02342B758897006E4779 /* achievements-oe.mm */; };
 		55FF1A7A2658680F006C3885 /* cue_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55FF1A792658680F006C3885 /* cue_parser.cpp */; };
 /* End PBXBuildFile section */
 
@@ -1480,6 +1481,9 @@
 		55FB02252B758387006E4779 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		55FB022A2B75846D006E4779 /* SmallVector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmallVector.cpp; sourceTree = "<group>"; };
 		55FB022B2B75846D006E4779 /* SmallVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallVector.h; sourceTree = "<group>"; };
+		55FB02302B7587CF006E4779 /* achievements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = achievements.h; sourceTree = "<group>"; };
+		55FB02312B7587EC006E4779 /* achievements_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = achievements_private.h; sourceTree = "<group>"; };
+		55FB02342B758897006E4779 /* achievements-oe.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "achievements-oe.mm"; sourceTree = "<group>"; };
 		55FF1A782658680F006C3885 /* cue_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cue_parser.h; sourceTree = "<group>"; };
 		55FF1A792658680F006C3885 /* cue_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cue_parser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1732,6 +1736,8 @@
 		551DEB202527107400B44953 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				55FB02312B7587EC006E4779 /* achievements_private.h */,
+				55FB02302B7587CF006E4779 /* achievements.h */,
 				551DEB412527107400B44953 /* analog_controller.cpp */,
 				551DEB4F2527107400B44953 /* analog_controller.h */,
 				55F4A91E2561EF8C00410099 /* analog_joystick.cpp */,
@@ -3233,6 +3239,7 @@
 		EE14C0B125389F9400464C74 /* Compatibility */ = {
 			isa = PBXGroup;
 			children = (
+				55FB02342B758897006E4779 /* achievements-oe.mm */,
 				5575828325AE40E1002C812D /* samplerate */,
 			);
 			path = Compatibility;
@@ -4159,6 +4166,7 @@
 				551DEC732527107500B44953 /* cd_image_memory.cpp in Sources */,
 				553AD8972610408C00E9F910 /* cd_image_m3u.cpp in Sources */,
 				55FB020C2B757E00006E4779 /* zstd_byte_stream.cpp in Sources */,
+				55FB02352B758897006E4779 /* achievements-oe.mm in Sources */,
 				55FB022E2B75846D006E4779 /* SmallVector.cpp in Sources */,
 				551DECAF2527107500B44953 /* shiftjis.cpp in Sources */,
 				551DEC7A2527107500B44953 /* image.cpp in Sources */,
