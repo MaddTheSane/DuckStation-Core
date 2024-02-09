@@ -102,28 +102,27 @@ private:
 @end
 
 static void OELogFunc(void* pUserParam, const char* channelName, const char* functionName,
-					  LOGLEVEL level, std::basic_string_view<char> message)
+					  LOGLEVEL level, std::string_view message)
 {
-//	TODO: update!
 	switch (level) {
 		case LOGLEVEL_ERROR:
-//			os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+			os_log_error(OE_CORE_LOG, "%{public}s: %{public}s", channelName, std::string(message).c_str());
 			break;
 			
 		case LOGLEVEL_WARNING:
 		case LOGLEVEL_PERF:
-//			os_log(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+			os_log(OE_CORE_LOG, "%{public}s: %{public}s", channelName, std::string(message).c_str());
 			break;
 			
 		case LOGLEVEL_INFO:
 		case LOGLEVEL_VERBOSE:
-//			os_log_info(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+			os_log_info(OE_CORE_LOG, "%{public}s: %{public}s", channelName, std::string(message).c_str());
 			break;
 			
 		case LOGLEVEL_DEV:
 		case LOGLEVEL_DEBUG:
 		case LOGLEVEL_PROFILE:
-//			os_log_debug(OE_CORE_LOG, "%{public}s: %{public}s", channelName, message);
+			os_log_debug(OE_CORE_LOG, "%{public}s: %{public}s", channelName, std::string(message).c_str());
 			break;
 			
 		default:

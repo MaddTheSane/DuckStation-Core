@@ -1020,7 +1020,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		}
 
 		for (NSString *gameCode in psxGunConGames) {
-			if (prepsxCompatHacks[gameCode]) {
+			if (prepsxCompatHacks[gameCode] != nil) {
 				OEPSXHacks needed = prepsxCompatHacks[gameCode].unsignedIntValue & ~OEPSXHacksCustomControllers;
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksGunCon | needed);
 			} else {
@@ -1038,7 +1038,7 @@ OEPSXHacks OEGetPSXHacksNeededForGame(NSString *name)
 		}
 		
 		for (NSString *gameCode in psxSingleMemoryCardGames) {
-			if (prepsxCompatHacks[gameCode]) {
+			if (prepsxCompatHacks[gameCode] != nil) {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard | prepsxCompatHacks[gameCode].unsignedIntValue);
 			} else {
 				prepsxCompatHacks[gameCode] = @(OEPSXHacksOnlyOneMemcard);

@@ -101,7 +101,6 @@
 		551DED6C252717EC00B44953 /* libchdr_huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED5D252717EC00B44953 /* libchdr_huffman.c */; };
 		551DED6F252717EC00B44953 /* libchdr_flac.c in Sources */ = {isa = PBXBuildFile; fileRef = 551DED60252717EC00B44953 /* libchdr_flac.c */; };
 		551DED782527185800B44953 /* libchdr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DED44252717DF00B44953 /* libchdr.a */; };
-		551DEF372527232900B44953 /* cpu_recompiler_multiarch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */; };
 		551DEF8F2527268C00B44953 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DEF8E2527268C00B44953 /* Cocoa.framework */; };
 		551DF0442527B3A700B44953 /* glad.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0382527B3A700B44953 /* glad.h */; };
 		551DF0452527B3A700B44953 /* glad_glx.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF0392527B3A700B44953 /* glad_glx.h */; };
@@ -132,7 +131,6 @@
 		551DF14F2527B56D00B44953 /* cubeb_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DF11C2527B56C00B44953 /* cubeb_log.cpp */; };
 		551DF1502527B56D00B44953 /* cubeb_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF11D2527B56C00B44953 /* cubeb_utils.h */; };
 		551DF1512527B56D00B44953 /* cubeb_log.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF11E2527B56C00B44953 /* cubeb_log.h */; };
-		551DF1542527B56D00B44953 /* cubeb_array_queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF1212527B56C00B44953 /* cubeb_array_queue.h */; };
 		551DF1552527B56D00B44953 /* cubeb_assert.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF1222527B56C00B44953 /* cubeb_assert.h */; };
 		551DF1562527B56D00B44953 /* cubeb-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 551DF1232527B56C00B44953 /* cubeb-internal.h */; };
 		551DF2032527B81700B44953 /* libstb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 551DF1EB2527B7B700B44953 /* libstb.a */; };
@@ -551,6 +549,11 @@
 		55F077F42B760580001FBF2C /* fullscreen_ui_stub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */; };
 		55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F62B760713001FBF2C /* imgui_stubs.cpp */; };
 		55F077FA2B76C71D001FBF2C /* platform_misc_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F92B76C71D001FBF2C /* platform_misc_mac.mm */; };
+		55F078032B76E686001FBF2C /* cpu_newrec_compiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F078012B76E587001FBF2C /* cpu_newrec_compiler.cpp */; };
+		55F078042B76E68A001FBF2C /* cpu_newrec_compiler_x64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F078002B76E587001FBF2C /* cpu_newrec_compiler_x64.cpp */; };
+		55F078052B76E68E001FBF2C /* cpu_newrec_compiler_aarch64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F078022B76E587001FBF2C /* cpu_newrec_compiler_aarch64.cpp */; };
+		55F078062B76EAE8001FBF2C /* cpu_recompiler_code_generator_aarch64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB3A2527107400B44953 /* cpu_recompiler_code_generator_aarch64.cpp */; };
+		55F078072B76EAED001FBF2C /* cpu_recompiler_code_generator_x64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 551DEB4E2527107400B44953 /* cpu_recompiler_code_generator_x64.cpp */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		55F9D8042812134F005286B6 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F02812134F005286B6 /* imgui.h */; };
 		55F9D8052812134F005286B6 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F12812134F005286B6 /* imstb_textedit.h */; };
@@ -851,7 +854,6 @@
 		551DED5C252717EC00B44953 /* libchdr_chd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_chd.c; sourceTree = "<group>"; };
 		551DED5D252717EC00B44953 /* libchdr_huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_huffman.c; sourceTree = "<group>"; };
 		551DED60252717EC00B44953 /* libchdr_flac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libchdr_flac.c; sourceTree = "<group>"; };
-		551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_recompiler_multiarch.cpp; sourceTree = "<group>"; };
 		551DEF8E2527268C00B44953 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		551DF02C2527B39200B44953 /* libglad.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libglad.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		551DF0382527B3A700B44953 /* glad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glad.h; sourceTree = "<group>"; };
@@ -867,7 +869,6 @@
 		551DF0E72527B56C00B44953 /* cubeb_export.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_export.h; sourceTree = "<group>"; };
 		551DF0E82527B56C00B44953 /* cubeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb.h; sourceTree = "<group>"; };
 		551DF0F22527B56C00B44953 /* cubeb_osx_run_loop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_osx_run_loop.cpp; sourceTree = "<group>"; };
-		551DF0F32527B56C00B44953 /* cubeb_sun.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_sun.c; sourceTree = "<group>"; };
 		551DF0F42527B56C00B44953 /* cubeb_strings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeb_strings.c; sourceTree = "<group>"; };
 		551DF0F52527B56C00B44953 /* cubeb_audiounit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_audiounit.cpp; sourceTree = "<group>"; };
 		551DF0F62527B56C00B44953 /* cubeb_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_utils.cpp; sourceTree = "<group>"; };
@@ -887,7 +888,6 @@
 		551DF11C2527B56C00B44953 /* cubeb_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubeb_log.cpp; sourceTree = "<group>"; };
 		551DF11D2527B56C00B44953 /* cubeb_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_utils.h; sourceTree = "<group>"; };
 		551DF11E2527B56C00B44953 /* cubeb_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_log.h; sourceTree = "<group>"; };
-		551DF1212527B56C00B44953 /* cubeb_array_queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_array_queue.h; sourceTree = "<group>"; };
 		551DF1222527B56C00B44953 /* cubeb_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cubeb_assert.h; sourceTree = "<group>"; };
 		551DF1232527B56C00B44953 /* cubeb-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cubeb-internal.h"; sourceTree = "<group>"; };
 		551DF1EB2527B7B700B44953 /* libstb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libstb.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1448,6 +1448,16 @@
 		55F077F82B76C57C001FBF2C /* DuckStation.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = DuckStation.exp; sourceTree = "<group>"; };
 		55F077F92B76C71D001FBF2C /* platform_misc_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_misc_mac.mm; sourceTree = "<group>"; };
 		55F077FC2B76E12F001FBF2C /* dr_flac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dr_flac.h; sourceTree = "<group>"; };
+		55F077FD2B76E587001FBF2C /* cpu_newrec_compiler_aarch64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu_newrec_compiler_aarch64.h; sourceTree = "<group>"; };
+		55F077FE2B76E587001FBF2C /* cpu_newrec_compiler_x64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu_newrec_compiler_x64.h; sourceTree = "<group>"; };
+		55F077FF2B76E587001FBF2C /* cpu_newrec_compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu_newrec_compiler.h; sourceTree = "<group>"; };
+		55F078002B76E587001FBF2C /* cpu_newrec_compiler_x64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_newrec_compiler_x64.cpp; sourceTree = "<group>"; };
+		55F078012B76E587001FBF2C /* cpu_newrec_compiler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_newrec_compiler.cpp; sourceTree = "<group>"; };
+		55F078022B76E587001FBF2C /* cpu_newrec_compiler_aarch64.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cpu_newrec_compiler_aarch64.cpp; sourceTree = "<group>"; };
+		55F0780C2B76EB3A001FBF2C /* xbyak_mnemonic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak_mnemonic.h; sourceTree = "<group>"; };
+		55F0780D2B76EB3A001FBF2C /* xbyak_bin2hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak_bin2hex.h; sourceTree = "<group>"; };
+		55F0780E2B76EB3A001FBF2C /* xbyak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak.h; sourceTree = "<group>"; };
+		55F0780F2B76EB3A001FBF2C /* xbyak_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xbyak_util.h; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		55F9D7E828121339005286B6 /* libimgui-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimgui-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1700,7 +1710,6 @@
 				558B28FD2599BAB400A3495F /* PlayStationGameHacks.m */,
 				551DEB1425270E6B00B44953 /* DuckStationGameCore.h */,
 				551DEB1525270E6B00B44953 /* DuckStationGameCore.mm */,
-				551DEF362527232900B44953 /* cpu_recompiler_multiarch.cpp */,
 				5574168425969C8200580158 /* xxh_dispatch.c */,
 				55C217D42B72E44C00FE6D3C /* prefix.h */,
 				55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */,
@@ -1766,6 +1775,12 @@
 				551DEB252527107400B44953 /* cpu_core.h */,
 				551DEB4C2527107400B44953 /* cpu_disasm.cpp */,
 				551DEB302527107400B44953 /* cpu_disasm.h */,
+				55F078022B76E587001FBF2C /* cpu_newrec_compiler_aarch64.cpp */,
+				55F077FD2B76E587001FBF2C /* cpu_newrec_compiler_aarch64.h */,
+				55F078002B76E587001FBF2C /* cpu_newrec_compiler_x64.cpp */,
+				55F077FE2B76E587001FBF2C /* cpu_newrec_compiler_x64.h */,
+				55F078012B76E587001FBF2C /* cpu_newrec_compiler.cpp */,
+				55F077FF2B76E587001FBF2C /* cpu_newrec_compiler.h */,
 				55FB021F2B758279006E4779 /* cpu_pgxp.cpp */,
 				55FB02202B758279006E4779 /* cpu_pgxp.h */,
 				551DEB3A2527107400B44953 /* cpu_recompiler_code_generator_aarch64.cpp */,
@@ -1913,7 +1928,6 @@
 		551DECEA2527160600B44953 /* dep */ = {
 			isa = PBXGroup;
 			children = (
-				55C2190F2B73013500FE6D3C /* rapidyaml */,
 				551DF0E12527B56C00B44953 /* cubeb */,
 				55C218F12B73000E00FE6D3C /* fast_float */,
 				555BB4FC289083B900A255E0 /* fmt */,
@@ -1924,12 +1938,14 @@
 				551DF2342527B87F00B44953 /* lzma */,
 				551DF2912527B91300B44953 /* minizip */,
 				5549E6BF290353B500FA71FA /* rapidjson */,
+				55C2190F2B73013500FE6D3C /* rapidyaml */,
 				55C217DF2B72E5EA00FE6D3C /* reshadefx */,
 				557776B6253D0F73000D0651 /* simpleini */,
 				552B5B3528E41FD10019253A /* soundtouch */,
 				55C2179A2B72E39700FE6D3C /* spirv-cross */,
 				551DF2042527B82400B44953 /* stb */,
 				551DF3FB2527BDFB00B44953 /* vixl */,
+				55F078082B76EB3A001FBF2C /* xbyak */,
 				5574164625969BDE00580158 /* xxhash */,
 				5549E6EC2903548400FA71FA /* zstd */,
 			);
@@ -2042,7 +2058,6 @@
 		551DF0F02527B56C00B44953 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				551DF1212527B56C00B44953 /* cubeb_array_queue.h */,
 				551DF1222527B56C00B44953 /* cubeb_assert.h */,
 				551DF0F52527B56C00B44953 /* cubeb_audiounit.cpp */,
 				551DF11C2527B56C00B44953 /* cubeb_log.cpp */,
@@ -2058,7 +2073,6 @@
 				551DF1102527B56C00B44953 /* cubeb_ringbuffer.h */,
 				551DF0F42527B56C00B44953 /* cubeb_strings.c */,
 				551DF1132527B56C00B44953 /* cubeb_strings.h */,
-				551DF0F32527B56C00B44953 /* cubeb_sun.c */,
 				551DF0FD2527B56C00B44953 /* cubeb_utils_unix.h */,
 				551DF0F72527B56C00B44953 /* cubeb_utils_win.h */,
 				551DF0F62527B56C00B44953 /* cubeb_utils.cpp */,
@@ -3203,6 +3217,25 @@
 			path = dr_libs;
 			sourceTree = "<group>";
 		};
+		55F078082B76EB3A001FBF2C /* xbyak */ = {
+			isa = PBXGroup;
+			children = (
+				55F0780B2B76EB3A001FBF2C /* xbyak */,
+			);
+			path = xbyak;
+			sourceTree = "<group>";
+		};
+		55F0780B2B76EB3A001FBF2C /* xbyak */ = {
+			isa = PBXGroup;
+			children = (
+				55F0780D2B76EB3A001FBF2C /* xbyak_bin2hex.h */,
+				55F0780C2B76EB3A001FBF2C /* xbyak_mnemonic.h */,
+				55F0780F2B76EB3A001FBF2C /* xbyak_util.h */,
+				55F0780E2B76EB3A001FBF2C /* xbyak.h */,
+			);
+			path = xbyak;
+			sourceTree = "<group>";
+		};
 		55F9D7EC2812134F005286B6 /* imgui */ = {
 			isa = PBXGroup;
 			children = (
@@ -3308,7 +3341,6 @@
 				551DF1472527B56C00B44953 /* cubeb_strings.h in Headers */,
 				551DF12C2527B56C00B44953 /* cubeb_utils_win.h in Headers */,
 				551DF1242527B56C00B44953 /* cubeb_export.h in Headers */,
-				551DF1542527B56D00B44953 /* cubeb_array_queue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4149,6 +4181,7 @@
 				551DEC4D2527107500B44953 /* gpu_sw.cpp in Sources */,
 				552ED8672601DC8900846634 /* cd_image_pbp.cpp in Sources */,
 				55C218EB2B72FDC100FE6D3C /* input_manager.cpp in Sources */,
+				55F078032B76E686001FBF2C /* cpu_newrec_compiler.cpp in Sources */,
 				551DECAE2527107500B44953 /* cd_image.cpp in Sources */,
 				551DEC482527107500B44953 /* cpu_recompiler_code_generator.cpp in Sources */,
 				552ED8C026053D0400846634 /* error.cpp in Sources */,
@@ -4169,6 +4202,7 @@
 				55C218E72B72FDC100FE6D3C /* http_downloader.cpp in Sources */,
 				551DEC4C2527107500B44953 /* psf_loader.cpp in Sources */,
 				551DEC822527107500B44953 /* timer.cpp in Sources */,
+				55F078072B76EAED001FBF2C /* cpu_recompiler_code_generator_x64.cpp in Sources */,
 				5577776D253D127F000D0651 /* page_fault_handler.cpp in Sources */,
 				551DEC6F2527107500B44953 /* cpu_code_cache.cpp in Sources */,
 				55FB02212B758279006E4779 /* cpu_pgxp.cpp in Sources */,
@@ -4195,6 +4229,7 @@
 				55C218CA2B72FCF400FE6D3C /* shadergen.cpp in Sources */,
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				55E1689225EC19A6001F4110 /* multitap.cpp in Sources */,
+				55F078052B76E68E001FBF2C /* cpu_newrec_compiler_aarch64.cpp in Sources */,
 				551DEC742527107500B44953 /* string_util.cpp in Sources */,
 				55FB02242B75834E006E4779 /* gpu_shadergen.cpp in Sources */,
 				555BB537289085A800A255E0 /* layered_settings_interface.cpp in Sources */,
@@ -4204,6 +4239,7 @@
 				551DECB32527107500B44953 /* ini_settings_interface.cpp in Sources */,
 				55FB02112B757EC5006E4779 /* fastjmp.cpp in Sources */,
 				551DEC5F2527107500B44953 /* interrupt_controller.cpp in Sources */,
+				55F078062B76EAE8001FBF2C /* cpu_recompiler_code_generator_aarch64.cpp in Sources */,
 				555BB536289085A800A255E0 /* threading.cpp in Sources */,
 				551DEC8C2527107500B44953 /* cd_xa.cpp in Sources */,
 				55C218EA2B72FDC100FE6D3C /* host.cpp in Sources */,
@@ -4212,6 +4248,7 @@
 				55FB021E2B758070006E4779 /* pcdrv.cpp in Sources */,
 				551DEC812527107500B44953 /* cd_image_cue.cpp in Sources */,
 				55458AC526AE14B400B2741A /* cd_image_device.cpp in Sources */,
+				55F078042B76E68A001FBF2C /* cpu_newrec_compiler_x64.cpp in Sources */,
 				55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */,
 				551DEC582527107500B44953 /* guncon.cpp in Sources */,
 				55C218C52B72FCF400FE6D3C /* postprocessing_shader_fx.cpp in Sources */,
@@ -4227,7 +4264,6 @@
 				551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */,
 				551DEC6D2527107500B44953 /* cpu_types.cpp in Sources */,
 				551DEC782527107500B44953 /* audio_stream.cpp in Sources */,
-				551DEF372527232900B44953 /* cpu_recompiler_multiarch.cpp in Sources */,
 				551DECA82527107500B44953 /* cd_image_chd.cpp in Sources */,
 				551DEC622527107500B44953 /* memory_card.cpp in Sources */,
 				55FB021B2B758036006E4779 /* memmap.cpp in Sources */,
@@ -4666,8 +4702,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4722,8 +4757,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LLVM_LTO = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				"MACOSX_DEPLOYMENT_TARGET[arch=arm64]" = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -4745,8 +4779,6 @@
 					ENABLE_RECOMPILER,
 					GL_SILENCE_DEPRECATION,
 					WITH_FASTMEM,
-					WITH_OPENGL,
-					WITH_VULKAN,
 					WITH_CUBEB,
 					C4_NO_DEBUG_BREAK,
 					__OPENEMU__,
@@ -4805,8 +4837,6 @@
 					ENABLE_RECOMPILER,
 					GL_SILENCE_DEPRECATION,
 					WITH_FASTMEM,
-					WITH_OPENGL,
-					WITH_VULKAN,
 					WITH_CUBEB,
 					C4_NO_DEBUG_BREAK,
 					__OPENEMU__,
@@ -4905,6 +4935,7 @@
 		551DF0D42527B54A00B44953 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4934,6 +4965,7 @@
 		551DF0D52527B54A00B44953 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
