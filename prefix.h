@@ -25,6 +25,11 @@
 #ifndef prefix_h
 #define prefix_h
 
+#ifdef __OBJC__
+#import <Cocoa/Cocoa.h>
+#import <Metal/Metal.h>
+#import <QuartzCore/QuartzCore.h>
+#endif
 #ifdef __cplusplus
 #include "util/pch.h"
 #endif

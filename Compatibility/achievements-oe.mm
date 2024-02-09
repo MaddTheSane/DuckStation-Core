@@ -3,6 +3,7 @@
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 
+#define TickCount DuckTickCount
 #include "achievements.h"
 //#include "achievements_private.h"
 #include "bios.h"
@@ -30,6 +31,7 @@
 #include "util/imgui_manager.h"
 #include "util/platform_misc.h"
 #include "util/state_wrapper.h"
+#undef TickCount
 
 #include <algorithm>
 #include <atomic>
