@@ -464,7 +464,6 @@
 		55C218092B72E5EB00FE6D3C /* effect_parser_stmt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C217F72B72E5EB00FE6D3C /* effect_parser_stmt.cpp */; };
 		55C218AF2B72FC7500FE6D3C /* libreshadefx-duck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C217D92B72E5A600FE6D3C /* libreshadefx-duck.a */; };
 		55C218B02B72FC7500FE6D3C /* libspirv-cross-duck.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C217962B72E38400FE6D3C /* libspirv-cross-duck.a */; };
-		55C218C22B72FCF400FE6D3C /* platform_misc_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55C218B12B72FCF100FE6D3C /* platform_misc_mac.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		55C218C42B72FCF400FE6D3C /* postprocessing_shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218B62B72FCF200FE6D3C /* postprocessing_shader.cpp */; };
 		55C218C52B72FCF400FE6D3C /* postprocessing_shader_fx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218B82B72FCF300FE6D3C /* postprocessing_shader_fx.cpp */; };
 		55C218C62B72FCF400FE6D3C /* postprocessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55C218B92B72FCF300FE6D3C /* postprocessing.cpp */; };
@@ -553,6 +552,7 @@
 		55E1689225EC19A6001F4110 /* multitap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E1689125EC19A6001F4110 /* multitap.cpp */; };
 		55F077F42B760580001FBF2C /* fullscreen_ui_stub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */; };
 		55F077F72B760713001FBF2C /* imgui_stubs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F62B760713001FBF2C /* imgui_stubs.cpp */; };
+		55F077FA2B76C71D001FBF2C /* platform_misc_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55F077F92B76C71D001FBF2C /* platform_misc_mac.mm */; };
 		55F4A9202561EF8D00410099 /* analog_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F4A91E2561EF8C00410099 /* analog_joystick.cpp */; };
 		55F9D8042812134F005286B6 /* imgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F02812134F005286B6 /* imgui.h */; };
 		55F9D8052812134F005286B6 /* imstb_textedit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55F9D7F12812134F005286B6 /* imstb_textedit.h */; };
@@ -1322,8 +1322,6 @@
 		55C217F52B72E5EB00FE6D3C /* effect_codegen_spirv.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = effect_codegen_spirv.cpp; sourceTree = "<group>"; };
 		55C217F62B72E5EB00FE6D3C /* effect_codegen_hlsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = effect_codegen_hlsl.cpp; sourceTree = "<group>"; };
 		55C217F72B72E5EB00FE6D3C /* effect_parser_stmt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = effect_parser_stmt.cpp; sourceTree = "<group>"; };
-		55C218B12B72FCF100FE6D3C /* platform_misc_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_misc_mac.mm; sourceTree = "<group>"; };
-		55C218B22B72FCF200FE6D3C /* platform_misc_unix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_misc_unix.cpp; sourceTree = "<group>"; };
 		55C218B32B72FCF200FE6D3C /* postprocessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing.h; sourceTree = "<group>"; };
 		55C218B42B72FCF200FE6D3C /* postprocessing_shader_fx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocessing_shader_fx.h; sourceTree = "<group>"; };
 		55C218B52B72FCF200FE6D3C /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
@@ -1374,8 +1372,8 @@
 		55C218FD2B73000E00FE6D3C /* fast_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fast_table.h; sourceTree = "<group>"; };
 		55C218FE2B73000E00FE6D3C /* digit_comparison.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = digit_comparison.h; sourceTree = "<group>"; };
 		55C218FF2B73000E00FE6D3C /* bigint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bigint.h; sourceTree = "<group>"; };
-		55C219032B73007400FE6D3C /* discdb.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = discdb.yaml; path = duckstation/data/resources/discdb.yaml; sourceTree = "<group>"; };
-		55C219042B73007400FE6D3C /* gamedb.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = gamedb.yaml; path = duckstation/data/resources/gamedb.yaml; sourceTree = "<group>"; };
+		55C219032B73007400FE6D3C /* discdb.yaml */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text.yaml; name = discdb.yaml; path = duckstation/data/resources/discdb.yaml; sourceTree = "<group>"; usesTabs = 0; };
+		55C219042B73007400FE6D3C /* gamedb.yaml */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = text.yaml; name = gamedb.yaml; path = duckstation/data/resources/gamedb.yaml; sourceTree = "<group>"; usesTabs = 0; };
 		55C2190B2B73011B00FE6D3C /* librapidyaml-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "librapidyaml-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C219122B73013500FE6D3C /* ryml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ryml.hpp; sourceTree = "<group>"; };
 		55C219132B73013500FE6D3C /* ryml-gdbtypes.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = "ryml-gdbtypes.py"; sourceTree = "<group>"; };
@@ -1451,6 +1449,9 @@
 		55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fullscreen_ui_stub.cpp; sourceTree = "<group>"; };
 		55F077F52B760695001FBF2C /* imgui_overlays.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imgui_overlays.h; sourceTree = "<group>"; };
 		55F077F62B760713001FBF2C /* imgui_stubs.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = imgui_stubs.cpp; sourceTree = "<group>"; };
+		55F077F82B76C57C001FBF2C /* DuckStation.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = DuckStation.exp; sourceTree = "<group>"; };
+		55F077F92B76C71D001FBF2C /* platform_misc_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = platform_misc_mac.mm; sourceTree = "<group>"; };
+		55F077FC2B76E12F001FBF2C /* dr_flac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dr_flac.h; sourceTree = "<group>"; };
 		55F4A91E2561EF8C00410099 /* analog_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analog_joystick.cpp; sourceTree = "<group>"; };
 		55F4A91F2561EF8C00410099 /* analog_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analog_joystick.h; sourceTree = "<group>"; };
 		55F9D7E828121339005286B6 /* libimgui-duck.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libimgui-duck.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1711,6 +1712,7 @@
 				55F077F32B76055D001FBF2C /* fullscreen_ui_stub.cpp */,
 				55F077F62B760713001FBF2C /* imgui_stubs.cpp */,
 				551DEB1925270FA100B44953 /* core */,
+				55F077F82B76C57C001FBF2C /* DuckStation.exp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1953,6 +1955,7 @@
 		551DED4E252717EC00B44953 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				55F077FB2B76E12F001FBF2C /* dr_libs */,
 				551DED4F252717EC00B44953 /* libchdr */,
 			);
 			path = include;
@@ -2791,8 +2794,6 @@
 				5577776B253D127F000D0651 /* page_fault_handler.h */,
 				55C218BF2B72FCF400FE6D3C /* pch.cpp */,
 				55C218B52B72FCF200FE6D3C /* pch.h */,
-				55C218B12B72FCF100FE6D3C /* platform_misc_mac.mm */,
-				55C218B22B72FCF200FE6D3C /* platform_misc_unix.cpp */,
 				55C218C12B72FCF400FE6D3C /* platform_misc.h */,
 				55C218B82B72FCF300FE6D3C /* postprocessing_shader_fx.cpp */,
 				55C218B42B72FCF200FE6D3C /* postprocessing_shader_fx.h */,
@@ -3200,6 +3201,14 @@
 			path = yml;
 			sourceTree = "<group>";
 		};
+		55F077FB2B76E12F001FBF2C /* dr_libs */ = {
+			isa = PBXGroup;
+			children = (
+				55F077FC2B76E12F001FBF2C /* dr_flac.h */,
+			);
+			path = dr_libs;
+			sourceTree = "<group>";
+		};
 		55F9D7EC2812134F005286B6 /* imgui */ = {
 			isa = PBXGroup;
 			children = (
@@ -3250,6 +3259,7 @@
 			isa = PBXGroup;
 			children = (
 				55FB02342B758897006E4779 /* achievements-oe.mm */,
+				55F077F92B76C71D001FBF2C /* platform_misc_mac.mm */,
 				5575828325AE40E1002C812D /* samplerate */,
 			);
 			path = Compatibility;
@@ -4188,6 +4198,7 @@
 				551DEB1725270F2A00B44953 /* DuckStationGameCore.mm in Sources */,
 				551DEC762527107500B44953 /* log.cpp in Sources */,
 				551DEC522527107500B44953 /* resources.cpp in Sources */,
+				55F077FA2B76C71D001FBF2C /* platform_misc_mac.mm in Sources */,
 				55C218CA2B72FCF400FE6D3C /* shadergen.cpp in Sources */,
 				551DEC4B2527107500B44953 /* analog_controller.cpp in Sources */,
 				55E1689225EC19A6001F4110 /* multitap.cpp in Sources */,
@@ -4220,7 +4231,6 @@
 				551DEC882527107500B44953 /* state_wrapper.cpp in Sources */,
 				55C218C82B72FCF400FE6D3C /* spirv_compiler.cpp in Sources */,
 				551DEC642527107500B44953 /* timers.cpp in Sources */,
-				55C218C22B72FCF400FE6D3C /* platform_misc_mac.mm in Sources */,
 				551DEC872527107500B44953 /* cd_subchannel_replacement.cpp in Sources */,
 				551DEC422527107500B44953 /* cdrom_async_reader.cpp in Sources */,
 				551DEC6D2527107500B44953 /* cpu_types.cpp in Sources */,
@@ -4734,6 +4744,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
+				EXPORTED_SYMBOLS_FILE = "${SRCROOT}/DuckStation.exp";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4793,6 +4804,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
+				EXPORTED_SYMBOLS_FILE = "${SRCROOT}/DuckStation.exp";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/prefix.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5114,6 +5126,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -5129,6 +5142,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREPROCESSOR_DEFINITIONS = (
