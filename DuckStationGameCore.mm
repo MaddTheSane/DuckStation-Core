@@ -25,6 +25,7 @@
 #import "DuckStationGameCore.h"
 #import "OEPSXSystemResponderClient.h"
 #import <OpenEmuBase/OpenEmuBase.h>
+#include "util/ini_settings_interface.h"
 #define TickCount DuckTickCount
 #include "core/types.h"
 #include "core/system.h"
@@ -807,41 +808,6 @@ static NSString * const DuckStationCPUOverclockKey = @"duckstation/CPU/Overclock
 
 #pragma mark - Host Mapping
 
-#if 0
-bool Host::AcquireHostDisplay(RenderAPI api)
-{
-	GET_CURRENT_OR_RETURN(false);
-	std::unique_ptr<HostDisplay> display = std::make_unique<OpenEmu::OpenGLHostDisplay>(current);
-	WindowInfo wi = WindowInfoFromGameCore(current);
-	if (!display->CreateRenderDevice(wi, "", g_settings.gpu_use_debug_device, false) ||
-		!display->InitializeRenderDevice(EmuFolders::Cache, g_settings.gpu_use_debug_device, false)) {
-		os_log_error(OE_CORE_LOG, "Failed to create/initialize display render device");
-		return false;
-	}
-	
-	g_host_display = std::move(display);
-
-	return true;
-}
-
-void Host::ReleaseHostDisplay()
-{
-	g_host_display->DestroyRenderSurface();
-	g_host_display.reset();
-	g_host_display = NULL;
-}
-
-void Host::InvalidateDisplay()
-{
-	Host::RenderDisplay(false);
-}
-
-void Host::RenderDisplay(bool skip_present)
-{
-	g_host_display->Render(skip_present);
-}
-#endif
-
 std::optional<WindowInfo> Host::AcquireRenderWindow(bool recreate_window)
 {
 	GET_CURRENT_OR_RETURN(std::nullopt);
@@ -1187,6 +1153,8 @@ const char* InputManager::ConvertHostKeyboardCodeToIcon(u32 code)
 	return nullptr;
 }
 
+static INISettingsInterface *oeOverrides = nullptr;
+
 void ApplyGameSettings(bool display_osd_messages)
 {
 	GET_CURRENT_OR_RETURN();
@@ -1204,11 +1172,17 @@ void ApplyGameSettings(bool display_osd_messages)
 
 bool LoadCompatibilitySettings(NSURL* path)
 {
-	NSData *theDat = [NSData dataWithContentsOfURL:path];
-	if (!theDat) {
+	if (oeOverrides) {
+		// it has already been inited...
+		return true;
+	}
+	oeOverrides = new INISettingsInterface(path.fileSystemRepresentation);
+	bool success = oeOverrides->Load();
+	if (success == false) {
+		delete oeOverrides;
+		oeOverrides = nullptr;
 		return false;
 	}
-	const std::string theStr((const char*)theDat.bytes, theDat.length);
 	return false;
 }
 
@@ -1343,6 +1317,7 @@ static void updateAnalogAxis(OEPSXButton button, int player, CGFloat amount) {
 static WindowInfo WindowInfoFromGameCore(DuckStationGameCore *core)
 {
 	WindowInfo wi = WindowInfo();
+	[[_current renderDelegate] presentationFramebuffer];
 	//wi.type = WindowInfo::Type::MacOS;
 	wi.surface_width = 640;
 	wi.surface_height = 480;
